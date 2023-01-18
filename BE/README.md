@@ -22,7 +22,7 @@
 | -------------- | ---------------------- |
 | 개발 환경(IDE) | InteliJ, React         |
 | 개발 도구      | Gradle Build Tool, vsc |
-| 개발 언어      | Java(JDK11), typescript       |
+| 개발 언어      | Java(JDK1), typescript       |
 | 형상 관리      | GitHub, GitLab         |
 | 문서 관리      | Notion                 |
 | 코드 관리      | SonarQube              |
