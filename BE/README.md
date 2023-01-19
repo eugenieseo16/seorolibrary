@@ -14,15 +14,15 @@
 | 가상화       | Docker                                          |                                                        |
 | Jenkins      | 배포 file을 container 형식으로 쉽고 빠르게 관리 |                                                        |
 
-
+​                                       
 
 # ⚙개발 환경
 
-| OS             | Window, Android        |
-| -------------- | ---------------------- |
-| 개발 환경(IDE) | InteliJ, React         |
-| 개발 도구      | Gradle Build Tool, vsc |
-| 개발 언어      | Java, typescript       |
-| 형상 관리      | GitHub, GitLab         |
-| 문서 관리      | Notion                 |
-| 코드 관리      | SonarQube              |
+| OS             | Window, Android         |
+| -------------- |-------------------------|
+| 개발 환경(IDE) | InteliJ, React          |
+| 개발 도구      | Gradle Build Tool, vsc  |
+| 개발 언어      | Java(JDK17), typescript |
+| 형상 관리      | GitHub, GitLab          |
+| 문서 관리      | Notion                  |
+| 코드 관리      | SonarQube               |
