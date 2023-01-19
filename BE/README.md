@@ -6,8 +6,9 @@
 
 ### BACKEND1
 
-| Framework    | Spring Boot                                     | 설정 자동화를 위하여 Spring Boot 사용                  |
+| 구분    | 기술                                     | 비고                  |
 | ------------ | ----------------------------------------------- | ------------------------------------------------------ |
+| Framework    | Spring Boot                                     | 설정 자동화를 위하여 Spring Boot 사용                  |
 | Web Server   | Tomcat                                          | Spring Boot 내장 서버                                  |
 | Cloud Server | AWS EC2                                         | 실제 사용자 수를 예측할 수 없어서 클라우드 서버를 이용 |
 | DB           | MariaDB                                         | 이후 배포까지 생각하여 오픈소스 기반의 DB를 선택       |
@@ -18,8 +19,9 @@
 
 # ⚙개발 환경
 
-| OS             | Window, Android         |
+| 종류 | 환경         |
 | -------------- |-------------------------|
+| OS             | Window, Android         |
 | 개발 환경(IDE) | InteliJ, React          |
 | 개발 도구      | Gradle Build Tool, vsc  |
 | 개발 언어      | Java(JDK17), typescript |
