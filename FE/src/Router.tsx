@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Home from '@pages/Home';
 import Login from '@pages/Login';
-import NotFound from '@pages/NotFound';
+// import NotFound from '@pages/NotFound';
 import Signup from '@pages/Signup';
 import { useSelector } from 'react-redux';
 
@@ -14,7 +14,7 @@ function Router() {
       <Route path="/" element={user ? <Home /> : <Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="*" element={<NotFound />} />
+      {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
   );
 }
