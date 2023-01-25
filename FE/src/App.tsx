@@ -1,20 +1,13 @@
-import React, { useLayoutEffect, useState } from 'react';
-import FontFaceObserver from 'fontfaceobserver';
+import React from 'react';
 
 import Router from './Router';
+import useLoadFonts from './hooks/useLoadFonts';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const loadFonts = async () => {
-    await new FontFaceObserver('BM-Pro').load();
-    setLoading(false);
-  };
-  useLayoutEffect(() => {
-    loadFonts();
-  }, []);
+  const fontLoading = useLoadFonts('BM-Pro');
   return (
     <div className="App" style={{ fontFamily: 'BM-Pro' }}>
-      {loading ? 'Loading...' : <Router />}
+      {fontLoading ? 'Loading...' : <Router />}
     </div>
   );
 }
