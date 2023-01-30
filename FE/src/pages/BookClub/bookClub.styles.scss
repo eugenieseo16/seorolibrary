@@ -1,7 +1,9 @@
 @import '../../styles/variables';
 .book-club-container {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   padding: 0 10px;
   .book-club-button {
     position: relative;
