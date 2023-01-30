@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Home from '@pages/Home';
 import Login from '@pages/Login';
-import WithNavLayout from '@pages/WithNavLayout';
+import WithNavLayout from '@pages/withNavLayout/WithNavLayout';
 
 function Router() {
   const user = useSelector((state: any) => state.user);

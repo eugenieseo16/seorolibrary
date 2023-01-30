@@ -131,7 +131,9 @@ table {
   font-family: 'BM-Pro';
   src: url('../assets/fonts/BMHANNAPro.ttf');
 }
-
+* {
+  box-sizing: border-box;
+}
 @font-face {
   font-family: 'NEXON';
   src: url('../assets/fonts/NEXON Lv2 Gothic Light.ttf');
