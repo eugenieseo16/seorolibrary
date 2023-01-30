@@ -1,36 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './BottomNav.styles.scss';
 
+const PATH_NAMES = [
+  { href: '', title: '홈' },
+  { href: 'meeting', title: '독서모임' },
+  { href: 'near', title: '근처도서' },
+  { href: 'recommend', title: '장소추천' },
+  { href: 'profile', title: '나의도서관' },
+];
+
 function BottomNav() {
+  const { pathname } = useLocation();
+
   return (
     <div>
-      <div>
-        <Link to={'/'}>
-          <span>홈</span>
-        </Link>
-      </div>
-      <div>
-        <Link to={'/meeting'}>
-          <span>독서모임</span>
-        </Link>
-      </div>
-      <div>
-        <Link to={'/near'}>
-          <span>근처도서</span>
-        </Link>
-      </div>
-      <div>
-        <Link to={'/recommend'}>
-          <span>장소추천</span>
-        </Link>
-      </div>
-      <div>
-        <Link to={'/profile'}>
-          <span>나의도서관</span>
-        </Link>
-      </div>
+      {PATH_NAMES.map(({ href, title }, i) => {
+        return (
+          <Link to={href} key={i}>
+            <span className={pathname.split('/')[1] === href ? 'selected' : ''}>
+              {title}
+            </span>
+          </Link>
+        );
+      })}
     </div>
   );
 }
