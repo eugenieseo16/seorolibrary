@@ -1,14 +1,32 @@
 @import '../../styles/variables';
 
-.book-tab {
+.library-container {
   display: flex;
-  box-sizing: border-box;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 8px 40px;
-  gap: 10px;
-  position: relative;
-  width: 165px;
-  height: 36px;
-  border-bottom: 3px solid #785e4d;
+  padding: 10px;
+  .library-nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    > div {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      width: 50%;
+      border-bottom: 2px solid $light-brown;
+      color: $light-brown;
+      padding: 1rem 0;
+    }
+    .selected {
+      border-color: $deep-brown;
+      color: $deep-brown;
+    }
+    margin-bottom: 1rem;
+  }
+  .hold {
+    height: 5rem;
+  }
+  .read {
+    height: 5rem;
+  }
 }
