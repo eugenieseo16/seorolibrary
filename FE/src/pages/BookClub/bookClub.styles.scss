@@ -1,0 +1,9 @@
+.book-club-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  .book-club-button {
+    background-color: transparent;
+    border: none;
+  }
+}
