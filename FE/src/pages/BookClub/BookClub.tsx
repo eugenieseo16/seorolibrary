@@ -5,10 +5,10 @@ import './BookClub.styles.scss';
 
 function BookClub() {
   return (
-    <div>
+    <div className="book-club-container">
       <div>헤더</div>
       <div>캐러셀</div>
-      <div>독서모임 만들기</div>
+      <button className="book-club-button">독서모임 만들기</button>
       <Recommend />
     </div>
   );

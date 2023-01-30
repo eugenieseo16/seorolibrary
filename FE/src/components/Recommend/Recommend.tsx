@@ -43,7 +43,7 @@ function Recommend() {
                 <img src={recommend.image_url} alt="" />
                 <div className="shadow-wrapper" />
                 <h2>{recommend.title}</h2>
-                <h3>{recommend.description}</h3>
+                <h6>{recommend.description}</h6>
               </div>
             ))}
       </div>
