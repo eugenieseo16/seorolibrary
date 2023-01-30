@@ -18,7 +18,7 @@ export const navPathDataList = [
     icon: { default: <RiHome2Line />, selected: <RiHome2Fill /> },
   },
   {
-    href: 'meeting',
+    href: 'book-club',
     title: '독서모임',
     icon: { default: <RiGroupLine />, selected: <RiGroupFill /> },
   },
