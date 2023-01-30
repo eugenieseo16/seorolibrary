@@ -13,7 +13,7 @@ export const navPathDataList = [
     icon: { default: <MdOutlineHome />, selected: <MdHome /> },
   },
   {
-    href: 'meeting',
+    href: 'book-club',
     title: '독서모임',
     icon: { default: <HiOutlineUsers />, selected: <HiUsers /> },
   },

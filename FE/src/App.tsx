@@ -10,7 +10,7 @@ function App() {
   useInitUser();
 
   return (
-    <div className="App" style={{ fontFamily: 'BM-Pro' }}>
+    <div className="App" style={{ fontFamily: 'NEXON' }}>
       {fontLoading ? <Loading /> : <Router />}
     </div>
   );
