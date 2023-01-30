@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+.recommend-near-book-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.my-slider-near-book {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    padding : 0.5rem
+  }
+  a {
+    font-size: 0.8rem;
+    padding : 0.5rem
+  }
+
+
+}
