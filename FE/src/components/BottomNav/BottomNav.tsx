@@ -1,25 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './BottomNav.styles.scss';
-import { MdOutlineHome, MdHome } from 'react-icons/md';
 
 function BottomNav() {
   return (
     <div>
       <div>
-        <MdOutlineHome />
+        <Link to={'/'}>
+          <span>홈</span>
+        </Link>
       </div>
       <div>
-        <span>독서모임</span>
+        <Link to={'/meeting'}>
+          <span>독서모임</span>
+        </Link>
       </div>
       <div>
-        <span>근처도서</span>
+        <Link to={'/near'}>
+          <span>근처도서</span>
+        </Link>
       </div>
       <div>
-        <span>장소추천</span>
+        <Link to={'/recommend'}>
+          <span>장소추천</span>
+        </Link>
       </div>
       <div>
-        <span>나의도서관</span>
+        <Link to={'/profile'}>
+          <span>나의도서관</span>
+        </Link>
       </div>
     </div>
   );

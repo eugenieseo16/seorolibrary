@@ -12,6 +12,7 @@ function Router() {
     <Routes>
       <Route path="" element={<WithNavLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="*" element={'404'} />
       </Route>
     </Routes>
   );
