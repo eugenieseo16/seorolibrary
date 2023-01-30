@@ -1,0 +1,39 @@
+@import '../../styles/variables';
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.my-slider {
+  position: relative;
+  height: 15rem;
+  overflow: hidden;
+  img {
+    height: 12rem;
+    width: 100%;
+    object-fit: cover;
+  }
+  .shadow-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5rem;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  .content {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    color: $deep-brown;
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+  }
+  .slick-dots {
+    bottom: 1rem;
+  }
+}
