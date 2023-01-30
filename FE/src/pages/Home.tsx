@@ -1,18 +1,17 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+// import { MdOutlineChevronRight } from 'react-icons/md';
 
-import { logout } from '@src/store/slices/userSlice';
+// import Recommend from '@components/Recommend/Recommend';
+import './Home.styles.scss';
+import CarouselHome from '@components/Carousel/CarouselHome';
+import SearchHeader from '@components/SearchHeader/SearchHeader';
 
 function Home() {
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logout());
-  };
+  
   return (
-    <div>
-      <button type="button" onClick={handleLogout}>
-        Logout
-      </button>
+    <div className="home-container">
+      <SearchHeader/>
+      <CarouselHome />
     </div>
   );
 }
