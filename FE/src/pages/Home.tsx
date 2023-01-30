@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 // import Recommend from '@components/Recommend/Recommend';
 import './Home.styles.scss';
-import CarouselHome from '@components/Carousel/CarouselHome';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
+import CarouselHome from '@components/Carousel/CarouselHome';
+import CarouselNearBook from '@components/Carousel/CarouselNearBook';
 
 function Home() {
   
@@ -12,6 +13,9 @@ function Home() {
     <div className="home-container">
       <SearchHeader/>
       <CarouselHome />
+      <div>
+        <CarouselNearBook/>
+      </div>
     </div>
   );
 }
