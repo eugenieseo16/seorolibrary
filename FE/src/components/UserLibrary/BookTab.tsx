@@ -1,27 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserLibrary.styles.scss';
 
-import ReadBooks from '@components/UserLibrary/ReadBooks';
-import HoldBooks from '@components/UserLibrary/HoldBooks';
-
 function LibraryBar() {
-  const [clickedButton, setClickedButton] = useState('');
-  const buttonHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const [category, setCategory] = useState<'hold' | 'read'>('hold');
+  const [booksData, setBooksData] = useState<any>();
 
-    const button: HTMLButtonElement = event.currentTarget;
-    setClickedButton(button.name);
+  const getBooksData = async () => {
+    const url = category === 'hold' ? '/holdBooks.json' : '/readBooks.json';
+    const { data } = await (await fetch(url)).json();
+    setBooksData(data);
   };
+
+  useEffect(() => {
+    getBooksData();
+  }, [category]);
+  console.log(booksData);
+
   return (
-    <div>
-      <div onClick={buttonHandler} className="book-tab" name="보유도서">
-        보유도서
-      </div>
-      <div onClick={buttonHandler} className="book-tab" name="읽은도서">
-        읽은도서
+    <div className="library-container">
+      {/* 보유도서 | 읽은도서 */}
+      <div
+        className="library-nav"
+        onClick={({ target }: any) => setCategory(target.id)}
+      >
+        <div id="hold" className={category === 'hold' ? 'selected' : ''}>
+          보유도서
+        </div>
+
+        <div id="read" className={category === 'read' ? 'selected' : ''}>
+          읽은도서
+        </div>
       </div>
 
-      <h1>{clickedButton !== '읽은도서' ? <HoldBooks /> : <ReadBooks />}</h1>
+      {/* 도서 목록 */}
+      <div className={category === 'hold' ? 'hold' : 'read'}>
+        {category === 'hold'
+          ? booksData?.map((book: any, i: number) => (
+              <div key={i}>
+                <img src={book.image_url} alt="" />
+                <h2>{book.title}</h2>
+                {/* <h2>{book.is_available}</h2> */}
+              </div>
+            ))
+          : booksData?.map((book: any, i: number) => (
+              <div key={i}>
+                <img src={book.image_url} alt="" />
+                <h2>{book.title}</h2>
+              </div>
+            ))}
+      </div>
     </div>
   );
 }
