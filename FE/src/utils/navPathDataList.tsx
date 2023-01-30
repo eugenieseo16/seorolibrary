@@ -1,21 +1,26 @@
-import { MdHome, MdOutlineHome } from 'react-icons/md';
 import {
+  RiHome2Fill,
+  RiHome2Line,
+  RiGroupLine,
+  RiGroupFill,
   RiBook3Line,
   RiBook3Fill,
+  RiMap2Line,
+  RiMapFill,
   RiUser3Line,
   RiUser3Fill,
 } from 'react-icons/ri';
-import { HiUsers, HiOutlineUsers, HiOutlineMap, HiMap } from 'react-icons/hi';
+
 export const navPathDataList = [
   {
     href: '',
     title: '홈',
-    icon: { default: <MdOutlineHome />, selected: <MdHome /> },
+    icon: { default: <RiHome2Line />, selected: <RiHome2Fill /> },
   },
   {
     href: 'book-club',
     title: '독서모임',
-    icon: { default: <HiOutlineUsers />, selected: <HiUsers /> },
+    icon: { default: <RiGroupLine />, selected: <RiGroupFill /> },
   },
   {
     href: 'near',
@@ -25,7 +30,7 @@ export const navPathDataList = [
   {
     href: 'recommend',
     title: '장소추천',
-    icon: { default: <HiOutlineMap />, selected: <HiMap /> },
+    icon: { default: <RiMap2Line />, selected: <RiMapFill /> },
   },
   {
     href: 'profile',
