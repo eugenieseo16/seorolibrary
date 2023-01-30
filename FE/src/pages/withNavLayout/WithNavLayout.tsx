@@ -6,10 +6,12 @@ import './withNavLayout.styles.scss';
 
 function WithNavLayout() {
   return (
-    <div className="container">
-      <Outlet />
+    <>
+      <div className="with-nav-layout-container">
+        <Outlet />
+      </div>
       <BottomNav />
-    </div>
+    </>
   );
 }
 
