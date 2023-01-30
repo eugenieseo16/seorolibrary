@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "image_url": "https://image.yes24.com/goods/61779464/XL",
+      "title": "죽고 싶지만 떡볶이는 먹고 싶어",
+      "is_available": true
+    },
+    {
+      "image_url": "https://m.media-amazon.com/images/I/518MnNm9a5L._SR600%2C315_PIWhiteStrip%2CBottomLeft%2C0%2C35_SCLZZZZZZZ_FMpng_BG255%2C255%2C255.jpg",
+      "title": "역행자",
+      "is_available": true
+    },
+    {
+      "image_url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1487452255l/34330821.jpg",
+      "title": "언어의 온도",
+      "is_available": false
+    }
+  ]
+}
