@@ -4,12 +4,15 @@ import { useSelector } from 'react-redux';
 
 import Home from '@pages/Home';
 import Login from '@pages/Login';
+import WithNavLayout from '@pages/WithNavLayout';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
   return (
     <Routes>
-      <Route path="/" element={user ? <Home /> : <Login />} />
+      <Route path="" element={<WithNavLayout />}>
+        <Route path="/" element={<Home />} />
+      </Route>
     </Routes>
   );
 }
