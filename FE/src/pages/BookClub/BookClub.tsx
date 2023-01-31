@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MdOutlineChevronRight } from 'react-icons/md';
 
 import Recommend from '@components/Recommend/Recommend';
@@ -9,7 +9,7 @@ import SearchHeader from '@components/SearchHeader/SearchHeader';
 function BookClub() {
   return (
     <div className="book-club-container">
-      <SearchHeader />
+      <SearchHeader text="독서모임 추천" />
       <Carousel />
       <button className="book-club-button">
         <div className="content">
