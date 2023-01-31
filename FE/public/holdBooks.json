@@ -6,7 +6,7 @@
       "is_available": true
     },
     {
-      "image_url": "https://m.media-amazon.com/images/I/518MnNm9a5L._SR600%2C315_PIWhiteStrip%2CBottomLeft%2C0%2C35_SCLZZZZZZZ_FMpng_BG255%2C255%2C255.jpg",
+      "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788901260716.jpg",
       "title": "역행자",
       "is_available": true
     },
@@ -14,6 +14,21 @@
       "image_url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1487452255l/34330821.jpg",
       "title": "언어의 온도",
       "is_available": false
+    },
+    {
+      "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191891249.jpg",
+      "title": "행복을 담아줄게",
+      "is_available": true
+    },
+    {
+      "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791168473690.jpg",
+      "title": "세이노의 가르침",
+      "is_available": false
+    },
+    {
+      "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791157062805.jpg",
+      "title": "미스터 프레지던트",
+      "is_available": true
     }
   ]
 }
