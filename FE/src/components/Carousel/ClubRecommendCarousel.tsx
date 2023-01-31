@@ -1,11 +1,11 @@
 import React from 'react';
 import Slider from 'react-slick';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './Carousel.styles.scss';
-import { useNavigate } from 'react-router-dom';
+import './ClubRecommendCarousel.styles.scss';
 
 const settings = {
   dots: true,
@@ -16,7 +16,7 @@ const settings = {
   autoplaySpeed: 3000,
 };
 
-export default function Carousel() {
+export default function ClubRecommendCarousel() {
   const navigate = useNavigate();
   const getRecommendData = async () =>
     await (await fetch('/clubRecommend.json')).json();
