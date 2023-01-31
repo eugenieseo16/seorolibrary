@@ -3,7 +3,9 @@ package com.seoro.seoro.domain.entity.User;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
@@ -18,6 +20,7 @@ public class User implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date withdrawalDate;
     private Integer userScore;
-
+    @OneToMany(mappedBy = "user")
+    private List<User> friend = new ArrayList<>();
 
 }
