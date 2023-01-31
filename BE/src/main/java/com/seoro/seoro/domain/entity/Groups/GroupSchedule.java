@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity.Group;
+package com.seoro.seoro.domain.entity.Groups;
 
 import jakarta.persistence.*;
 
@@ -9,9 +9,9 @@ import java.util.Date;
 public class GroupSchedule implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupScheduleId;
-    @ManyToOne(targetEntity = Group.class)
+    @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
-    private Group group;
+    private Groups groups;
     @Temporal(TemporalType.DATE)
     private Date date;
 }
