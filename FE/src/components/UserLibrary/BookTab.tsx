@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './UserLibrary.styles.scss';
 
-function LibraryBar() {
+function BookTab() {
   const [category, setCategory] = useState<'hold' | 'read'>('hold');
   const [booksData, setBooksData] = useState<any>();
 
@@ -14,7 +14,6 @@ function LibraryBar() {
   useEffect(() => {
     getBooksData();
   }, [category]);
-  console.log(booksData);
 
   return (
     <div className="library-container">
@@ -36,16 +35,16 @@ function LibraryBar() {
       <div className={category === 'hold' ? 'hold' : 'read'}>
         {category === 'hold'
           ? booksData?.map((book: any, i: number) => (
-              <div key={i}>
+              <div className="book" key={i}>
                 <img src={book.image_url} alt="" />
-                <h2>{book.title}</h2>
+                <a>{book.title}</a>
                 {/* <h2>{book.is_available}</h2> */}
               </div>
             ))
           : booksData?.map((book: any, i: number) => (
-              <div key={i}>
+              <div className="book" key={i}>
                 <img src={book.image_url} alt="" />
-                <h2>{book.title}</h2>
+                <a>{book.title}</a>
               </div>
             ))}
       </div>
@@ -53,4 +52,4 @@ function LibraryBar() {
   );
 }
 
-export default LibraryBar;
+export default BookTab;

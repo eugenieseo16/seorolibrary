@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
+}
