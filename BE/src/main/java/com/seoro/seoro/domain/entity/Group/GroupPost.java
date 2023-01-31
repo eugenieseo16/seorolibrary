@@ -17,6 +17,7 @@ public class GroupPost implements Serializable {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
+    @Enumerated(EnumType.STRING)
     private PostCategory postCategory;
     @Temporal(TemporalType.TIMESTAMP)
     private Date groupPostTime;
