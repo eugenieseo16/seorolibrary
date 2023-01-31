@@ -1,0 +1,33 @@
+{
+    "data": [
+      {
+        "image_url": "https://image.yes24.com/goods/61779464/XL",
+        "title": "죽고 싶지만 떡볶이는 먹고 싶어",
+        "is_available": true
+      },
+      {
+        "image_url": "http://image.yes24.com/goods/109705390/XL",
+        "title": "역행자",
+        "is_available": true
+      },
+      {
+        "image_url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1487452255l/34330821.jpg",
+        "title": "언어의 온도",
+        "is_available": false
+      },
+      {
+      "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791190538510.jpg",
+      "title": "만일 내가 인생을 다시 산다면"
+    },
+    {
+      "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788959897094.jpg",
+      "title": "트렌드 코리아 2023"
+    },
+    {
+      "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg",
+      "title": "불편한 편의점"
+    }
+
+    ]
+  }
+  
