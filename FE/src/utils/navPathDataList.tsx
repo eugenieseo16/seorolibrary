@@ -28,7 +28,7 @@ export const navPathDataList = [
     icon: { default: <RiBook3Line />, selected: <RiBook3Fill /> },
   },
   {
-    href: 'recommend',
+    href: 'places',
     title: '장소추천',
     icon: { default: <RiMap2Line />, selected: <RiMapFill /> },
   },
