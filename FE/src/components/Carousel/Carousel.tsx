@@ -25,7 +25,7 @@ export default function Carousel() {
   return (
     <Slider {...settings} className="my-slider">
       {data?.data?.map((data: any, i: number) => (
-        <div className="carousel-container">
+        <div key={i} className="carousel-container">
           <img src={data.image_url} alt="" />
           <div className="shadow-wrapper" />
           <div className="content">

@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+.recommend-nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  > div {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    border-bottom: 2px solid $light-brown;
+    color: $light-brown;
+    padding: 1rem 0;
+  }
+  .selected {
+    border-color: $deep-brown;
+    color: $deep-brown;
+  }
+  margin-bottom: 1rem;
+}
