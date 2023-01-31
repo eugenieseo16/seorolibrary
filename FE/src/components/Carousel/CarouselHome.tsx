@@ -26,7 +26,7 @@ export default function CarouselHome() {
   return (
     <Slider {...settings} className="my-slider-home">
       {recommendData?.map((data: any, i: number) => (
-        <div className="carousel-home-container">
+        <div key={i} className="carousel-home-container">
           <img src={data.image_url} alt="" />
           <div className="shadow-wrapper-home" />
           <div className="content-home">

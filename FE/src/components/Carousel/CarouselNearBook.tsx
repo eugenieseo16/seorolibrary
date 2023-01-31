@@ -6,15 +6,16 @@ import 'slick-carousel/slick/slick-theme.css';
 import './CarouselNearBook.styles.scss';
 
 const settings = {
-    dots: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-  };
+  dots: false,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  swipeToSlide: true,
+};
 
-  export default function CarouselNearBook() {
-    const [booksData, setBooksData] = useState<any>();
-    const getBooksData = async () => {
+export default function CarouselNearBook() {
+  const [booksData, setBooksData] = useState<any>();
+  const getBooksData = async () => {
     const url = '/books.json';
     const { data } = await (await fetch(url)).json();
     setBooksData(data);
@@ -24,17 +25,18 @@ const settings = {
     getBooksData();
   }, []);
 
-    return (
-      <Slider {...settings} className="my-slider-near-book">
-        {booksData?.map((data: any, i: number) => (
-          <div className="recommend-near-book-container">
+  return (
+    <Slider {...settings} className="my-slider-near-book">
+      {booksData?.map((data: any, i: number) => (
+        <div key={i} className="recommend-near-book-container">
+          <div>
             <img src={data.image_url} alt="" />
-            <a>{data.title}</a>
           </div>
+          <div>
+            <h2>{data.title}</h2>
+          </div>
+        </div>
       ))}
     </Slider>
   );
 }
-        
-  
-      
