@@ -3,7 +3,9 @@ package com.seoro.seoro.domain.entity.Group;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.seoro.seoro.domain.entity.User.User;
 
@@ -23,4 +25,6 @@ public class GroupPost implements Serializable {
     private Date groupPostTime;
     private String groupPostContent;
 
+    @OneToMany(mappedBy = "groupPost")
+    private List<GroupPostPhoto> photos = new ArrayList<>();
 }

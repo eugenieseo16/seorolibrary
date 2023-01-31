@@ -3,7 +3,9 @@ package com.seoro.seoro.domain.entity.Book;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Book implements Serializable {
@@ -17,4 +19,6 @@ public class Book implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date bookPubDate;
     private Integer bookPage;
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews = new ArrayList<>();
 }

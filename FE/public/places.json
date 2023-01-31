@@ -1,0 +1,2943 @@
+{
+  "data": [
+    {
+      "index": "0",
+      "rank": "1",
+      "id": "1635742649",
+      "name": "가배도 신논현",
+      "tel": "02-554-4542",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["카페,디저트", "카페"],
+      "categoryPath": [
+        ["220036", "220052", "220576", "1004982"],
+        ["1004760", "1004380", "1002043"]
+      ],
+      "rcode": "09680101",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "11:00에 영업시작"
+        },
+        "businessHours": "202301311100~202301312100",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 강남구 역삼동  601-12",
+      "roadAddress": "서울특별시 강남구 강남대로110길 13 2,3층",
+      "abbrAddress": "역삼동  601-12",
+      "shortAddress": ["서울 강남구", "강남대로110길 13", "2,3층"],
+      "display": "가배도 신논현",
+      "telDisplay": "02-554-4542",
+      "context": [],
+      "reviewCount": 1261,
+      "placeReviewCount": 934,
+      "ktCallMd": "45fe9f05ba1503c19bff2a88d3f507ea",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20180902_158/1535886187305HplCQ_JPEG/E5shWZzcvAQRHowrEeulALEo.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20180902_158/1535886187305HplCQ_JPEG/E5shWZzcvAQRHowrEeulALEo.jpg",
+        "https://ldb-phinf.pstatic.net/20180902_235/1535886175483NejeH_JPEG/3pFnSjXANIoXk28jj4qUYW5j.jpg",
+        "https://ldb-phinf.pstatic.net/20180902_276/1535886175345OauMF_JPEG/IZCAMxsU_r8wg-9m7TDW9D35.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0259473",
+      "y": "37.5040370",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "z8wthtyvaSkvw8D/wuoo1w==",
+        "pan": "10.38",
+        "tilt": "10.00",
+        "lng": "127.0259307",
+        "lat": "37.5039458",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "nEFbK3uBJCjRreD5aKBNWw==",
+        "pan": "178.93",
+        "tilt": "-30.00",
+        "lng": "127.0258942",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://gbdcoffee.com",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.025833,
+            "y": 37.503999
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.025833,
+            "y": 37.503999
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "가배 4,900 | 코르타도 5,400 | 말차 라떼 6,500 | 가배도 밀크티 7,000 | 사쿠란보 7,000 | 판나코타 5,000 | 티라미수 8,000",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": true,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "720.19",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "1004982",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "1",
+      "rank": "2",
+      "id": "1490841787",
+      "name": "노티드 강남 카카오",
+      "tel": "070-8869-9377",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["카페,디저트", "카페"],
+      "categoryPath": [
+        ["220036", "220052", "220576", "1005039"],
+        ["1004760", "1004985"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 1,
+          "text": "곧 영업 시작",
+          "emphasis": false,
+          "description": "영업 시작 15분 전",
+          "detailInfo": "10:30에 영업시작"
+        },
+        "businessHours": "202301311030~202301312100",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1305-7",
+      "roadAddress": "서울특별시 서초구 강남대로 429",
+      "abbrAddress": "서초동 1305-7",
+      "shortAddress": ["서울 서초구", "강남대로 429"],
+      "display": "노티드 강남 카카오",
+      "telDisplay": "070-8869-9377",
+      "context": [],
+      "reviewCount": 1891,
+      "placeReviewCount": 9377,
+      "ktCallMd": "5e48dcd7e204bc463ded125ef2cd784d",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20221228_241/1672188649742C7NnQ_PNG/3%B9%F8.png",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20221228_241/1672188649742C7NnQ_PNG/3%B9%F8.png",
+        "https://ldb-phinf.pstatic.net/20221228_20/1672188647228aidjy_PNG/2%B9%F8.png",
+        "https://ldb-phinf.pstatic.net/20221228_79/1672188644253T6jCQ_PNG/1%B9%F8.png"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0257918",
+      "y": "37.5008052",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "23ycLYT1yZuf9XurUo4CZA==",
+        "pan": "-113.14",
+        "tilt": "10.00",
+        "lng": "127.0260454",
+        "lat": "37.5009133",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "MedgZYMVG8jSCHV2vJoPFQ==",
+        "pan": "142.99",
+        "tilt": "-30.00",
+        "lng": "127.0214386",
+        "lat": "37.5065651",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://litt.ly/knotted",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.02554,
+            "y": 37.500745
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.025921,
+            "y": 37.500862
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "곧 영업 시작",
+      "menuInfo": "우유 생크림 도넛 3,500 | 클래식 바닐라 도넛 3,000 | 얼그레이 도넛 3,000 | 초코푸딩 도넛 3,500 | 라즈베리 도넛 3,000 | 카야버터 도넛 3,500 | 블루베리 크림치즈 도넛 3,500 | 레몬슈가 도넛 3,500 | 민트초코 도넛 3,500 | 스트로베리 크림 도넛 3,800 | 피스타치오 크림 도넛 3,500 | 시나몬 먼치 도넛 3,500 | 헤이즐넛 초코볼 도넛 3,500 | 스트로베리 밀키 크로플 4,200 | 누텔라크림 크로플 3,500 | 딸기 크루아상 4,500 | 오레오 크루아상 4,500 | 카야 크루아상 4,300 | 몽블랑 크리미 4,500 | 딸기 크리미 4,000 | 블루베리 크리미 4,000 | 바닐라 푸딩 파이 3,000 | 라이스 크랙 치즈볼 4,000 | 우유니 카페번 3,800 | 말돈소금빵 3,500 | 라이스 치즈 소금빵 3,500 | 밀크티 페이글 3,500 | 솔티 밀크 페이글 3,500 | 초코 홀릭 페이글 3,500 | 뉴욕버터 밀크스콘 3,500 | 쿠키&초코파이 2,500 | 마스카포네 초코칩 카놀리 4,000 | 마스카포네 피스타치오 카놀리 4,000 | 화이트 브라우니 5,200 | 다크 피칸 브라우니 5,200 | 옐로우 스마일 케이크 18,000 | 망고 스마일 케이크 18,000 | 클로버 스마일 케이크 18,000 | 퓨어 스트로베리 주니어 케이크 18,000 | 크러쉬드 초코 케이크 18,000 | 해피 버니 케이크 18,000 | 브라운 베어 케이크 16,000 | 스마일 고스트 케이크 18,000 | 누룽지 솔티 카라멜 케이크 16,000 | 뉴이어 해피버니 케이크 18,000 | 스트로베리 포레스트 18,000 | 스트로베리 타르트 32,000 | 노티드 유자 뱅쇼 (HOT) 6,300 | 노티드 유자 뱅쇼 (ICE) 6,300 | 흑임자 크림 밀크티 (HOT) 6,300 | 흑임자 크림 밀크티 (ICE) 6,300 | 에스프레소 3,500 | 아메리카노 (HOT) 4,500 | 아메리카노 (ICE) 4,500 | 카페라떼 (HOT) 5,500 | 카페라떼 (ICE) 5,500 | 플랫 화이트 (HOT) 5,000 | 바닐라라떼 (HOT) 6,000 | 바닐라라떼 (ICE) 6,000 | 노티드 크림 커피 (ICE) 6,300 | 노티드 블",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "720.67",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "1005039",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "2",
+      "rank": "3",
+      "id": "1160712189",
+      "name": "엔커피스튜디오",
+      "tel": "02-2088-2653",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [
+        ["220036", "220052", "220563"],
+        ["1004760", "1004985"]
+      ],
+      "rcode": "09680108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "새벽 00:30에 영업종료"
+        },
+        "businessHours": "202301310800~202301312430",
+        "breakTime": "",
+        "lastOrder": "202301304745"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 강남구 논현동 165-8 2층 N coffee studio",
+      "roadAddress": "서울특별시 강남구 강남대로 492 2층 N coffee studio",
+      "abbrAddress": "논현동 165-8 2층 N coffee studio",
+      "shortAddress": ["서울 강남구", "강남대로 492", "2층 N coffee studio"],
+      "display": "엔커피스튜디오",
+      "telDisplay": "02-2088-2653",
+      "context": [],
+      "reviewCount": 163,
+      "placeReviewCount": 319,
+      "ktCallMd": "c0014b5fae935cdfda4f2a88c8791d70",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20221129_186/1669714890383a4Ysc_JPEG/KakaoTalk_20221116_150311430.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20221129_186/1669714890383a4Ysc_JPEG/KakaoTalk_20221116_150311430.jpg",
+        "https://ldb-phinf.pstatic.net/20221129_260/1669714876495t4pE5_JPEG/%C5%A9%B8%AE%BD%BA%B8%B6%BD%BA.jpg",
+        "https://ldb-phinf.pstatic.net/20221129_113/1669714854646FISCH_PNG/220726%C0%CE%BD%BA%C5%B8%BB%E7%C1%F8.PNG"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0240978",
+      "y": "37.5061422",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "UBDBkaozen/ew265HDu/vw==",
+        "pan": "82.90",
+        "tilt": "10.00",
+        "lng": "127.0238662",
+        "lat": "37.5061132",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "ayY6zOeC5qSoBtvIgkucHw==",
+        "pan": "140.71",
+        "tilt": "-30.00",
+        "lng": "127.0236664",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/n_coffee_studio",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.024231,
+            "y": 37.506177
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.023972,
+            "y": 37.506231
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "아메리카노 4,300",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "664.61",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "3",
+      "rank": "4",
+      "id": "1331575749",
+      "name": "스크렘",
+      "tel": "070-7675-4050",
+      "isCallLink": false,
+      "virtualTel": "0507-1374-4050",
+      "virtualTelDisplay": "0507-1374-4050",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [
+        ["220036", "220052", "220563"],
+        ["1004760", "1004452"]
+      ],
+      "rcode": "09680101",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "12:00에 영업시작"
+        },
+        "businessHours": "202301311200~202301312200",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 강남구 역삼동 811 1F",
+      "roadAddress": "서울특별시 강남구 봉은사로4길 17 1F",
+      "abbrAddress": "역삼동 811 1F",
+      "shortAddress": ["서울 강남구", "봉은사로4길 17", "1F"],
+      "display": "스크렘",
+      "telDisplay": "070-7675-4050",
+      "context": [],
+      "reviewCount": 472,
+      "placeReviewCount": 415,
+      "ktCallMd": "bba65604c64ceab07ee4f885b6e199ca",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20190917_257/1568721496549y1g8U_JPEG/rLVR6gvGQkXCgckxER6KTRII.jpeg.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20190917_257/1568721496549y1g8U_JPEG/rLVR6gvGQkXCgckxER6KTRII.jpeg.jpg",
+        "https://ldb-phinf.pstatic.net/20190503_11/1556857681780Eh42t_JPEG/mJVAJtV21l1HoRssZpYelrUm.jpeg.jpg",
+        "https://ldb-phinf.pstatic.net/20190514_241/1557823821927Gc4s4_JPEG/_kN5ve54AcA9iUxR0SJ7uZl0.jpeg.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0264689",
+      "y": "37.5037272",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "7wUvUdEUqistv9ObusvaqA==",
+        "pan": "42.57",
+        "tilt": "10.00",
+        "lng": "127.0264432",
+        "lat": "37.5036992",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "nEFbK3uBJCjRreD5aKBNWw==",
+        "pan": "169.03",
+        "tilt": "-30.00",
+        "lng": "127.0258942",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://instagram.com/cafe.screme",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.026539,
+            "y": 37.50381
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.026475,
+            "y": 37.503682
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "클래식 까눌레 3,000 | 아메리카노 5,000 | 플랫화이트 5,500 | 카페라떼 5,500 | 바닐라라떼 6,000",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "759.15",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "4",
+      "rank": "5",
+      "id": "1248761544",
+      "name": "미니말레 커피뢰스터 교대점",
+      "tel": "070-4042-4239",
+      "isCallLink": false,
+      "virtualTel": "0507-1358-4239",
+      "virtualTelDisplay": "0507-1358-4239",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [
+        ["220036", "220052", "220563"],
+        ["1004760", "1004380", "1002043"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "18:45에 라스트오더"
+        },
+        "businessHours": "202301310800~202301311900",
+        "breakTime": "",
+        "lastOrder": "202301311845"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1694-6 1층 미니말레 커피뢰스터",
+      "roadAddress": "서울특별시 서초구 서초대로51길 15 1층 미니말레 커피뢰스터",
+      "abbrAddress": "서초동 1694-6 1층 미니말레 커피뢰스터",
+      "shortAddress": [
+        "서울 서초구",
+        "서초대로51길 15",
+        "1층 미니말레 커피뢰스터"
+      ],
+      "display": "미니말레 커피뢰스터 교대점",
+      "telDisplay": "070-4042-4239",
+      "context": [],
+      "reviewCount": 323,
+      "placeReviewCount": 796,
+      "ktCallMd": "0a5cc78f6ffee437f75fad2d2ad7abf8",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20221215_193/16710327642035LVfj_JPEG/%B8%DE%B4%BA%B8%F0%C0%BD%C4%C6-1_221214%28Small%29.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20221215_193/16710327642035LVfj_JPEG/%B8%DE%B4%BA%B8%F0%C0%BD%C4%C6-1_221214%28Small%29.jpg",
+        "https://ldb-phinf.pstatic.net/20221215_164/1671032763678uy2u5_JPEG/%B8%A3%B9%F0%C4%ED%C5%B0%B5%E9_%BA%B9%BB%E7.jpg",
+        "https://ldb-phinf.pstatic.net/20221215_232/16710327641226Jp7e_JPEG/%B8%DE%B4%BA%B8%F0%C0%BD%C4%C6-4_221214%28Small%29.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0141016",
+      "y": "37.4953010",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "9kUpSxnJGckh+dpQjrlzEw==",
+        "pan": "-89.20",
+        "tilt": "12.31",
+        "lng": "127.0142222",
+        "lat": "37.4952772",
+        "fov": "52"
+      },
+      "skyPanorama": {
+        "id": "P4KZVduiZRfXmyHFIAFy1g==",
+        "pan": "41.76",
+        "tilt": "-30.00",
+        "lng": "127.0138321",
+        "lat": "37.4949989",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/minimale_kaffeeroster",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.014183,
+            "y": 37.495271
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.014183,
+            "y": 37.495271
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "헬싱키 라떼 3,800 | 롱블랙 아인슈페너 4,000 | 아이스크림 라떼 4,800 | 뉴욕쿠키 : 스모어 3,500 | 뉴욕쿠키 : 오리지널 르뱅 3,500 | 수제 스콘 : 플레인 2,500 | 100%수박주스 5,300 | 아이스임페리얼 밀크티 4,500 | 아이스 리얼초코 4,500 | 아이스시그니처 자몽티 4,500 | 아이스시그니처 레몬티 4,500",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "https://booking.naver.com/booking/6/bizes/644420",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": true,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": true
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": true,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "888.39",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "5",
+      "rank": "6",
+      "id": "1754767885",
+      "name": "타르타르 강남역점",
+      "tel": "010-9497-2922",
+      "isCallLink": false,
+      "virtualTel": "0507-1463-2922",
+      "virtualTelDisplay": "0507-1463-2922",
+      "ppc": "1",
+      "category": ["카페,디저트", "카페"],
+      "categoryPath": [
+        ["220036", "220052", "220576", "231203"],
+        ["1004760", "1004452"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "11:00에 영업시작"
+        },
+        "businessHours": "202301311100~202301312300",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1317",
+      "roadAddress": "서울특별시 서초구 강남대로61길 13",
+      "abbrAddress": "서초동 1317",
+      "shortAddress": ["서울 서초구", "강남대로61길 13"],
+      "display": "타르타르 강남역점",
+      "telDisplay": "010-9497-2922",
+      "context": [],
+      "reviewCount": 1090,
+      "placeReviewCount": 918,
+      "ktCallMd": "938192d3ee6e0e9a0b14a66fe18da539",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20221111_70/16681680356663pVU2_JPEG/BT9A0438.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20221111_70/16681680356663pVU2_JPEG/BT9A0438.jpg",
+        "https://ldb-phinf.pstatic.net/20221111_30/1668168035815w1gU7_JPEG/BT9A0658.jpg",
+        "https://ldb-phinf.pstatic.net/20221111_240/1668168035698ELX2R_JPEG/BT9A0165.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0256000",
+      "y": "37.4989659",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "UxmzNCfT+NV4KsVP99Jm/A==",
+        "pan": "112.08",
+        "tilt": "7.13",
+        "lng": "127.0261177",
+        "lat": "37.4992101",
+        "fov": "47"
+      },
+      "skyPanorama": {
+        "id": "DMXyHXMFCgTYyDYuwLlm+w==",
+        "pan": "-0.47",
+        "tilt": "-30.00",
+        "lng": "127.0256348",
+        "lat": "37.4947205",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://www.instagram.com/tarrtarr.gangnam",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.0254038,
+            "y": 37.4987111
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.0253448,
+            "y": 37.4989312
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "에그 타르트 3,000 | 치즈 타르트 2,800 | 자몽 타르트 8,400 | 요거트 타르트 8,400 | 혼합과일 타르트 8,400 | 레몬머랭 타르트 7,900 | 생무화과 타르트 8,400 | 큐브 브라우니 타르트 8,900 | 레드벨벳 8,400 | 딸기 타르트 8,400 | 몽블랑 타르트 8,900 | 청포도 타르트(소) 8,400 | 오레오 타르트 8,400 | 딸기 타르트(소) 8,400 | 체리 타르트(소) 8,400 | 유자 타르트 8,400",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "789.35",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "231203",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "6",
+      "rank": "7",
+      "id": "1011293106",
+      "name": "로우어가든",
+      "tel": "010-7941-7919",
+      "isCallLink": false,
+      "virtualTel": "0507-1305-7919",
+      "virtualTelDisplay": "0507-1305-7919",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [
+        ["220036", "220052", "220563"],
+        ["1004760", "1004452"]
+      ],
+      "rcode": "09650107",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "12:00에 영업시작"
+        },
+        "businessHours": "202301311200~202301312200",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 반포동 737-13 1층",
+      "roadAddress": "서울특별시 서초구 사평대로57길 28 1층",
+      "abbrAddress": "반포동 737-13 1층",
+      "shortAddress": ["서울 서초구", "사평대로57길 28", "1층"],
+      "display": "로우어가든",
+      "telDisplay": "010-7941-7919",
+      "context": [],
+      "reviewCount": 423,
+      "placeReviewCount": 214,
+      "ktCallMd": "d0dbd6bb23125d50e5bfa25ffc29754b",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20221213_160/1670925461869G6wJR_JPEG/7FCDF1C6-060B-4C73-81B6-E9116FD193BF.jpeg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20221213_160/1670925461869G6wJR_JPEG/7FCDF1C6-060B-4C73-81B6-E9116FD193BF.jpeg",
+        "https://ldb-phinf.pstatic.net/20180626_196/15300136877963rTux_JPEG/GRUc7nWk8kTysdGGhofZ6RQ9.jpg",
+        "https://ldb-phinf.pstatic.net/20180419_246/1524110956524sLsXu_PNG/SpyG9_U31Cy1O8VWXXbdO7HU.png"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0230924",
+      "y": "37.5055722",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "swA95LdJGvC5r2TyAVoVQw==",
+        "pan": "88.68",
+        "tilt": "-10.94",
+        "lng": "127.0229419",
+        "lat": "37.5056515",
+        "fov": "52"
+      },
+      "skyPanorama": {
+        "id": "hdp4WTZ/2cVm3ti/KYEj7w==",
+        "pan": "160.26",
+        "tilt": "-30.00",
+        "lng": "127.0226974",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://www.instagram.com/lowergardencafe",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.023014,
+            "y": 37.505621
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.023014,
+            "y": 37.505621
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "쑥라떼 5,500",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "555.51",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [
+        "신논현 강남역 고급스러운  스콘맛집 카페",
+        "쑥라떼와 당근케이크가 맛있는 신논현역 카페",
+        "쑥스콘이 맛있는 디저트 천국카페",
+        "비주얼 예쁘고 디저트가 맛있는 신논현 예쁜카페",
+        "라떼가 매력적이었던 신논현 데이트하기 좋은 분위기 카페"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "7",
+      "rank": "8",
+      "id": "31991940",
+      "name": "장꼬방",
+      "tel": "02-597-5511",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["카페,디저트", "빙수"],
+      "categoryPath": [
+        ["220036", "220052", "220579", "221393"],
+        ["1004760", "1004380", "1002043"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "21:15에 라스트오더"
+        },
+        "businessHours": "202301310900~202301312200",
+        "breakTime": "",
+        "lastOrder": "202301312115"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1316 1층",
+      "roadAddress": "서울특별시 서초구 강남대로61길 27 1층",
+      "abbrAddress": "서초동 1316 1층",
+      "shortAddress": ["서울 서초구", "강남대로61길 27", "1층"],
+      "display": "장꼬방",
+      "telDisplay": "02-597-5511",
+      "context": ["단팥죽", "찹쌀떡", "팥빙수", "고급진", "전통적인"],
+      "reviewCount": 586,
+      "placeReviewCount": 1222,
+      "ktCallMd": "6bdd88d11c4f9fcaaaf513da044001fb",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20150825_53/1440484362921Oj87z_JPEG/166775556259678_0.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20150825_53/1440484362921Oj87z_JPEG/166775556259678_0.jpg",
+        "https://ldb-phinf.pstatic.net/20150825_5/1440484363345zuEPr_JPEG/166775556259678_1.jpg",
+        "https://ldb-phinf.pstatic.net/20150825_222/1440484363674JFSM4_JPEG/166775556259678_2.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0237366",
+      "y": "37.4983656",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "49QzXnTg2VCLh1Xxd/8NAg==",
+        "pan": "74.74",
+        "tilt": "10.00",
+        "lng": "127.0236024",
+        "lat": "37.4983289",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "gkDRHYhLELYeyW+NpaS/Tg==",
+        "pan": "3.98",
+        "tilt": "-30.00",
+        "lng": "127.0234833",
+        "lat": "37.4947205",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://smartstore.naver.com/jangkkobang",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.023721,
+            "y": 37.498271
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.023814,
+            "y": 37.498475
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "찹쌀떡(개당) 1,900 | 쑥찹쌀떡(개당) 2,300 | 팥빙수 10,000 | 단팥죽 8,000 | 미숫가루800g 15,000 | 빙수용 조림팥 500g 8,000 | 찹쌀떡1상자(10개입) 19,000 | 쑥 찹쌀떡1상자(10개입) 23,000",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "698.67",
+      "marker": "nres://marker/00079-00089",
+      "markerSelected": "nres://marker/00079-00253",
+      "markerId": "221393",
+      "microReview": [
+        "빙수 맛집 국내산 팥으로 만든 찹쌀떡과 팥빙수",
+        "강남 빙수와 맛있는 찹쌀떡",
+        "국산팥을 사용한 팥빙수",
+        "내 머리를 때리고 싶게 한 팥빙수",
+        "진한 팥의 여운이 느껴지는 팥빙수 맛집"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "8",
+      "rank": "9",
+      "id": "1374995918",
+      "name": "마르케",
+      "tel": "02-534-6006",
+      "isCallLink": false,
+      "virtualTel": "0507-1478-6006",
+      "virtualTelDisplay": "0507-1478-6006",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [
+        ["220036", "220052", "220563"],
+        ["1004760", "1004452"]
+      ],
+      "rcode": "09680108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "11:00에 영업시작"
+        },
+        "businessHours": "202301311100~202301312300",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 강남구 논현동 143-23 1층 마르케",
+      "roadAddress": "서울특별시 강남구 강남대로124길 5 1층 마르케",
+      "abbrAddress": "논현동 143-23 1층 마르케",
+      "shortAddress": ["서울 강남구", "강남대로124길 5", "1층 마르케"],
+      "display": "마르케",
+      "telDisplay": "02-534-6006",
+      "context": [],
+      "reviewCount": 267,
+      "placeReviewCount": 870,
+      "ktCallMd": "24b782d3080fa9c6b0984774585ebd92",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20191007_182/1570447387468w3RsX_JPEG/q_WwZTb9_IMKI5kehG4iyQzk.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20191007_182/1570447387468w3RsX_JPEG/q_WwZTb9_IMKI5kehG4iyQzk.jpg",
+        "https://ldb-phinf.pstatic.net/20200917_276/160031408199194tEk_JPEG/N1p4IBTF9PCO23BJOecqKk-5.jpg",
+        "https://ldb-phinf.pstatic.net/20200917_53/1600314082038Vspcv_JPEG/bxU-bN09h2DfrKZriCtyzfcP.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0231079",
+      "y": "37.5088585",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "n5pnOuaEWTUvanc+o2Rlcg==",
+        "pan": "4.26",
+        "tilt": "17.69",
+        "lng": "127.0231272",
+        "lat": "37.5087825",
+        "fov": "97"
+      },
+      "skyPanorama": {
+        "id": "hdp4WTZ/2cVm3ti/KYEj7w==",
+        "pan": "10.62",
+        "tilt": "-30.00",
+        "lng": "127.0226974",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://www.instagram.com/marke_bakery",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.023049,
+            "y": 37.508826
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.023049,
+            "y": 37.508826
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "프렌치 버터 스콘 4,000 | 에그타르트 3,200 | 마카롱 3,000 | 레몬케이크 4,200 | 얼그레이 엘립스 파운드 변동가격(업주문의) | 주문제작케이크 변동가격(업주문의) | 아메리카노 4,500 | 카페라떼 5,000 | 바닐라라떼 5,500 | 헤이즐넛라떼 5,500 | 마르케커피 5,500",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "https://booking.naver.com/booking/6/bizes/282949",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": true,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": true,
+        "table": false,
+        "takeout": true
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": true,
+      "broadcastInfo": {
+        "name": "놀라운토요일",
+        "menu": "레몬케이크"
+      },
+      "shopWindowInfo": null,
+      "hasNPay": true,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "824.60",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [
+        "베리에이션 많은 구움과자 맛집",
+        "영동시장 안에 작은 디저트 카페",
+        "에그타르트가 맛있는 마르케 베이커리",
+        "다양한 디저트가 있는 마르케 베이커리 카페"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "9",
+      "rank": "10",
+      "id": "1094652805",
+      "name": "밀도 강남역점",
+      "tel": "02-533-5051",
+      "isCallLink": false,
+      "virtualTel": "0507-1477-5052",
+      "virtualTelDisplay": "0507-1477-5052",
+      "ppc": "1",
+      "category": ["베이커리", "밀도"],
+      "categoryPath": [["220036", "220052", "220564", "1003448"]],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "11:00에 영업시작"
+        },
+        "businessHours": "202301311100~202301312200",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1306-6 무인양품 1층 내 밀도",
+      "roadAddress": "서울특별시 서초구 강남대로 419 무인양품 1층 내 밀도",
+      "abbrAddress": "서초동 1306-6 무인양품 1층 내 밀도",
+      "shortAddress": ["서울 서초구", "강남대로 419", "무인양품 1층 내 밀도"],
+      "display": "밀도 강남역점",
+      "telDisplay": "02-533-5051",
+      "context": [],
+      "reviewCount": 266,
+      "placeReviewCount": 72,
+      "ktCallMd": "b68d29725bbafd8bb7cd16aee0a6490f",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20210714_119/1626249507646iG6av_JPEG/YnKut8F6u-popjHBz3Ark5yf.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20210714_119/1626249507646iG6av_JPEG/YnKut8F6u-popjHBz3Ark5yf.jpg",
+        "https://ldb-phinf.pstatic.net/20200707_247/1594116302137cXwjc_JPEG/3ABKy-Dr2tT08bwnb-ooMgBO.jpg",
+        "https://ldb-phinf.pstatic.net/20210714_26/1626249590416TSJej_JPEG/3VAfbeusPz429bNOTSHgaR8i.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0263321",
+      "y": "37.4998780",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "vunF19qSNgIIg8dqBBM+Mg==",
+        "pan": "-102.37",
+        "tilt": "10.00",
+        "lng": "127.0265258",
+        "lat": "37.4999204",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "UCbvnneg67+ae0jfC5MjgQ==",
+        "pan": "-6.13",
+        "tilt": "-30.00",
+        "lng": "127.0268860",
+        "lat": "37.4947205",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://www.mealdo.co.kr",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.026023,
+            "y": 37.499782
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.026408,
+            "y": 37.499925
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "담백식빵 7,300 | 리치식빵 7,500 | 허니러스크 4,000 | 초코허니러스크 4,500 | 큐브커스터드 4,000 | 큐브팥앙금 3,600 | 큐브시나몬 3,600 | 큐브소보로 3,600 | 큐브 치즈 3,600 | 딸기잼 9,000",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "800.59",
+      "marker": "nres://marker/00079-00013",
+      "markerSelected": "nres://marker/00079-00176",
+      "markerId": "1003448",
+      "microReview": [
+        "강남역 베이커리 무인양품 속에 자리한 프리미엄 식빵맛집",
+        "서울 강남역 식빵이 맛있는 베이커리",
+        "식빵맛집  쫀득한 식감의 빵",
+        "밀도 빵집 추천하는 빵",
+        "강남역에서 맛보는 성수빵맛집"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "10",
+      "rank": "11",
+      "id": "13030177",
+      "name": "파리크라상 교대역점",
+      "tel": "02-537-8425",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["카페,디저트", "베이커리"],
+      "categoryPath": [
+        ["220036", "220052", "220564", "221174"],
+        ["1004760", "1004452"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "23:00에 영업종료"
+        },
+        "businessHours": "202301310700~202301312300",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1685-8 G-five 플라자 1층",
+      "roadAddress": "서울특별시 서초구 서초중앙로24길 27 G-five 플라자 1층",
+      "abbrAddress": "서초동 1685-8 G-five 플라자 1층",
+      "shortAddress": ["서울 서초구", "서초중앙로24길 27", "G-five 플라자 1층"],
+      "display": "파리크라상 교대역점",
+      "telDisplay": "02-537-8425",
+      "context": ["브런치", "치즈케이크", "샌드위치", "토스트", "디저트"],
+      "reviewCount": 128,
+      "placeReviewCount": 3342,
+      "ktCallMd": "7f77e8a83187533f84e2091a7c2b418a",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20201023_24/1603442371031DYgYM_JPEG/wKhXckj8z-aOWlgrnkiaZpSL.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20201023_24/1603442371031DYgYM_JPEG/wKhXckj8z-aOWlgrnkiaZpSL.jpg",
+        "https://ldb-phinf.pstatic.net/20201023_100/1603442425874C8xvl_JPEG/eEd8WflqcYgNZ1_2KJpKXjvo.jpg",
+        "https://ldb-phinf.pstatic.net/20201023_293/1603442440425i9SkY_JPEG/w7XOO6C6V7Z_9ppOoXh9y5mu.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0164171",
+      "y": "37.4954178",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "nN9e4ytytRqDg4gs/GUUmA==",
+        "pan": "64.82",
+        "tilt": "7.88",
+        "lng": "127.0164986",
+        "lat": "37.4949983",
+        "fov": "52"
+      },
+      "skyPanorama": {
+        "id": "XduyVDShi0OUIPgnQzIxbw==",
+        "pan": "34.03",
+        "tilt": "-30.00",
+        "lng": "127.0160675",
+        "lat": "37.4948997",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://www.pariscroissant.co.kr/",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.0171035,
+            "y": 37.4952325
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.016502,
+            "y": 37.49506
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "캬라멜 바나나 팬케익 17,000 | 에그 베네딕트 브런치 17,000 | 촉촉한 프렌치토스트 16,000",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "https://booking.naver.com/booking/6/bizes/468079",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": true,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": true,
+        "table": false,
+        "takeout": true
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": true,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "818.57",
+      "marker": "nres://marker/00079-00013",
+      "markerSelected": "nres://marker/00079-00176",
+      "markerId": "221174",
+      "microReview": [
+        "입짧은햇님 케이크",
+        "딸기향이 가득한 파리크라상",
+        "브런치 먹기 좋은 맛집",
+        "브런치카페에서 맛있는 빵과 커피",
+        "브런치가 맛나는 곳"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "11",
+      "rank": "12",
+      "id": "1248434851",
+      "name": "쿄 베이커리 X 카페더인피닛",
+      "tel": "02-536-2838",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["카페,디저트", "베이커리"],
+      "categoryPath": [
+        ["220036", "220052", "220564", "221161"],
+        ["1004760", "1004380", "1002043"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "22:00에 영업종료"
+        },
+        "businessHours": "202301310730~202301312200",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1303-6",
+      "roadAddress": "서울특별시 서초구 사평대로58길 6",
+      "abbrAddress": "서초동 1303-6",
+      "shortAddress": ["서울 서초구", "사평대로58길 6"],
+      "display": "쿄 베이커리 X <b>카페</b>더인피닛",
+      "telDisplay": "02-536-2838",
+      "context": [],
+      "reviewCount": 407,
+      "placeReviewCount": 1937,
+      "ktCallMd": "ae5ee3a0bddd7ef0c69ab0964c9ded46",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20190605_209/1559706208756qajhw_JPEG/65CKiEOyYr9O7E8zCL4JjZy0.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20190605_209/1559706208756qajhw_JPEG/65CKiEOyYr9O7E8zCL4JjZy0.jpg",
+        "https://ldb-phinf.pstatic.net/20200629_96/1593361804555aQlvG_JPEG/lHr6KzJMgIusZfQKn31NCvYG.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0237556",
+      "y": "37.5035232",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "pr4TBLtE7F491IbTcR2TBg==",
+        "pan": "-102.13",
+        "tilt": "11.88",
+        "lng": "127.0238198",
+        "lat": "37.5035164",
+        "fov": "80"
+      },
+      "skyPanorama": {
+        "id": "ayY6zOeC5qSoBtvIgkucHw==",
+        "pan": "178.46",
+        "tilt": "-30.00",
+        "lng": "127.0236664",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.02321,
+            "y": 37.503351
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.023789,
+            "y": 37.503568
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "BLACK 4,300 | WHITE 4,800 | 애기궁둥이 2,500 | 후르츠건강빵 5,200 | 탕종 식빵 4,300 | 애플데니쉬 3,400 | 시오빵 2,100 | 뺑오 쇼콜라 4,100 | 비넌콘 4,900 | 연유바게트 4,800 | 통팥앙금 2,600 | 몽블랑 4,900 | 넛봉 4,500 | 갈릭퐁당 4,800 | 멀티 그레인 4,600 | 정통 바게트 3,800",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "519.19",
+      "marker": "nres://marker/00079-00013",
+      "markerSelected": "nres://marker/00079-00176",
+      "markerId": "221161",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "12",
+      "rank": "13",
+      "id": "1949237349",
+      "name": "타짜도르 강남점",
+      "tel": "070-8848-9965",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [
+        ["220036", "220052", "220563"],
+        ["1004760", "1004498"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "21:30에 라스트오더"
+        },
+        "businessHours": "202301311000~202301312200",
+        "breakTime": "",
+        "lastOrder": "202301312130"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1309 S&G타워 1층",
+      "roadAddress": "서울특별시 서초구 서초대로77길 61 S&G타워 1층",
+      "abbrAddress": "서초동 1309 S&G타워 1층",
+      "shortAddress": ["서울 서초구", "서초대로77길 61", "S&G타워 1층"],
+      "display": "타짜도르 강남점",
+      "telDisplay": "070-8848-9965",
+      "context": [],
+      "reviewCount": 261,
+      "placeReviewCount": 589,
+      "ktCallMd": "dcd655d2aa64aebe68533e50014cebec",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20190825_42/1566710694860RhWxu_JPEG/bQ1oPG3XABlFXzn7EnJx1Wwq.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20190825_42/1566710694860RhWxu_JPEG/bQ1oPG3XABlFXzn7EnJx1Wwq.jpg",
+        "https://ldb-phinf.pstatic.net/20190825_200/1566710748828fy22n_JPEG/JNJIYBdlT__KS24UFjj5tn-K.jpg",
+        "https://ldb-phinf.pstatic.net/20200602_29/1591067245172EbtBd_JPEG/IQOvjSGobaO8Ofqu2uaxwgqr.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0237899",
+      "y": "37.5024296",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "sndT4oXIJ9lI5xQr78kcSQ==",
+        "pan": "-110.45",
+        "tilt": "13.44",
+        "lng": "127.0239188",
+        "lat": "37.5025109",
+        "fov": "65"
+      },
+      "skyPanorama": {
+        "id": "ayY6zOeC5qSoBtvIgkucHw==",
+        "pan": "178.42",
+        "tilt": "-30.00",
+        "lng": "127.0236664",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.023642,
+            "y": 37.502368
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.023795,
+            "y": 37.502498
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "에스프레소 도피오 5,000 | 에스프레소 마키아또 5,000 | 에스프레소 콘빠냐 5,500 | 카페라떼 5,500 | 카푸치노 5,500 | 그라니따 콘판냐 6,500 | 아포가토 7,500 | 시나몬라떼  6,000 | 원두 250g 18,000 | 캡슐커피 15,000",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "514.12",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [
+        "로마3대커피로 유명한 신논혁역카페",
+        "강남 신논현 커피 존맛 찐 카페",
+        "서초동에서 만나는 로마 3대 커피",
+        "신논현역카페 노트북하기 좋은 조용한 카페",
+        "신논현역카페 찐 비엔나커피 맛집"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "13",
+      "rank": "14",
+      "id": "1865802207",
+      "name": "인터랙트 with 글루텐프리",
+      "tel": "02-547-7290",
+      "isCallLink": false,
+      "virtualTel": "0507-1373-7290",
+      "virtualTelDisplay": "0507-1373-7290",
+      "ppc": "1",
+      "category": ["카페,디저트", "카페"],
+      "categoryPath": [
+        ["220036", "220052", "220576", "221212"],
+        ["1004760", "1004380", "1002043"]
+      ],
+      "rcode": "09680108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "11:00에 영업시작"
+        },
+        "businessHours": "202301311100~202301312100",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 강남구 논현동 183-3 1층",
+      "roadAddress": "서울특별시 강남구 강남대로118길 16 1층",
+      "abbrAddress": "논현동 183-3 1층",
+      "shortAddress": ["서울 강남구", "강남대로118길 16", "1층"],
+      "display": "인터랙트 with 글루텐프리",
+      "telDisplay": "02-547-7290",
+      "context": [],
+      "reviewCount": 272,
+      "placeReviewCount": 283,
+      "ktCallMd": "47e1176902be24baecff7124ed69dbba",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20221217_3/16712667763394yrre_JPEG/%B5%FE%B1%E2_%C4%C9%C0%CC%C5%A9_%C0%CC%B9%CC%C1%F6.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20221217_3/16712667763394yrre_JPEG/%B5%FE%B1%E2_%C4%C9%C0%CC%C5%A9_%C0%CC%B9%CC%C1%F6.jpg",
+        "https://ldb-phinf.pstatic.net/20220819_54/1660868273963LHSXw_JPEG/5204421D-6A2D-408E-AC5A-225CE2D6C9F7.jpeg",
+        "https://ldb-phinf.pstatic.net/20220819_249/1660868274099jwmfK_JPEG/2FAFF695-CA1A-4363-96C9-7E55F8E979C7.jpeg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0248863",
+      "y": "37.5065070",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "wF0rhkyxClmX3PZPCmhfKg==",
+        "pan": "131.12",
+        "tilt": "10.00",
+        "lng": "127.0247731",
+        "lat": "37.5066056",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "HYi14M/Ikmc18jgNa2RqVQ==",
+        "pan": "-169.09",
+        "tilt": "-30.00",
+        "lng": "127.0249176",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/cafe_interact/",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.024841,
+            "y": 37.506604
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.024841,
+            "y": 37.506604
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "비건 초코 크라운 3,800 | 설탕 없는 버터바 4,900 | 노슈가 모카크림라떼 8,000 | 노슈가 블루베리 케이크 8,800 | 노슈가 레몬에이드 7,500",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": true,
+      "broadcastInfo": {
+        "name": "2TV생생정보",
+        "menu": "호두카카오초콜릿쿠키/블루베리치즈크럼블"
+      },
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "744.89",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "221212",
+      "microReview": [
+        "신논현 라떼가 맛있는 조용한 카페",
+        "신논현 디저트가 맛있는 감성카페",
+        "신논현역 interact 친구기다리기 좋은 카페",
+        "향긋한 파운드케이크와 커피가 있는 신상카페"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "14",
+      "rank": "15",
+      "id": "1839599343",
+      "name": "kuun",
+      "tel": "010-4830-1809",
+      "isCallLink": false,
+      "virtualTel": "0507-1338-1809",
+      "virtualTelDisplay": "0507-1338-1809",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [["220036", "220052", "220563"]],
+      "rcode": "09650107",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "21:50에 라스트오더"
+        },
+        "businessHours": "202301311000~202301312200",
+        "breakTime": "",
+        "lastOrder": "202301312150"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 반포동 735-34 104호",
+      "roadAddress": "서울특별시 서초구 강남대로83길 18 104호",
+      "abbrAddress": "반포동 735-34 104호",
+      "shortAddress": ["서울 서초구", "강남대로83길 18", "104호"],
+      "display": "kuun",
+      "telDisplay": "010-4830-1809",
+      "context": [],
+      "reviewCount": 118,
+      "placeReviewCount": 145,
+      "ktCallMd": "3c8a4379f1e2ada6e195191b311dbe4c",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20221006_215/1665032796353xIs6a_JPEG/11.JPG",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20221006_215/1665032796353xIs6a_JPEG/11.JPG",
+        "https://ldb-phinf.pstatic.net/20220709_159/1657331832607PxhHl_JPEG/1655441561335.jpg",
+        "https://ldb-phinf.pstatic.net/20221023_294/1666495839962P6VH7_JPEG/%C4%B8%C3%B3.JPG"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0224790",
+      "y": "37.5064027",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "xBHqj7d4BeC7FZ1SxrSrKQ==",
+        "pan": "-96.57",
+        "tilt": "-1.25",
+        "lng": "127.0225563",
+        "lat": "37.5064675",
+        "fov": "82"
+      },
+      "skyPanorama": {
+        "id": "hdp4WTZ/2cVm3ti/KYEj7w==",
+        "pan": "-140.62",
+        "tilt": "-30.00",
+        "lng": "127.0226974",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/kuuncafe_official",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.022521,
+            "y": 37.506465
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.022354,
+            "y": 37.506256
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "생자몽요거트라떼 6,000 | 생자몽허니라떼 6,000 | 생자몽허니블랙에이드 6,500 | 생자몽허니블랙티 6,500 | 생자몽에이드 5,800 | 생레몬민트티 5,800 | 요거트스무디 6,000 | 베리베리요거트스무디 6,500 | 6달러바닐라쉐이크 6,500 | 6달러초코쉐이크 6,500 | 헤이즐넛라떼 5,500 | 바닐라라떼 5,500 | 카페라떼 4,500 | 아메리카노 4,000 | 피치레몬에이드 5,500 | 수제로얄밀크티 6,000 | 황치즈뽀또 휘낭시에 3,500 | 땡모반(수박주스) 5,500 | 얼그레이 휘낭시에 3,000 | 로쉐 휘낭시에 3,500 | 브라운치즈 휘낭시에 3,500 | 플레인 휘낭시에 2,500 | 마늘빵 휘낭시에 3,000 | 당근케익휘낭시에 3,500 | 쑥크림휘낭시에 3,500 | 피치레몬아이스티 4,500 | 맛자두에이드 5,800 | 생레몬민트에이드 5,800 | 수제매실에이드 5,500 | 제주말차라떼 5,500 | 더블초코라떼 5,500 | 미숫가루라떼 5,000 | 제주말차카페라떼 5,800 | 콜드브루라떼 5,000 | 콜드브루 4,500 | 연유라떼 5,500 | 에스프레소 3,500",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "575.20",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "15",
+      "rank": "16",
+      "id": "1431397449",
+      "name": "보드게임카페 레드버튼 강남점",
+      "tel": "02-566-3799",
+      "isCallLink": false,
+      "virtualTel": "0507-1380-3799",
+      "virtualTelDisplay": "0507-1380-3799",
+      "ppc": "1",
+      "category": ["보드카페"],
+      "categoryPath": [["221986", "221989", "220591"]],
+      "rcode": "09680101",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "13:00에 영업시작"
+        },
+        "businessHours": "202301311300~202301312500",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 강남구 역삼동 814-5 1층",
+      "roadAddress": "서울특별시 강남구 강남대로 442 1층",
+      "abbrAddress": "역삼동 814-5 1층",
+      "shortAddress": ["서울 강남구", "강남대로 442", "1층"],
+      "display": "보드게임<b>카페</b> 레드버튼 강남점",
+      "telDisplay": "02-566-3799",
+      "context": [],
+      "reviewCount": 227,
+      "placeReviewCount": 1708,
+      "ktCallMd": "5fde02b77d4739748e0b38981fd16a4c",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20200714_191/1594692117518m98Pf_PNG/SD4j7Ov_QKqYplhzyVAMOQUl.png",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20200714_191/1594692117518m98Pf_PNG/SD4j7Ov_QKqYplhzyVAMOQUl.png",
+        "https://ldb-phinf.pstatic.net/20200819_68/1597803297558NVxaJ_JPEG/FQCB2M5KTnby3ggeI1NBuJRy.JPG.jpg",
+        "https://ldb-phinf.pstatic.net/20200819_37/1597803306912kgmDo_JPEG/wP3W2Fjbiv2Nq1WxFjOviJYu.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0264431",
+      "y": "37.5019039",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "15ZAVObe5ulptiVWqm6GMQ==",
+        "pan": "75.27",
+        "tilt": "10.00",
+        "lng": "127.0259315",
+        "lat": "37.5017691",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "nEFbK3uBJCjRreD5aKBNWw==",
+        "pan": "173.52",
+        "tilt": "-30.00",
+        "lng": "127.0258942",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "http://www.redbutton.co.kr",
+      "description": "",
+      "entranceCoords": null,
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "1인 1시간 3,000 | 아메리카노 3,800 | 리얼딸기라떼 4,900 | 허니버터갈릭 감자튀김 6,000 | 크리스피 순살치킨 7,500 | 로제떡볶이 7,900",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "752.51",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220591",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "16",
+      "rank": "17",
+      "id": "21339789",
+      "name": "카페마마스 강남역점",
+      "tel": "02-584-1260",
+      "isCallLink": false,
+      "virtualTel": "0507-1310-1265",
+      "virtualTelDisplay": "0507-1310-1265",
+      "ppc": "1",
+      "category": ["음식점", "양식"],
+      "categoryPath": [
+        ["220036", "220044", "220133", "231247"],
+        ["220036", "1003557"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "21:00에 라스트오더"
+        },
+        "businessHours": "202301310800~202301312130",
+        "breakTime": "",
+        "lastOrder": "202301312100"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1321-6 아타워 1F",
+      "roadAddress": "서울특별시 서초구 서운로 138 서초동아타워 1F",
+      "abbrAddress": "서초동 1321-6 아타워 1F",
+      "shortAddress": ["서울 서초구", "서운로 138", "서초동아타워 1F"],
+      "display": "<b>카페</b>마마스 강남역점",
+      "telDisplay": "02-584-1260",
+      "context": [
+        "리코타치즈샐러드",
+        "파니니",
+        "브런치카페",
+        "아기자기",
+        "신선한"
+      ],
+      "reviewCount": 1330,
+      "placeReviewCount": 1952,
+      "ktCallMd": "1b93b1e97ffc3df3532e11155ffbca7d",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20220912_34/16629839838843oeNY_PNG/25E7BB81-BAF1-4CD2-9DEA-16EA6A5B1276.png",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20220912_34/16629839838843oeNY_PNG/25E7BB81-BAF1-4CD2-9DEA-16EA6A5B1276.png",
+        "https://ldb-phinf.pstatic.net/20220928_160/1664372365799aQp5e_JPEG/KakaoTalk_20220928_214129041.jpg",
+        "https://ldb-phinf.pstatic.net/20150901_72/1441085524368L7Pk4_JPEG/SUBMIT_1390524875584_21339789.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0255176",
+      "y": "37.4959923",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "P7Lxwnn8tb2UDOB5mpNIIw==",
+        "pan": "-62.22",
+        "tilt": "8.69",
+        "lng": "127.0257831",
+        "lat": "37.4958364",
+        "fov": "42"
+      },
+      "skyPanorama": {
+        "id": "DMXyHXMFCgTYyDYuwLlm+w==",
+        "pan": "-5.26",
+        "tilt": "-30.00",
+        "lng": "127.0256348",
+        "lat": "37.4947205",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/cafemamas.kr/",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.0254974,
+            "y": 37.4961712
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.0248823,
+            "y": 37.4958674
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "Mamas Signature 23,000 | Ricotta Cheese Salad 15,800 | Beef Eggplant Panini 16,800 | Club Sandwich 14,800 | Green Grape Juice 6,800",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "https://booking.naver.com/booking/6/bizes/318199",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": true,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": true
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": true,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "997.80",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "231247",
+      "microReview": [
+        "리코타치즈샐러드가 먹고플 땐 카페",
+        "리코타치즈샐러드 청포도주스가 맛있는곳",
+        "강남역 브런치맛집 마마스 계속 가게되는 맛집",
+        "강남브런치카페 카페마마스 언제가도 좋은곳",
+        "생과일주스까지 완벽한 브런치 맛집"
+      ],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "17",
+      "rank": "18",
+      "id": "1389673552",
+      "name": "댕크커피",
+      "tel": "02-546-7220",
+      "isCallLink": false,
+      "virtualTel": "0507-1421-7220",
+      "virtualTelDisplay": "0507-1421-7220",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [["220036", "220052", "220563"]],
+      "rcode": "09650107",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "새벽 00:00에 영업종료"
+        },
+        "businessHours": "202301310700~202301312400",
+        "breakTime": "",
+        "lastOrder": "202301304750"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 반포동 722-36 1층 댕크커피",
+      "roadAddress": "서울특별시 서초구 사평대로57길 96 1층 댕크커피",
+      "abbrAddress": "반포동 722-36 1층 댕크커피",
+      "shortAddress": ["서울 서초구", "사평대로57길 96", "1층 댕크커피"],
+      "display": "댕크커피",
+      "telDisplay": "02-546-7220",
+      "context": [],
+      "reviewCount": 6,
+      "placeReviewCount": 36,
+      "ktCallMd": "a9f35ba03b4c64d25a79bebd01016085",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20230112_127/1673490833861awYvu_JPEG/20230101_151632.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20230112_127/1673490833861awYvu_JPEG/20230101_151632.jpg",
+        "https://ldb-phinf.pstatic.net/20230112_25/1673490824201ytrfw_JPEG/20230101_140452.jpg",
+        "https://ldb-phinf.pstatic.net/20230112_48/1673490797746EKbFu_JPEG/20230111_141030.jpg"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0219347",
+      "y": "37.5084734",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "+lJWNC8JlUiYvDXt0cOrpw==",
+        "pan": "-9.95",
+        "tilt": "10.00",
+        "lng": "127.0219486",
+        "lat": "37.5083941",
+        "fov": "120"
+      },
+      "skyPanorama": {
+        "id": "hdp4WTZ/2cVm3ti/KYEj7w==",
+        "pan": "-22.91",
+        "tilt": "-30.00",
+        "lng": "127.0226974",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/p/Cm5TCVYhE25/?igshid=MDJmNzVkMjY%3D",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.021866,
+            "y": 37.508436
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.021866,
+            "y": 37.508436
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "리치 바닐라라떼 4,500 | 벨지움 모카라떼 4,500 | 오딸라(Ice only) 5,000 | 벨지움 초코 5,000 | 까눌레 3,200 | 플레인 휘낭시에 2,900 | 얼그레이 휘낭시에 3,200 | 로투스 휘낭시에 3,200 | 아메리카노 3,300 | 카페라떼 3,800 | 자몽에이드 4,500 | 치즈케이크 4,900 | 샌드위치 4,200 | 제주말차라떼 4,500 | 헤이즐넛라떼 4,300",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "734.57",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "18",
+      "rank": "19",
+      "id": "1922182440",
+      "name": "원퍼밀커피 신논현본점",
+      "tel": "070-8844-1591",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["음식점", "카페,디저트"],
+      "categoryPath": [
+        ["220036", "220052", "220563"],
+        ["1004760", "1004380", "1002043"]
+      ],
+      "rcode": "09680101",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 2,
+          "text": "영업 중",
+          "emphasis": false,
+          "description": "영업중",
+          "detailInfo": "22:00에 라스트오더"
+        },
+        "businessHours": "202301310800~202301312210",
+        "breakTime": "",
+        "lastOrder": "202301312200"
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 강남구 역삼동 810-8 1층",
+      "roadAddress": "서울특별시 강남구 강남대로106길 7 1층",
+      "abbrAddress": "역삼동 810-8 1층",
+      "shortAddress": ["서울 강남구", "강남대로106길 7", "1층"],
+      "display": "원퍼밀커피 신논현본점",
+      "telDisplay": "070-8844-1591",
+      "context": [],
+      "reviewCount": 200,
+      "placeReviewCount": 1181,
+      "ktCallMd": "3b32de7975a3346aac5a79f37c523b88",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20211204_26/1638605570004fxHFa_JPEG/Screenshot_20211204-170937_NAVER.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20211204_26/1638605570004fxHFa_JPEG/Screenshot_20211204-170937_NAVER.jpg",
+        "https://ldb-phinf.pstatic.net/20220512_233/1652345311072EEDIf_JPEG/%B5%FE%B1%E2%B5%EB%BB%D2.jpg",
+        "https://ldb-phinf.pstatic.net/20220512_24/1652345348339F0Bf0_PNG/KakaoTalk_Photo_2022-02-16-16-04-02_004.png"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0262415",
+      "y": "37.5029237",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "F82PWIEJ4Y5aczG730mQrA==",
+        "pan": "106.06",
+        "tilt": "10.00",
+        "lng": "127.0261214",
+        "lat": "37.5030380",
+        "fov": "100"
+      },
+      "skyPanorama": {
+        "id": "nEFbK3uBJCjRreD5aKBNWw==",
+        "pan": "174.79",
+        "tilt": "-30.00",
+        "lng": "127.0258942",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/onepermil/",
+      "description": "",
+      "entranceCoords": {
+        "car": [
+          {
+            "rep": true,
+            "x": 127.026331,
+            "y": 37.502926
+          }
+        ],
+        "walk": [
+          {
+            "rep": true,
+            "x": 127.026331,
+            "y": 37.502926
+          }
+        ]
+      },
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 중",
+      "menuInfo": "크림모카 3,900 | 엑설런트라떼 3,900 | 아메리카노 2,500 | 플랫화이트 3,000 | 카페라떼 3,000 | 카푸치노 3,000 | 연유라떼 3,500 | 바닐라 라떼 3,700 | 아인슈페너 3,900",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": false,
+      "naverBookingUrl": "",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": false,
+      "reservationLabel": {
+        "standard": false,
+        "preOrder": false,
+        "table": false,
+        "takeout": false
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": false,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "730.43",
+      "marker": "nres://marker/00079-00037",
+      "markerSelected": "nres://marker/00079-00200",
+      "markerId": "220563",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    },
+    {
+      "index": "19",
+      "rank": "20",
+      "id": "1425870700",
+      "name": "비푸스",
+      "tel": "02-6092-8575",
+      "isCallLink": false,
+      "virtualTel": "",
+      "virtualTelDisplay": "",
+      "ppc": "1",
+      "category": ["음식점", "브런치"],
+      "categoryPath": [
+        ["220036", "220044", "220133", "220932"],
+        ["1004760", "1004380", "1002043"]
+      ],
+      "rcode": "09650108",
+      "businessStatus": {
+        "requestTime": "202301311023",
+        "status": {
+          "code": 7,
+          "text": "영업 전",
+          "emphasis": true,
+          "description": "영업 시작 6시간 전 ~ 영업 시작 15분 전",
+          "detailInfo": "11:00에 영업시작"
+        },
+        "businessHours": "202301311100~202301312000",
+        "breakTime": "",
+        "lastOrder": ""
+      },
+      "naviInfoText": null,
+      "address": "서울특별시 서초구 서초동 1302-37 1층",
+      "roadAddress": "서울특별시 서초구 서운로26길 11 1층",
+      "abbrAddress": "서초동 1302-37 1층",
+      "shortAddress": ["서울 서초구", "서운로26길 11", "1층"],
+      "display": "비푸스",
+      "telDisplay": "02-6092-8575",
+      "context": [],
+      "reviewCount": 152,
+      "placeReviewCount": 174,
+      "ktCallMd": "3950d890780bb7a35027c603c3a84b6e",
+      "coupon": "0",
+      "thumUrl": "https://ldb-phinf.pstatic.net/20220519_242/1652942480579XbusS_JPEG/%BA%F1%C7%AA%BD%BA_%284%29.jpg",
+      "thumUrls": [
+        "https://ldb-phinf.pstatic.net/20220519_242/1652942480579XbusS_JPEG/%BA%F1%C7%AA%BD%BA_%284%29.jpg",
+        "https://ldb-phinf.pstatic.net/20220519_42/165294248072353p5V_JPEG/%BA%F1%C7%AA%BD%BA_%283%29.jpg",
+        "https://ldb-phinf.pstatic.net/20220626_19/1656198717281lcm8o_PNG/1655892163141-3.png"
+      ],
+      "type": "s",
+      "isSite": "1",
+      "posExact": "1",
+      "x": "127.0230656",
+      "y": "37.5026704",
+      "itemLevel": "12",
+      "isAdultBusiness": false,
+      "streetPanorama": {
+        "id": "/1tJ/GxvSAV+782rjvVu5A==",
+        "pan": "72.79",
+        "tilt": "15.69",
+        "lng": "127.0230645",
+        "lat": "37.5026140",
+        "fov": "65"
+      },
+      "skyPanorama": {
+        "id": "hdp4WTZ/2cVm3ti/KYEj7w==",
+        "pan": "174.83",
+        "tilt": "-30.00",
+        "lng": "127.0226974",
+        "lat": "37.5066681",
+        "fov": "124"
+      },
+      "insidePanorama": null,
+      "interiorPanorama": null,
+      "indoorPanorama": null,
+      "theme": null,
+      "poiInfo": {
+        "relation": null,
+        "hasRelation": false,
+        "road": {
+          "poiShapeType": "1",
+          "shapeKey": null,
+          "boundary": null,
+          "detail": null
+        },
+        "hasRoad": false,
+        "land": null,
+        "hasLand": false,
+        "polygon": null,
+        "hasPolygon": false
+      },
+      "homePage": "https://www.instagram.com/vfus_seoul",
+      "description": "",
+      "entranceCoords": null,
+      "isPollingPlace": false,
+      "bizhourInfo": "영업 전",
+      "menuInfo": "로제 떡볶이 14,900 | 태국식 그릴드베지 레드 커리 15,900 | 트러플 버섯 크리미 뇨끼 15,900 | 3가지 버섯&양파버거(비건) 15,900 | 그릴드베지뇨끼 14,900 | 허브티 5,500 | 아메리카노 4,500 | 그린디톡스주스 6,500 | 샐러드 11,900",
+      "petrolInfo": null,
+      "couponUrl": null,
+      "couponUrlMobile": null,
+      "hasCardBenefit": false,
+      "menuExist": "1",
+      "hasNaverBooking": true,
+      "naverBookingUrl": "https://booking.naver.com/booking/6/bizes/703003",
+      "naverEasyOrderUrl": null,
+      "hasNaverSmartOrder": true,
+      "reservationLabel": {
+        "standard": true,
+        "preOrder": true,
+        "table": false,
+        "takeout": true
+      },
+      "reservation": {
+        "benefit": ""
+      },
+      "hasBroadcastInfo": false,
+      "broadcastInfo": null,
+      "shopWindowInfo": null,
+      "hasNPay": true,
+      "carWash": "",
+      "parkingPrice": null,
+      "card": null,
+      "distance": "449.48",
+      "marker": "nres://marker/00079-00162",
+      "markerSelected": "nres://marker/00079-00326",
+      "markerId": "220932",
+      "microReview": [],
+      "michelinGuide": null,
+      "indoor": null,
+      "markerLabel": null,
+      "subway": null,
+      "evChargerInfo": null
+    }
+  ]
+}
