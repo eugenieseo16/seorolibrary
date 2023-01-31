@@ -1,0 +1,30 @@
+{
+  "image_url": "https://www.readersnews.com/news/photo/202008/99913_66936_5519.jpg",
+  "title": "미라클 모닝 독서",
+  "description": "매일 아침을 여는 상쾌한 독서 모임",
+  "location": "역삼동",
+  "date": "2023-01-31",
+  "members_limit": 30,
+  "club_members": [
+    {
+      "image_url": "https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png",
+      "username": "kim-ssafy",
+      "nickname": "김싸피"
+    },
+    {
+      "image_url": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDNfMTgy/MDAxNjE0NzgwODAxMDc2.v4N4fy19yP61IAxB2OsEcDSdLRjy6olw7nesE3mIlSsg.S2KK9YZF82qTuG7E8zX4SSwMQdtrKTs6YiG6yQ-8a_sg.JPEG.sosohan_n/IMG_3624.JPG?type=w800",
+      "username": "zzang-ah",
+      "nickname": "짱아"
+    },
+    {
+      "image_url": "https://i.pinimg.com/1200x/56/cc/80/56cc80ea80aff65bc09c7967b993821c.jpg",
+      "username": "shin-zzang",
+      "nickname": "짱구"
+    }
+  ],
+  "meta": {
+    "posts": 13,
+    "recent_date": 3,
+    "meeting_count": 7
+  }
+}
