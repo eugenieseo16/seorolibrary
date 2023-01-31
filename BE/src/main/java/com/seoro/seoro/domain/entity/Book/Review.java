@@ -1,12 +1,20 @@
 package com.seoro.seoro.domain.entity.Book;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
+import com.seoro.seoro.domain.entity.User.User;
+
 @Entity
 public class Review implements Serializable {
-    private Long userId;
-    private String isbn;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long reviewId;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userId")
+    private User user;
+    @ManyToOne(targetEntity = Book.class)
+    @JoinColumn(name = "isbn")
+    private Book book;
     private String reviewContent;
 }

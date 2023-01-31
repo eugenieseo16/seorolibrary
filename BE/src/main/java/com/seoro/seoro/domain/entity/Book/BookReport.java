@@ -8,6 +8,9 @@ import java.io.Serializable;
 public class BookReport implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookReportId;
-    private Long readBookId;
+    @ManyToOne(targetEntity = ReadBook.class)
+    @JoinColumn(name="readBookId")
+    private ReadBook readBook;
     private String bookReportContent;
+
 }
