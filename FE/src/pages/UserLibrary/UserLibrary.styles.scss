@@ -1,0 +1,10 @@
+@import '../../styles/variables';
+
+.user-library-container {
+  background-color: $beige;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 10px;
+}
