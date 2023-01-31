@@ -1,9 +1,13 @@
 import React from 'react';
 import './ToggleNav.styles.scss';
+interface item {
+  text: string;
+  id: string;
+}
 interface IToggleNavProps {
   selectedId: string;
   setSelectedId: ({ target }: any) => void;
-  items: string[];
+  items: item[];
 }
 
 function ToggleNav({ selectedId, setSelectedId, items }: IToggleNavProps) {
@@ -14,10 +18,10 @@ function ToggleNav({ selectedId, setSelectedId, items }: IToggleNavProps) {
       {items.map((item, i) => (
         <div
           key={i}
-          id={i + ''}
-          className={selectedId === i + '' ? 'selected' : ''}
+          id={item.id}
+          className={selectedId === item.id ? 'selected' : ''}
         >
-          {item}
+          {item.text}
         </div>
       ))}
     </div>
