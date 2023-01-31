@@ -1,18 +1,28 @@
 package com.seoro.seoro.domain.entity.ChatRoom;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import com.seoro.seoro.domain.entity.User.User;
+
 @Entity
 public class ChatRoomContent implements Serializable {
-    private Long chatRoomId;
-    private Long userId;
-    private Long photoId;
-    private Long contentId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long chatRoomContentId;
+    @ManyToOne(targetEntity = ChatRoom.class)
+    @JoinColumn(name = "chatRoomId")
+    private ChatRoom chatRoom;
+    @OneToOne
+    @JoinColumn(name = "userId")
+    private User user;
+    @OneToOne
+    @JoinColumn(name = "chatRoomPhotoId")
+    private ChatRoomPhoto chatRoomPhoto;
+    @OneToOne
+    @JoinColumn(name = "contentId")
+    private ContentDetail contentDetail;
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
 }

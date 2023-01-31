@@ -1,11 +1,14 @@
 package com.seoro.seoro.domain.entity.User;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
 public class Friend implements Serializable {
-    private Long userId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long friendId;
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "userId")
+    private User user;
 }
