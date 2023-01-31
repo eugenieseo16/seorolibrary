@@ -1,30 +1,23 @@
+import React, { useState } from 'react';
+
 import ClubRecommend from '@components/ClubRecommend/ClubRecommend';
 import UserRecommend from '@components/UserRecommend/UserRecommend';
-import React, { useEffect, useState } from 'react';
 import './Recommend.styles.scss';
+import ToggleNav from '@components/ToggleNav/ToggleNav';
 
 function Recommend() {
-  const [category, setCategory] = useState<'user' | 'club'>('user');
-
-  useEffect(() => {}, [category]);
+  const [selectedId, setSelectedId] = useState('0');
+  const setId = ({ target }: any) => setSelectedId(target.id);
 
   return (
     <div className="recommend-container">
-      <div
-        className="recommend-nav"
-        onClick={({ target }: any) => setCategory(target.id)}
-      >
-        <div id="user" className={category === 'user' ? 'selected' : ''}>
-          이용자추천
-        </div>
-        <div id="club" className={category === 'club' ? 'selected' : ''}>
-          모임 추천
-        </div>
-      </div>
+      <ToggleNav
+        selectedId={selectedId}
+        setId={setId}
+        items={['이용자추천', '모임추천']}
+      />
       {/* users 인경우는 react-slick 써서 캐러셀로 */}
-      <div className={category === 'user' ? 'users' : 'clubs'}>
-        {category === 'user' ? <UserRecommend /> : <ClubRecommend />}
-      </div>
+      {selectedId === '0' ? <UserRecommend /> : <ClubRecommend />}
     </div>
   );
 }
