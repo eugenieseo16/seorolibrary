@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 public class Review implements Serializable {
-    private Long reviewUserId;
+    private Long userId;
     private String isbn;
     private String reviewContent;
 }

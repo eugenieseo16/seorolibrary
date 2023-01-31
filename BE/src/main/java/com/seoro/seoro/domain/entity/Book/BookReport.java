@@ -8,6 +8,6 @@ import java.io.Serializable;
 public class BookReport implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookReportId;
-    private Long reportReadBookId;
+    private Long readBookId;
     private String bookReportContent;
 }

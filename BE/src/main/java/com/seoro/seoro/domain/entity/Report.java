@@ -8,6 +8,6 @@ import java.io.Serializable;
 public class Report implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
-    private Long reportedUserId;
+    private Long userId;
     private String reportContent;
 }
