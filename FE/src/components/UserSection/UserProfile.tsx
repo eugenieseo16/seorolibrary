@@ -15,24 +15,30 @@ export default function UserProfile() {
     getUserData();
   }, []);
 
-  console.log(userData);
-
   return (
     <div className="user-profile-container">
       {userData?.map((data: any) => (
-        <div>
-          <img src={data.user_profile} alt="" />
-          <span>{data.nickname}</span>
-          <span>@{data.username}</span>
-          <br />
+        <div className="user-profile">
+          <div className="profile-img">
+            <img src={data.user_profile} alt="" />
+          </div>
 
-          <div>
-            <span>팔로잉: {data.following}</span>
-            <span>팔로워: {data.follower}</span>
-            <button>
-              <RiChat3Line size={'2rem'} />
-            </button>
-            <button>팔로우</button>
+          <div className="profile">
+            <div className="profile-user">
+              <span>{data.nickname}</span>
+              <span>@{data.username}</span>
+            </div>
+
+            <div className="profile-follow">
+              <div>
+                <span>팔로잉: {data.following}</span>
+                <span>팔로워: {data.follower}</span>
+              </div>
+
+              <div>
+                <button>프로필 설정</button>
+              </div>
+            </div>
           </div>
         </div>
       ))}

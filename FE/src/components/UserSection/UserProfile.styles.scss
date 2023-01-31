@@ -1,11 +1,43 @@
 @import '../../styles/variables';
+
 .user-profile-container {
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
+  padding: 3rem;
+  .user-profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .profile-img {
+      margin-inline-end: 20px;
+      writing-mode: horizontal-tb;
+    }
+    .profile-follow {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
   img {
-    width: 3rem;
-    height: 3rem;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
+  }
+  button {
+    margin: 0;
+    padding: 0.5rem 1rem;
+
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: $beige;
+    text-decoration: none;
+    align-content: center;
+
+    display: inline-block;
+    width: auto;
+    height: 35px;
+
+    border: none;
+
+    background: $brown;
+    border-radius: 25px;
   }
 }
