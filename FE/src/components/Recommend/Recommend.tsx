@@ -7,13 +7,12 @@ import ToggleNav from '@components/ToggleNav/ToggleNav';
 
 function Recommend() {
   const [selectedId, setSelectedId] = useState('0');
-  const setId = ({ target }: any) => setSelectedId(target.id);
 
   return (
     <div className="recommend-container">
       <ToggleNav
         selectedId={selectedId}
-        setId={setId}
+        setSelectedId={setSelectedId}
         items={['이용자추천', '모임추천']}
       />
       {/* users 인경우는 react-slick 써서 캐러셀로 */}
