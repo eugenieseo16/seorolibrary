@@ -25,16 +25,16 @@ export default function CarouselHome() {
 
   return (
     <Slider {...settings} className="my-slider-home">
-    {recommendData?.map((data: any, i: number) => (
-      <div className="carousel-home-container">
-        <img src={data.image_url} alt="" />
-        <div className="shadow-wrapper-home"/>
-        <div className="content-home">
-          <h1>{data.title}</h1>
-          <h3>{data.description}</h3>
+      {recommendData?.map((data: any, i: number) => (
+        <div key={i} className="carousel-home-container">
+          <img src={data.image_url} alt="" />
+          <div className="shadow-wrapper-home" />
+          <div className="content-home">
+            <h1>{data.title}</h1>
+            <h3>{data.description}</h3>
+          </div>
         </div>
-      </div>
-    ))}
-  </Slider>
-);
+      ))}
+    </Slider>
+  );
 }

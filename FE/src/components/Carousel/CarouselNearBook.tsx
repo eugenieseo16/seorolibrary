@@ -28,7 +28,7 @@ export default function CarouselNearBook() {
   return (
     <Slider {...settings} className="my-slider-near-book">
       {booksData?.map((data: any, i: number) => (
-        <div className="recommend-near-book-container">
+        <div key={i} className="recommend-near-book-container">
           <div>
             <img src={data.image_url} alt="" />
           </div>
