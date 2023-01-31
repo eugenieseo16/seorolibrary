@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Friend implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long friendId;
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     @JoinColumn(name = "userId")
-    private User user;
+    private User friend;
 }
