@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+  // nav
   .library-nav {
     width: 100%;
     display: flex;
@@ -23,10 +24,31 @@
     }
     margin-bottom: 1rem;
   }
+  // book shelf
   .hold {
-    height: 5rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: center;
   }
   .read {
-    height: 5rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: center;
+  }
+  .book {
+    width: 30%;
+  }
+  img {
+    height: 100%;
+    width: 100%;
+    // object-fit: cover;
+    padding: 0.5rem;
+  }
+  a {
+    font-size: 0.8rem;
   }
 }
