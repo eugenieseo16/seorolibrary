@@ -16,11 +16,12 @@ public class User implements Serializable {
     private String userPassword;
     private String userProfile;
     private String userAddress;
+    @Enumerated(EnumType.STRING)
     private LoginType loginType;
     @Temporal(TemporalType.DATE)
     private Date withdrawalDate;
     private Integer userScore;
-    @OneToMany(mappedBy = "user")
-    private List<User> friend = new ArrayList<>();
+    @OneToMany(mappedBy = "friend")
+    private List<Friend> friends = new ArrayList<>();
 
 }
