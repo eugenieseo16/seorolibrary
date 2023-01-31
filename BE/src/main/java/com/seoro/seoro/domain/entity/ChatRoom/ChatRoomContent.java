@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity;
+package com.seoro.seoro.domain.entity.ChatRoom;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Temporal;

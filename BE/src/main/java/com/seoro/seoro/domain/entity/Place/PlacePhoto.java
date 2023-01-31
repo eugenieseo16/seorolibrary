@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity;
+package com.seoro.seoro.domain.entity.Place;
 
 import jakarta.persistence.Entity;
 
