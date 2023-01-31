@@ -9,8 +9,8 @@ import java.util.Date;
 public class ReadBook implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long readBookId;
-    private Long readUserId;
-    private String readIsbn;
+    private Long userId;
+    private String isbn;
     @Temporal(TemporalType.DATE)
     private Date readDate;
 }

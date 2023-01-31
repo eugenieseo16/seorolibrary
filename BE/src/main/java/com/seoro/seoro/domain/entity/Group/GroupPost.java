@@ -9,7 +9,7 @@ import java.util.Date;
 public class GroupPost implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupPostId;
-    private Long GroupId;
+    private Long groupId;
     private Long userId;
     private PostCategory postCategory;
     @Temporal(TemporalType.TIMESTAMP)
