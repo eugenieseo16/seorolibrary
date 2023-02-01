@@ -1,14 +1,27 @@
 import React from 'react';
 
-function BookDetail () {
+import SearchHeader from '@components/SearchHeader/SearchHeader';
+import BookInfo from '@components/BookInfo/BookInfo';
+import BookStat from '@components/BookInfo/BookStat';
+import BookReview from '@components/BookInfo/BookReview';
+
+import './BookDetail.styles.scss';
+
+function BookDetail() {
   return (
-    <div>Book Detail
-      <h1>도서 검색했을 때 나오는 도서 상세페이지</h1>
-      <h1>책정보</h1>
-      <h1>리뷰</h1>
-      <h1>근처 보유 사용자</h1>
+    <div className="book-detail-container">
+      <SearchHeader text="도서 정보" />
+      <BookInfo />
+      <BookStat />
+      {/* 사용자의 보유도서 상세를 클릭한 경우 */}
+      <div>보유도서</div>
+      <p>carousel</p>
+      {/* 표준 도서상세 */}
+      <div>보유사용자</div>
+      <p>carousel</p>
+      <BookReview />
     </div>
-  )
+  );
 }
 
 export default BookDetail;
