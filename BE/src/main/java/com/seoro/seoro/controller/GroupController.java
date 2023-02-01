@@ -1,10 +1,7 @@
 package com.seoro.seoro.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
+import org.springframework.web.bind.annotation.*;
 
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -22,10 +19,11 @@ public class GroupController {
 
 	@PostMapping("/signup")
 	public ResultResponseDto makeGroup(@ModelAttribute GroupSignupRequestDto requestDto) {
-		System.out.println("나와봐");
 		return groupService.makeGroup(requestDto);
 	}
 
-	// @GetMapping("/{groupid}")
-	// public
+	 @GetMapping("/{groupid}")
+	 public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
+		return groupService.groupDetail(groupId);
+	 }
 }
