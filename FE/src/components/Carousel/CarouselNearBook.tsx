@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -25,14 +26,22 @@ export default function CarouselNearBook() {
     getBooksData();
   }, []);
 
+  const navigate = useNavigate();
+  const onClickDetail = () => {
+    // API 연결되면 바꿔주기
+    navigate(`/bookdetail`);
+  };
+
   return (
     <Slider {...settings} className="my-slider-near-book">
       {booksData?.map((data: any, i: number) => (
-        <div key={i} className="recommend-near-book-container">
+        <div
+          key={i}
+          className="recommend-near-book-container"
+          onClick={onClickDetail}
+        >
           <div>
             <img src={data.image_url} alt="" />
-          </div>
-          <div>
             <h2>{data.title}</h2>
           </div>
         </div>
