@@ -9,11 +9,9 @@ import java.util.List;
 
 import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
-import com.seoro.seoro.domain.entity.Book.RentBook;
 import com.seoro.seoro.domain.entity.Book.Review;
 import com.seoro.seoro.domain.entity.ChatRoom.ChatRoomJoin;
-import com.seoro.seoro.domain.entity.Genre;
-import com.seoro.seoro.domain.entity.Group.GroupJoin;
+import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.domain.entity.Place.Place;
 
 @Entity
