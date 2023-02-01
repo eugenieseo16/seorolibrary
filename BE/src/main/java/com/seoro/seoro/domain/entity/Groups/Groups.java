@@ -46,17 +46,4 @@ public class Groups implements Serializable {
     @OneToMany(mappedBy = "groups")
     private List<GroupPost> posts = new ArrayList<>();
 
-    // @Builder
-    // public Groups(User host, String groupName, String groupIntroduction, int groupCapacity, String groupProfile,
-    //     Boolean isOnline, String gropuDongCode, Date groupStartDate, Date groupEndDate) {
-    //     this.host = host;
-    //     this.groupName = groupName;
-    //     this.groupIntroduction = groupIntroduction;
-    //     this.groupCapacity = groupCapacity;
-    //     this.groupProfile = groupProfile;
-    //     this.isOnline = isOnline;
-    //     this.gropuDongCode = gropuDongCode;
-    //     this.groupStartDate = groupStartDate;
-    //     this.groupEndDate = groupEndDate;
-    // }
 }

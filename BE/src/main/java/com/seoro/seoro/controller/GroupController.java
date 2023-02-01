@@ -1,5 +1,6 @@
 package com.seoro.seoro.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,4 +25,7 @@ public class GroupController {
 		System.out.println("나와봐");
 		return groupService.makeGroup(requestDto);
 	}
+
+	// @GetMapping("/{groupid}")
+	// public
 }
