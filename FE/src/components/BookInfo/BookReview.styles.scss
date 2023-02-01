@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+.book-review-container {
+  .review-item {
+    display: flex;
+    flex-direction: column;
+  }
+  img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+  }
+}
