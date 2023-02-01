@@ -1,6 +1,7 @@
 package com.seoro.seoro.domain.entity.User;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,17 +13,20 @@ import com.seoro.seoro.domain.entity.Book.ReadBook;
 import com.seoro.seoro.domain.entity.Book.Review;
 import com.seoro.seoro.domain.entity.ChatRoom.ChatRoomJoin;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
+import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Place.Place;
-
 @Entity
 public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+    @NotNull
     private String userEmail;
+    @NotNull
     private String userName;
+    @NotNull
     private String userPassword;
     private String userProfile;
-    private String userAddress;
+    private String userDongCode;
     @Enumerated(EnumType.STRING)
     private LoginType loginType;
     @Temporal(TemporalType.DATE)
@@ -34,6 +38,8 @@ public class User implements Serializable {
     private List<Review> reviews = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<ChatRoomJoin> chatRooms = new ArrayList<>();
+    @OneToMany(mappedBy = "host")
+    private List<Groups> hostGroups = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<GroupJoin> groupJoins = new ArrayList<>();
     @OneToMany(mappedBy = "user")
