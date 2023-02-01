@@ -18,3 +18,6 @@ export interface IUser {
   username: string;
   nickname: string;
 }
+export interface IUserResponse {
+  data: IUser[];
+}

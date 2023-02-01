@@ -29,7 +29,7 @@ export default function ClubRecommendCarousel() {
         <div
           key={i}
           className="carousel-container"
-          onClick={() => navigate(`./${i}`)}
+          onClick={() => navigate(`/book-club/${i}`)}
         >
           <img src={data.image_url} alt="" />
           <div className="shadow-wrapper" />
