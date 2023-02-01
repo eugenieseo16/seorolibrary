@@ -27,16 +27,14 @@ const Nearbooks = () => {
         {data?.data?.map((nearBooks: any, i: number) => (
           <div key={i} className="book-container">
             <img src={nearBooks.image_url} alt="" />
-            <h2>
-              <MdLocalCafe />
-              &nbsp;
-              {nearBooks.title}
-            </h2>
-            <h6>
-              {nearBooks.title}&nbsp;
-              {nearBooks.title}&nbsp;
-              {nearBooks.title}
-            </h6>
+            <div className="book-info-container">
+              <h2>
+                {nearBooks.title}
+              </h2>
+              <h6>
+                {nearBooks.title}
+              </h6>
+            </div>
             <div />
           </div>
         ))}

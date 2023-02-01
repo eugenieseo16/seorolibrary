@@ -9,35 +9,37 @@
 
 .book-container {
   display: grid;
-  grid-template-columns: 2fr 3fr 1fr;
+  margin: 1rem;
+  grid-template-columns: 1.3fr 3fr;
   // height: 14rem;
 
   img {
     width: 100%;
-    aspect-ratio: 4 / 1;
+    aspect-ratio: 2/3;
     object-fit: cover;
   }
-
-  h6 {
-    font-size: 0.9rem;
-    // line-height: 1rem;
-    font-weight: 200;
-    color: black;
-    padding: 0.5rem;
-    margin-left: 1rem;
-  }
-  h2 {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  div {
-    background-color: #d9d9d9;
-    height: 1px;
-    margin-bottom: 1rem;
+  // div {
+  //   background-color: #d9d9d9;
+  //   height: 1px;
+  //   margin-bottom: 1rem;
+  // }
+  .book-info-container{
+    margin: 1rem;
+    h6 {
+      font-size: 0.9rem;
+      // line-height: 1rem;
+      font-weight: 200;
+      color: black;
+      padding: 0.5rem;
+      margin-left: 1rem;
+    }
+    h2 {
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 400;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
