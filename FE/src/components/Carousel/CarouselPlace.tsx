@@ -10,19 +10,22 @@ export interface ICarouselPlaceProps {
   items: Item[];
   slidesToShow?: number;
   infinite?: boolean;
+  className?: string;
   [key: string]: any;
 }
 interface Item {
   image_url: string;
   title: string;
   description?: string;
+  header?: string;
 }
 
 function CarouselPlace({
   items,
   slidesToShow = 4,
   infinite = true,
-  ...rest
+  style,
+  className,
 }: ICarouselPlaceProps) {
   const settings = {
     dots: false,
@@ -33,12 +36,13 @@ function CarouselPlace({
     infinite,
   };
   return (
-    <Slider {...settings} {...rest} className="my-slider-place">
+    <Slider {...settings} className={`my-slider-place ${className}`}>
       {items?.map((data, i: number) => (
-        <div key={i} className="carousel-place-container">
+        <div key={i} className="carousel-place-container" style={style}>
           <img src={data.image_url} alt="" />
           <div className="shadow-wrapper-place" />
           <div className="content-place">
+            {data.header && <p>{data.header}</p>}
             <h2>{data.title}</h2>
             {data.description && <p>{data.description}</p>}
           </div>
