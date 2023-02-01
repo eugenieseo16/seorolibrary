@@ -22,5 +22,8 @@
     width: 100%;
     font-size: 0.8rem;
     padding: 0.3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
