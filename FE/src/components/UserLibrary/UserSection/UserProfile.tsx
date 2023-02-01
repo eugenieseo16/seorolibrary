@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './UserProfile.styles.scss';
 
-import { RiSettings4Line } from 'react-icons/ri';
+import { FaRegChartBar } from 'react-icons/fa';
 
 export default function UserProfile() {
   const [userData, setUserData] = useState<any>();
@@ -49,7 +49,7 @@ export default function UserProfile() {
                 {/* 나의 미니도서관이면 */}
                 <button onClick={onClickBookRegister}>도서 등록</button>
                 <button>
-                  <RiSettings4Line
+                  <FaRegChartBar
                     onClick={onClickProfileSettings}
                     size={'2rem'}
                   />
