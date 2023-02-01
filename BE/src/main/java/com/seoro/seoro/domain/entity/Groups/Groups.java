@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity.Group;
+package com.seoro.seoro.domain.entity.Groups;
 
 import jakarta.persistence.*;
 
@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.seoro.seoro.domain.entity.Genre;
-
 @Entity
-public class Group implements Serializable {
+public class Groups implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
     private Long groupHostId;
@@ -25,12 +23,12 @@ public class Group implements Serializable {
     private Date groupStartDate;
     @Temporal(TemporalType.DATE)
     private Date groupEndDate;
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groups")
     private List<GroupAply> aplies = new ArrayList<>();
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groups")
     private List<GroupJoin> joins = new ArrayList<>();
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groups")
     private List<GroupGenre> genres = new ArrayList<>();
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groups")
     private List<GroupPost> posts = new ArrayList<>();
 }

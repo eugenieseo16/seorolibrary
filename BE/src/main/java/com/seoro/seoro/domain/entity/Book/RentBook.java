@@ -11,7 +11,7 @@ import com.seoro.seoro.domain.entity.User.User;
 @Entity
 public class RentBook implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String rendBookId;
+    private Long rendBookId;
     @ManyToOne(targetEntity = ChatRoom.class)
     @JoinColumn(name = "chatRoomId")
     private ChatRoom chatRoom;

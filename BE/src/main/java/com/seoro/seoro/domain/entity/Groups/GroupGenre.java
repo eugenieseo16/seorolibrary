@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity.Group;
+package com.seoro.seoro.domain.entity.Groups;
 
 import jakarta.persistence.*;
 
@@ -10,9 +10,9 @@ import com.seoro.seoro.domain.entity.Genre;
 public class GroupGenre implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupGenreId;
-    @ManyToOne(targetEntity = Group.class)
+    @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
-    private Group group;
+    private Groups groups;
     @ManyToOne(targetEntity = Genre.class)
     @JoinColumn(name = "genreId")
     private Genre genre;

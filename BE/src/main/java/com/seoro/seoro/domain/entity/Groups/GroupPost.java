@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity.Group;
+package com.seoro.seoro.domain.entity.Groups;
 
 import jakarta.persistence.*;
 
@@ -13,9 +13,9 @@ import com.seoro.seoro.domain.entity.User.User;
 public class GroupPost implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupPostId;
-    @ManyToOne(targetEntity = Group.class)
+    @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
-    private Group group;
+    private Groups groups;
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;

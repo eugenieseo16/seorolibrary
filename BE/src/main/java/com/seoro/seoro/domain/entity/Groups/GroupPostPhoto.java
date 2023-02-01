@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity.Group;
+package com.seoro.seoro.domain.entity.Groups;
 
 import jakarta.persistence.*;
 
