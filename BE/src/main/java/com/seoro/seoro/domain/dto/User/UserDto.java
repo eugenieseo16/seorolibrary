@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.dto;
+package com.seoro.seoro.domain.dto.User;
 
 import java.util.Date;
 
