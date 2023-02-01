@@ -10,4 +10,5 @@ public class SeoroApplication {
 		SpringApplication.run(SeoroApplication.class, args);
 	}
 
+
 }
