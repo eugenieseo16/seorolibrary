@@ -20,16 +20,31 @@ import CarouselPlace, {
 function fetchData(): Promise<IClubDetail> {
   return axios.get('/clubDetail.json').then(response => response.data);
 }
-const getPlacesData = async () => await (await fetch('/books.json')).json();
 
 function BookClubDetail() {
   const { id } = useParams();
   const { data: detailData } = useQuery(`club-detail-${id}`, fetchData);
+
   const newData: ICarouselPlaceProps = {
     items: [
-      { title: detailData?.meta.posts + '', image_url: sample1 },
-      { title: detailData?.meta.posts + '', image_url: sample2 },
-      { title: detailData?.meta.posts + '', image_url: sample3 },
+      {
+        title: detailData?.meta.posts + '',
+        image_url: sample1,
+        header: '오늘까지',
+        description: '모였어요',
+      },
+      {
+        title: detailData?.meta.posts + '',
+        image_url: sample2,
+        header: '맴버들이',
+        description: '의 글을 썼어요',
+      },
+      {
+        title: detailData?.meta.posts + '',
+        image_url: sample3,
+        header: '가장 최근',
+        description: '에 모였어요',
+      },
     ],
   };
 
@@ -79,7 +94,7 @@ function BookClubDetail() {
             items={newData.items}
             slidesToShow={3}
             infinite={true}
-            style={{ width: '100%' }}
+            className="meta-data"
           />
         </div>
         <ClubRecommendCarousel />
