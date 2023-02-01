@@ -1,0 +1,12 @@
+@import '../../styles/variables';
+
+.user-header-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 1rem;
+  .user-header-item{
+    margin-left: 20px;
+    color: $deep-brown;
+  }
+}
