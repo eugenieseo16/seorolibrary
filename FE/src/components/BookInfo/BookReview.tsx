@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 
+import { RiAddFill } from 'react-icons/ri';
+
 import './BookReview.styles.scss';
 
 function BookReview() {
@@ -10,7 +12,11 @@ function BookReview() {
 
   return (
     <div className="book-review-container">
-      <h1>리뷰</h1>
+      <div className="book-review-header">
+        <h1>리뷰</h1>
+        <RiAddFill size={'2rem'} />
+      </div>
+
       <div>
         {data?.data?.map((review: any, i: number) => (
           <div className="review-item" key={i}>
