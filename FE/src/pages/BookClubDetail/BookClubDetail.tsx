@@ -5,6 +5,9 @@ import axios from 'axios';
 import { BiMap } from 'react-icons/bi';
 import { BsCalendarDate } from 'react-icons/bs';
 import { HiUsers } from 'react-icons/hi';
+import sample1 from '@src/assets/images/sample1.png';
+import sample2 from '@src/assets/images/sample2.png';
+import sample3 from '@src/assets/images/sample3.png';
 
 import { IClubDetail } from '@src/types/types';
 import './BookClubDetail.styles.scss';
@@ -24,10 +27,9 @@ function BookClubDetail() {
   const { data: detailData } = useQuery(`club-detail-${id}`, fetchData);
   const newData: ICarouselPlaceProps = {
     items: [
-      { title: detailData?.meta.posts + '', image_url: '' },
-      { title: detailData?.meta.posts + '', image_url: '' },
-      { title: detailData?.meta.posts + '', image_url: '' },
-      { title: detailData?.meta.posts + '', image_url: '' },
+      { title: detailData?.meta.posts + '', image_url: sample1 },
+      { title: detailData?.meta.posts + '', image_url: sample2 },
+      { title: detailData?.meta.posts + '', image_url: sample3 },
     ],
   };
 
@@ -73,7 +75,12 @@ function BookClubDetail() {
         </div>
         <div>
           <h2>우리는 이만큼 활동했어요</h2>
-          <CarouselPlace items={newData.items} slidesToShow={3} />
+          <CarouselPlace
+            items={newData.items}
+            slidesToShow={3}
+            infinite={true}
+            style={{ width: '100%' }}
+          />
         </div>
         <ClubRecommendCarousel />
       </div>
