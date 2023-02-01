@@ -11,7 +11,7 @@ import CarouselPlace from '@components/Carousel/CarouselPlace';
 function Home() {
   return (
     <div className="home-container">
-      <SearchHeader />
+      <SearchHeader text="훈목님 안녕하세요." />
       <CarouselHome />
       <div>
         <h1 className="home-text">근처 빌릴 수 있는 도서</h1>
