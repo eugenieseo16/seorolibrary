@@ -1,12 +1,14 @@
 package com.seoro.seoro.domain.entity.ChatRoom;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 public class ChatRoom implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chatRoomId;
