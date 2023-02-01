@@ -2,8 +2,10 @@ package com.seoro.seoro.domain.entity.Groups;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +16,9 @@ import com.seoro.seoro.domain.entity.User.User;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Groups implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
@@ -41,17 +46,17 @@ public class Groups implements Serializable {
     @OneToMany(mappedBy = "groups")
     private List<GroupPost> posts = new ArrayList<>();
 
-    @Builder
-    public Groups(User host, String groupName, String groupIntroduction, int groupCapacity, String groupProfile,
-        Boolean isOnline, String gropuDongCode, Date groupStartDate, Date groupEndDate) {
-        this.host = host;
-        this.groupName = groupName;
-        this.groupIntroduction = groupIntroduction;
-        this.groupCapacity = groupCapacity;
-        this.groupProfile = groupProfile;
-        this.isOnline = isOnline;
-        this.gropuDongCode = gropuDongCode;
-        this.groupStartDate = groupStartDate;
-        this.groupEndDate = groupEndDate;
-    }
+    // @Builder
+    // public Groups(User host, String groupName, String groupIntroduction, int groupCapacity, String groupProfile,
+    //     Boolean isOnline, String gropuDongCode, Date groupStartDate, Date groupEndDate) {
+    //     this.host = host;
+    //     this.groupName = groupName;
+    //     this.groupIntroduction = groupIntroduction;
+    //     this.groupCapacity = groupCapacity;
+    //     this.groupProfile = groupProfile;
+    //     this.isOnline = isOnline;
+    //     this.gropuDongCode = gropuDongCode;
+    //     this.groupStartDate = groupStartDate;
+    //     this.groupEndDate = groupEndDate;
+    // }
 }

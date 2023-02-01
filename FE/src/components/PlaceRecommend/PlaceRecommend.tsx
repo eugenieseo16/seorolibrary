@@ -21,7 +21,7 @@ const PlaceRecommend = () => {
       dataLength={8}
       next={fetchData}
       hasMore={true}
-      loader={<h4>Loading...</h4>}
+      loader=""
     >
       <div>
         {data?.data?.map((placeRecommend: any, id: number) => (
