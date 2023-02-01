@@ -2,12 +2,14 @@ package com.seoro.seoro.domain.entity.Book;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Getter
 @Entity
 public class Book implements Serializable {
     @Id
