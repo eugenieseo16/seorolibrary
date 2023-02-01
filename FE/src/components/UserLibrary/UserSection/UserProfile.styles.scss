@@ -1,19 +1,22 @@
-@import '../../styles/variables';
+@import '../../../styles/variables';
 
 .user-profile-container {
-  padding: 3rem;
+  padding: 1rem 3rem;
   .user-profile {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    // flex-direction: row;
+    // align-items: ;
     .profile-img {
       margin-inline-end: 20px;
       writing-mode: horizontal-tb;
     }
-    .profile-follow {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
+    .profile {
+      flex: 2;
+      .profile-button {
+        display: flex;
+
+        justify-content: end;
+      }
     }
   }
   img {
@@ -22,8 +25,9 @@
     border-radius: 50%;
   }
   button {
-    margin: 0;
-    padding: 0.5rem 1rem;
+    // margin: 0;
+    padding: 0rem 1rem;
+    margin-inline-end: 1rem;
 
     font-size: 0.8rem;
     font-weight: 400;
@@ -33,7 +37,7 @@
 
     display: inline-block;
     width: auto;
-    height: 35px;
+    height: 40px;
 
     border: none;
 
