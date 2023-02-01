@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
-import com.seoro.seoro.service.GroupService;
+import com.seoro.seoro.service.Group.GroupService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

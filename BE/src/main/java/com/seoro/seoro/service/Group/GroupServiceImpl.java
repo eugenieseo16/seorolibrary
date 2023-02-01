@@ -1,4 +1,4 @@
-package com.seoro.seoro.service;
+package com.seoro.seoro.service.Group;
 
 import java.util.Optional;
 
@@ -11,7 +11,6 @@ import com.seoro.seoro.domain.entity.User.User;
 import com.seoro.seoro.repository.Group.GroupRepository;
 import com.seoro.seoro.repository.User.UserRepository;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
