@@ -14,7 +14,9 @@ import BookRegister from '@pages/UserLibrary/BookRegister/BookRegister'
 import Login from '@pages/Login';
 import WithNavLayout from '@pages/withNavLayout/WithNavLayout';
 import BookClub from '@pages/BookClub/BookClub';
+import Places from '@pages/Places/Places';
 import BookClubDetail from '@pages/BookClubDetail/BookClubDetail';
+
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -33,6 +35,7 @@ function Router() {
         <Route path="/profile/register" element={<BookRegister/>} />
 
         <Route path="/book-club" element={<BookClub />} />
+        <Route path="/places" element={<Places />} />
         <Route path="/book-club/:id" element={<BookClubDetail />} />
         <Route path="*" element={'404'} />
       </Route>
