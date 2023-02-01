@@ -1,6 +1,7 @@
 package com.seoro.seoro.domain.entity.Book;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,8 +12,11 @@ import java.util.List;
 public class Book implements Serializable {
     @Id
     private String isbn;
+    @NotNull
     private String bookTitle;
+    @NotNull
     private String bookAuthor;
+    @NotNull
     private String bookPublisher;
     private String bookImage;
     private String bookDescrib;

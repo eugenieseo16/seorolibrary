@@ -7,7 +7,7 @@ import java.io.Serializable;
 import com.seoro.seoro.domain.entity.User.User;
 
 @Entity
-public class GroupAply implements Serializable {
+public class GroupApply implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupAplyId;
     @ManyToOne(targetEntity = Groups.class)
