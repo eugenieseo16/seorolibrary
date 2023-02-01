@@ -10,6 +10,7 @@ import { IClubDetail } from '@src/types/types';
 import './BookClubDetail.styles.scss';
 import ClubRecommendCarousel from '@components/Carousel/ClubRecommendCarousel';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
+import CarouselPlace from '@components/Carousel/CarouselPlace';
 
 function fetchClubDetail(): Promise<IClubDetail> {
   return axios.get('/clubDetail.json').then(response => response.data);
@@ -22,6 +23,7 @@ function BookClubDetail() {
   return (
     <>
       <div className="book-club-detail-container">
+        <CarouselPlace url="/places.json" />
         <div className="book-club-detail-header">
           <img src={data?.image_url} alt="" />
           <h1>{data?.title}</h1>
