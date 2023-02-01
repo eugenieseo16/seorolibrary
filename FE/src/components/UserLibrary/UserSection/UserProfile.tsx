@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './UserProfile.styles.scss';
+import { useNavigate } from 'react-router-dom';
 
-import { RiChat3Line } from 'react-icons/ri';
+// import './UserProfile.styles.scss';
 
 export default function UserProfile() {
   const [userData, setUserData] = useState<any>();
@@ -9,6 +9,14 @@ export default function UserProfile() {
   const getUserData = async () => {
     const { data } = await (await fetch('/user.json')).json();
     setUserData(data);
+  };
+
+  const navigate = useNavigate();
+  const onClickProfileSettings = () => {
+    navigate(`/profile/settings`);
+  };
+  const onClickBookRegister = () => {
+    navigate(`/profile/register`);
   };
 
   useEffect(() => {
@@ -36,7 +44,13 @@ export default function UserProfile() {
               </div>
 
               <div>
-                <button>프로필 설정</button>
+                {/* 나의 미니도서관이면 */}
+                <button onClick={onClickProfileSettings}>프로필 설정</button>
+                <button onClick={onClickBookRegister}>도서 등록</button>
+
+                {/* 타유저의 미니도서관이면 */}
+                {/* <button>1:1채팅</button>
+                <button>팔로우</button> */}
               </div>
             </div>
           </div>
