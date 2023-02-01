@@ -31,8 +31,6 @@ export default function CarouselNearBook() {
         <div key={i} className="recommend-near-book-container">
           <div>
             <img src={data.image_url} alt="" />
-          </div>
-          <div>
             <h2>{data.title}</h2>
           </div>
         </div>
