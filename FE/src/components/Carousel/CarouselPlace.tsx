@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './CarouselPlace.styles.scss';
+import { useQuery } from 'react-query';
 
 const settings = {
   dots: false,
@@ -13,21 +14,13 @@ const settings = {
   swipeToSlide: true,
 };
 
-export default function CarouselPlace() {
-  const [placesData, setPlacesData] = useState<any>();
-  const getPlacesData = async () => {
-    const url = '/places.json';
-    const { data } = await (await fetch(url)).json();
-    setPlacesData(data);
-  };
-
-  useEffect(() => {
-    getPlacesData();
-  }, []);
+export default function CarouselPlace({ url }: { url: string }) {
+  const getPlacesData = async () => await (await fetch(url)).json();
+  const { data } = useQuery(url, getPlacesData);
 
   return (
     <Slider {...settings} className="my-slider-place">
-      {placesData?.map((data: any, i: number) => (
+      {data?.data?.map((data: any, i: number) => (
         <div key={i} className="carousel-place-container">
           <img src={data.thumUrl} alt="" />
           <div className="shadow-wrapper-place" />
