@@ -24,7 +24,6 @@ function CarouselPlace({
   items,
   slidesToShow = 4,
   infinite = true,
-  style,
   className,
 }: ICarouselPlaceProps) {
   const settings = {
@@ -38,7 +37,7 @@ function CarouselPlace({
   return (
     <Slider {...settings} className={`my-slider-place ${className}`}>
       {items?.map((data, i: number) => (
-        <div key={i} className="carousel-place-container" style={style}>
+        <div key={i} className="carousel-place-container">
           <img src={data.image_url} alt="" />
           <div className="shadow-wrapper-place" />
           <div className="content-place">
