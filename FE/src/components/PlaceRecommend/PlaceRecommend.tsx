@@ -11,28 +11,32 @@ const PlaceRecommend = () => {
 
   const fetchData = () => {
     setTimeout(() => {
-      setPlacesData(placesData.concat(Array.from({ length: 8 })));
+      setPlacesData(placesData.concat(Array.from({ length: 6 })));
     }, 1500);
   };
 
   return (
     <InfiniteScroll
       className="place-recommend-container"
-      dataLength={15}
+      dataLength={8}
       next={fetchData}
       hasMore={true}
       loader={<h4>Loading...</h4>}
     >
       <div>
-        {data?.data?.map((placeRecommend: any, i: number) => (
-          <div key={i} className="place-container">
-            <img src={placeRecommend.thumUrl} alt="" />
+        {data?.data?.map((placeRecommend: any, id: number) => (
+          <div key={id} className="place-container">
+            <img src={placeRecommend.image_url} alt="" />
             <h2>
               <MdLocalCafe />
               &nbsp;
-              {placeRecommend.name}
+              {placeRecommend.title}
             </h2>
-            <h6>{placeRecommend.address}</h6>
+            <h6>
+              {placeRecommend.title}&nbsp;
+              {placeRecommend.title}&nbsp;
+              {placeRecommend.title}
+            </h6>
             <div />
           </div>
         ))}
