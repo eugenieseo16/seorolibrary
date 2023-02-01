@@ -15,6 +15,7 @@ import WithNavLayout from '@pages/withNavLayout/WithNavLayout';
 import BookClub from '@pages/BookClub/BookClub';
 import Places from '@pages/Places/Places';
 import BookClubDetail from '@pages/BookClubDetail/BookClubDetail';
+import Near from '@pages/Near/Near';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -33,6 +34,7 @@ function Router() {
 
         <Route path="/book-club" element={<BookClub />} />
         <Route path="/places" element={<Places />} />
+        <Route path="/near" element={<Near />} />
         <Route path="/book-club/:id" element={<BookClubDetail />} />
         <Route path="*" element={'404'} />
       </Route>
