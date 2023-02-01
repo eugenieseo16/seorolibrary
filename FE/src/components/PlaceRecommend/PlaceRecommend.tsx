@@ -6,18 +6,17 @@ import { MdLocalCafe } from 'react-icons/md';
 
 const PlaceRecommend = () => {
   const [placesData, setPlacesData] = useState<any>();
-  const getPlacesData = async () =>
-    await (await fetch('/places.json')).json();
+  const getPlacesData = async () => await (await fetch('/places.json')).json();
   const { data } = useQuery('place-recommend', getPlacesData);
-  
+
   const fetchData = () => {
     setTimeout(() => {
-      setPlacesData(placesData.concat(Array.from({ length: 8})))
-    }, 1500)
-  }
-  
+      setPlacesData(placesData.concat(Array.from({ length: 8 })));
+    }, 1500);
+  };
+
   return (
-    <InfiniteScroll 
+    <InfiniteScroll
       className="place-recommend-container"
       dataLength={15}
       next={fetchData}
@@ -28,9 +27,13 @@ const PlaceRecommend = () => {
         {data?.data?.map((placeRecommend: any, i: number) => (
           <div key={i} className="place-container">
             <img src={placeRecommend.thumUrl} alt="" />
-            <h2><MdLocalCafe/>{placeRecommend.name}</h2>
+            <h2>
+              <MdLocalCafe />
+              &nbsp;
+              {placeRecommend.name}
+            </h2>
             <h6>{placeRecommend.address}</h6>
-            <hr/>
+            <div />
           </div>
         ))}
       </div>
