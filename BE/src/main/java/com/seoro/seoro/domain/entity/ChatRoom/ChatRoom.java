@@ -1,12 +1,17 @@
 package com.seoro.seoro.domain.entity.ChatRoom;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChatRoom implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chatRoomId;
