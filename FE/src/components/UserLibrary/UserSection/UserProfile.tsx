@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import './UserProfile.styles.scss';
+import './UserProfile.styles.scss';
+
+import { RiSettings4Line } from 'react-icons/ri';
 
 export default function UserProfile() {
   const [userData, setUserData] = useState<any>();
@@ -33,7 +35,7 @@ export default function UserProfile() {
 
           <div className="profile">
             <div className="profile-user">
-              <span>{data.nickname}</span>
+              <h2>{data.nickname}</h2>
               <span>@{data.username}</span>
             </div>
 
@@ -43,15 +45,21 @@ export default function UserProfile() {
                 <span>팔로워: {data.follower}</span>
               </div>
 
-              <div>
+              <div className="profile-button">
                 {/* 나의 미니도서관이면 */}
-                <button onClick={onClickProfileSettings}>프로필 설정</button>
                 <button onClick={onClickBookRegister}>도서 등록</button>
-
-                {/* 타유저의 미니도서관이면 */}
-                {/* <button>1:1채팅</button>
-                <button>팔로우</button> */}
+                <button>
+                  <RiSettings4Line
+                    onClick={onClickProfileSettings}
+                    size={'2rem'}
+                  />
+                </button>
               </div>
+              {/* 타유저의 미니도서관이면 */}
+              {/* <div className="profile-button">
+                <button>1:1채팅</button>
+                <button>팔로우</button>
+              </div> */}
             </div>
           </div>
         </div>
