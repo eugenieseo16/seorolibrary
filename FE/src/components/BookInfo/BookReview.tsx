@@ -14,9 +14,14 @@ function BookReview() {
       <div>
         {data?.data?.map((review: any, i: number) => (
           <div className="review-item" key={i}>
-            <img src={review.profile_img} alt="" />
-            <p>{review.nickname}</p>
-            <a>{review.content}</a>
+            <div className="review-user-info">
+              <img src={review.profile_img} alt="" />
+              <p>{review.nickname}</p>
+            </div>
+
+            <div className="review-detail">
+              <a>{review.content}</a>
+            </div>
           </div>
         ))}
       </div>
