@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 
+import { RiChatQuoteLine, RiFileList3Line, RiBookOpenLine } from 'react-icons/ri';
+
 import './BookInfo.styles.scss';
 
 function BookInfo() {
@@ -27,28 +29,8 @@ function BookInfo() {
       <div className="book-description">
         <p>{data?.description}</p>
       </div>
-
-      <div className="book-info-summary">
-        <div>
-          읽은 유저 수
-          <br />
-          {data?.readUsers.length}명
-        </div>
-        <div className="vertical-line"></div>
-
-        <div>
-          한줄평
-          <br />
-          {data?.comment.length}개
-        </div>
-        <div className="vertical-line"></div>
-
-        <div>
-          독서 리뷰
-          <br />
-          {data?.review.length}개
-        </div>
-      </div>
+      <div>
+    </div>
     </div>
   );
 }
