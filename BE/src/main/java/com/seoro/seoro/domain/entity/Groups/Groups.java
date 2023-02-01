@@ -1,5 +1,6 @@
 package com.seoro.seoro.domain.entity.Groups;
 
+import com.seoro.seoro.domain.entity.Book.Book;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -45,18 +46,7 @@ public class Groups implements Serializable {
     private List<GroupGenre> genres = new ArrayList<>();
     @OneToMany(mappedBy = "groups")
     private List<GroupPost> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "groups")
+    private List<GroupBook> books = new ArrayList<>();
 
-    // @Builder
-    // public Groups(User host, String groupName, String groupIntroduction, int groupCapacity, String groupProfile,
-    //     Boolean isOnline, String gropuDongCode, Date groupStartDate, Date groupEndDate) {
-    //     this.host = host;
-    //     this.groupName = groupName;
-    //     this.groupIntroduction = groupIntroduction;
-    //     this.groupCapacity = groupCapacity;
-    //     this.groupProfile = groupProfile;
-    //     this.isOnline = isOnline;
-    //     this.gropuDongCode = gropuDongCode;
-    //     this.groupStartDate = groupStartDate;
-    //     this.groupEndDate = groupEndDate;
-    // }
 }
