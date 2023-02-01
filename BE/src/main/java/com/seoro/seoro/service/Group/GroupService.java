@@ -1,4 +1,4 @@
-package com.seoro.seoro.service;
+package com.seoro.seoro.service.Group;
 
 import org.springframework.stereotype.Service;
 
