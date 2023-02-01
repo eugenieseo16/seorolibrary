@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 
 .my-slider-place {
-  width: 120%;
+  width: 100%;
 
   .carousel-place-container {
     display: flex;
@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     aspect-ratio: 1;
-    padding-right: 10%;
+    padding: 0 5%;
   }
   img {
     border-radius: 1rem;
