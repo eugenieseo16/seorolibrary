@@ -1,5 +1,6 @@
 import React from 'react';
 
+import BookDetailHeader from '@components/BookInfo/BookDetailHeader';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import BookInfo from '@components/BookInfo/BookInfo';
 import BookStat from '@components/BookInfo/BookStat';
@@ -10,6 +11,7 @@ import './BookDetail.styles.scss';
 function BookDetail() {
   return (
     <div className="book-detail-container">
+      <BookDetailHeader />
       <SearchHeader text="도서 정보" />
       <BookInfo />
       <BookStat />
