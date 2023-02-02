@@ -7,7 +7,7 @@ function BookStat() {
   return(
     <div className="book-stat-summary">
     <div className="community">
-      <p>읽은 사람 수</p>
+      <p>읽은 유저 수</p>
       <RiBookOpenLine size={'1.5rem'}/>
       <br />
       <p>21명</p>
