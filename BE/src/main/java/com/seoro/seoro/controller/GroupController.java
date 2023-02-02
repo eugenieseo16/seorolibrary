@@ -1,10 +1,9 @@
 package com.seoro.seoro.controller;
 
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
+import org.springframework.web.bind.annotation.*;
 
+import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Group.GroupService;
@@ -19,9 +18,22 @@ import lombok.extern.slf4j.Slf4j;
 public class GroupController {
 	private final GroupService groupService;
 
+	@GetMapping("/{username}")
+	public GroupMainResponseDto groupMain(@PathVariable("username") String userName) {
+		return groupService.groupMain(userName);
+	}
+
 	@PostMapping("/signup")
 	public ResultResponseDto makeGroup(@ModelAttribute GroupSignupRequestDto requestDto) {
-		System.out.println("나와봐");
 		return groupService.makeGroup(requestDto);
 	}
+<<<<<<< HEAD
 }
+=======
+
+	 @GetMapping("/detail/{groupid}")
+	 public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
+		return groupService.groupDetail(groupId);
+	 }
+}
+>>>>>>> c0857c4f54fa6c67c7880206567c3d41cbc6fd34

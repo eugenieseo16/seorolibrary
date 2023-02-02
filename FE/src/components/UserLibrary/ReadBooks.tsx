@@ -20,7 +20,7 @@ function ReadBooks() {
       {data?.data?.map((book: any, i: number) => (
         <div className="book-item" key={i} onClick={onClickDetail}>
           <img src={book.image_url} alt="" />
-          <a>{book.title}</a>
+          <h2>{book.title}</h2>
         </div>
       ))}
     </div>

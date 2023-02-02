@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
 import com.seoro.seoro.domain.entity.Book.Review;
@@ -20,8 +22,10 @@ public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     @NotNull
+    @Column(unique = true)
     private String userEmail;
     @NotNull
+    @Column(unique = true)
     private String userName;
     @NotNull
     private String userPassword;
