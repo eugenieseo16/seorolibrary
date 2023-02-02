@@ -1,141 +1,164 @@
-import React, { useEffect } from 'react';
-import { UserOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
 import { AutoComplete, Input, InputNumber } from 'antd';
+import { useForm } from 'react-hook-form';
+import Slider from 'react-slick';
+import { scroller, Element } from 'react-scroll';
 
+import { checkValid } from '@src/utils/arrUtils';
+import { autoCompleteFilter } from '@src/utils/utils';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
-import { useForm, Controller } from 'react-hook-form';
-
-const renderTitle = (title: string) => (
-  <span>
-    {title}
-    <a
-      style={{ float: 'right' }}
-      href="https://www.google.com/search?q=antd"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      more
-    </a>
-  </span>
-);
-
-const renderItem = (title: string, count: number) => ({
-  value: title,
-  label: (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
-      {title}
-      <span>
-        <UserOutlined /> {count}
-      </span>
-    </div>
-  ),
-});
-
-const options = [
-  {
-    label: renderTitle('Libraries'),
-    options: [
-      renderItem('AntDesign', 10000),
-      renderItem('AntDesign UI', 10600),
-    ],
-  },
-  {
-    label: renderTitle('Solutions'),
-    options: [
-      renderItem('AntDesign UI FAQ', 60100),
-      renderItem('AntDesign FAQ', 30010),
-    ],
-  },
-  {
-    label: renderTitle('Articles'),
-    options: [renderItem('AntDesign design language', 100000)],
-  },
-];
+import { useMyQuery } from '@src/hooks/useMyQuery';
+import { MdOutlineClose } from 'react-icons/md';
 
 function BookClubGenerate() {
-  const { register, handleSubmit, setValue } = useForm();
+  const [categories, setCategories] = useState<string[]>([]);
+  const [category, setCategory] = useState('');
+  const [categoriesOptions, setCategoriesOptions] = useState([]);
 
-  useEffect(() => {
-    register('lastName');
-    register('category');
-    register('num');
-    register('desc');
-  }, [register, setValue]);
+  const dongCode = useMyQuery('/dongcode.json');
+  const categoriesRes = useMyQuery('/categories.json');
 
-  const getChangeHandlerWithValue = (name: any) => (value: any) => {
+  const { handleSubmit, setValue } = useForm();
+
+  const getChangeHandlerWithValue = (name: string) => (value: any) => {
     setValue(name, value);
   };
   const getChangeHandlerWithEvent = (name: string) => (e: any) =>
     setValue(name, e.target.value);
 
-  const onValid = (data: any) => {
-    console.log(data);
+  const keyDownHandler = (e: any) => {
+    if (e.key !== 'Enter') return;
+    addCategories(category);
   };
-  return (
-    <div
-      className="book-club-generate-container"
-      style={{ position: 'relative' }}
-    >
-      <SearchHeader text="독서모임 생성" search={false} />
-      <form onSubmit={handleSubmit(onValid)}>
-        <div>사진첨부</div>
-        <div>
-          모임이름
-          <Input placeholder="Basic usage" />
-        </div>
-        <div>
-          카테고리
-          <AutoComplete
-            popupClassName="certain-category-search-dropdown"
-            dropdownMatchSelectWidth={250}
-            style={{ width: 250 }}
-            options={options}
-            onChange={getChangeHandlerWithValue('category')}
-          >
-            <Input.Search size="large" placeholder="input here" />
-          </AutoComplete>
-        </div>
-        <div>
-          모임정원{' '}
-          <InputNumber min={1} onChange={getChangeHandlerWithValue('num')} />
-        </div>
-        <div>
-          모임장소
-          <AutoComplete
-            popupClassName="certain-category-search-dropdown"
-            dropdownMatchSelectWidth={250}
-            style={{ width: 250 }}
-            options={options}
-          >
-            <Input.Search size="large" placeholder="input here" />
-          </AutoComplete>
-        </div>
-        <div>
-          모임일정
-          <Input
-            placeholder="Basic usage"
-            onChange={getChangeHandlerWithEvent('lastName')}
-          />
-        </div>
 
-        <div>
-          모임소개
-          <Input.TextArea
-            onChange={getChangeHandlerWithEvent('desc')}
-            placeholder="Controlled autosize"
-            autoSize={{ minRows: 3, maxRows: 5 }}
-          />
-        </div>
-      </form>
+  const addCategories = (checkValue: string) => {
+    const mustInArr = categoriesRes?.data.map((el: any) => el.value);
+    const mustNotArr = categories;
+    if (!checkValid({ checkValue, mustInArr, mustNotArr })) return;
+    setCategories([checkValue, ...categories]);
+    setCategory('');
+  };
+  const focusScroll = (name: string) => () => {
+    scroller.scrollTo(name, { duration: 300, smooth: true });
+  };
+  const deleteCategory = (name: string) => () => {
+    const newCategories = categories.filter(category => category !== name);
+    setCategories(newCategories);
+  };
+
+  const onValid = (data: any) => {
+    console.log(data, categories);
+  };
+
+  useEffect(() => {
+    if (!categoriesRes) return;
+    setCategoriesOptions(
+      categoriesRes.data.filter((el: any) => !categories.includes(el.value)),
+    );
+  }, [categories, categoriesRes]);
+
+  return (
+    <>
+      <div
+        className="book-club-generate-container"
+        style={{ position: 'relative' }}
+      >
+        <SearchHeader text="독서모임 생성" search={false} />
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className="book-club-generate-form"
+        >
+          <div>사진첨부</div>
+          <div>
+            <h3>모임이름</h3>
+            <Input
+              placeholder="Basic usage"
+              onChange={getChangeHandlerWithEvent('title')}
+            />
+          </div>
+          <Element name="category">
+            <h3>카테고리</h3>
+            <div className="categories-container">
+              {categories?.length > 0 ? (
+                <Slider
+                  swipeToSlide
+                  slidesToShow={3}
+                  infinite={false}
+                  className="my-slider"
+                >
+                  {categories.map((category, i) => (
+                    <div key={i} style={{ paddingRight: '1rem' }}>
+                      <p>
+                        <span>{category}</span>
+                        <MdOutlineClose
+                          size={'1.2rem'}
+                          onClick={deleteCategory(category)}
+                        />
+                      </p>
+                    </div>
+                  ))}
+                </Slider>
+              ) : (
+                '카테고리를 선택해주세요'
+              )}
+            </div>
+            <AutoComplete
+              options={categoriesOptions}
+              filterOption={autoCompleteFilter}
+              popupClassName="certain-category-search-dropdown"
+              value={category}
+              onFocus={focusScroll('category')}
+              onChange={e => setCategory(e)}
+              onKeyDown={keyDownHandler}
+              onSelect={addCategories}
+            >
+              <Input.Search size="large" placeholder="input here" />
+            </AutoComplete>
+          </Element>
+          <Element name="people" className="people">
+            <h3>모임정원</h3>
+            <InputNumber
+              min={1}
+              max={100}
+              onChange={getChangeHandlerWithValue('num')}
+              onFocus={focusScroll('people')}
+            />
+          </Element>
+          <Element name="location">
+            <h3>모임장소</h3>
+            <AutoComplete
+              popupClassName="certain-category-search-dropdown"
+              options={dongCode?.data}
+              onChange={getChangeHandlerWithValue('location')}
+              filterOption={autoCompleteFilter}
+              onFocus={focusScroll('location')}
+            >
+              <Input.Search size="large" placeholder="input here" />
+            </AutoComplete>
+          </Element>
+          {/* <div>
+            <h3>모임일정</h3>
+            <Input
+              placeholder="Basic usage"
+              onChange={getChangeHandlerWithEvent('meetingDate')}
+            />
+          </div> */}
+
+          <Element name="description">
+            <h3>모임소개</h3>
+            <Input.TextArea
+              onChange={getChangeHandlerWithEvent('desc')}
+              placeholder="Controlled autosize"
+              autoSize={{ minRows: 3, maxRows: 5 }}
+              onFocus={focusScroll('description')}
+            />
+          </Element>
+        </form>
+      </div>
       <FixedBottomButton text="모임 생성하기" onClick={handleSubmit(onValid)} />
-    </div>
+    </>
   );
 }
 
