@@ -3,6 +3,7 @@ package com.seoro.seoro.service.Group;
 import java.util.Optional;
 
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.entity.ChatRoom.ChatRoom;
 import com.seoro.seoro.repository.ChatRoom.ChatRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,14 @@ public class GroupServiceImpl implements GroupService{
 	private final GroupRepository groupRepository;
 	private final UserRepository userRepository;
 	private final ChatRepository chatRepository;
+
+	@Override
+	public GroupMainResponseDto groupMain(String userName) {
+		GroupMainResponseDto groupMainResponseDto = new GroupMainResponseDto();
+
+
+		return groupMainResponseDto;
+	}
 
 	@Override
 	public ResultResponseDto makeGroup(GroupSignupRequestDto requestDto) {
@@ -95,8 +104,8 @@ public class GroupServiceImpl implements GroupService{
 				.groupPost(group.getPosts())
 				.books(group.getBooks())
 //				.chatting(chatRoom.getContents())
-				.diaryCount(group.getPosts().size())
-				.reviewCount(group.getPosts().size())
+				.postCount(group.getPosts().size())
+				.meetingCount(group.getMeetings().size())
 				.build();
 
 		return groupDetailResponseDto;
