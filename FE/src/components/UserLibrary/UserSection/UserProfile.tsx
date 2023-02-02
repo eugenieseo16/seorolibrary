@@ -34,24 +34,25 @@ export default function UserProfile() {
           </div>
 
           <div className="profile">
+            <div>
+
             <div className="profile-user">
               <h2>{data.nickname}</h2>
               <span>@{data.username}</span>
             </div>
 
             <div className="profile-follow">
-              <div>
-                <span>팔로잉: {data.following}</span>
-                <span>팔로워: {data.follower}</span>
-              </div>
+                <span>팔로잉: {data.following} 팔로워: {data.follower}</span>
+            </div>
+            </div>
 
               <div className="profile-button">
                 {/* 나의 미니도서관이면 */}
                 <button onClick={onClickBookRegister}>도서 등록</button>
-                <button>
+                <button className="icon-button">
                   <FaRegChartBar
                     onClick={onClickProfileSettings}
-                    size={'2rem'}
+                    size={'1rem'}
                   />
                 </button>
               </div>
@@ -60,7 +61,6 @@ export default function UserProfile() {
                 <button>1:1채팅</button>
                 <button>팔로우</button>
               </div> */}
-            </div>
           </div>
         </div>
       ))}
