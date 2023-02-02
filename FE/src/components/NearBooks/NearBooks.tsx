@@ -25,10 +25,7 @@ const Nearbooks = () => {
   const distance = Math.floor(Math.random() * 1000 + 100) + 'm';
 
   const navigate = useNavigate();
-  const onClickDetail = () => {
-    // API 연결되면 바꿔주기
-    navigate(`/near/bookdetail`);
-  };
+
 
   return (
     <InfiniteScroll
@@ -43,11 +40,11 @@ const Nearbooks = () => {
           <Row key={i} className="book-container">
             <Col span={8}>
               {/* 책 사진 */}
-              <img src={nearBooks.image_url} alt="" onClick={onClickDetail} />
+              <img src={nearBooks.image_url} alt="" onClick={() => navigate(`/near/bookdetail/${i}`)} />
             </Col>
             {/* 책 설명 */}
             <Col span={15} className="book-description-container">
-              <div onClick={onClickDetail}>
+              <div onClick={() => navigate(`/near/bookdetail/${i}`)}>
                 {/* 책 제목 */}
                 <h2>{nearBooks.title}</h2>
                 {/* 책 저자 */}

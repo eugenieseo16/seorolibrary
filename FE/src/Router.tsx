@@ -31,7 +31,7 @@ function Router() {
     <Routes>
       <Route path="" element={<WithNavLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/book/:bookId" element={<BookDetail/>} />
+        <Route path="/book/:id" element={<BookDetail/>} />
 
         <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:userId" element={<UserLibrary />} />
@@ -49,7 +49,7 @@ function Router() {
 
         <Route path="/places" element={<Places />} />
         <Route path="/near" element={<Near />} />
-        <Route path="/near/bookdetail" element={<BookDetail />} />
+        <Route path="/near/bookdetail/:id" element={<BookDetail />} />
 
         <Route path="/book-club/:id" element={<BookClubDetail />} />
 
