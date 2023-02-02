@@ -1,83 +1,78 @@
-import React, { useEffect } from 'react';
-import { UserOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
 import { AutoComplete, Input, InputNumber } from 'antd';
+import { useForm } from 'react-hook-form';
 
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
-import { useForm, Controller } from 'react-hook-form';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
-const renderTitle = (title: string) => (
-  <span>
-    {title}
-    <a
-      style={{ float: 'right' }}
-      href="https://www.google.com/search?q=antd"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      more
-    </a>
-  </span>
-);
-
-const renderItem = (title: string, count: number) => ({
-  value: title,
-  label: (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
-      {title}
-      <span>
-        <UserOutlined /> {count}
-      </span>
-    </div>
-  ),
-});
-
-const options = [
-  {
-    label: renderTitle('Libraries'),
-    options: [
-      renderItem('AntDesign', 10000),
-      renderItem('AntDesign UI', 10600),
-    ],
-  },
-  {
-    label: renderTitle('Solutions'),
-    options: [
-      renderItem('AntDesign UI FAQ', 60100),
-      renderItem('AntDesign FAQ', 30010),
-    ],
-  },
-  {
-    label: renderTitle('Articles'),
-    options: [renderItem('AntDesign design language', 100000)],
-  },
-];
+interface checkValidProps {
+  checkValue: string;
+  mustInArr: string[];
+  mustNotArr: string[];
+}
+const checkValid = ({ checkValue, mustInArr, mustNotArr }: checkValidProps) => {
+  const mustIn = mustInArr.includes(checkValue);
+  const mustNot = mustNotArr.includes(checkValue);
+  console.log(mustIn && !mustNot);
+  return mustIn && !mustNot;
+};
+const autoCompleteFilter = (inputValue: string, option: any) =>
+  option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
+const fetchData = (url: string) => async () => await axios(url);
 
 function BookClubGenerate() {
-  const { register, handleSubmit, setValue } = useForm();
+  const [categories, setCategories] = useState(['경제']);
+  const [category, setCategory] = useState('');
+  const [categoriesOptions, setCategoriesOptions] = useState([]);
 
-  useEffect(() => {
-    register('lastName');
-    register('category');
-    register('num');
-    register('desc');
-  }, [register, setValue]);
+  const { data: dongCode } = useQuery(
+    '/dongcode.json',
+    fetchData('/dongcode.json'),
+  );
+  const { data: categoriesRes } = useQuery(
+    '/categories.json',
+    fetchData('/categories.json'),
+  );
 
-  const getChangeHandlerWithValue = (name: any) => (value: any) => {
+  const { handleSubmit, setValue } = useForm();
+
+  const getChangeHandlerWithValue = (name: string) => (value: any) => {
     setValue(name, value);
   };
   const getChangeHandlerWithEvent = (name: string) => (e: any) =>
     setValue(name, e.target.value);
 
-  const onValid = (data: any) => {
-    console.log(data);
+  const keyDownHandler = (e: any) => {
+    if (e.key !== 'Enter') return;
+    addCategories(category);
   };
+
+  const selectHandler = (data: any) => {
+    addCategories(data);
+  };
+
+  const addCategories = (checkValue: string) => {
+    const mustInArr = categoriesRes?.data.map((el: any) => el.value);
+    const mustNotArr = categories;
+    if (!checkValid({ checkValue, mustInArr, mustNotArr })) return;
+    setCategories([...categories, checkValue]);
+    setCategory('');
+  };
+
+  const onValid = (data: any) => {
+    console.log(data, categories);
+  };
+
+  useEffect(() => {
+    if (!categoriesRes) return;
+    setCategoriesOptions(
+      categoriesRes.data.filter((el: any) => !categories.includes(el.value)),
+    );
+  }, [categories, categoriesRes]);
+
   return (
     <div
       className="book-club-generate-container"
@@ -88,31 +83,46 @@ function BookClubGenerate() {
         <div>사진첨부</div>
         <div>
           모임이름
-          <Input placeholder="Basic usage" />
+          <Input
+            placeholder="Basic usage"
+            onChange={getChangeHandlerWithEvent('title')}
+          />
         </div>
         <div>
           카테고리
+          {categories.length > 0
+            ? categories.map((category, i) => (
+                <span
+                  key={i}
+                  style={{ padding: '1rem', backgroundColor: 'tomato' }}
+                >
+                  {category}
+                </span>
+              ))
+            : '카테고리가 없습니다'}
           <AutoComplete
+            options={categoriesOptions}
+            filterOption={autoCompleteFilter}
             popupClassName="certain-category-search-dropdown"
-            dropdownMatchSelectWidth={250}
-            style={{ width: 250 }}
-            options={options}
-            onChange={getChangeHandlerWithValue('category')}
+            value={category}
+            onChange={e => setCategory(e)}
+            onKeyDown={keyDownHandler}
+            onSelect={selectHandler}
           >
             <Input.Search size="large" placeholder="input here" />
           </AutoComplete>
         </div>
         <div>
-          모임정원{' '}
+          모임정원
           <InputNumber min={1} onChange={getChangeHandlerWithValue('num')} />
         </div>
         <div>
           모임장소
           <AutoComplete
             popupClassName="certain-category-search-dropdown"
-            dropdownMatchSelectWidth={250}
-            style={{ width: 250 }}
-            options={options}
+            options={dongCode?.data}
+            onChange={getChangeHandlerWithValue('location')}
+            filterOption={autoCompleteFilter}
           >
             <Input.Search size="large" placeholder="input here" />
           </AutoComplete>
@@ -121,7 +131,7 @@ function BookClubGenerate() {
           모임일정
           <Input
             placeholder="Basic usage"
-            onChange={getChangeHandlerWithEvent('lastName')}
+            onChange={getChangeHandlerWithEvent('meetingDate')}
           />
         </div>
 
