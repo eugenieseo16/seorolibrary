@@ -2,40 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { AutoComplete, Input, InputNumber } from 'antd';
 import { useForm } from 'react-hook-form';
 
+import { checkValid } from '@src/utils/arrUtils';
+import { autoCompleteFilter } from '@src/utils/utils';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
-import { useQuery } from 'react-query';
-import axios from 'axios';
-
-interface checkValidProps {
-  checkValue: string;
-  mustInArr: string[];
-  mustNotArr: string[];
-}
-const checkValid = ({ checkValue, mustInArr, mustNotArr }: checkValidProps) => {
-  const mustIn = mustInArr.includes(checkValue);
-  const mustNot = mustNotArr.includes(checkValue);
-  console.log(mustIn && !mustNot);
-  return mustIn && !mustNot;
-};
-const autoCompleteFilter = (inputValue: string, option: any) =>
-  option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1;
-const fetchData = (url: string) => async () => await axios(url);
+import { useMyQuery } from '@src/hooks/useMyQuery';
 
 function BookClubGenerate() {
   const [categories, setCategories] = useState(['경제']);
   const [category, setCategory] = useState('');
   const [categoriesOptions, setCategoriesOptions] = useState([]);
 
-  const { data: dongCode } = useQuery(
-    '/dongcode.json',
-    fetchData('/dongcode.json'),
-  );
-  const { data: categoriesRes } = useQuery(
-    '/categories.json',
-    fetchData('/categories.json'),
-  );
+  const dongCode = useMyQuery('/dongcode.json');
+  const categoriesRes = useMyQuery('/categories.json');
 
   const { handleSubmit, setValue } = useForm();
 
@@ -48,10 +28,6 @@ function BookClubGenerate() {
   const keyDownHandler = (e: any) => {
     if (e.key !== 'Enter') return;
     addCategories(category);
-  };
-
-  const selectHandler = (data: any) => {
-    addCategories(data);
   };
 
   const addCategories = (checkValue: string) => {
@@ -82,24 +58,26 @@ function BookClubGenerate() {
       <form onSubmit={handleSubmit(onValid)}>
         <div>사진첨부</div>
         <div>
-          모임이름
+          <h3>모임이름</h3>
           <Input
             placeholder="Basic usage"
             onChange={getChangeHandlerWithEvent('title')}
           />
         </div>
         <div>
-          카테고리
-          {categories.length > 0
-            ? categories.map((category, i) => (
-                <span
-                  key={i}
-                  style={{ padding: '1rem', backgroundColor: 'tomato' }}
-                >
-                  {category}
-                </span>
-              ))
-            : '카테고리가 없습니다'}
+          <h3>카테고리</h3>
+          <div className="categories-container">
+            {categories.length > 0
+              ? categories.map((category, i) => (
+                  <span
+                    key={i}
+                    style={{ padding: '1rem', backgroundColor: 'tomato' }}
+                  >
+                    {category}
+                  </span>
+                ))
+              : '카테고리가 없습니다'}
+          </div>
           <AutoComplete
             options={categoriesOptions}
             filterOption={autoCompleteFilter}
@@ -107,17 +85,17 @@ function BookClubGenerate() {
             value={category}
             onChange={e => setCategory(e)}
             onKeyDown={keyDownHandler}
-            onSelect={selectHandler}
+            onSelect={addCategories}
           >
             <Input.Search size="large" placeholder="input here" />
           </AutoComplete>
         </div>
         <div>
-          모임정원
+          <h3>모임정원</h3>
           <InputNumber min={1} onChange={getChangeHandlerWithValue('num')} />
         </div>
         <div>
-          모임장소
+          <h3>모임장소</h3>
           <AutoComplete
             popupClassName="certain-category-search-dropdown"
             options={dongCode?.data}
@@ -128,7 +106,7 @@ function BookClubGenerate() {
           </AutoComplete>
         </div>
         <div>
-          모임일정
+          <h3>모임일정</h3>
           <Input
             placeholder="Basic usage"
             onChange={getChangeHandlerWithEvent('meetingDate')}
@@ -136,7 +114,7 @@ function BookClubGenerate() {
         </div>
 
         <div>
-          모임소개
+          <h3>모임소개</h3>
           <Input.TextArea
             onChange={getChangeHandlerWithEvent('desc')}
             placeholder="Controlled autosize"
