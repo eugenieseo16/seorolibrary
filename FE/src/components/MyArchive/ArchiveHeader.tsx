@@ -3,14 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { RiAddLine } from 'react-icons/ri';
 
-import './BookDetailHeader.styles.scss';
-
-function BookDetailHeader() {
+function ArchiveHeader() {
   const navigate = useNavigate();
-  const onClickProfileSettings = () => {
-    navigate(`settings`);
-  };
-
   const onClickMyArchive = () => {
     navigate(`archive`);
   };
@@ -18,7 +12,7 @@ function BookDetailHeader() {
   return (
     <div className="header-container">
       <div className="header-text">
-        <h1>도서 정보</h1>
+        <h1>독서 기록</h1>
       </div>
       <div className="header-icon-container">
         <div className="header-icon-item">
@@ -28,5 +22,4 @@ function BookDetailHeader() {
     </div>
   );
 }
-
-export default BookDetailHeader;
+export default ArchiveHeader;
