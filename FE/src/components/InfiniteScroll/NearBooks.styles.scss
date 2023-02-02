@@ -1,0 +1,43 @@
+@import '../../styles/variables';
+
+.near-books-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.book-container {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr;
+  // height: 14rem;
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 1;
+    object-fit: cover;
+  }
+
+  h6 {
+    font-size: 0.9rem;
+    // line-height: 1rem;
+    font-weight: 200;
+    color: black;
+    padding: 0.5rem;
+    margin-left: 1rem;
+  }
+  h2 {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  div {
+    background-color: #d9d9d9;
+    height: 1px;
+    margin-bottom: 1rem;
+  }
+}

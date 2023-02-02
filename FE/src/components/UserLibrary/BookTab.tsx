@@ -7,7 +7,7 @@ import ReadBooks from '@components/UserLibrary/ReadBooks';
 
 
 function Recommend() {
-  const [selectedId, setSelectedId] = useState('rent');
+  const [selectedId, setSelectedId] = useState('read');
 
   return (
     <div className="book-shelf-container">
@@ -15,8 +15,8 @@ function Recommend() {
         selectedId={selectedId}
         setSelectedId={setSelectedId}
         items={[
-          { text: '보유도서', id: 'hold' },
           { text: '읽은도서', id: 'read' },
+          { text: '보유도서', id: 'hold' },
           { text: '빌린도서', id: 'rent' },
         ]}
       />
