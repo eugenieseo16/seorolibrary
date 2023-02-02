@@ -12,18 +12,18 @@ function HoldBooks() {
   const navigate = useNavigate();
   const onClickDetail = () => {
     // API 연결되면 바꿔주기
-    navigate(`/profile-bookdetail`);
+    navigate(`/bookdetail`);
   };
-  
+
   return (
-   <div className="book-shelf-container">
+    <div className="book-shelf-container">
       {data?.data?.map((book: any, i: number) => (
         <div className="book-item" key={i} onClick={onClickDetail}>
           <img src={book.image_url} alt="" />
-          <a>{book.title}</a>
+          <h2>{book.title}</h2>
         </div>
       ))}
-   </div>
+    </div>
   );
 }
 

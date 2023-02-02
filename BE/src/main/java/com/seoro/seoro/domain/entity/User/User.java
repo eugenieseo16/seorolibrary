@@ -2,14 +2,14 @@ package com.seoro.seoro.domain.entity.User;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
@@ -20,13 +20,14 @@ import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Place.Place;
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     @NotNull
+    @Column(unique = true)
     private String userEmail;
     @NotNull
+    @Column(unique = true)
     private String userName;
     @NotNull
     private String userPassword;
@@ -37,6 +38,7 @@ public class User implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date withdrawalDate;
     private Integer userScore;
+    private Long userGenre;
     @OneToMany(mappedBy = "friend")
     private List<Friend> friends = new ArrayList<>();
     @OneToMany(mappedBy = "user")
@@ -49,8 +51,6 @@ public class User implements Serializable {
     private List<GroupJoin> groupJoins = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Place> places = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<UserGenre> genres = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<OwnBook> ownBooks = new ArrayList<>();
     @OneToMany(mappedBy = "user")

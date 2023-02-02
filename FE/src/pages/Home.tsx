@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-// import { MdOutlineChevronRight } from 'react-icons/md';
+import { useQuery } from 'react-query';
+import { faker } from '@faker-js/faker';
 
-// import Recommend from '@components/Recommend/Recommend';
 import './Home.styles.scss';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import CarouselHome from '@components/Carousel/CarouselHome';
@@ -9,9 +9,13 @@ import CarouselNearBook from '@components/Carousel/CarouselNearBook';
 import CarouselPlace from '@components/Carousel/CarouselPlace';
 
 function Home() {
+  const getPlacesData = async () => await (await fetch('/books.json')).json();
+  const { data: placeData } = useQuery('/books.json', getPlacesData);
+  const greeting = faker.name.firstName() + '님 안녕하세요';
+  
   return (
     <div className="home-container">
-      <SearchHeader text="훈목님 안녕하세요." />
+      <SearchHeader text={greeting}/>
       <CarouselHome />
       <div>
         <h1 className="home-text">근처 빌릴 수 있는 도서</h1>
@@ -23,7 +27,9 @@ function Home() {
       </div>
       <div>
         <h1 className="home-text">장소 추천</h1>
-        <CarouselPlace />
+        <div style={{ width: '120%' }}>
+          <CarouselPlace items={placeData?.data} />
+        </div>
       </div>
     </div>
   );

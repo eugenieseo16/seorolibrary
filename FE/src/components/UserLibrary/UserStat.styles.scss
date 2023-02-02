@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+
+
+  .user-stat-summary {  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  
+    .community{
+      width: 5rem;
+    }
+    .comment{
+      width: 5rem;
+      
+    }
+    .review{
+      width: 5rem;
+
+    }
+    .vertical-line {
+      margin-left: 20px;
+      margin-right: 20px;
+  
+      border-left: 1px solid;
+      height: 60px;
+    }
+  }
+  

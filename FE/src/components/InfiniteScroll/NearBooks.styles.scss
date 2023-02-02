@@ -1,0 +1,44 @@
+@import '../../styles/variables';
+
+.near-books-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.book-container {
+  margin: 1rem;
+
+  img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+  }
+  .near-book-line {
+    background-color: #3a3232;
+    height: 1px;
+  }
+  .book-description-container {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    h6 {
+      font-size: 0.9rem;
+      line-height: 1.5rem;
+      font-weight: 200;
+      color: black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      margin-top: 0.3rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
