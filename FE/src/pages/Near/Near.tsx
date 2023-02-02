@@ -1,5 +1,4 @@
 import React from 'react';
-import { faker } from '@faker-js/faker';
 
 import './Near.styles.scss';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
