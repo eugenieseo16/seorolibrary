@@ -41,4 +41,12 @@
       white-space: nowrap;
     }
   }
+  .exchange-available-container {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    background: red;
+    border-radius: 18px;
+  }
 }
