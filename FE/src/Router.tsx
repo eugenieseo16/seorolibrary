@@ -30,8 +30,7 @@ function Router() {
     <Routes>
       <Route path="" element={<WithNavLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/bookdetail" element={<BookDetail />} />
-        {/* <Route path="/book/:bookId" element={<BookDetail/>} /> */}
+        <Route path="/book/:bookId" element={<BookDetail/>} />
 
         <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:userId" element={<UserLibrary />} />
