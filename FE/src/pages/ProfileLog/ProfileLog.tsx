@@ -6,7 +6,7 @@ import LogTab from '@components/ProfileLog/LogTab';
 
 function ProfileLog () {
   const {state} = useLocation();
-console.log(state);
+
   return (
     <div>
       <Header text="프로필 로그"/>

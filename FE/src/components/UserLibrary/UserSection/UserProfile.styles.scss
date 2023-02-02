@@ -29,11 +29,8 @@
 
       .profile-button {
         display: flex;
-
         justify-content: end;
-        // .icon-button {
-        //   border-radius: 50%;
-        // }
+        
       }
     }
   }
@@ -45,7 +42,7 @@
   button {
     // margin: 0;
     padding: 0rem 1rem;
-    margin-inline-end: 1rem;
+    margin-inline-end: 0.5rem;
 
     font-family: NEXON;
     font-size: 0.8rem;
@@ -53,6 +50,7 @@
     color: $beige;
     text-decoration: none;
     align-content: center;
+    
 
     display: inline-block;
     width: auto;

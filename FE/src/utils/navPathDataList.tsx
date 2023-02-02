@@ -34,6 +34,7 @@ export const navPathDataList = [
   },
   {
     href: 'profile',
+    state: { is_me: true},
     title: '나의도서관',
     icon: { default: <RiUser3Line />, selected: <RiUser3Fill /> },
   },
