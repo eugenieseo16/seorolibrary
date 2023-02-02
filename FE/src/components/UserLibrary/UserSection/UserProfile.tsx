@@ -4,8 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import './UserProfile.styles.scss';
 
 import { FaRegChartBar } from 'react-icons/fa';
+import { RiChat3Line } from 'react-icons/ri';
 
-export default function UserProfile() {
+interface UserProfileProps {
+  is_me: boolean;
+}
+
+export default function UserProfile( { is_me } : UserProfileProps) {
   const [userData, setUserData] = useState<any>();
 
   const getUserData = async () => {
@@ -13,8 +18,10 @@ export default function UserProfile() {
     setUserData(data);
   };
 
+
+
   const navigate = useNavigate();
-  const onClickProfileSettings = () => {
+  const onClickUserStatistics = () => {
     navigate(`/profile/statistics`);
   };
   const onClickBookRegister = () => {
@@ -46,21 +53,29 @@ export default function UserProfile() {
             </div>
             </div>
 
-              <div className="profile-button">
-                {/* 나의 미니도서관이면 */}
-                <button onClick={onClickBookRegister}>도서 등록</button>
-                <button className="icon-button">
-                  <FaRegChartBar
-                    onClick={onClickProfileSettings}
-                    size={'1rem'}
-                  />
-                </button>
+              <div>
+                { is_me ? (
+                      <div className="profile-button">
+                        <button>팔로우</button>
+                        <button className="icon-button">
+                          <RiChat3Line
+                            // onClick={}
+                            size={'1rem'}/>
+                        </button>
+                      </div>
+                  
+                    ) : (
+                      <div className="profile-button">
+                        <button onClick={onClickBookRegister}>도서 등록</button>
+                        <button className="icon-button">
+                         <FaRegChartBar
+                        onClick={onClickUserStatistics}
+                        size={'1rem'}/>
+                      </button>
+                     </div>
+                    )
+                }
               </div>
-              {/* 타유저의 미니도서관이면 */}
-              {/* <div className="profile-button">
-                <button>1:1채팅</button>
-                <button>팔로우</button>
-              </div> */}
           </div>
         </div>
       ))}

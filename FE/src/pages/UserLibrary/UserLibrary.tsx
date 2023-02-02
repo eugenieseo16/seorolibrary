@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import UserHeader from '@components/UserLibrary/UserHeader';
@@ -9,6 +10,8 @@ import BookTab from '@components/UserLibrary/BookTab';
 import './UserLibrary.styles.scss';
 
 function UserLibrary() {
+  const {state} = useLocation();
+
   return (
     <div className="user-library-container">
       {/* api 연결되면 userId로 구분해서 구현할 예정 */}
@@ -16,7 +19,7 @@ function UserLibrary() {
       {/* <SearchHeader text="나의 도서관" /> */}
       {/* 나의 도서관일 경우 */}
       <UserHeader/>
-      <UserProfile />
+      <UserProfile is_me={state}/>
       <UserStat />
       <BookTab />
     </div>
