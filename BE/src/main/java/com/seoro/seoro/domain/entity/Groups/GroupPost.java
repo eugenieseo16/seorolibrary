@@ -10,15 +10,18 @@ import java.util.List;
 import com.seoro.seoro.domain.entity.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class GroupPost implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupPostId;
+    private String groupPostTitle;
     @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
     private Groups groups;

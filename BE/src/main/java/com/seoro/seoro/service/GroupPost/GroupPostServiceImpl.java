@@ -4,6 +4,8 @@ import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.*;
 import com.seoro.seoro.domain.entity.User.User;
@@ -63,6 +65,7 @@ public class GroupPostServiceImpl implements GroupPostService {
 
 
         GroupPost saveGroupPost = GroupPost.builder()
+                .groupPostTitle(requestDto.getPostTitle())
                 .groupPostContent(requestDto.getPostContent())
                 .groups(group)
                 .groupPostTime(requestDto.getPostTime())
@@ -73,5 +76,36 @@ public class GroupPostServiceImpl implements GroupPostService {
         groupPostRepository.save(saveGroupPost);
         resultResponseDto.setResult(true);
         return resultResponseDto;
+    }
+
+    @Override
+    public GroupPostReadResponseDto readGroupPost(Long groupId) {
+        GroupPostReadResponseDto responseDto = new GroupPostReadResponseDto();
+        //그룹 정보 가져오기
+        Groups group = new Groups();
+        System.out.println("groupId = " + groupId);
+        Optional<Groups> findGroup = groupRepository.findById(groupId);
+        if(findGroup.isPresent()) {
+            group = findGroup.get();
+        } else {
+            responseDto.setResult(false);
+            return responseDto;
+        }
+        
+        //그룹의 게시글 가져오기
+        List<GroupPost> posts = group.getPosts();
+        List<GroupPostDto> groupPost = new ArrayList<>();
+        for(GroupPost p : posts) {
+            GroupPostDto gpd = GroupPostDto.builder()
+                    .postTitle(p.getGroupPostTitle())
+                    .postTime(p.getGroupPostTime())
+                    .postCategory(p.getPostCategory())
+                    .userName(p.getUser().getUserName())
+                    .build();
+            groupPost.add(gpd);
+        }
+        responseDto.setResult(true);
+        responseDto.setGroupPost(groupPost);
+        return responseDto;
     }
 }
