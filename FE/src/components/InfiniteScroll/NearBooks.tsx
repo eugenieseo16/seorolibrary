@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { faker } from '@faker-js/faker';
 import { Col, Row } from 'antd';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import './NearBooks.styles.scss';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import ExchangeAvailable from '../ExchangeAvailable';
 
 // import { MdLocalCafe } from 'react-icons/md';
 
@@ -22,6 +24,12 @@ const Nearbooks = () => {
   const author = faker.name.firstName();
   const distance = Math.floor(Math.random() * 1000 + 100) + 'm';
 
+  const navigate = useNavigate();
+  const onClickDetail = () => {
+    // API 연결되면 바꿔주기
+    navigate(`/bookdetail`);
+  };
+
   return (
     <InfiniteScroll
       className="near-books-container"
@@ -35,11 +43,11 @@ const Nearbooks = () => {
           <Row key={i} className="book-container">
             <Col span={8}>
               {/* 책 사진 */}
-              <img src={nearBooks.image_url} alt="" />
+              <img src={nearBooks.image_url} alt="" onClick={onClickDetail} />
             </Col>
             {/* 책 설명 */}
             <Col span={15} className="book-description-container">
-              <div>
+              <div onClick={onClickDetail}>
                 {/* 책 제목 */}
                 <h2>{nearBooks.title}</h2>
                 {/* 책 저자 */}
@@ -59,7 +67,7 @@ const Nearbooks = () => {
                   &nbsp;
                   {distance}
                 </h2>
-                <h6>바꿔읽기 가능 여부 표시</h6>
+                <ExchangeAvailable />
               </div>
             </Col>
           </Row>
