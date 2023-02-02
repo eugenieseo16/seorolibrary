@@ -1,21 +1,39 @@
 @import '../../../styles/variables';
 
 .user-profile-container {
-  padding: 1rem 3rem;
+  padding: 1rem;
   .user-profile {
     display: flex;
     // flex-direction: row;
     // align-items: ;
+
     .profile-img {
       margin-inline-end: 20px;
       writing-mode: horizontal-tb;
     }
     .profile {
       flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .profile-user {
+        display:flex;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        h2 {
+          font-size: 1.3rem;
+          margin-right: 10px;
+        }
+      }
+
+
       .profile-button {
         display: flex;
 
         justify-content: end;
+        // .icon-button {
+        //   border-radius: 50%;
+        // }
       }
     }
   }
@@ -29,6 +47,7 @@
     padding: 0rem 1rem;
     margin-inline-end: 1rem;
 
+    font-family: NEXON;
     font-size: 0.8rem;
     font-weight: 400;
     color: $beige;
@@ -37,7 +56,7 @@
 
     display: inline-block;
     width: auto;
-    height: 40px;
+    height: 30px;
 
     border: none;
 
