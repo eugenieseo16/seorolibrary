@@ -1,8 +1,7 @@
 package com.seoro.seoro.domain.entity.Groups;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -10,6 +9,9 @@ import com.seoro.seoro.domain.entity.User.User;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class GroupJoin implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupJoinId;

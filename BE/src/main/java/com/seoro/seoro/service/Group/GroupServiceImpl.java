@@ -10,6 +10,7 @@ import com.seoro.seoro.domain.entity.ChatRoom.ChatRoom;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.repository.ChatRoom.ChatRepository;
 
+import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,9 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService{
 	private final GroupRepository groupRepository;
-
+	private final GroupJoinRepository groupJoinRepository;
 	private final UserRepository userRepository;
 	private final ChatRepository chatRepository;
+
 
 	@Override
 	public GroupMainResponseDto groupMain(String userName) {
@@ -74,9 +76,10 @@ public class GroupServiceImpl implements GroupService{
 	@Override
 	public ResultResponseDto makeGroup(GroupSignupRequestDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
-		Groups savegroup = new Groups();
+		Groups saveGroup = new Groups();
+		GroupJoin saveGroupJoin = new GroupJoin();
 		boolean online = false;
-		if(requestDto.getGroupDongCode().equals("")) {
+		if(requestDto.getGroupDongCode() == null) {
 			online = true;
 		}
 
@@ -90,7 +93,7 @@ public class GroupServiceImpl implements GroupService{
 			return resultResponseDto;
 		}
 
-		savegroup = Groups.builder()
+		saveGroup = Groups.builder()
 			.groupName(requestDto.getGroupName())
 			.host(host)
 			.groupCapacity(requestDto.getGroupCapacity())
@@ -102,7 +105,13 @@ public class GroupServiceImpl implements GroupService{
 			.isOnline(online)
 			.build();
 
-		groupRepository.save(savegroup);
+		saveGroupJoin = GroupJoin.builder()
+						.groups(saveGroup)
+						.user(host)
+						.build();
+
+		groupRepository.save(saveGroup);
+		groupJoinRepository.save(saveGroupJoin);
 		resultResponseDto.setResult(true);
 		return resultResponseDto;
 	}
