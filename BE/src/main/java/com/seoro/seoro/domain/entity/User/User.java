@@ -2,6 +2,7 @@ package com.seoro.seoro.domain.entity.User;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Place.Place;
 @Entity
+@Getter
 public class User implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -36,6 +38,7 @@ public class User implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date withdrawalDate;
     private Integer userScore;
+    private Long userGenre;
     @OneToMany(mappedBy = "friend")
     private List<Friend> friends = new ArrayList<>();
     @OneToMany(mappedBy = "user")
@@ -48,8 +51,6 @@ public class User implements Serializable {
     private List<GroupJoin> groupJoins = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Place> places = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<UserGenre> genres = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<OwnBook> ownBooks = new ArrayList<>();
     @OneToMany(mappedBy = "user")
