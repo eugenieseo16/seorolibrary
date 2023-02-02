@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.Book;
+package com.seoro.seoro.domain.dto.Book.Book;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
