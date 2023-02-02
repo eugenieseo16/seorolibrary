@@ -4,19 +4,15 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.Book.OwnBookDto;
+import com.seoro.seoro.domain.dto.Book.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Library.BookReportDto;
 import com.seoro.seoro.domain.dto.Library.LibraryMainResponseDto;
 import com.seoro.seoro.domain.dto.Library.ReviewDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
-import com.seoro.seoro.domain.dto.User.UserDto;
 import com.seoro.seoro.domain.dto.User.UserProfileDto;
 import com.seoro.seoro.domain.entity.Book.OwnBook;
-import com.seoro.seoro.domain.entity.User.Friend;
 import com.seoro.seoro.domain.entity.User.User;
-import com.seoro.seoro.repository.Book.BookRepository;
 import com.seoro.seoro.repository.Group.GroupApplyRepository;
-import com.seoro.seoro.repository.Group.GroupRepository;
 import com.seoro.seoro.repository.Library.LibraryRepository;
 import com.seoro.seoro.repository.User.FriendRepository;
 import com.seoro.seoro.repository.User.UserRepository;
@@ -31,7 +27,6 @@ public class LibraryServiceImpl implements LibraryService {
 	private final LibraryRepository libraryRepository;
 	private final GroupApplyRepository groupApplyRepository;
 	private final UserRepository userRepository;
-	private final BookRepository bookRepository;
 	private final FriendRepository friendRepository;
 
 	@Override

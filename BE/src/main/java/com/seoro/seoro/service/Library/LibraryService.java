@@ -2,7 +2,7 @@ package com.seoro.seoro.service.Library;
 
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.Book.OwnBookDto;
+import com.seoro.seoro.domain.dto.Book.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Library.BookReportDto;
 import com.seoro.seoro.domain.dto.Library.LibraryMainResponseDto;
 import com.seoro.seoro.domain.dto.Library.ReviewDto;
