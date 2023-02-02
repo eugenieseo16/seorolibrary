@@ -48,5 +48,7 @@ public class Groups implements Serializable {
     private List<GroupPost> posts = new ArrayList<>();
     @OneToMany(mappedBy = "groups")
     private List<GroupBook> books = new ArrayList<>();
+    @OneToMany(mappedBy = "groups")
+    private List<GroupSchedule> meetings = new ArrayList<>();
 
 }
