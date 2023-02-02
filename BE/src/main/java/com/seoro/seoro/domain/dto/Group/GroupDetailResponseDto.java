@@ -26,6 +26,6 @@ public class GroupDetailResponseDto {
 	private List<GroupPost> groupPost;
 	private List<GroupBook> books;
 	private List<ChatRoomContent> chatting;
-	private Integer diaryCount;
-	private Integer reviewCount;
+	private Integer postCount;
+	private Integer meetingCount;
 }
