@@ -1,4 +1,4 @@
-package com.seoro.seoro.repository;
+package com.seoro.seoro.repository.book;
 
 import java.util.List;
 
@@ -8,4 +8,5 @@ import com.seoro.seoro.domain.entity.Book.Book;
 
 public interface BookRepository extends JpaRepository<Book, String> {
 	List<Book> findByIsbn(String isbn);
+	List<Book> findByBookTitleLikeOrBookAuthorLike(String input1, String input2);
 }

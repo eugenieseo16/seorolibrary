@@ -27,13 +27,9 @@ public class GroupController {
 	public ResultResponseDto makeGroup(@ModelAttribute GroupSignupRequestDto requestDto) {
 		return groupService.makeGroup(requestDto);
 	}
-<<<<<<< HEAD
-}
-=======
 
-	 @GetMapping("/detail/{groupid}")
-	 public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
+	@GetMapping("/detail/{groupid}")
+	public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
 		return groupService.groupDetail(groupId);
-	 }
+	}
 }
->>>>>>> c0857c4f54fa6c67c7880206567c3d41cbc6fd34

@@ -1,5 +1,6 @@
 package com.seoro.seoro.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +20,21 @@ public class BookController {
 
 	private final BookService bookService;
 
-	@GetMapping("/{isbn}")
+	@GetMapping("/{input}")
+	public List<BookDto>[] searchByInput(@PathVariable String input){
+		List<BookDto>[] result = new ArrayList[2];
+		result[0]= bookService.findByBookTitleLikeOrBookAuthorLike("%"+input+"%","%"+input+"%");
+		result[1] = new ArrayList<>();
+		// result[1]= userService.findByUserId(input);
+		return result;
+	}
+
+	@GetMapping("/book/{isbn}")
 	public List<BookDto> findByIsbn(@PathVariable String isbn){
 		return bookService.findByIsbn(isbn);
 	}
 
-	@GetMapping("/all")
+	@GetMapping("/book/all")
 	public List<BookDto> findAllBooks(){
 		return bookService.findAllBooks();
 	}
