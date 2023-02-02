@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.domain.entity.Book.Book;
-import com.seoro.seoro.repository.book.BookRepository;
+import com.seoro.seoro.repository.Book.BookRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
