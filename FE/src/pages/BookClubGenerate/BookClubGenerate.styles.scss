@@ -1,0 +1,73 @@
+@import '../../styles/variables';
+
+.book-club-generate-container {
+  min-height: calc(100vh + 20rem);
+  background-color: $beige;
+  padding: 1rem 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .people {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .ant-input-number {
+      width: 3rem;
+    }
+  }
+}
+.book-club-generate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  input {
+    height: 3rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  .categories-container {
+    display: flex;
+    gap: 0.5rem;
+    position: relative;
+    height: 2.5rem;
+    align-items: center;
+    p {
+      width: 100%;
+      height: 2rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px;
+      background-color: $brown;
+      color: $beige;
+      border-radius: 1rem;
+      font-size: 12px;
+    }
+    .my-slider {
+      width: 100%;
+      height: 2.5rem;
+      .slick-track {
+        margin-left: 0;
+      }
+      .slick-slide {
+        padding-right: 0.3rem;
+      }
+    }
+  }
+  .ant-select {
+    width: 100%;
+  }
+  .ant-btn {
+    height: 3rem;
+  }
+}
+.certain-category-search-dropdown {
+  width: 100%;
+}
