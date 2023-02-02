@@ -27,10 +27,6 @@ export default function CarouselNearBook() {
   }, []);
 
   const navigate = useNavigate();
-  const onClickDetail = () => {
-    // API 연결되면 바꿔주기
-    navigate(`/bookdetail`);
-  };
 
   return (
     <Slider {...settings} className="my-slider-near-book">
@@ -38,7 +34,7 @@ export default function CarouselNearBook() {
         <div
           key={i}
           className="recommend-near-book-container"
-          onClick={onClickDetail}
+          onClick={() => navigate(`/book/${i}`)}
         >
           <div>
             <img src={data.image_url} alt="" />
