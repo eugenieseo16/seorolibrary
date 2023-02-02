@@ -17,3 +17,11 @@ h6 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.components-dropdown > ul {
+  position: relative;
+  top: 5px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  padding-left: 0;
+  list-style: none;
+}
