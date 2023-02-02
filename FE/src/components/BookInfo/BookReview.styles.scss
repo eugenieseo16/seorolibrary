@@ -2,7 +2,11 @@
 
 .book-review-container {
   padding: 10px;
-
+  .book-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .review-item {
     padding: 1rem;
     .review-user-info {
