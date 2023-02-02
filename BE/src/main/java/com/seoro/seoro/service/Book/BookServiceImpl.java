@@ -1,28 +1,68 @@
 package com.seoro.seoro.service.Book;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seoro.seoro.domain.dto.BookDto;
+import com.seoro.seoro.domain.dto.Book.BookDto;
+import com.seoro.seoro.domain.entity.Book.Book;
+import com.seoro.seoro.repository.BookRepository;
 
-@RestController
-@RequestMapping("/search")
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
+	private BookRepository bookRepository;
+
+	@Autowired
+	public BookServiceImpl(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}
+
 	@Override
 	public List<BookDto> findAllBooks() {
-		return null;
-	}
-//사용자가 책등록할때 보유 테이블에 등록이 되고, 도서 검색을 하면 보유 도서테이블에 검색
-	@GetMapping()
-	public String exercise(){
-		return "success?!";
+		List<Book> list = bookRepository.findAll();
+		List<BookDto> dtoList = new ArrayList<>();
+		for(Book book: list){
+			dtoList.add(BookDto.builder()
+					.isbn(book.getIsbn())
+					.bookTitle(book.getBookTitle())
+					.bookAuthor(book.getBookAuthor())
+					.bookPublisher(book.getBookPublisher())
+					.bookImage(book.getBookImage())
+					.bookDescrib(book.getBookDescrib())
+					.bookPubDate(book.getBookPubDate())
+					.bookPage(book.getBookPage())
+					.build());
+		}
+		return dtoList;
 	}
 
-	@GetMapping("/{isbn}")
-	public String bookDetail(){
-		return "success";
+	@Override
+	public List<BookDto> findByIsbn(String isbn) {
+		List<Book> list = bookRepository.findByIsbn(isbn);
+		List<BookDto> dtoList = new ArrayList<>();
+		for(Book book: list){
+			dtoList.add(BookDto.builder()
+				.isbn(book.getIsbn())
+				.bookTitle(book.getBookTitle())
+				.bookAuthor(book.getBookAuthor())
+				.bookPublisher(book.getBookPublisher())
+				.bookImage(book.getBookImage())
+				.bookDescrib(book.getBookDescrib())
+				.bookPubDate(book.getBookPubDate())
+				.bookPage(book.getBookPage())
+				.build());
+		}
+		return dtoList;
 	}
 }
