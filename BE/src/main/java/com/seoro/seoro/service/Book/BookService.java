@@ -7,4 +7,6 @@ public interface BookService {
 
 	List<BookDto> findAllBooks();
 	List<BookDto> findByIsbn(String isbn);
+
+	List<BookDto> findByBookTitleLikeOrBookAuthorLike(String input1, String input2);
 }
