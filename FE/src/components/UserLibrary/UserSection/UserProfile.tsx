@@ -15,7 +15,7 @@ export default function UserProfile() {
 
   const navigate = useNavigate();
   const onClickProfileSettings = () => {
-    navigate(`/profile/settings`);
+    navigate(`/profile/statistics`);
   };
   const onClickBookRegister = () => {
     navigate(`/profile/register`);
