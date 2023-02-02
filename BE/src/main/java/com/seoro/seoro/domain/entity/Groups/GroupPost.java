@@ -8,8 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 import com.seoro.seoro.domain.entity.User.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class GroupPost implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupPostId;
