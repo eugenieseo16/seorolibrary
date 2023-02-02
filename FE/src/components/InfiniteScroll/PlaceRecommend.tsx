@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useQuery } from 'react-query';
-import './PlaceRecommend.styles.scss';
 import { MdLocalCafe } from 'react-icons/md';
+
+import './PlaceRecommend.styles.scss';
 
 const PlaceRecommend = () => {
   const [placesData, setPlacesData] = useState<any>();

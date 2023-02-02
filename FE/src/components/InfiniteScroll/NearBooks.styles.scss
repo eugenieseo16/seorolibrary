@@ -8,36 +8,37 @@
 }
 
 .book-container {
-  display: grid;
-  grid-template-columns: 2fr 3fr 1fr;
-  // height: 14rem;
+  margin: 1rem;
 
   img {
     width: 100%;
-    aspect-ratio: 4 / 1;
+    aspect-ratio: 2/3;
     object-fit: cover;
   }
-
-  h6 {
-    font-size: 0.9rem;
-    // line-height: 1rem;
-    font-weight: 200;
-    color: black;
-    padding: 0.5rem;
-    margin-left: 1rem;
-  }
-  h2 {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  div {
-    background-color: #d9d9d9;
+  .near-book-line {
+    background-color: #3a3232;
     height: 1px;
-    margin-bottom: 1rem;
+  }
+  .book-description-container {
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    h6 {
+      font-size: 0.9rem;
+      line-height: 1.5rem;
+      font-weight: 200;
+      color: black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      margin-top: 0.3rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
