@@ -1,9 +1,12 @@
 import React from 'react';
 
+import ArchiveHeader from '@components/MyArchive/ArchiveHeader';
+
 function MyArchive () {
   return(
     <div>
-      My Archive
+      <ArchiveHeader/>
+
     </div>
   );
 }

@@ -8,9 +8,15 @@ function Barcode() {
   const videoConstraints = {
     facingMode: { exact: 'environment' },
   };
+  
   const WebcamComponent = () => (
-    <Webcam height={200} videoConstraints={videoConstraints} />
+    <Webcam
+    height={200} 
+    // videoConstraints={videoConstraints} 
+    />
+  
   );
+
 
   return (
     <div>
