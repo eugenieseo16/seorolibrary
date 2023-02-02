@@ -28,8 +28,8 @@ public class GroupController {
 		return groupService.makeGroup(requestDto);
 	}
 
-	 @GetMapping("/detail/{groupid}")
-	 public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
+	@GetMapping("/detail/{groupid}")
+	public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
 		return groupService.groupDetail(groupId);
-	 }
+	}
 }
