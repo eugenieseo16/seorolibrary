@@ -4,38 +4,51 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './CarouselPlace.styles.scss';
+import { useQuery } from 'react-query';
 
-const settings = {
-  dots: false,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  swipeToSlide: true,
-};
+export interface ICarouselPlaceProps {
+  items: Item[];
+  slidesToShow?: number;
+  infinite?: boolean;
+  className?: string;
+  [key: string]: any;
+}
+interface Item {
+  image_url: string;
+  title: string;
+  description?: string;
+  header?: string;
+}
 
-export default function CarouselPlace() {
-  const [placesData, setPlacesData] = useState<any>();
-  const getPlacesData = async () => {
-    const url = '/places.json';
-    const { data } = await (await fetch(url)).json();
-    setPlacesData(data);
+function CarouselPlace({
+  items,
+  slidesToShow = 4,
+  infinite = true,
+  className,
+}: ICarouselPlaceProps) {
+  const settings = {
+    dots: false,
+    speed: 500,
+    slidesToShow: slidesToShow,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    infinite,
   };
-
-  useEffect(() => {
-    getPlacesData();
-  }, []);
-
   return (
-    <Slider {...settings} className="my-slider-place">
-      {placesData?.map((data: any, i: number) => (
+    <Slider {...settings} className={`my-slider-place ${className}`}>
+      {items?.map((data, i: number) => (
         <div key={i} className="carousel-place-container">
-          <img src={data.thumUrl} alt="" />
+          <img src={data.image_url} alt="" />
           <div className="shadow-wrapper-place" />
           <div className="content-place">
-            <h2>{data.name}</h2>
+            {data.header && <p>{data.header}</p>}
+            <h2>{data.title}</h2>
+            {data.description && <p>{data.description}</p>}
           </div>
         </div>
       ))}
     </Slider>
   );
 }
+
+export default CarouselPlace;
