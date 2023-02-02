@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { MdLocalCafe } from 'react-icons/md';
 
@@ -9,6 +10,8 @@ const PlaceRecommend = () => {
   const [placesData, setPlacesData] = useState<any>();
   const getPlacesData = async () => await (await fetch('/places.json')).json();
   const { data } = useQuery('place-recommend', getPlacesData);
+
+  const navigate = useNavigate();
 
   const fetchData = () => {
     setTimeout(() => {
@@ -26,7 +29,7 @@ const PlaceRecommend = () => {
     >
       <div>
         {data?.data?.map((placeRecommend: any, id: number) => (
-          <div key={id} className="place-container">
+          <div key={id} className="place-container" onClick={() => navigate('/placedetail')}>
             <img src={placeRecommend.image_url} alt="" />
             <h2>
               <MdLocalCafe />

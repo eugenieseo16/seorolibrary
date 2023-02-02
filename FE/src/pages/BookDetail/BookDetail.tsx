@@ -12,7 +12,7 @@ function BookDetail() {
   return (
     <div className="book-detail-container">
       <BookDetailHeader />
-      <SearchHeader text="도서 정보" />
+      {/* <SearchHeader text="도서 정보" /> */}
       <BookInfo />
       <BookStat />
       {/* 사용자의 보유도서 상세를 클릭한 경우 */}

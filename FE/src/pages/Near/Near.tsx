@@ -2,8 +2,8 @@ import React from 'react';
 
 import './Near.styles.scss';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
-import NearBooks from '@components/InfiniteScroll/NearBooks';
-import UserAddressToggle from '@components/UserAddressToggle';
+import NearBooks from '@components/NearBooks/NearBooks';
+import UserAddressToggle from '@components/NearBooks/UserAddressToggle';
 
 function Near() {
   return (
