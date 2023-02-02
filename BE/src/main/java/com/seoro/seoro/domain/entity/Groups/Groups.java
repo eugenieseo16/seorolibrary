@@ -33,17 +33,16 @@ public class Groups implements Serializable {
     private int groupCapacity;
     private String groupProfile;
     private Boolean isOnline;
-    private String gropuDongCode;
+    private String groupDongCode;
     @Temporal(TemporalType.DATE)
     private Date groupStartDate;
     @Temporal(TemporalType.DATE)
     private Date groupEndDate;
+    private Long groupGenre;
     @OneToMany(mappedBy = "groups")
     private List<GroupApply> applies = new ArrayList<>();
     @OneToMany(mappedBy = "groups")
     private List<GroupJoin> joins = new ArrayList<>();
-    @OneToMany(mappedBy = "groups")
-    private List<GroupGenre> genres = new ArrayList<>();
     @OneToMany(mappedBy = "groups")
     private List<GroupPost> posts = new ArrayList<>();
     @OneToMany(mappedBy = "groups")
