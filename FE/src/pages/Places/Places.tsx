@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './Places.styles.scss';
-import SearchHeader from '@components/SearchHeader/SearchHeader';
-import PlaceRecommend from '@components/InfiniteScroll/PlaceRecommend';
+import PlaceHeader from '@pages/PlaceRecommend/PlaceHeader';
+import PlaceRecommend from '@pages/PlaceRecommend/PlaceRecommend';
 
 function Places() {
   return (
     <div className="places-container">
-      <SearchHeader text="장소 추천" />
+      <PlaceHeader />
       <PlaceRecommend />
     </div>
   );

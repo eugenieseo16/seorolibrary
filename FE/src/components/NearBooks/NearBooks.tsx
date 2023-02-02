@@ -6,7 +6,7 @@ import { Col, Row } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import './NearBooks.styles.scss';
-import ExchangeAvailable from '../ExchangeAvailable';
+import ExchangeAvailable from './ExchangeAvailable';
 
 // import { MdLocalCafe } from 'react-icons/md';
 
@@ -27,7 +27,7 @@ const Nearbooks = () => {
   const navigate = useNavigate();
   const onClickDetail = () => {
     // API 연결되면 바꿔주기
-    navigate(`/bookdetail`);
+    navigate(`/near/bookdetail`);
   };
 
   return (

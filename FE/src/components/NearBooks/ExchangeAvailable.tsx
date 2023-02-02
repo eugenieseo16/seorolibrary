@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Divider, Space, Tag } from 'antd';
+import { Tag } from 'antd';
 
 import './UserAddressToggle.styles.scss';
 
