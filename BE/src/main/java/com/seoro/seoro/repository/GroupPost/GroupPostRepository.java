@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GroupPostRepository extends JpaRepository<GroupPost, Long> {
+
+	@Override
+	void deleteById(Long postId);
 }

@@ -13,4 +13,5 @@ public interface GroupPostService {
     GroupPostReadResponseDto readGroupPost(Long groupId);
     GroupPostDetailResponseDto readGroupPostDetail(Long postId);
     GroupPostDetailResponseDto updateGroupPost(Long postId, GroupPostUpdateRequestDto requestDto);
+    ResultResponseDto deleteGroupPost(Long postId);
 }
