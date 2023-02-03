@@ -1,12 +1,10 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 
+import { useMyQuery } from '@src/hooks/useMyQuery';
 import './ClubRecommend.styles.scss';
 
 function ClubRecommend() {
-  const getRecommendData = async () =>
-    await (await fetch('/clubRecommend.json')).json();
-  const { data } = useQuery('club-recommend', getRecommendData);
+  const data = useMyQuery('/clubRecommend.json');
 
   return (
     <div className="club-recommend-container">

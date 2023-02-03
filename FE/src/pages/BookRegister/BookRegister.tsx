@@ -5,12 +5,12 @@ import SearchHeader from '@components/SearchHeader/SearchHeader';
 // import BookRegisterHeader from '@components/BookRegister/BookRegisterHeader';
 import RegisterPrefernceButton from '@components/BookRegister/RegisterPreferenceButton';
 
-// import BarcodeScanner from '@components/BookRegister/BarcodeScanner';
+import './BookRegister.styles.scss';
+
 function BookRegister() {
   return (
     <div>
       <Header text="도서 등록" />
-      {/* <BookRegisterHeader /> */}
       <RegisterPrefernceButton />
     </div>
   );
