@@ -11,6 +11,7 @@ import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { MdOutlineClose } from 'react-icons/md';
+import DragDropUpload from '@components/DragDropUpload/DragDropUpload';
 
 function BookClubGenerate() {
   const [categories, setCategories] = useState<string[]>([]);
@@ -72,7 +73,10 @@ function BookClubGenerate() {
           onSubmit={handleSubmit(onValid)}
           className="book-club-generate-form"
         >
-          <div>사진첨부</div>
+          <div>
+            <h3>사진첨부</h3>
+            <DragDropUpload />
+          </div>
           <div>
             <h3>모임이름</h3>
             <Input
