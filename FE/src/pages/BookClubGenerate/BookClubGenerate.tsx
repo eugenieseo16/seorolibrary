@@ -40,9 +40,11 @@ function BookClubGenerate() {
     setCategories([checkValue, ...categories]);
     setCategory('');
   };
+
   const focusScroll = (name: string) => () => {
     scroller.scrollTo(name, { duration: 300, smooth: true });
   };
+
   const deleteCategory = (name: string) => () => {
     const newCategories = categories.filter(category => category !== name);
     setCategories(newCategories);
