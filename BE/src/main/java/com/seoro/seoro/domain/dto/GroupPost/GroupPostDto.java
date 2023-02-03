@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 @Builder
 public class GroupPostDto {
+    private Long postId;
     private String postTitle;
     private String postCategory;
     private String userName;

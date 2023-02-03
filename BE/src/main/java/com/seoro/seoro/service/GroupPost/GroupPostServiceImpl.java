@@ -99,11 +99,12 @@ public class GroupPostServiceImpl implements GroupPostService {
         List<GroupPostDto> groupPost = new ArrayList<>();
         for(GroupPost p : posts) {
             GroupPostDto gpd = GroupPostDto.builder()
-                    .postTitle(p.getGroupPostTitle())
-                    .postTime(p.getGroupPostTime())
-                    .postCategory(p.getPostCategory().toString())
-                    .userName(p.getUser().getUserName())
-                    .build();
+                .postId(p.getGroupPostId())
+                .postTitle(p.getGroupPostTitle())
+                .postTime(p.getGroupPostTime())
+                .postCategory(p.getPostCategory().toString())
+                .userName(p.getUser().getUserName())
+                .build();
             groupPost.add(gpd);
         }
         responseDto.setResult(true);
