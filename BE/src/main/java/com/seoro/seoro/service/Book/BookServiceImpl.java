@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,7 +94,11 @@ public class BookServiceImpl implements BookService {
 	public String findBestSeller() throws IOException {
 		String result = "";
 		try {
-			URL url = new URL("http://data4library.kr/api/loanItemSrch?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&startDt=2022-01-01&endDt=2022-03-31&age=20&format=json");
+			Calendar today = new GregorianCalendar();
+			today.add(Calendar.DATE,-7);
+			SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+			String now = SDF.format(today.getTime());
+			URL url = new URL("http://data4library.kr/api/loanItemSrch?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&startDt="+now+"&pageSize=10&format=json");
 			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 			result = br.readLine();
 			// List<Book> list =
