@@ -2,6 +2,8 @@ package com.seoro.seoro.domain.entity.Book;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +14,9 @@ import com.seoro.seoro.domain.entity.User.User;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ReadBook implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long readBookId;
