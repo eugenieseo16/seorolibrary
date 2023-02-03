@@ -1,5 +1,7 @@
-import { Divider } from 'antd';
 import React, { useState, useRef } from 'react';
+
+import Modal from './Modal';
+import { createRoot } from 'react-dom/client';
 
 import { RiEdit2Line } from 'react-icons/ri';
 
@@ -21,28 +23,8 @@ function EditProfile() {
             <p>@username</p>
           </div>
         </div>
-        <button onClick={() => setEditProfile(!editProfile)}>
-          프로필 변경
-        </button>
+        <Modal />
       </div>
-
-      {editProfile ? (
-        <div className="edit-profile-dropdown-container">
-          <h1>사진 수정</h1>
-          {/* <img src={profileImage} alt="" /> */}
-          <input
-            type="file"
-            accept="image/jpg,impge/png,image/jpeg"
-            //   onChange={onChange}
-            //   ref={fileInput}
-          />
-          <h1>닉네임 수정</h1>
-          <p>{profileNickname}</p>
-          <input type="submit" />
-        </div>
-      ) : (
-        <div></div>
-      )}
     </div>
   );
 }

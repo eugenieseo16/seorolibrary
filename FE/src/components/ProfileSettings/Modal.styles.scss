@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+.modal-container{
+display:flex;
+flex-direction: column;
+align-items: center;
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
+}
