@@ -1,19 +1,17 @@
-{
-  "data": [
-    {
-      "image_url": "https://www.readersnews.com/news/photo/202008/99913_66936_5519.jpg",
-      "title": "미라클 모닝 독서",
-      "description": "매일 아침을 여는 상쾌한 독서 모임"
-    },
-    {
-      "image_url": "https://mediahub.seoul.go.kr/uploads/mediahub/2021/11/IKwovdaZlEZkISfnyWqfecNVvgMGBfQa.png",
-      "title": "책방에서 만나요",
-      "description": "매일 아침을 여는 상쾌한 독서 모임"
-    },
-    {
-      "image_url": "https://image.yes24.com/usedshop/2020/0213/_/c6f62875-177d-4559-a0db-8e53667bd7cd.jpg",
-      "title": "마이 책 원투",
-      "description": "외국 문학 독파!! 원!! 투!!"
-    }
-  ]
-}
+[
+  {
+    "image_url": "https://www.readersnews.com/news/photo/202008/99913_66936_5519.jpg",
+    "title": "미라클 모닝 독서",
+    "description": "매일 아침을 여는 상쾌한 독서 모임"
+  },
+  {
+    "image_url": "https://mediahub.seoul.go.kr/uploads/mediahub/2021/11/IKwovdaZlEZkISfnyWqfecNVvgMGBfQa.png",
+    "title": "책방에서 만나요",
+    "description": "매일 아침을 여는 상쾌한 독서 모임"
+  },
+  {
+    "image_url": "https://image.yes24.com/usedshop/2020/0213/_/c6f62875-177d-4559-a0db-8e53667bd7cd.jpg",
+    "title": "마이 책 원투",
+    "description": "외국 문학 독파!! 원!! 투!!"
+  }
+]
