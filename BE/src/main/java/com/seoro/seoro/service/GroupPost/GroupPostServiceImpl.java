@@ -7,6 +7,7 @@ import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.*;
 import com.seoro.seoro.domain.entity.User.User;
@@ -122,6 +123,47 @@ public class GroupPostServiceImpl implements GroupPostService {
             responseDto.setResult(false);
             return responseDto;
         }
+
+        responseDto = GroupPostDetailResponseDto.builder()
+            .result(true)
+            .postTitle(post.getGroupPostTitle())
+            .postCategory(post.getPostCategory().toString())
+            .userName(post.getUser().getUserName())
+            .postContent(post.getGroupPostContent())
+            .postTime(post.getGroupPostTime())
+            // .postImage()
+            .build();
+
+        return responseDto;
+    }
+
+    @Override
+    public GroupPostDetailResponseDto updateGroupPost(Long postId, GroupPostUpdateRequestDto requestDto) {
+        GroupPostDetailResponseDto responseDto = new GroupPostDetailResponseDto();
+
+        GroupPost post = new GroupPost();
+        Optional<GroupPost> findPost = groupPostRepository.findById(postId);
+        if(findPost.isPresent()) {
+            post = findPost.get();
+        } else {
+            responseDto.setResult(false);
+            return responseDto;
+        }
+        Groups group = post.getGroups();
+        User writer = post.getUser();
+
+        post = GroupPost.builder()
+            .groupPostId(postId)
+            .groupPostTitle(requestDto.getPostTitle())
+            .groupPostContent(requestDto.getPostContent())
+            .groupPostTime(requestDto.getPostTime())
+            .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
+            .groups(group)
+            .user(writer)
+            .build();
+
+        //데이터베이스에 수정 적용
+        groupPostRepository.save(post);
 
         responseDto = GroupPostDetailResponseDto.builder()
             .result(true)
