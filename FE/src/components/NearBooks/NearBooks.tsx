@@ -26,7 +26,6 @@ const Nearbooks = () => {
 
   const navigate = useNavigate();
 
-
   return (
     <InfiniteScroll
       className="near-books-container"
@@ -36,11 +35,15 @@ const Nearbooks = () => {
       loader=""
     >
       <div>
-        {data?.data?.map((nearBooks: any, i: number) => (
+        {data?.map((nearBooks: any, i: number) => (
           <Row key={i} className="book-container">
             <Col span={8}>
               {/* 책 사진 */}
-              <img src={nearBooks.image_url} alt="" onClick={() => navigate(`/near/bookdetail/${i}`)} />
+              <img
+                src={nearBooks.image_url}
+                alt=""
+                onClick={() => navigate(`/near/bookdetail/${i}`)}
+              />
             </Col>
             {/* 책 설명 */}
             <Col span={15} className="book-description-container">

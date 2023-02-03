@@ -1,6 +1,7 @@
 package com.seoro.seoro.controller;
 
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
@@ -25,5 +26,10 @@ public class GroupPostController {
     @GetMapping
     public GroupPostReadResponseDto readGroupPost(Long groupId) {
         return groupPostService.readGroupPost(groupId);
+    }
+
+    @GetMapping("/{postid}")
+    public GroupPostDetailResponseDto readGroupPostDetail(@PathVariable("postid") Long postId) {
+        return groupPostService.readGroupPostDetail(postId);
     }
 }

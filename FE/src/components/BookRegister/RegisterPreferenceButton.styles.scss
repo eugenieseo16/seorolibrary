@@ -1,0 +1,21 @@
+@import '../../styles/variables';
+.book-register-container {
+  .button-text {
+    margin-left: 10px;
+  }
+  button {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+
+    width: 50%;
+    justify-content: center;
+    font-family: NEXON;
+    font-size: 1rem;
+    color: $beige;
+
+    border: none;
+    background: $brown;
+    border-radius: 25px;
+  }
+}
