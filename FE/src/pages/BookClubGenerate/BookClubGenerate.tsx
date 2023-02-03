@@ -11,14 +11,12 @@ import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
-import DragDropUpload from '@components/DragDropUpload/DragDropUpload';
+import MyImageUpload from '@components/MyImageUpload/MyImageUpload';
 
 function BookClubGenerate() {
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState('');
   const [categoriesOptions, setCategoriesOptions] = useState([]);
-
-  const [num, setNum] = useState<any>(1);
 
   const dongCode = useMyQuery('/dongcode.json');
   const categoriesRes = useMyQuery('/categories.json');
@@ -82,7 +80,7 @@ function BookClubGenerate() {
         >
           <div>
             <h3>사진첨부</h3>
-            <DragDropUpload />
+            <MyImageUpload />
           </div>
           <div>
             <h3>모임이름</h3>
