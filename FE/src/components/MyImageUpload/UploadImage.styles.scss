@@ -1,0 +1,8 @@
+.my-avatar-uploader {
+  display: flex;
+  justify-content: center;
+  > .ant-upload-select {
+    width: 90vw !important;
+    height: 50vw !important;
+  }
+}
