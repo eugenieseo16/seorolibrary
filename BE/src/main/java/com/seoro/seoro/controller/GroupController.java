@@ -30,7 +30,6 @@ public class GroupController {
 
 	@GetMapping("/detail/{groupid}")
 	public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
-
 		return groupService.groupDetail(groupId);
 	}
 }
