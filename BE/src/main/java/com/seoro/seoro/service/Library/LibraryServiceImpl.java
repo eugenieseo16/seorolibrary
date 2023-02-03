@@ -27,7 +27,7 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<BookReportDto> viewBookReportList(Long userId) {
 		List<BookReportDto> bookReportList = new ArrayList<>();
 		
-		// query dsl 사용해서 readBook이랑 bookReport join하여 전체 조회
+		// query dsl 사용해서 readBook이랑 bookReport join하여 userId로 user의 bookReport 전체 조회
 		
 		return null;
 	}
