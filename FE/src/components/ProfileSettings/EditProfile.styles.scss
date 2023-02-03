@@ -1,0 +1,54 @@
+@import '../../styles/variables';
+.edit-profile-container {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $light-brown;
+
+  //   background-color: pink;
+  .profile-container {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+    }
+    h2 {
+      font-weight: 900;
+      margin-left: 20px;
+      margin-bottom: 5px;
+    }
+    p {
+      margin-left: 20px;
+      font-size: 0.8rem;
+    }
+  }
+  button {
+    padding: 0.5rem;
+
+    font-family: 'NEXON';
+    font-size: 0.8rem;
+    color: $beige;
+    text-decoration: none;
+    align-content: center;
+
+    display: inilne-block;
+    width: auto;
+    height: 30px;
+
+    border: none;
+
+    background: $brown;
+    border-radius: 25px;
+  }
+}
+.edit-profile-dropdown-container {
+  border-bottom: 1px solid $light-brown;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
