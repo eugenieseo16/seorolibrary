@@ -29,7 +29,11 @@ const PlaceRecommend = () => {
     >
       <div>
         {data?.data?.map((placeRecommend: any, id: number) => (
-          <div key={id} className="place-container" onClick={() => navigate('/placedetail')}>
+          <div
+            key={id}
+            className="place-container"
+            onClick={() => navigate(`/places/${id}`)}
+          >
             <img src={placeRecommend.image_url} alt="" />
             <h2>
               <MdLocalCafe />
