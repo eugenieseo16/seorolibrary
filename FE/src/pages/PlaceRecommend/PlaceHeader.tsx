@@ -1,18 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RiArchiveLine, RiAddLine } from 'react-icons/ri';
+import { RiArchiveDrawerLine, RiAddLine } from 'react-icons/ri';
 
 import './PlaceHeader.styles.scss';
 
 function PlaceHeader() {
-//   const navigate = useNavigate();
-//   const onClickAddPlace = () => {
-//     navigate(`addPlace`);
-//   };
+  const navigate = useNavigate();
+  const onClickAddPlace = () => {
+    navigate(`addplace`);
+  };
 
-//   const onClickMyPlace= () => {
-//     navigate(`myPlace`);
-//   };
+  const onClickMyPlace = () => {
+    navigate(`myplace`);
+  };
 
   return (
     <div className="place-header-container">
@@ -21,12 +21,10 @@ function PlaceHeader() {
       </div>
       <div className="place-header-icon-container">
         <div className="place-header-icon-item">
-          {/* onClick={onClickMyPlace} */}
-          <RiArchiveLine size={'2rem'} />
+          <RiArchiveDrawerLine onClick={onClickMyPlace} size={'2rem'} />
         </div>
         <div className="place-header-icon-item">
-          {/* onClick={onClickMyPlace} */}
-          <RiAddLine size={'2rem'} />
+          <RiAddLine onClick={onClickAddPlace} size={'2rem'} />
         </div>
       </div>
     </div>

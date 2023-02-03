@@ -1,5 +1,6 @@
 package com.seoro.seoro.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +38,9 @@ public class BookController {
 	@GetMapping("/book/all")
 	public List<BookDto> findAllBooks(){
 		return bookService.findAllBooks();
+	}
+	@GetMapping("/best")
+	public String findBestSeller() throws IOException {
+		return bookService.findBestSeller();
 	}
 }
