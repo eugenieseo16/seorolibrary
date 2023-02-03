@@ -8,7 +8,7 @@ import { RiChat3Line } from 'react-icons/ri';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 
 interface UserProfileProps {
-  is_me: boolean;
+  isMe: boolean;
 }
 interface IUserProfileData {
   user_profile: string;
@@ -18,7 +18,7 @@ interface IUserProfileData {
   follower: number;
 }
 
-export default function UserProfile({ is_me }: UserProfileProps) {
+export default function UserProfile({ isMe }: UserProfileProps) {
   const query = useMyQuery('/user.json');
   const [userData, setUserData] = useState<IUserProfileData | null>(null);
   const navigate = useNavigate();
