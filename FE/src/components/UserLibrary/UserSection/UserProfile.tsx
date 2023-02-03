@@ -57,7 +57,7 @@ export default function UserProfile({ isMe }: UserProfileProps) {
             </div>
 
             <div>
-              {is_me ? (
+              {isMe ? (
                 <div className="profile-button">
                   <button>팔로우</button>
                   <button className="icon-button">
