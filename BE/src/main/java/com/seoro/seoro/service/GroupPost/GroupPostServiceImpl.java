@@ -4,6 +4,7 @@ import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -99,13 +100,39 @@ public class GroupPostServiceImpl implements GroupPostService {
             GroupPostDto gpd = GroupPostDto.builder()
                     .postTitle(p.getGroupPostTitle())
                     .postTime(p.getGroupPostTime())
-                    .postCategory(p.getPostCategory())
+                    .postCategory(p.getPostCategory().toString())
                     .userName(p.getUser().getUserName())
                     .build();
             groupPost.add(gpd);
         }
         responseDto.setResult(true);
         responseDto.setGroupPost(groupPost);
+        return responseDto;
+    }
+
+    @Override
+    public GroupPostDetailResponseDto readGroupPostDetail(Long postId) {
+        GroupPostDetailResponseDto responseDto = new GroupPostDetailResponseDto();
+        //게시물 정보 가져오기
+        GroupPost post = new GroupPost();
+        Optional<GroupPost> findPost = groupPostRepository.findById(postId);
+        if(findPost.isPresent()) {
+            post = findPost.get();
+        } else {
+            responseDto.setResult(false);
+            return responseDto;
+        }
+
+        responseDto = GroupPostDetailResponseDto.builder()
+            .result(true)
+            .postTitle(post.getGroupPostTitle())
+            .postCategory(post.getPostCategory().toString())
+            .userName(post.getUser().getUserName())
+            .postContent(post.getGroupPostContent())
+            .postTime(post.getGroupPostTime())
+            // .postImage()
+            .build();
+
         return responseDto;
     }
 }
