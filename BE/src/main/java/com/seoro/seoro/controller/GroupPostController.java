@@ -38,4 +38,9 @@ public class GroupPostController {
     public GroupPostDetailResponseDto updateGroupPost(@PathVariable("postid") Long postId, @ModelAttribute GroupPostUpdateRequestDto requestDto) {
         return groupPostService.updateGroupPost(postId, requestDto);
     }
+
+    @DeleteMapping("/{postid}")
+    public ResultResponseDto deleteGroupPost(@PathVariable("postid") Long postId) {
+        return groupPostService.deleteGroupPost(postId);
+    }
 }

@@ -143,7 +143,7 @@ public class GroupPostServiceImpl implements GroupPostService {
 
         GroupPost post = new GroupPost();
         Optional<GroupPost> findPost = groupPostRepository.findById(postId);
-        if(findPost.isPresent()) {
+        if (findPost.isPresent()) {
             post = findPost.get();
         } else {
             responseDto.setResult(false);
@@ -176,5 +176,20 @@ public class GroupPostServiceImpl implements GroupPostService {
             .build();
 
         return responseDto;
+    }
+
+    public ResultResponseDto deleteGroupPost(Long postId) {
+        ResultResponseDto resultResponseDto = new ResultResponseDto();
+        GroupPost post = new GroupPost();
+        Optional<GroupPost> findPost = groupPostRepository.findById(postId);
+        if (findPost.isPresent()) {
+            post = findPost.get();
+        } else {
+            resultResponseDto.setResult(false);
+            return resultResponseDto;
+        }
+        groupPostRepository.deleteById(postId);
+        resultResponseDto.setResult(true);
+        return resultResponseDto;
     }
 }
