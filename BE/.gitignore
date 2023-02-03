@@ -1,6 +1,7 @@
 HELP.md
 .class
-.gradle
+/.gradle/
+/.idea/
 cache.properties
 build/
 !gradle/wrapper/gradle-wrapper.jar
