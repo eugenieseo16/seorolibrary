@@ -3,6 +3,7 @@ package com.seoro.seoro.controller;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,10 @@ public class GroupPostController {
     @GetMapping("/{postid}")
     public GroupPostDetailResponseDto readGroupPostDetail(@PathVariable("postid") Long postId) {
         return groupPostService.readGroupPostDetail(postId);
+    }
+
+    @PutMapping("/{postid}")
+    public GroupPostDetailResponseDto updateGroupPost(@PathVariable("postid") Long postId, @ModelAttribute GroupPostUpdateRequestDto requestDto) {
+        return groupPostService.updateGroupPost(postId, requestDto);
     }
 }
