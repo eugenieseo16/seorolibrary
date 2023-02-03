@@ -7,14 +7,6 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  .people {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    .ant-input-number {
-      width: 3rem;
-    }
-  }
 }
 .book-club-generate-form {
   display: flex;
@@ -30,6 +22,31 @@
   }
   h3 {
     font-size: 1.2rem;
+  }
+  .num-container {
+    display: flex;
+    .ant-input-number {
+      display: flex;
+      align-items: center;
+      border-radius: 0;
+      input {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+    }
+    button {
+      display: flex;
+      align-items: center;
+      font-size: 2rem;
+    }
+    :nth-child(1) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    :nth-child(3) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
   .categories-container {
     display: flex;

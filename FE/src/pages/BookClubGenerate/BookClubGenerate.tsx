@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { AutoComplete, Input, InputNumber } from 'antd';
+import { AutoComplete, Button, Input, InputNumber } from 'antd';
 import { useForm } from 'react-hook-form';
 import Slider from 'react-slick';
 import { scroller, Element } from 'react-scroll';
+import { MdOutlineClose } from 'react-icons/md';
 
 import { checkValid } from '@src/utils/arrUtils';
 import { autoCompleteFilter } from '@src/utils/utils';
@@ -10,7 +11,6 @@ import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
-import { MdOutlineClose } from 'react-icons/md';
 import DragDropUpload from '@components/DragDropUpload/DragDropUpload';
 
 function BookClubGenerate() {
@@ -18,10 +18,12 @@ function BookClubGenerate() {
   const [category, setCategory] = useState('');
   const [categoriesOptions, setCategoriesOptions] = useState([]);
 
+  const [num, setNum] = useState<any>(1);
+
   const dongCode = useMyQuery('/dongcode.json');
   const categoriesRes = useMyQuery('/categories.json');
 
-  const { handleSubmit, setValue } = useForm();
+  const { handleSubmit, register, setValue, getValues } = useForm();
 
   const getChangeHandlerWithValue = (name: string) => (value: any) => {
     setValue(name, value);
@@ -53,6 +55,11 @@ function BookClubGenerate() {
 
   const onValid = (data: any) => {
     console.log(data, categories);
+  };
+  const handleNumButton = (e: any) => {
+    const num = +getValues('num');
+    if (e.target.innerHTML === '+') setValue('num', num + 1);
+    else setValue('num', num - 1);
   };
 
   useEffect(() => {
@@ -125,12 +132,17 @@ function BookClubGenerate() {
           </Element>
           <Element name="people" className="people">
             <h3>모임정원</h3>
-            <InputNumber
-              min={1}
-              max={100}
-              onChange={getChangeHandlerWithValue('num')}
-              onFocus={focusScroll('people')}
-            />
+            <div className="num-container">
+              <Button onClick={handleNumButton}>-</Button>
+              <InputNumber
+                {...register('num')}
+                min={1}
+                max={100}
+                onChange={getChangeHandlerWithValue('num')}
+                onFocus={focusScroll('people')}
+              />
+              <Button onClick={handleNumButton}>+</Button>
+            </div>
           </Element>
           <Element name="location">
             <h3>모임장소</h3>
