@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -23,10 +24,16 @@ export default function CarouselHome() {
     getRecommendData();
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <Slider {...settings} className="my-slider-home">
       {recommendData?.map((data: any, i: number) => (
-        <div key={i} className="carousel-home-container">
+        <div
+          key={i}
+          className="carousel-home-container"
+          onClick={() => navigate(`/book-club/${i}`)}
+        >
           <img src={data.image_url} alt="" />
           <div className="shadow-wrapper-home" />
           <div className="content-home">
