@@ -21,7 +21,7 @@ public class MainController {
 
 	private final BookService bookService;
 
-	@GetMapping("/{input}")
+	@GetMapping("/search/{input}")
 	public List<BookDto>[] searchByInput(@PathVariable String input){
 		List<BookDto>[] result = new ArrayList[2];
 		result[0]= bookService.findByBookTitleLikeOrBookAuthorLike("%"+input+"%","%"+input+"%");

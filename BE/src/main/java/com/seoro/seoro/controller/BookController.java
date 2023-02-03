@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/search")
+@RequestMapping("/book")
 public class BookController {
 
 	private final BookService bookService;
@@ -30,7 +30,7 @@ public class BookController {
 		return result;
 	}
 
-	@GetMapping("/book/{isbn}")
+	@GetMapping("/detail/{isbn}")
 	public List<BookDto> findByIsbn(@PathVariable String isbn){
 		return bookService.findByIsbn(isbn);
 	}
