@@ -17,9 +17,10 @@ const settings = {
 export default function CarouselHome() {
   const navigate = useNavigate();
   const clubRecommend = useMyQuery('/clubRecommend.json');
+
   return clubRecommend ? (
     <Slider {...settings} className="my-slider-home">
-      {recommendData?.map((data: any, i: number) => (
+      {clubRecommend.data?.map((data: any, i: number) => (
         <div
           key={i}
           className="carousel-home-container"
