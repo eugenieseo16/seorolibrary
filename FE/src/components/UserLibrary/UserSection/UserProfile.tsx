@@ -5,21 +5,22 @@ import './UserProfile.styles.scss';
 
 import { FaRegChartBar } from 'react-icons/fa';
 import { RiChat3Line } from 'react-icons/ri';
+import { useMyQuery } from '@src/hooks/useMyQuery';
 
 interface UserProfileProps {
   is_me: boolean;
 }
+interface IUserProfileData {
+  user_profile: string;
+  username: string;
+  nickname: string;
+  following: number;
+  follower: number;
+}
 
-export default function UserProfile( { is_me } : UserProfileProps) {
-  const [userData, setUserData] = useState<any>();
-
-  const getUserData = async () => {
-    const { data } = await (await fetch('/user.json')).json();
-    setUserData(data);
-  };
-
-
-
+export default function UserProfile({ is_me }: UserProfileProps) {
+  const query = useMyQuery('/user.json');
+  const [userData, setUserData] = useState<IUserProfileData | null>(null);
   const navigate = useNavigate();
   const onClickUserStatistics = () => {
     navigate(`/profile/statistics`);
@@ -29,56 +30,60 @@ export default function UserProfile( { is_me } : UserProfileProps) {
   };
 
   useEffect(() => {
-    getUserData();
-  }, []);
+    if (!query) return;
+    setUserData(query.data);
+  }, [query]);
 
   return (
     <div className="user-profile-container">
-      {userData?.map((data: any) => (
+      {userData ? (
         <div className="user-profile">
           <div className="profile-img">
-            <img src={data.user_profile} alt="" />
+            <img src={userData?.user_profile} alt="" />
           </div>
 
           <div className="profile">
             <div>
-
-            <div className="profile-user">
-              <h2>{data.nickname}</h2>
-              <span>@{data.username}</span>
-            </div>
-
-            <div className="profile-follow">
-                <span>팔로잉: {data.following} 팔로워: {data.follower}</span>
-            </div>
-            </div>
-
-              <div>
-                { is_me ? (
-                      <div className="profile-button">
-                        <button>팔로우</button>
-                        <button className="icon-button">
-                          <RiChat3Line
-                            // onClick={}
-                            size={'1rem'}/>
-                        </button>
-                      </div>
-                  
-                    ) : (
-                      <div className="profile-button">
-                        <button onClick={onClickBookRegister}>도서 등록</button>
-                        <button className="icon-button">
-                         <FaRegChartBar
-                        onClick={onClickUserStatistics}
-                        size={'1rem'}/>
-                      </button>
-                     </div>
-                    )
-                }
+              <div className="profile-user">
+                <h2>{userData?.nickname}</h2>
+                <span>@{userData?.username}</span>
               </div>
+
+              <div className="profile-follow">
+                <span>
+                  팔로잉: {userData?.following} 팔로워: {userData?.follower}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              {is_me ? (
+                <div className="profile-button">
+                  <button>팔로우</button>
+                  <button className="icon-button">
+                    <RiChat3Line
+                      // onClick={}
+                      size={'1rem'}
+                    />
+                  </button>
+                </div>
+              ) : (
+                <div className="profile-button">
+                  <button onClick={onClickBookRegister}>도서 등록</button>
+                  <button className="icon-button">
+                    <FaRegChartBar
+                      onClick={onClickUserStatistics}
+                      size={'1rem'}
+                    />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      ))}
+      ) : (
+        'Loading...'
+      )}
     </div>
   );
 }
