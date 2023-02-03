@@ -1,11 +1,7 @@
 {
-  "data": [
-    {
-      "user_profile": "https://www.ilbe.com/file/download/2994035015",
-      "username": "namiri",
-      "nickname": "나미리선생님",
-      "following": 80,
-      "follower": 214
-    }
-  ]
+  "user_profile": "https://www.ilbe.com/file/download/2994035015",
+  "username": "namiri",
+  "nickname": "나미리선생님",
+  "following": 80,
+  "follower": 214
 }
