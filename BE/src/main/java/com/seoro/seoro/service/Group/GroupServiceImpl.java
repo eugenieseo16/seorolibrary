@@ -124,20 +124,9 @@ public class GroupServiceImpl implements GroupService{
 		if(findGroup.isPresent()) {
 			group = findGroup.get();
 		} else {
-			group = findGroup.orElse(null);
-		}
-		if(group == null) {
 			groupDetailResponseDto.setResult(false);
 			return groupDetailResponseDto;
 		}
-
-//		ChatRoom chatRoom = new ChatRoom();
-//		Optional<ChatRoom> findChatRoom = chatRepository.findById(group.getGroupChatId());
-//		if(findChatRoom.isPresent()) {
-//			chatRoom = findChatRoom.get();
-//		} else {
-//			chatRoom = findChatRoom.orElse(null);
-//		}
 
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
@@ -147,8 +136,8 @@ public class GroupServiceImpl implements GroupService{
 				.groupDongCode(group.getGroupDongCode())
 				.groupCapacity(group.getGroupCapacity())
 				.groupDescrib(group.getGroupIntroduction())
-				.groupPost(group.getPosts())
-				.books(group.getBooks())
+				// .groupPost(group.getPosts())/
+				// .books(group.getBooks())
 //				.chatting(chatRoom.getContents())
 				.postCount(group.getPosts().size())
 				.meetingCount(group.getMeetings().size())
