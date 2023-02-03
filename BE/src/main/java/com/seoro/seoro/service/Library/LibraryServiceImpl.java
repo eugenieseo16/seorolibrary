@@ -1,108 +1,83 @@
-// package com.seoro.seoro.service.Library;
-//
-// import java.util.Optional;
-//
-// import org.springframework.stereotype.Service;
-//
-// import com.seoro.seoro.domain.dto.Book.Book.OwnBookDto;
-// import com.seoro.seoro.domain.dto.Library.BookReportDto;
-// import com.seoro.seoro.domain.dto.Library.LibraryMainResponseDto;
-// import com.seoro.seoro.domain.dto.Library.ReviewDto;
-// import com.seoro.seoro.domain.dto.ResultResponseDto;
-// import com.seoro.seoro.domain.dto.User.UserProfileDto;
-// import com.seoro.seoro.domain.entity.Book.OwnBook;
-// import com.seoro.seoro.domain.entity.User.User;
-// import com.seoro.seoro.repository.Group.GroupApplyRepository;
-// import com.seoro.seoro.repository.Library.LibraryRepository;
-// import com.seoro.seoro.repository.User.FriendRepository;
-// import com.seoro.seoro.repository.User.UserRepository;
-//
-// import lombok.RequiredArgsConstructor;
-// import lombok.extern.slf4j.Slf4j;
-//
-// @Slf4j
-// @Service
-// @RequiredArgsConstructor
-// public class LibraryServiceImpl implements LibraryService {
-// 	private final LibraryRepository libraryRepository;
-// 	private final GroupApplyRepository groupApplyRepository;
-// 	private final UserRepository userRepository;
-// 	private final FriendRepository friendRepository;
-//
-// 	@Override
-// 	public LibraryMainResponseDto libraryMain(Long userId) {
-// 		LibraryMainResponseDto libraryMainResponseDto = new LibraryMainResponseDto();
-//
-// 		UserProfileDto userProfile = new UserProfileDto();
-//
-// 		Optional<User> user = userRepository.findById(userId);
-// 		Long myFollowerCnt = friendRepository.coundByuserId(userId);
-// 		Long myFollowing = 0L; // 수정 필요
-//
-// 		userProfile = UserProfileDto.builder()
-// 			.userId(user.get().getUserId())
-// 			.userName(user.get().getUserName())
-// 			.userProfile(user.get().getUserProfile())
-// 			.userDongCode(user.get().getUserDongCode())
-// 			.userScore(user.get().getUserScore())
-// 			.followerCnt(myFollowerCnt).followingCnt(myFollowing)
-// 			.build();
-//
-// 		libraryMainResponseDto.setUserProfile(userProfile);
-//
-// 		Long myGroups = groupApplyRepository.countByuserId(userId);
-// 		libraryMainResponseDto.setGroupCnt(myGroups.intValue());
-//
-// 		return libraryMainResponseDto;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto modifyUserProfile(UserProfileDto requestDto) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto remeveUser(Long userId) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto modifyOwnComment(OwnBook requestDto) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto modifyReview(ReviewDto requestDto) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto removeReview(Long reviewId) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto makeOwnBook(OwnBookDto requestDto) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto removeOwnBook(Long ownBookId) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto makeBookReport(BookReportDto requestDto) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto modifyBookReport(BookReportDto requestDto) {
-// 		return null;
-// 	}
-//
-// 	@Override
-// 	public ResultResponseDto removeBookReport(Long bookReportId) {
-// 		return null;
-// 	}
-// }
+package com.seoro.seoro.service.Library;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.seoro.seoro.domain.dto.Book.BookReportDto;
+import com.seoro.seoro.domain.dto.ResultResponseDto;
+import com.seoro.seoro.domain.entity.Book.BookReport;
+import com.seoro.seoro.domain.entity.Book.ReadBook;
+import com.seoro.seoro.repository.Book.BookReportRepository;
+import com.seoro.seoro.repository.Book.ReadBookRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class LibraryServiceImpl implements LibraryService {
+	private final BookReportRepository bookReportRepository;
+	private final ReadBookRepository readBookRepository;
+
+	@Override
+	public ResultResponseDto makeBookReport(BookReportDto requestDto) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
+		BookReport bookReport = new BookReport();
+		ReadBook readBook = new ReadBook();
+		readBook = readBookRepository.findByReadBookId(requestDto.getReadBookId());
+
+		// 이미지 저장 추가
+		bookReport = BookReport.builder()
+			.readBook(readBook)
+			.bookReportContent(requestDto.getBookReportContent())
+			.build();
+
+		bookReportRepository.save(bookReport);
+		resultResponseDto.setResult(true);
+
+		return resultResponseDto;
+	}
+
+	@Override
+	public BookReportDto viewBookReport(Long bookReportId) {
+		Optional<BookReport> bookReport = bookReportRepository.findById(bookReportId);
+		return null;
+	}
+
+	@Override
+	public ResultResponseDto modifyBookReport(BookReportDto requestDto, Long bookReportId) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
+		Optional<BookReport> bookReport = bookReportRepository.findById(bookReportId);
+		if(bookReport.isPresent()) {
+			BookReport newBookReport = bookReport.get();
+
+			// 이미지 수정 추가
+			newBookReport = BookReport.builder()
+				.readBook(newBookReport.getReadBook())
+				.bookReportContent(requestDto.getBookReportContent())
+				.build();
+
+			bookReportRepository.save(newBookReport);
+			resultResponseDto.setResult(true);
+		}
+
+		return resultResponseDto;
+	}
+
+	@Override
+	public ResultResponseDto removeBookReport(Long bookReportId) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
+		Optional<BookReport> bookReport = bookReportRepository.findById(bookReportId);
+		if(bookReport.isPresent()) {
+			bookReportRepository.delete(bookReport.get());
+			resultResponseDto.setResult(true);
+		}
+
+		return resultResponseDto;
+	}
+}
