@@ -10,7 +10,7 @@ import java.util.Date;
 @Builder
 public class GroupPostDto {
     private String postTitle;
-    private PostCategory postCategory;
+    private String postCategory;
     private String userName;
     private Date postTime;
 }

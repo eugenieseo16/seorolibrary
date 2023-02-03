@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './CarouselHome.styles.scss';
+import { useMyQuery } from '@src/hooks/useMyQuery';
 
 const settings = {
   dots: true,
@@ -13,19 +14,10 @@ const settings = {
 };
 
 export default function CarouselHome() {
-  const [recommendData, setRecommendData] = useState<any>();
-  const getRecommendData = async () => {
-    const { data } = await (await fetch('/clubRecommend.json')).json();
-    setRecommendData(data);
-  };
-
-  useEffect(() => {
-    getRecommendData();
-  }, []);
-
-  return (
+  const clubRecommend = useMyQuery('/clubRecommend.json');
+  return clubRecommend ? (
     <Slider {...settings} className="my-slider-home">
-      {recommendData?.map((data: any, i: number) => (
+      {clubRecommend?.data?.map((data: any, i: number) => (
         <div key={i} className="carousel-home-container">
           <img src={data.image_url} alt="" />
           <div className="shadow-wrapper-home" />
@@ -36,5 +28,7 @@ export default function CarouselHome() {
         </div>
       ))}
     </Slider>
+  ) : (
+    <span>Loading...</span>
   );
 }
