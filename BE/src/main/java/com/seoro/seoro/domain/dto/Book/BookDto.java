@@ -25,7 +25,8 @@ public class BookDto {
 	private String bookImage;
 	private String bookDescrib;
 	private Date bookPubDate;
-	private Integer bookPage;
-	private List<Review> reviews = new ArrayList<>();
+	private int review_count;
+	private int owncomment_count;
+
 
 }

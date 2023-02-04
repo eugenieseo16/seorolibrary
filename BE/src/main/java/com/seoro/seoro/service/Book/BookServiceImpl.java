@@ -15,12 +15,15 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookDto;
+import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.Book;
+import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.Review;
 import com.seoro.seoro.domain.entity.User.User;
 import com.seoro.seoro.repository.Book.BookRepository;
+import com.seoro.seoro.repository.Book.OwnBookRepository;
 import com.seoro.seoro.repository.Book.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,7 @@ public class BookServiceImpl implements BookService {
 
 	final BookRepository bookRepository;
 	final ReviewRepository reviewRepository;
+	final OwnBookRepository ownBookRepository;
 
 	@Override
 	public List<ReviewDto> findReviewByIsbn(String isbn) {
@@ -43,6 +47,19 @@ public class BookServiceImpl implements BookService {
 				.isbn(review.getBook().getIsbn())
 				.userName(review.getUser().getUserName())
 				.reviewContent(review.getReviewContent())
+				.build());
+		}
+		return dtoList;
+	}
+
+	public List<OwnBookDto> findOwnBookByIsbn(String isbn) {
+		List<OwnBook> list = ownBookRepository.findByBook_Isbn(isbn);
+		List<OwnBookDto> dtoList = new ArrayList<>();
+		for(OwnBook ownBook: list){
+			dtoList.add(OwnBookDto.builder()
+				.isbn(ownBook.getBook().getIsbn())
+				.userId(ownBook.getUser().getUserId())
+				.ownComment(ownBook.getOwnComment())
 				.build());
 		}
 		return dtoList;
@@ -61,11 +78,11 @@ public class BookServiceImpl implements BookService {
 					.bookImage(book.getBookImage())
 					.bookDescrib(book.getBookDescrib())
 					.bookPubDate(book.getBookPubDate())
-					.bookPage(book.getBookPage())
 					.build());
 		}
 		return dtoList;
 	}
+
 
 	@Override
 	public BookDto findByIsbn(String isbn) {
@@ -78,7 +95,8 @@ public class BookServiceImpl implements BookService {
 			.bookImage(list.getBookImage())
 			.bookDescrib(list.getBookDescrib())
 			.bookPubDate(list.getBookPubDate())
-			.bookPage(list.getBookPage())
+			.review_count(list.getReviews().size())
+			.owncomment_count(findOwnBookByIsbn(isbn).size())
 			.build();
 		return dtoList;
 	}
@@ -96,7 +114,6 @@ public class BookServiceImpl implements BookService {
 				.bookImage(book.getBookImage())
 				.bookDescrib(book.getBookDescrib())
 				.bookPubDate(book.getBookPubDate())
-				.bookPage(book.getBookPage())
 				.build());
 		}
 		return dtoList;
