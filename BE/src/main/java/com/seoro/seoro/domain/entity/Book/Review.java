@@ -2,6 +2,8 @@ package com.seoro.seoro.domain.entity.Book;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,9 @@ import com.seoro.seoro.domain.entity.User.User;
 
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Review implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
