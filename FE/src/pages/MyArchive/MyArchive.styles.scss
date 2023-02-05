@@ -7,12 +7,12 @@
     flex-direction: column;
     .report-item{
       display: flex;
-      // align-items: center;
+      margin-top: 10px;
       border-bottom: 1px $brown solid;
-      height: 180px;
+      height: 160px;
       .report-item-image{
         img{
-          height: 160px;
+          height: 150px;
           padding: 10px;
         }
       }
