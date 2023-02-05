@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import './ArchiveHeader.styles.scss'
 import { RiAddLine } from 'react-icons/ri';
 
 function ArchiveHeader() {
   const navigate = useNavigate();
   const onClickMyArchive = () => {
-    navigate(`archive`);
+    navigate(`/profile/createReport`);
   };
 
   return (
