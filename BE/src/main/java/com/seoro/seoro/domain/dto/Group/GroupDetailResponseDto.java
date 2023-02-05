@@ -3,6 +3,7 @@ package com.seoro.seoro.domain.dto.Group;
 import java.util.Date;
 import java.util.List;
 
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
 import com.seoro.seoro.domain.entity.ChatRoom.ChatRoomContent;
 import com.seoro.seoro.domain.entity.Groups.GroupBook;
 import com.seoro.seoro.domain.entity.Groups.GroupPost;
@@ -23,9 +24,8 @@ public class GroupDetailResponseDto {
 	private String groupDongCode;
 	private Integer groupCapacity;
 	private String groupDescrib;
-	private List<GroupPost> groupPost;
-	private List<GroupBook> books;
-	private List<ChatRoomContent> chatting;
+	private List<GroupPostDto> groupPost;
+	private Integer bookCount;
 	private Integer postCount;
 	private Integer meetingCount;
 }
