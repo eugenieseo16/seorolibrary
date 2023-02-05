@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Home from '@pages/Home';
+import Loading from '@pages/Loading';
 import BookDetail from '@pages/BookDetail/BookDetail';
 
 import MyLibrary from '@pages/UserLibrary/UserLibrary';
@@ -31,8 +32,9 @@ function Router() {
   const user = useSelector((state: any) => state.user);
   return (
     <Routes>
+      <Route path="/" element={<Loading />} />
       <Route path="" element={<WithNavLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/book/:id" element={<BookDetail />} />
 
         <Route path="/profile" element={<MyLibrary />} />
