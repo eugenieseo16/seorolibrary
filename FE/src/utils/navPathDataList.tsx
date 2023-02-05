@@ -13,7 +13,7 @@ import {
 
 export const navPathDataList = [
   {
-    href: '',
+    href: 'home',
     title: '홈',
     icon: { default: <RiHome2Line />, selected: <RiHome2Fill /> },
   },
