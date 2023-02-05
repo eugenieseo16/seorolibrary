@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-.header-container {
+.my-place-header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,22 +9,13 @@
   font-size: 1.5rem;
   font-weight: 800;
 
-  .header-icon-container {
+  .my-place-header-icon-container {
     display: flex;
 
-    .header-icon-item {
+    .my-place-header-icon-item {
       display: flex;
       align-items: center;
       margin-left: 20px;
-
     }
   }
-}
-.popover-item-container{
-  padding-top: 5px;
-}
-button{
-  background-color: white;
-  padding-top: 6px;
-  border-color: transparent;
 }
