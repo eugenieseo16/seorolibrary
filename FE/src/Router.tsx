@@ -29,12 +29,12 @@ import AddPlace from '@pages/PlaceRecommend/AddPlace';
 import MyPlace from '@pages/PlaceRecommend/MyPlace';
 
 import Near from '@pages/Near/Near';
+import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
   return (
     <Routes>
-      <Route path="/" element={<Loading />} />
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/book/:id" element={<BookDetail />} />
@@ -45,13 +45,13 @@ function Router() {
         <Route path="profile/statistics" element={<ProfileStat />} />
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/register" element={<BookRegister />} />
-        
+
         <Route path="/profile/archive" element={<MyArchive />} />
         <Route path="/profile/createReport" element={<CreateReport />} />
 
         <Route path="/book-club" element={<BookClub />} />
         <Route path="/book-club/generate" element={<BookClubGenerate />} />
-        <Route path="/book-club/:id" element={<BookClubDetail />} />
+        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
 
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
