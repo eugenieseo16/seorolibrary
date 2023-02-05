@@ -12,7 +12,7 @@ export default function useInitUser() {
   useEffect(() => {
     const user = localStorage.getItem('ssafy-user');
     if (!user) {
-      dispatch(login({ username: 'incognito', password: '1234' }));
+      dispatch(login({ username: 'incognito', _id: '1', password: '1234' }));
     } else {
       dispatch(login(JSON.parse(user)));
     }

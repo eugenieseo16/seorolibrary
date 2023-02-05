@@ -22,19 +22,19 @@ export default function ClubRecommendCarousel() {
   const data = useMyQuery('/clubRecommend.json');
 
   return (
-    <Suspense fallback={<span>Loading...  </span>}>
+    <Suspense fallback={<span>Loading... </span>}>
       <Slider {...settings} className="my-slider">
-        {data?.data?.map((data: any, i: number) => (
+        {data?.map((el: any, i: number) => (
           <div
             key={i}
             className="carousel-container"
             onClick={() => navigate(`/book-club/${i}`)}
           >
-            <img src={data.image_url} alt="" />
+            <img src={el.image_url} alt="" />
             <div className="shadow-wrapper" />
             <div className="content">
-              <h1>{data.title}</h1>
-              <h3>{data.description}</h3>
+              <h1>{el.title}</h1>
+              <h3>{el.description}</h3>
             </div>
           </div>
         ))}

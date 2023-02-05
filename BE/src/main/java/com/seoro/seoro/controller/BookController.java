@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Book.BookDto;
+import com.seoro.seoro.domain.dto.Book.ReviewDto;
+import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,24 +25,28 @@ public class BookController {
 
 	private final BookService bookService;
 
-	@GetMapping("/{input}")
-	public List<BookDto>[] searchByInput(@PathVariable String input){
-		List<BookDto>[] result = new ArrayList[2];
-		result[0]= bookService.findByBookTitleLikeOrBookAuthorLike("%"+input+"%","%"+input+"%");
-		result[1] = new ArrayList<>();
-		// result[1]= userService.findByUserId(input);
-		return result;
+	@GetMapping("/review/{isbn}")
+	public List<ReviewDto> searchReviewsByIsbn(@PathVariable String isbn){
+		List<ReviewDto> reviews = new ArrayList<>();
+		reviews= bookService.findReviewByIsbn(isbn);
+		return reviews;
+	}
+
+	@PostMapping("/review/{isbn}")
+	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
+		return bookService.makeReview(requestDto);
 	}
 
 	@GetMapping("/detail/{isbn}")
-	public List<BookDto> findByIsbn(@PathVariable String isbn){
+	public BookDto findByIsbn(@PathVariable String isbn){
 		return bookService.findByIsbn(isbn);
 	}
 
-	@GetMapping("/book/all")
+	@GetMapping("/detail/all")
 	public List<BookDto> findAllBooks(){
 		return bookService.findAllBooks();
 	}
+
 	@GetMapping("/best")
 	public String findBestSeller() throws IOException {
 		return bookService.findBestSeller();
