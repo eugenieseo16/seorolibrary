@@ -23,7 +23,7 @@ export default function CarouselNearBook() {
   return (
     <Suspense fallback={<span>Loading...</span>}>
       <Slider {...settings} className="my-slider-near-book">
-        {booksData?.data.map((data: any, i: number) => (
+        {booksData?.map((data: any, i: number) => (
           <div
             key={i}
             className="recommend-near-book-container"
