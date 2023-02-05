@@ -35,7 +35,7 @@ function BookClubGenerate() {
   };
 
   const addCategories = (checkValue: string) => {
-    const mustInArr = categoriesRes?.data.map((el: any) => el.value);
+    const mustInArr = categoriesRes?.map((el: any) => el.value);
     const mustNotArr = categories;
     if (!checkValid({ checkValue, mustInArr, mustNotArr })) return;
     setCategories([checkValue, ...categories]);
@@ -63,7 +63,7 @@ function BookClubGenerate() {
   useEffect(() => {
     if (!categoriesRes) return;
     setCategoriesOptions(
-      categoriesRes.data.filter((el: any) => !categories.includes(el.value)),
+      categoriesRes.filter((el: any) => !categories.includes(el.value)),
     );
   }, [categories, categoriesRes]);
 
@@ -146,7 +146,7 @@ function BookClubGenerate() {
             <h3>모임장소</h3>
             <AutoComplete
               popupClassName="certain-category-search-dropdown"
-              options={dongCode?.data}
+              options={dongCode}
               onChange={getChangeHandlerWithValue('location')}
               filterOption={autoCompleteFilter}
               onFocus={focusScroll('location')}

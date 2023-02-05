@@ -34,7 +34,6 @@ const PlaceRecommend = () => {
             className="place-container"
             onClick={() => navigate(`/places/${id}`)}
           >
-            <img src={placeRecommend.image_url} alt="" />
             <h2>
               <MdLocalCafe />
               &nbsp;
@@ -45,7 +44,8 @@ const PlaceRecommend = () => {
               {placeRecommend.title}&nbsp;
               {placeRecommend.title}
             </h6>
-            <div />
+            <img src={placeRecommend.image_url} alt="" />
+            <div className="line" />
           </div>
         ))}
       </div>

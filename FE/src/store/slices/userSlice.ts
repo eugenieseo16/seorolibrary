@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export interface IUser {
   username: string;
   password: string;
+  _id: string;
   location?: {
     latitude: string;
     longitude: string;

@@ -3,15 +3,18 @@ import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Home from '@pages/Home';
+import Loading from '@pages/Loading';
 import BookDetail from '@pages/BookDetail/BookDetail';
 
 import MyLibrary from '@pages/UserLibrary/UserLibrary';
 import UserLibrary from '@pages/UserLibrary/UserLibrary';
-import MyArchive from '@pages/MyArchive/MyArchive';
 import ProfileLog from '@pages/ProfileLog/ProfileLog';
 import ProfileStat from '@pages/ProfileStat/ProfileStat';
 import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
 import BookRegister from '@pages/BookRegister/BookRegister';
+
+import MyArchive from '@pages/MyArchive/MyArchive';
+import CreateReport from '@pages/MyArchive/CreateReport';
 
 import Login from '@pages/Login';
 import WithNavLayout from '@pages/withNavLayout/WithNavLayout';
@@ -26,26 +29,29 @@ import AddPlace from '@pages/PlaceRecommend/AddPlace';
 import MyPlace from '@pages/PlaceRecommend/MyPlace';
 
 import Near from '@pages/Near/Near';
+import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
   return (
     <Routes>
       <Route path="" element={<WithNavLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/book/:id" element={<BookDetail />} />
 
         <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:userId" element={<UserLibrary />} />
-        <Route path="/profile/archive" element={<MyArchive />} />
         <Route path="/profile/log" element={<ProfileLog />} />
         <Route path="profile/statistics" element={<ProfileStat />} />
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/register" element={<BookRegister />} />
 
+        <Route path="/profile/archive" element={<MyArchive />} />
+        <Route path="/profile/createReport" element={<CreateReport />} />
+
         <Route path="/book-club" element={<BookClub />} />
         <Route path="/book-club/generate" element={<BookClubGenerate />} />
-        <Route path="/book-club/:id" element={<BookClubDetail />} />
+        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
 
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />

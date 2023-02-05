@@ -27,7 +27,7 @@ function Home() {
       <div>
         <h1 className="home-text">장소 추천</h1>
         <div style={{ width: '120%' }}>
-          {placeData && <CarouselPlace items={placeData?.data} />}
+          {placeData && <CarouselPlace items={placeData} />}
         </div>
       </div>
     </div>

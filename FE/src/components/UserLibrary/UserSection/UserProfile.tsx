@@ -31,7 +31,7 @@ export default function UserProfile({ isMe }: UserProfileProps) {
 
   useEffect(() => {
     if (!query) return;
-    setUserData(query.data);
+    setUserData(query);
   }, [query]);
 
   return (
