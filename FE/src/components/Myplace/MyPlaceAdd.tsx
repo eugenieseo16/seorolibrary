@@ -8,7 +8,7 @@ function MyPlaceAdd() {
 
   return (
     <div className="club-recommend-container">
-      {data?.data?.map((recommend: any, i: number) => (
+      {data?.map((recommend: any, i: number) => (
         <div key={i}>
           <img src={recommend.image_url} alt="" />
           <div className="shadow-wrapper" />

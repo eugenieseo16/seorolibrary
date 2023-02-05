@@ -20,7 +20,7 @@ export default function CarouselHome() {
 
   return clubRecommend ? (
     <Slider {...settings} className="my-slider-home">
-      {clubRecommend.data?.map((data: any, i: number) => (
+      {clubRecommend?.map((data: any, i: number) => (
         <div
           key={i}
           className="carousel-home-container"
