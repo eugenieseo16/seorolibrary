@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '@components/Header/Header';
-import Report from '@components/MyArchive/Report';
+import Report from '@components/MyArchive/CreateReport';
 
 import'./CreateReport.styles.scss';
 
