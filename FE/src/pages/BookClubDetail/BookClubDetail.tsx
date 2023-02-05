@@ -15,18 +15,12 @@ import './BookClubDetail.styles.scss';
 import ClubRecommendCarousel from '@components/Carousel/ClubRecommendCarousel';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import CarouselPlace from '@components/Carousel/CarouselPlace';
-
-function fetchData(): Promise<IClubDetail> {
-  return axios.get('/clubDetail.json').then(response => response.data);
-}
-function fetchUserData(): Promise<IUserResponse> {
-  return axios.get('/userRecommend.json').then(response => response.data);
-}
+import { useMyQuery } from '@src/hooks/useMyQuery';
 
 function BookClubDetail() {
   const { id } = useParams();
-  const { data: detailData } = useQuery(`club-detail-${id}`, fetchData);
-  const { data: usersData } = useQuery(`/userRecommend.json`, fetchUserData);
+  const usersData: any = useMyQuery(`/userRecommend.json`);
+  const detailData: any = useMyQuery(`/clubDetail.json`);
 
   const newData = [
     {
@@ -48,7 +42,7 @@ function BookClubDetail() {
       description: '에 모였어요',
     },
   ];
-  const newUserData = usersData?.data.map(user => ({
+  const newUserData = usersData?.data?.map((user: any) => ({
     image_url: user.image_url,
     title: user.nickname,
   }));
