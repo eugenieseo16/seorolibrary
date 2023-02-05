@@ -3,11 +3,10 @@ import React from 'react';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 
 import ArchiveHeader from '@components/MyArchive/ArchiveHeader';
-import BookReport from '@components/MyArchive/BookReport';
 import './MyArchive.styles.scss'
 
 function MyArchive () {
-  const data = useMyQuery('https://63df9b7d59bccf35dab61d9d.mockapi.io/api/v1/bookReport');
+  const data = useMyQuery('https://run.mocky.io/v3/33369776-b88c-40cf-be9c-32d8aac21e44');
 
   return(
     <div className="my-archive-container">
