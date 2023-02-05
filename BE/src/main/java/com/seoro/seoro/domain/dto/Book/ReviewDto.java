@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OwnBookDto {
-	private Long userId;
+public class ReviewDto {
 	private String isbn;
-	private String ownComment;
-	private Boolean isOwn;
+	private String userName;
+	private String reviewContent;
 }
