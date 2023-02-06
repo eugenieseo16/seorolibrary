@@ -1,0 +1,57 @@
+[
+  {
+    "title": "내일 뭐 먹지",
+    "payload": "내일 진짜 뭐 먹을지 모르겠네... 메뉴 뭐 나오려나",
+    "image_url": "",
+    "category": "free",
+    "created_at": 1675593594980,
+    "user": {
+      "_id": "1",
+      "nickname": "훈나무"
+    }
+  },
+  {
+    "title": "이거 진짜 언제 다함?",
+    "payload": "2주일 남았는데 가능?",
+    "image_url": "",
+    "category": "free",
+    "created_at": 1675593598980,
+    "user": {
+      "_id": "1",
+      "nickname": "훈나무"
+    }
+  },
+  {
+    "title": "딥다이브 추천",
+    "payload": "자스 기초서 추천! 유명한데는 이유가 있는법",
+    "image_url": "https://image.yes24.com/goods/92742567/XL",
+    "category": "recommend",
+    "created_at": 1675593592980,
+    "user": {
+      "_id": "1",
+      "nickname": "훈나무"
+    }
+  },
+  {
+    "title": "내일 뭐 먹지",
+    "payload": "내일 진짜 뭐 먹을지 모르겠네... 메뉴 뭐 나오려나",
+    "image_url": "",
+    "category": "free",
+    "created_at": 1675593594980,
+    "user": {
+      "_id": "1",
+      "nickname": "훈나무"
+    }
+  },
+  {
+    "title": "내일 뭐 먹지",
+    "payload": "내일 진짜 뭐 먹을지 모르겠네... 메뉴 뭐 나오려나",
+    "image_url": "",
+    "category": "free",
+    "created_at": 1675593594980,
+    "user": {
+      "_id": "1",
+      "nickname": "훈나무"
+    }
+  }
+]
