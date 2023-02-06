@@ -26,7 +26,7 @@ import BookClubGenerate from '@pages/BookClubGenerate/BookClubGenerate';
 import Places from '@pages/Places/Places';
 import PlaceDetail from '@pages/PlaceDetail/PlaceDetail';
 import AddPlace from '@pages/PlaceDetail/AddPlace';
-import MyPlace from '@pages/PlaceDetail/MyPlace';
+import MyPlaceArchive from '@pages/Places/MyPlaceArchive';
 
 import Near from '@pages/Near/Near';
 import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
@@ -55,8 +55,8 @@ function Router() {
 
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
-        <Route path="/places/myplace" element={<MyPlace />} />
-        <Route path="/places/addplace" element={<AddPlace />} />
+        <Route path="/places/my-place-archive" element={<MyPlaceArchive />} />
+        <Route path="/places/add-place" element={<AddPlace />} />
 
         <Route path="/near" element={<Near />} />
         <Route path="/near/bookdetail/:id" element={<BookDetail />} />

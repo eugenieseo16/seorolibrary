@@ -1,48 +1,37 @@
 @import '../../styles/variables';
 
-.club-recommend-container {
+.my-place-add-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 1rem;
-  div {
+  .my-place-add-content-container {
     border-radius: 1rem;
     position: relative;
-    height: 5rem;
+    height: 10rem;
     overflow: hidden;
     img {
+      height: 12rem;
       width: 100%;
-      height: 100%;
       object-fit: cover;
-    }
-    h2,
-    h6 {
-      color: $beige;
-      position: absolute;
-      left: 2rem;
-    }
-    h2 {
-      bottom: 2.5rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    h6 {
-      font-size: 0.9rem;
-      font-weight: 200;
-      bottom: 1rem;
     }
     .shadow-wrapper {
       position: absolute;
-      top: 0;
+      bottom: 0;
+      left: 0;
+      height: 5rem;
       width: 100%;
-      height: 100%;
-      background: rgb(254, 254, 254);
-      background: linear-gradient(
-        180deg,
-        rgba(254, 254, 254, 0) 0%,
-        rgba(0, 0, 0, 0.6) 30%,
-        rgba(0, 0, 0, 0.8) 100%
-      );
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+    .content {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      color: $deep-brown;
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.6rem;
+      }
     }
   }
 }

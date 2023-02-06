@@ -7,7 +7,7 @@ import './MyPlaceHeader.styles.scss';
 function MyPlaceHeader() {
   const navigate = useNavigate();
   const onClickAddPlace = () => {
-    navigate(`addplace`);
+    navigate(`/places/add-place`);
   };
 
   return (
