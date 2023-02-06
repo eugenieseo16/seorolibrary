@@ -3,6 +3,7 @@ package com.seoro.seoro.service.GroupPost;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -17,8 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -76,12 +79,11 @@ public class GroupPostServiceImpl implements GroupPostService {
     }
 
     @Override
-    public GroupPostReadResponseDto readGroupPost(Long groupId) {
+    public GroupPostReadResponseDto readGroupPost(GroupPostReadRequestDto requestDto) {
         GroupPostReadResponseDto responseDto = new GroupPostReadResponseDto();
         //그룹 정보 가져오기
         Groups group = new Groups();
-        System.out.println("groupId = " + groupId);
-        Optional<Groups> findGroup = groupRepository.findById(groupId);
+        Optional<Groups> findGroup = groupRepository.findById(requestDto.getGroupId());
         if(findGroup.isPresent()) {
             group = findGroup.get();
         } else {
@@ -89,10 +91,12 @@ public class GroupPostServiceImpl implements GroupPostService {
             return responseDto;
         }
         
-        //그룹의 게시글 가져오기
+        //그룹의 게시글 가져오기 - 최근 작성한 게시글부터 정렬 && pagenation
         List<GroupPost> posts = group.getPosts();
+        posts.stream().sorted(Comparator.comparing(GroupPost::getGroupPostTime).reversed());
         List<GroupPostDto> groupPost = new ArrayList<>();
-        for(GroupPost p : posts) {
+        for(int i=requestDto.getStartIdx(); i< requestDto.getStartIdx() + requestDto.getLimit(); i++) {
+            GroupPost p = posts.get(i);
             GroupPostDto gpd = GroupPostDto.builder()
                 .postId(p.getGroupPostId())
                 .postTitle(p.getGroupPostTitle())
