@@ -1,6 +1,5 @@
 package com.seoro.seoro.domain.entity.Groups;
 
-import com.seoro.seoro.domain.entity.Book.Book;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

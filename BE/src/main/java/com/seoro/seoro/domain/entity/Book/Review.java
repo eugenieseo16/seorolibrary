@@ -22,8 +22,8 @@ public class Review implements Serializable {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
-    @ManyToOne(targetEntity = Book.class)
+    @ManyToOne(targetEntity = ReadBook.class)
     @JoinColumn(name = "isbn")
-    private Book book;
+    private ReadBook readBook;
     private String reviewContent;
 }
