@@ -1,0 +1,48 @@
+@import '../../styles/variables';
+
+.book-comment-container {
+  padding: 10px;
+  .book-comment-card {
+    .book-comment-item {
+      display: flex;
+      margin-bottom: 10px;
+
+      .book-comment-image {
+        img {
+          border-radius: 0;
+          height: 100%;
+          width: 120px;
+          padding: 0.5rem;
+          object-fit: cover;
+        }
+      }
+      .book-comment-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        padding: 0.5rem;
+        color: $deep-brown;
+
+        h1 {
+          color: $deep-brown;
+          font-weight: 800;
+          padding: 5px 0px;
+        }
+        .book-comment {
+          display: flex;
+          h2 {
+            padding: 0.8rem;
+            margin-bottom: 2.5rem;
+          }
+        }
+      }
+    }
+    .line {
+      background-color: $light-brown;
+      height: 1px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
