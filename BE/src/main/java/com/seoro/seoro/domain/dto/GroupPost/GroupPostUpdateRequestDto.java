@@ -1,5 +1,6 @@
 package com.seoro.seoro.domain.dto.GroupPost;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -17,5 +18,5 @@ public class GroupPostUpdateRequestDto {
 	private String postTitle;
 	private String postCategory;
 	private String postContent;
-	private Date postTime;
+	private LocalDateTime postTime;
 }

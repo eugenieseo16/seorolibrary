@@ -1,17 +1,17 @@
 package com.seoro.seoro.domain.entity.Groups;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;;
 import java.util.List;
 
 import com.seoro.seoro.domain.entity.Member.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Generated;
 
 @Entity
 @Getter
@@ -30,8 +30,9 @@ public class GroupPost implements Serializable {
     private Member member;
     @Enumerated(EnumType.STRING)
     private PostCategory postCategory;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date groupPostTime;
+    @Generated(GenerationTime.INSERT)
+    @Column
+    private LocalDateTime groupPostTime;
     private String groupPostContent;
     @Builder.Default
     @OneToMany(mappedBy = "groupPost")
