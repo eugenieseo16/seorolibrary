@@ -3,6 +3,7 @@ package com.seoro.seoro.domain.dto.GroupPost;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -13,6 +14,6 @@ public class GroupPostCreateRequestDto {
     private String postTitle;
     private String postCategory;
     private String postContent;
-    private Date postTime;
+    private LocalDateTime postTime;
     private String[] postImage;
 }

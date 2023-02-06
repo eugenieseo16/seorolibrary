@@ -37,6 +37,7 @@ public class GroupPostServiceImpl implements GroupPostService {
     @Override
     public ResultResponseDto createGroupPost(GroupPostCreateRequestDto requestDto) {
         ResultResponseDto resultResponseDto = new ResultResponseDto();
+        System.out.println("writer : " + requestDto.getWriter());
 
         //작성자 확인
         Optional<Member> findUser = userRepository.findById(requestDto.getWriter());
@@ -47,6 +48,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             resultResponseDto.setResult(false);
             return resultResponseDto;
         }
+        System.out.println("writer : " + writer.getMemberName());
         //그룹 확인
         Optional<Groups> findGroup = groupRepository.findById(requestDto.getGroupId());
         Groups group = new Groups();
@@ -93,11 +95,22 @@ public class GroupPostServiceImpl implements GroupPostService {
             responseDto.setResult(false);
             return responseDto;
         }
-        
+
         //그룹의 게시글 가져오기 - 최근 작성한 게시글부터 정렬 && pagenation
-        List<GroupPost> posts = groupPostRepository.findGroupPostsByGroupsAndPostCategoryOrderByGroupPostTimeDesc(group, PostCategory.valueOf(requestDto.getPostCategory()));
+        List<GroupPost> posts = new ArrayList<>();
+        if(PostCategory.valueOf(requestDto.getPostCategory()).equals(PostCategory.ALL)) {
+            //모든 게시물 출력
+            posts = groupPostRepository.findAllByGroupsOrderByGroupPostTimeDesc(group);
+        }
+        else {
+            posts = groupPostRepository.findGroupPostsByGroupsAndPostCategoryOrderByGroupPostTimeDesc(group, PostCategory.valueOf(requestDto.getPostCategory()));
+        }
+
         List<GroupPostDto> groupPost = new ArrayList<>();
-        for(int i=requestDto.getStartIdx(); i< requestDto.getStartIdx() + requestDto.getLimit(); i++) {
+        for(int i=requestDto.getStartIdx()-1; i< requestDto.getStartIdx() + requestDto.getLimit()-1; i++) {
+            if(posts.size() == i) {
+                break;
+            }
             GroupPost p = posts.get(i);
             GroupPostDto gpd = GroupPostDto.builder()
                 .postId(p.getGroupPostId())
