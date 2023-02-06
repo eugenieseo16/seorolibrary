@@ -6,11 +6,14 @@ import java.util.Optional;
 
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
 import com.seoro.seoro.domain.entity.ChatRoom.ChatRoom;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
+import com.seoro.seoro.domain.entity.Groups.GroupPost;
 import com.seoro.seoro.repository.ChatRoom.ChatRepository;
 
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
+import com.seoro.seoro.service.GroupPost.GroupPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +35,7 @@ public class GroupServiceImpl implements GroupService{
 	private final GroupJoinRepository groupJoinRepository;
 	private final UserRepository userRepository;
 	private final ChatRepository chatRepository;
+	private final GroupPostService groupPostService;
 
 
 	@Override
@@ -124,20 +128,23 @@ public class GroupServiceImpl implements GroupService{
 		if(findGroup.isPresent()) {
 			group = findGroup.get();
 		} else {
-			group = findGroup.orElse(null);
-		}
-		if(group == null) {
 			groupDetailResponseDto.setResult(false);
 			return groupDetailResponseDto;
 		}
 
-//		ChatRoom chatRoom = new ChatRoom();
-//		Optional<ChatRoom> findChatRoom = chatRepository.findById(group.getGroupChatId());
-//		if(findChatRoom.isPresent()) {
-//			chatRoom = findChatRoom.get();
-//		} else {
-//			chatRoom = findChatRoom.orElse(null);
-//		}
+		//그룹의 게시글들 가져오기
+		List<GroupPost> posts = group.getPosts();
+		List<GroupPostDto> groupPost = new ArrayList<>();
+		for(GroupPost p : posts) {
+			GroupPostDto gpd = GroupPostDto.builder()
+					.postId(p.getGroupPostId())
+					.postTitle(p.getGroupPostTitle())
+					.postTime(p.getGroupPostTime())
+					.postCategory(p.getPostCategory().toString())
+					.userName(p.getUser().getUserName())
+					.build();
+			groupPost.add(gpd);
+		}
 
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
@@ -147,9 +154,11 @@ public class GroupServiceImpl implements GroupService{
 				.groupDongCode(group.getGroupDongCode())
 				.groupCapacity(group.getGroupCapacity())
 				.groupDescrib(group.getGroupIntroduction())
-				.groupPost(group.getPosts())
-				.books(group.getBooks())
+				// .groupPost(group.getPosts())
+				// .books(group.getBooks())
 //				.chatting(chatRoom.getContents())
+				.groupPost(groupPost)
+				.bookCount(group.getBooks().size())
 				.postCount(group.getPosts().size())
 				.meetingCount(group.getMeetings().size())
 				.build();

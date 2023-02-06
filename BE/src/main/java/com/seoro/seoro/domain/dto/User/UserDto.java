@@ -4,11 +4,15 @@ import java.util.Date;
 
 import com.seoro.seoro.domain.entity.User.LoginType;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDto {
 	private Long userId;
 	private String userEmail;

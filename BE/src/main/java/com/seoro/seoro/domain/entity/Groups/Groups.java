@@ -1,8 +1,9 @@
 package com.seoro.seoro.domain.entity.Groups;
 
 import com.seoro.seoro.domain.entity.Book.Book;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

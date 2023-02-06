@@ -1,7 +1,7 @@
 package com.seoro.seoro.domain.entity.Place;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
