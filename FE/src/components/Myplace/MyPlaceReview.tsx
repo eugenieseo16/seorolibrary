@@ -1,29 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { faker } from '@faker-js/faker';
+import { useNavigate } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { MdLocalCafe } from 'react-icons/md';
+import { FaQuoteLeft } from 'react-icons/fa';
 
 import './MyPlaceReview.styles.scss';
-import { Navigate, useNavigate } from 'react-router-dom';
 
 function MyPlaceReview() {
-  const getRecommendData = async () =>
-    await (await fetch('/userRecommend.json')).json();
-  const { data } = useQuery('user-recommend', getRecommendData);
+  const [placesData, setPlacesData] = useState<any>();
+  const getPlacesData = async () => await (await fetch('/places.json')).json();
+  const { data } = useQuery('place-recommend', getPlacesData);
+
   const navigate = useNavigate();
 
+  const fetchData = () => {
+    setTimeout(() => {
+      setPlacesData(placesData.concat(Array.from({ length: 6 })));
+    }, 1500);
+  };
+
   return (
-    <div className="user-recommend-container">
-      {data?.data?.map((recommend: any, i: number) => (
-        <div
-          className="user-item"
-          key={i}
-          onClick={() => navigate(`/profile/${i}`, { state: true })}
-        >
-          <img src={recommend.image_url} alt="" />
-          <h2>{recommend.nickname}</h2>
-        </div>
-      ))}
-    </div>
+    <InfiniteScroll
+      className="reveiw-place-container"
+      dataLength={8}
+      next={fetchData}
+      hasMore={true}
+      loader=""
+    >
+      <div>
+        {data?.data?.map((placeRecommend: any, id: number) => (
+          <div
+            key={id}
+            className="my-review-container"
+            onClick={() => navigate(`/places/${id}`)}
+          >
+            <h2>
+              <MdLocalCafe />
+              &nbsp;
+              {placeRecommend.title}
+            </h2>
+            <img src={placeRecommend.image_url} alt="" />
+            <div className="my-review-box">
+              <h6>
+                <FaQuoteLeft />
+                &nbsp;
+                {placeRecommend.title}&nbsp;
+                {placeRecommend.title}&nbsp;
+                {placeRecommend.title}
+              </h6>
+            </div>
+            <div className="line" />
+          </div>
+        ))}
+      </div>
+    </InfiniteScroll>
   );
 }
 
