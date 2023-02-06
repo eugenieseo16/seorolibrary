@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.entity.User;
+package com.seoro.seoro.domain.entity.Member;
 
 import javax.persistence.*;
 import lombok.AccessLevel;
@@ -14,6 +14,6 @@ public class Friend implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long friendId;
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User friend;
+    @JoinColumn(name = "memberId")
+    private Member friend;
 }

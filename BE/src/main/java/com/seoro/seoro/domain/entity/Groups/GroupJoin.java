@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 
 @Entity
 @Getter
@@ -18,7 +18,7 @@ public class GroupJoin implements Serializable {
     @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
     private Groups groups;
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User user;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "memberId")
+    private Member member;
 }

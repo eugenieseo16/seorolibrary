@@ -1,8 +1,5 @@
 package com.seoro.seoro.service.GroupPost;
 
-import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
@@ -10,13 +7,11 @@ import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.*;
-import com.seoro.seoro.domain.entity.User.User;
-import com.seoro.seoro.repository.ChatRoom.ChatRepository;
-import com.seoro.seoro.repository.Group.GroupJoinRepository;
+import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Group.GroupRepository;
 import com.seoro.seoro.repository.GroupPost.GroupPostRepository;
-import com.seoro.seoro.repository.User.UserRepository;
-import com.seoro.seoro.service.Group.GroupService;
+import com.seoro.seoro.repository.Member.UserRepository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,8 +33,8 @@ public class GroupPostServiceImpl implements GroupPostService {
         ResultResponseDto resultResponseDto = new ResultResponseDto();
 
         //작성자 확인
-        Optional<User> findUser = userRepository.findById(requestDto.getWriter());
-        User writer = new User();
+        Optional<Member> findUser = userRepository.findById(requestDto.getWriter());
+        Member writer = new Member();
         if(findUser.isPresent()) {
             writer = findUser.get();
         } else {
@@ -72,7 +67,7 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .groups(group)
                 .groupPostTime(requestDto.getPostTime())
                 .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
-                .user(writer)
+                .member(writer)
 //                .photos()
                 .build();
         groupPostRepository.save(saveGroupPost);
@@ -103,7 +98,7 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .postTitle(p.getGroupPostTitle())
                 .postTime(p.getGroupPostTime())
                 .postCategory(p.getPostCategory().toString())
-                .userName(p.getUser().getUserName())
+                .userName(p.getMember().getMemberName())
                 .build();
             groupPost.add(gpd);
         }
@@ -129,7 +124,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .result(true)
             .postTitle(post.getGroupPostTitle())
             .postCategory(post.getPostCategory().toString())
-            .userName(post.getUser().getUserName())
+            .userName(post.getMember().getMemberName())
             .postContent(post.getGroupPostContent())
             .postTime(post.getGroupPostTime())
             // .postImage()
@@ -151,7 +146,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             return responseDto;
         }
         Groups group = post.getGroups();
-        User writer = post.getUser();
+        Member writer = post.getMember();
 
         post = GroupPost.builder()
             .groupPostId(postId)
@@ -160,7 +155,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .groupPostTime(requestDto.getPostTime())
             .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
             .groups(group)
-            .user(writer)
+            .member(writer)
             .build();
 
         //데이터베이스에 수정 적용
@@ -170,7 +165,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .result(true)
             .postTitle(post.getGroupPostTitle())
             .postCategory(post.getPostCategory().toString())
-            .userName(post.getUser().getUserName())
+            .userName(post.getMember().getMemberName())
             .postContent(post.getGroupPostContent())
             .postTime(post.getGroupPostTime())
             // .postImage()

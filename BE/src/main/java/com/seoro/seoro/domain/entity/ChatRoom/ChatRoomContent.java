@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 
 @Entity
 @Getter
@@ -20,8 +20,8 @@ public class ChatRoomContent implements Serializable {
     @JoinColumn(name = "chatRoomId")
     private ChatRoom chatRoom;
     @OneToOne
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "memberId")
+    private Member member;
     @OneToOne
     @JoinColumn(name = "chatRoomPhotoId")
     private ChatRoomPhoto chatRoomPhoto;

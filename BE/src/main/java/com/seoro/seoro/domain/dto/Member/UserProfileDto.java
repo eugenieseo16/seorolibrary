@@ -1,4 +1,4 @@
-package com.seoro.seoro.domain.dto.User;
+package com.seoro.seoro.domain.dto.Member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

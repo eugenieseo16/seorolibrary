@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 
 @Entity
 public class PlaceReview implements Serializable {
@@ -15,9 +15,9 @@ public class PlaceReview implements Serializable {
     @ManyToOne(targetEntity = Place.class)
     @JoinColumn(name = "placeId")
     private Place place;
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User user;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "memberId")
+    private Member member;
     private Integer score;
     private String reviewContent;
     @OneToMany(mappedBy = "placeReview")

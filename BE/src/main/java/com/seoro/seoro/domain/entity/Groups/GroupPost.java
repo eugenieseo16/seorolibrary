@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,15 +25,15 @@ public class GroupPost implements Serializable {
     @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
     private Groups groups;
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User user;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "memberId")
+    private Member member;
     @Enumerated(EnumType.STRING)
     private PostCategory postCategory;
     @Temporal(TemporalType.TIMESTAMP)
     private Date groupPostTime;
     private String groupPostContent;
-
+    @Builder.Default
     @OneToMany(mappedBy = "groupPost")
     private List<GroupPostPhoto> photos = new ArrayList<>();
 }

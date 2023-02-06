@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 
 @Entity
 @Getter
@@ -23,9 +23,9 @@ import com.seoro.seoro.domain.entity.User.User;
 public class Groups implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User host;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "memberId")
+    private Member host;
     private Long groupChatId;
     @NotNull
     private String groupName;
@@ -39,14 +39,19 @@ public class Groups implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date groupEndDate;
     private Long groupGenre;
+    @Builder.Default
     @OneToMany(mappedBy = "groups")
     private List<GroupApply> applies = new ArrayList<>();
+    @Builder.Default
     @OneToMany(mappedBy = "groups")
     private List<GroupJoin> joins = new ArrayList<>();
+    @Builder.Default
     @OneToMany(mappedBy = "groups")
     private List<GroupPost> posts = new ArrayList<>();
+    @Builder.Default
     @OneToMany(mappedBy = "groups")
     private List<GroupBook> books = new ArrayList<>();
+    @Builder.Default
     @OneToMany(mappedBy = "groups")
     private List<GroupSchedule> meetings = new ArrayList<>();
 

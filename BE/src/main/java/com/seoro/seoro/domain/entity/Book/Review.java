@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 
 @Entity
 @Getter
@@ -19,9 +19,9 @@ import com.seoro.seoro.domain.entity.User.User;
 public class Review implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User user;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "memberId")
+    private Member member;
     @ManyToOne(targetEntity = ReadBook.class)
     @JoinColumn(name = "isbn")
     private ReadBook readBook;
