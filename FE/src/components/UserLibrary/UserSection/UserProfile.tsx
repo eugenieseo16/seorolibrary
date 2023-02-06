@@ -51,7 +51,7 @@ export default function UserProfile({ isMe }: UserProfileProps) {
 
               <div className="profile-follow">
                 <p>
-                  팔로잉: {userData?.following} 팔로워: {userData?.follower}
+                  팔로잉: {userData?.following}⠀ 팔로워: {userData?.follower}
                 </p>
               </div>
             </div>
