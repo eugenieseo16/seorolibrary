@@ -11,7 +11,7 @@ function UserStat() {
   return(
     <div className="user-stat-summary">
     <div className="community" onClick={() => navigate(`/profile/log`, { state: 'club'})}>
-      <p>참여 모임 수</p>
+      <h2>참여 모임 수</h2>
       <RiBookOpenLine size={'1.5rem'}/>
       <br />
       <p>3개</p>
@@ -19,14 +19,14 @@ function UserStat() {
     <div className="vertical-line"></div>
 
     <div className="review" onClick={() => navigate(`/profile/log`, { state: 'review'})}>
-      <p>독서 리뷰</p>
+      <h2>독서 리뷰</h2>
       <RiFileList3Line size={'1.5rem'} />
       <br />
       <p>5개</p>
     </div>
     <div className="vertical-line"></div>
       <div className="comment" onClick={() => navigate(`/profile/log`, { state: 'comment'})}>
-        <p>한줄평</p>
+        <h2>한줄평</h2>
         <RiChatQuoteLine size={'1.5rem'} />
         <br />
         <p>16개</p>
