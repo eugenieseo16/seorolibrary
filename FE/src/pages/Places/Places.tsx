@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import './Places.styles.scss';
-import PlaceHeader from '@pages/PlaceRecommend/PlaceHeader';
-import PlaceRecommend from '@pages/PlaceRecommend/PlaceRecommend';
+import PlaceHeader from '@components/PlaceRecommend/PlaceHeader';
+import PlaceRecommend from '@components/PlaceRecommend/PlaceRecommend';
 
 function Places() {
   return (
