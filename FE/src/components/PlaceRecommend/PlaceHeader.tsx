@@ -7,11 +7,11 @@ import './PlaceHeader.styles.scss';
 function PlaceHeader() {
   const navigate = useNavigate();
   const onClickAddPlace = () => {
-    navigate(`addplace`);
+    navigate(`add-place`);
   };
 
-  const onClickMyPlace = () => {
-    navigate(`myplace`);
+  const onClickMyPlaceArchive = () => {
+    navigate(`my-place-archive`);
   };
 
   return (
@@ -21,7 +21,7 @@ function PlaceHeader() {
       </div>
       <div className="place-header-icon-container">
         <div className="place-header-icon-item">
-          <RiArchiveDrawerLine onClick={onClickMyPlace} size={'2rem'} />
+          <RiArchiveDrawerLine onClick={onClickMyPlaceArchive} size={'2rem'} />
         </div>
         <div className="place-header-icon-item">
           <RiAddLine onClick={onClickAddPlace} size={'2rem'} />
