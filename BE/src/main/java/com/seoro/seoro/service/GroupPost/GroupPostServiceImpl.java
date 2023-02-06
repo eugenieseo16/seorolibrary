@@ -15,6 +15,9 @@ import com.seoro.seoro.repository.Member.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -92,8 +95,7 @@ public class GroupPostServiceImpl implements GroupPostService {
         }
         
         //그룹의 게시글 가져오기 - 최근 작성한 게시글부터 정렬 && pagenation
-        List<GroupPost> posts = group.getPosts();
-        posts.stream().sorted(Comparator.comparing(GroupPost::getGroupPostTime).reversed());
+        List<GroupPost> posts = groupPostRepository.findGroupPostsByGroupsAndPostCategoryOrderByGroupPostTimeDesc(group, PostCategory.valueOf(requestDto.getPostCategory()));
         List<GroupPostDto> groupPost = new ArrayList<>();
         for(int i=requestDto.getStartIdx(); i< requestDto.getStartIdx() + requestDto.getLimit(); i++) {
             GroupPost p = posts.get(i);
