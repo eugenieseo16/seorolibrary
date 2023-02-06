@@ -1,6 +1,6 @@
 package com.seoro.seoro.domain.entity.Place;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 

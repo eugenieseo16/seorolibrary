@@ -1,6 +1,6 @@
 package com.seoro.seoro.domain.entity.Book;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
