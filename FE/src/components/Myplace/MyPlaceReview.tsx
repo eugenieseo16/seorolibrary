@@ -50,7 +50,7 @@ function MyPlaceReview() {
                 {placeRecommend.title}
               </h6>
             </div>
-            <div className="line" />
+            <div className="my-place-review-line" />
           </div>
         ))}
       </div>

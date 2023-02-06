@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import MyPlaceHeader from '../../components/Myplace/MyPlaceHeader';
-import MyPlaceReview from '@components/Myplace/MyPlaceReview';
-import MyPlaceAdd from '@components/Myplace/MyPlaceAdd';
+import MyPlaceReview from '@components/MyPlace/MyPlaceReview';
+import MyPlaceAdd from '@components/MyPlace/MyPlaceAdd';
 import ToggleNav from '@components/ToggleNav/ToggleNav';
-import './MyPlace.styles.scss';
+import './MyPlaceArchiveDetail.styles.scss';
 
 function MyPlace() {
   const [selectedId, setSelectedId] = useState('review');
-
+  console.log(selectedId);
   return (
     <div className="my-place-container">
-      <MyPlaceHeader />
       <ToggleNav
         selectedId={selectedId}
         setSelectedId={setSelectedId}
@@ -19,7 +17,6 @@ function MyPlace() {
           { text: '내가 등록한 장소', id: 'place' },
         ]}
       />
-      {/* users 인경우는 react-slick 써서 캐러셀로 */}
       {selectedId === 'review' ? <MyPlaceReview /> : <MyPlaceAdd />}
     </div>
   );
