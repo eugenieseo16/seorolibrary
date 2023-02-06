@@ -21,3 +21,10 @@ export interface IUser {
 export interface IUserResponse {
   data: IUser[];
 }
+export interface IPost {
+  title: string;
+  payload: string;
+  image_url: string[];
+  category: 'free' | 'notice' | 'recommend' | 'greet';
+  user: IUser;
+}

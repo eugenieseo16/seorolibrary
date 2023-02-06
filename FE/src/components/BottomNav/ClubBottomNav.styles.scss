@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+.club-bottom-nav {
+  position: fixed;
+  bottom: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  > div {
+    box-shadow: $box-shadow;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  button {
+    font-size: min(1.2rem, 5vw);
+    font-family: 'BM-Pro';
+    padding: 1rem;
+    width: min(6rem, 25vw);
+  }
+  .selected {
+    background-color: $brown;
+    color: $beige;
+  }
+}
