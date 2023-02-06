@@ -1,10 +1,8 @@
 package com.seoro.seoro.service.Book;
 
-import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -12,6 +10,7 @@ import java.util.ArrayList;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
@@ -82,54 +81,31 @@ public class BookServiceImpl implements BookService {
 	// 	return dtoList;
 	// }
 
-
-	// @Override
-	// public BookDto findByIsbn(String isbn) {
-	// 	Book list = bookRepository.findByIsbn(isbn);
-	// 	BookDto dtoList = BookDto.builder()
-	// 		.isbn(list.getIsbn())
-	// 		.bookTitle(list.getBookTitle())
-	// 		.bookAuthor(list.getBookAuthor())
-	// 		.bookPublisher(list.getBookPublisher())
-	// 		.bookImage(list.getBookImage())
-	// 		.bookDescrib(list.getBookDescrib())
-	// 		.bookPubDate(list.getBookPubDate())
-	// 		.review_count(list.getReviews().size())
-	// 		.owncomment_count(findOwnBookByIsbn(isbn).size())
-	// 		.build();
-	// 	return dtoList;
-	// }
-
-	// @Override
-	// public String findBestSeller() throws IOException {
-	// 	String result = "";
-	// 	try {
-	// 		Calendar today = new GregorianCalendar();
-	// 		today.add(Calendar.DATE,-7);
-	// 		SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
-	// 		String now = SDF.format(today.getTime());
-	// 		URL url = new URL("http://data4library.kr/api/loanItemSrch?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&startDt="+now+"&pageSize=10&format=json");
-	// 		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-	// 		result = br.readLine();
-	// 		// List<Book> list =
-	// 		//
-	// 		// for(Book book: list){
-	// 		//     dtoList.add(BookDto.builder()
-	// 		//         .isbn(book.getIsbn())
-	// 		//         .bookTitle(book.getBookTitle())
-	// 		//         .bookAuthor(book.getBookAuthor())
-	// 		//         .bookPublisher(book.getBookPublisher())
-	// 		//         .bookImage(book.getBookImage())
-	// 		//         .bookDescrib(book.getBookDescrib())
-	// 		//         .bookPubDate(book.getBookPubDate())
-	// 		//         .bookPage(book.getBookPage())
-	// 		//         .build());
-	// 		// }
-	// 	} catch (MalformedURLException e) {
-	// 		throw new RuntimeException(e);
-	// 	}
-	// 	return result;
-	// }
+	@Override
+	public BookDto findByIsbn(String isbn) throws IOException, ParseException {
+		BookDto output;
+		URL url =new URL("http://data4library.kr/api/srchDtlList?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&isbn13="+isbn+"&format=json");
+		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
+		String result = br.readLine();
+		System.out.println(result);
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
+		JSONObject responseResult = (JSONObject)jsonObject.get("response");
+		ArrayList info = new ArrayList((Collection)responseResult.get("detail"));
+		JSONObject jsonlist = (JSONObject)info.get(0);
+		Map outputlist = (Map)jsonlist.get("book");
+		BookDto bookDto = new BookDto();
+		//연도 형식 파악하고 추가하기
+		output = BookDto.builder()
+			.bookImage(outputlist.get("bookImageURL").toString())
+			.bookTitle(outputlist.get("bookname").toString())
+			.isbn(outputlist.get("isbn13").toString())
+			.bookAuthor(outputlist.get("authors").toString())
+			.bookDescrib(outputlist.get("description").toString())
+			.result(true)
+			.build();
+		return output;
+	}
 
 	@Override
 	public List<BookDto> findBook(String input) throws IOException, ParseException {
