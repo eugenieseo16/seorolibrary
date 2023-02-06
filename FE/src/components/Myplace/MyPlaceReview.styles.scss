@@ -1,5 +1,4 @@
 @import '../../styles/variables';
-
 .reveiw-place-container {
   display: flex;
   flex-direction: column;
@@ -7,45 +6,51 @@
   gap: 1rem;
 }
 
-.my-review-container {
-  // height: 14rem;
-  margin-bottom: 0.5rem;
+.my-place-review-card {
+  padding: 10px 0px;
+  .my-place-review-item {
+    height: 15rem;
+    img {
+      width: 100%;
+      height: 15rem;
+      object-fit: cover;
+    }
+    .shadow-wrapper {
+      position: relative;
+      bottom: 5rem;
+      //   top: 6rempx;
 
-  img {
-    width: 100%;
-    aspect-ratio: 4 / 1;
-    object-fit: cover;
-  }
+      height: 5rem;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
 
-  h6 {
-    font-size: 0.9rem;
-    // line-height: 1rem;
-    font-weight: 200;
-    color: black;
-    padding: 0.5rem;
-    margin-left: 0.5rem;
-  }
-  h2 {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem;
+      margin-bottom: 10px;
+      .my-place-review-content {
+        padding: 10px;
+        color: $deep-brown;
+        // h2 {
+        //   display: flex;
+        //   align-items: center;
+        //   font-size: 1rem;
+        // }
+        .my-place-review-title {
+          display: flex;
 
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: $deep-brown;
-  }
-  .my-review-box {
-    width: 100%;
-    height: 3rem;
-    margin-top: 0.5rem;
-    background-color: $beige;
-    filter: brightness(95%);
-  }
-
-  .line {
-    background-color: $light-brown;
-    height: 1px;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+          h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            padding: 3px 0px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+          }
+          .my-place-review-location {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
   }
 }
