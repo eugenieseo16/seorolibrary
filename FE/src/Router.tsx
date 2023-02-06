@@ -24,9 +24,9 @@ import BookClubDetail from '@pages/BookClubDetail/BookClubDetail';
 import BookClubGenerate from '@pages/BookClubGenerate/BookClubGenerate';
 
 import Places from '@pages/Places/Places';
-import PlaceDetail from '@pages/PlaceRecommend/PlaceDetail';
-import AddPlace from '@pages/PlaceRecommend/AddPlace';
-import MyPlace from '@pages/PlaceRecommend/MyPlace';
+import PlaceDetail from '@pages/PlaceDetail/PlaceDetail';
+import AddPlace from '@pages/PlaceDetail/AddPlace';
+import MyPlace from '@pages/PlaceDetail/MyPlace';
 
 import Near from '@pages/Near/Near';
 import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
