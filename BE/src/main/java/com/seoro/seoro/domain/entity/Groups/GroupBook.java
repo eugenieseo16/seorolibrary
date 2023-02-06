@@ -1,7 +1,7 @@
 package com.seoro.seoro.domain.entity.Groups;
 
 import com.seoro.seoro.domain.entity.Book.Book;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
