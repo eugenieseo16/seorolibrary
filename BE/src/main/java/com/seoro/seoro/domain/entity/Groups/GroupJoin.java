@@ -1,6 +1,6 @@
 package com.seoro.seoro.domain.entity.Groups;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
