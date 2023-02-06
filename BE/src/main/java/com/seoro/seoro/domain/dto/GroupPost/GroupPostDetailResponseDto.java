@@ -19,5 +19,6 @@ public class GroupPostDetailResponseDto {
 	private String userName;
 	private String postContent;
 	private LocalDateTime postTime;
+	private Boolean isUpdate;
 	private String[] postImage;
 }

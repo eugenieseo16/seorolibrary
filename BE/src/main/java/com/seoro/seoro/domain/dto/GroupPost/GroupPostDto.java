@@ -17,5 +17,6 @@ public class GroupPostDto {
     private String postContent;
     private String userName;
     private LocalDateTime postTime;
+    private Boolean isUpdate;
     private List<GroupPostImageDto> images;
 }
