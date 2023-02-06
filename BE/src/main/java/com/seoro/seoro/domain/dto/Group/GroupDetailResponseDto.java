@@ -24,7 +24,6 @@ public class GroupDetailResponseDto {
 	private String groupDongCode;
 	private Integer groupCapacity;
 	private String groupDescrib;
-	private List<GroupPostDto> groupPost;
 	private Integer bookCount;
 	private Integer postCount;
 	private Integer meetingCount;
