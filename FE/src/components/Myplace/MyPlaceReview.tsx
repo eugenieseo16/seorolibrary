@@ -29,30 +29,39 @@ function MyPlaceReview() {
       loader=""
     >
       <div>
-        {data?.data?.map((placeRecommend: any, id: number) => (
-          <div
-            key={id}
-            className="my-review-container"
-            onClick={() => navigate(`/places/${id}`)}
-          >
-            <h2>
-              <MdLocalCafe />
-              &nbsp;
-              {placeRecommend.title}
-            </h2>
-            <img src={placeRecommend.image_url} alt="" />
-            <div className="my-review-box">
-              <h6>
-                <FaQuoteLeft />
-                &nbsp;
-                {placeRecommend.title}&nbsp;
-                {placeRecommend.title}&nbsp;
-                {placeRecommend.title}
-              </h6>
-            </div>
-            <div className="my-place-review-line" />
+        <div>
+          {!data ? (
+            <div>
+              <h1>독서하기 좋은 장소를 추가해보세요!</h1>
           </div>
-        ))}
+          ) : (
+            <div className="bookclub-container">
+              {/* 독서 모임 카드 */}
+
+              {data?.data?.map((placeRecommend: any, id: number) => (
+                <div className="my-place-review-card" key={id} onClick={() => navigate(`/places/${id}`)}>
+                  <div className="my-place-review-item">
+                    <img src={placeRecommend.image_url} alt="" />
+                    <div className="shadow-wrapper">
+                      <div className="my-place-review-content">
+                        <div className="my-place-review-title">
+                          <h1>
+                            <MdLocalCafe />
+                            {placeRecommend.title}
+                          </h1>
+                        </div>
+                        <h2>
+                          <FaQuoteLeft />
+                          {placeRecommend.location}
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </InfiniteScroll>
   );
