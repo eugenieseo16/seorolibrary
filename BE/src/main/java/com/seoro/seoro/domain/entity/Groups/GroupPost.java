@@ -30,9 +30,10 @@ public class GroupPost implements Serializable {
     private Member member;
     @Enumerated(EnumType.STRING)
     private PostCategory postCategory;
-    @Generated(GenerationTime.INSERT)
-    @Column
+    @CreationTimestamp
     private LocalDateTime groupPostTime;
+    @ColumnDefault("false")
+    private Boolean isUpdate;
     private String groupPostContent;
     @Builder.Default
     @OneToMany(mappedBy = "groupPost")

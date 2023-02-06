@@ -132,18 +132,18 @@ public class GroupServiceImpl implements GroupService{
 		}
 
 		//그룹의 게시글들 가져오기
-		List<GroupPost> posts = group.getPosts();
-		List<GroupPostDto> groupPost = new ArrayList<>();
-		for(GroupPost p : posts) {
-			GroupPostDto gpd = GroupPostDto.builder()
-					.postId(p.getGroupPostId())
-					.postTitle(p.getGroupPostTitle())
-					.postTime(p.getGroupPostTime())
-					.postCategory(p.getPostCategory().toString())
-					.userName(p.getMember().getMemberName())
-					.build();
-			groupPost.add(gpd);
-		}
+//		List<GroupPost> posts = group.getPosts();
+//		List<GroupPostDto> groupPost = new ArrayList<>();
+//		for(GroupPost p : posts) {
+//			GroupPostDto gpd = GroupPostDto.builder()
+//					.postId(p.getGroupPostId())
+//					.postTitle(p.getGroupPostTitle())
+//					.postTime(p.getGroupPostTime())
+//					.postCategory(p.getPostCategory().toString())
+//					.userName(p.getMember().getMemberName())
+//					.build();
+//			groupPost.add(gpd);
+//		}
 
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
@@ -156,7 +156,7 @@ public class GroupServiceImpl implements GroupService{
 				// .groupPost(group.getPosts())
 				// .books(group.getBooks())
 //				.chatting(chatRoom.getContents())
-				.groupPost(groupPost)
+//				.groupPost(groupPost)
 				.bookCount(group.getBooks().size())
 				.postCount(group.getPosts().size())
 				.meetingCount(group.getMeetings().size())

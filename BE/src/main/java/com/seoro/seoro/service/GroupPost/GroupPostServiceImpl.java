@@ -20,6 +20,7 @@ import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -76,6 +77,7 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .groupPostTime(requestDto.getPostTime())
                 .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
                 .member(writer)
+                .isUpdate(false)
 //                .photos()
                 .build();
         groupPostRepository.save(saveGroupPost);
@@ -116,6 +118,7 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .postId(p.getGroupPostId())
                 .postTitle(p.getGroupPostTitle())
                 .postTime(p.getGroupPostTime())
+                .isUpdate(p.getIsUpdate())
                 .postCategory(p.getPostCategory().toString())
                 .userName(p.getMember().getMemberName())
                 .build();
@@ -145,7 +148,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .postCategory(post.getPostCategory().toString())
             .userName(post.getMember().getMemberName())
             .postContent(post.getGroupPostContent())
-            .postTime(post.getGroupPostTime())
+//            .postTime(post.getGroupPostTime())
             // .postImage()
             .build();
 
@@ -166,12 +169,14 @@ public class GroupPostServiceImpl implements GroupPostService {
         }
         Groups group = post.getGroups();
         Member writer = post.getMember();
+        LocalDateTime time = post.getGroupPostTime();
 
         post = GroupPost.builder()
             .groupPostId(postId)
             .groupPostTitle(requestDto.getPostTitle())
             .groupPostContent(requestDto.getPostContent())
-            .groupPostTime(requestDto.getPostTime())
+            .groupPostTime(time)
+            .isUpdate(true)
             .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
             .groups(group)
             .member(writer)
@@ -187,6 +192,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .userName(post.getMember().getMemberName())
             .postContent(post.getGroupPostContent())
             .postTime(post.getGroupPostTime())
+            .isUpdate(post.getIsUpdate())
             // .postImage()
             .build();
 
