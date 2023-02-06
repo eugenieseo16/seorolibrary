@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BarcodeScannerComponent from "react-qr-barcode-scanner";
+// import BarcodeScannerComponent from "react-qr-barcode-scanner";
 
 // import Webcam from 'react-webcam';
 
@@ -23,7 +23,7 @@ function Barcode() {
       <h1>바코드 등록</h1>
       { data === '바코드를 인식해주세요.' ? (
         <div>
-          <BarcodeScannerComponent
+          {/* <BarcodeScannerComponent
             width={500}
             height={500}
             
@@ -33,7 +33,7 @@ function Barcode() {
               if (result) setData(result.getText());
               else setData("바코드를 인식해주세요.");
             }}
-          />
+          /> */}
         </div>
       ) : (
         <div>
