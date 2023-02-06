@@ -6,7 +6,7 @@ import './MyPlaceAdd.styles.scss';
 function MyPlaceAdd() {
   const navigate = useNavigate();
   const data = useMyQuery('/places.json');
-  console.log(data);
+
   return (
     <div className="my-place-add-container">
       {data?.data?.map((place: any, i: number) => (
