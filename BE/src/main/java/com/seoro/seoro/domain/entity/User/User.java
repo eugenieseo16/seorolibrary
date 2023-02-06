@@ -1,7 +1,8 @@
 package com.seoro.seoro.domain.entity.User;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 
 import java.io.Serializable;
