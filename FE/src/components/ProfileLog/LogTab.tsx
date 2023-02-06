@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 
 import ToggleNav from '@components/ToggleNav/ToggleNav';
 
+import UserBookClub from '@components/ProfileLog/UserBookClub';
+import UserBookComment from '@components/ProfileLog/UserBookComment';
+import UserBookReview from '@components/ProfileLog/UserBookReview';
+
 interface LogTabProps {
   tab: string;
 }
@@ -9,7 +13,7 @@ interface LogTabProps {
 function LogTab({ tab }: LogTabProps) {
   const [selectedId, setSelectedId] = useState(tab);
 
-  return(
+  return (
     <div className="log-tab-container">
       <ToggleNav
         selectedId={selectedId}
@@ -22,11 +26,12 @@ function LogTab({ tab }: LogTabProps) {
       />
 
       {selectedId === 'club' ? (
-        <h1>모임</h1>
-      ) : selectedId === 'review' ? (
-        <h1>리뷰</h1>
+        <UserBookClub />
+      ) : // https://dcdf1cac-0867-4f6b-baa5-0ac675f4d6e1.mock.pstmn.io/user-bookclub
+      selectedId === 'review' ? (
+        <UserBookReview />
       ) : (
-        <h1>한줄평</h1>
+        <UserBookComment />
       )}
     </div>
   );
