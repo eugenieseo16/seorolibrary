@@ -1,29 +1,26 @@
 @import '../../styles/variables';
 
+.user-stat-summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
-  .user-stat-summary {  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  
-    .community{
-      width: 30%;
-    }
-    .comment{
-      width: 30%;
-      
-    }
-    .review{
-      width: 30%;
-
-    }
-    .vertical-line {
-      // margin-left: 20px;
-      // margin-right: 20px;
-  
-      border-left: 1px solid;
-      height: 60px;
-    }
+  color: $deep-brown;
+  .community {
+    width: 33%;
   }
-  
+  .comment {
+    width: 33%;
+  }
+  .review {
+    width: 33%;
+  }
+  .vertical-line {
+    // margin-left: 20px;
+    // margin-right: 20px;
+
+    border-left: 1px solid;
+    height: 60px;
+  }
+}
