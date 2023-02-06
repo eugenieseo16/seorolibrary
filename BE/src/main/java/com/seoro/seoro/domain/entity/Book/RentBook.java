@@ -20,9 +20,9 @@ public class RentBook implements Serializable {
     @ManyToOne(targetEntity = ChatRoom.class)
     @JoinColumn(name = "chatRoomId")
     private ChatRoom chatRoom;
-    @ManyToOne(targetEntity = Book.class)
-    @JoinColumn(name = "isbn")
-    private Book book;
+    private String isbn;
+    private String bookTitle;
+    private String bookImage;
     @Temporal(TemporalType.DATE)
     private Date rendDate;
     private Boolean isReturn;

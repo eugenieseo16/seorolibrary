@@ -21,9 +21,9 @@ public class OwnBook implements Serializable {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
-    @ManyToOne(targetEntity = Book.class)
-    @JoinColumn(name = "isbn")
-    private Book book;
+    private String isbn;
+    private String bookTitle;
+    private String bookImage;
     private String ownComment;
     private Boolean isOwn;
 }
