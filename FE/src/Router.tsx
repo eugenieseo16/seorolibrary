@@ -17,7 +17,7 @@ import MyArchive from '@pages/MyArchive/MyArchive';
 import CreateReport from '@pages/MyArchive/CreateReport';
 
 import Login from '@pages/Login';
-import WithNavLayout from '@pages/withNavLayout/WithNavLayout';
+import WithNavLayout from '@pages/layouts/WithNavLayout';
 
 import BookClub from '@pages/BookClub/BookClub';
 import BookClubDetail from '@pages/BookClubDetail/BookClubDetail';
@@ -30,6 +30,7 @@ import MyPlaceArchive from '@pages/Places/MyPlaceArchive';
 
 import Near from '@pages/Near/Near';
 import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
+import WithOutNavLayout from '@pages/layouts/WithOutNavLayout';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -51,7 +52,6 @@ function Router() {
 
         <Route path="/book-club" element={<BookClub />} />
         <Route path="/book-club/generate" element={<BookClubGenerate />} />
-        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
 
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
@@ -62,6 +62,9 @@ function Router() {
         <Route path="/near/bookdetail/:id" element={<BookDetail />} />
 
         <Route path="*" element={'404'} />
+      </Route>
+      <Route path="" element={<WithOutNavLayout />}>
+        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
       </Route>
     </Routes>
   );
