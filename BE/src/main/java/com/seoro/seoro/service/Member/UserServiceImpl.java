@@ -20,8 +20,9 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public List<UserDto> findByUserNameLike(String input) {
+	public List<UserDto> findByMemberNameLike(String input) {
 		List<Member> list = userRepository.findByMemberNameLike(input);
+		System.out.println(list.size());
 		List<UserDto> dtoList = new ArrayList<>();
 		for(Member member : list){
 			dtoList.add(UserDto.builder()

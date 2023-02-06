@@ -8,5 +8,5 @@ import com.seoro.seoro.domain.dto.Member.UserDto;
 
 @Service
 public interface UserService {
-	List<UserDto> findByUserNameLike(String userName);
+	List<UserDto> findByMemberNameLike(String userName);
 }
