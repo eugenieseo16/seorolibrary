@@ -1,8 +1,6 @@
 package com.seoro.seoro.domain.dto.Library;
 
-import java.util.List;
-
-import com.seoro.seoro.domain.dto.User.UserProfileDto;
+import com.seoro.seoro.domain.dto.Member.UserProfileDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +14,6 @@ public class LibraryMainResponseDto {
 	private Integer groupCnt;
 	private Integer ownCommentCnt;
 	private Integer bookReportCnt;
-	private List<Book> ownBooks;
-	private List<Book> readBook;
+	// private List<Book> ownBooks;
+	// private List<Book> readBook;
 }

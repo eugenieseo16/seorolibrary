@@ -2,8 +2,6 @@ package com.seoro.seoro.domain.dto.Group;
 
 import java.util.Date;
 
-import com.seoro.seoro.domain.entity.User.User;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

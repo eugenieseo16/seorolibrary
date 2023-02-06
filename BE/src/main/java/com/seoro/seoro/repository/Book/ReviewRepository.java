@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.seoro.seoro.domain.entity.Book.Review;
 
-public interface ReviewRepository extends JpaRepository<Review, Integer> {
-	List findByBook_Isbn(@Param(value= "isbn") String isbn);
-
-}
+// public interface ReviewRepository extends JpaRepository<Review, Integer> {
+// 	List findByBook_Isbn(@Param(value= "isbn") String isbn);
+//
+// }

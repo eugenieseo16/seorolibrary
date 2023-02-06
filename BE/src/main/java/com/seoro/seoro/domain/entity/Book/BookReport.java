@@ -1,14 +1,15 @@
 package com.seoro.seoro.domain.entity.Book;
 
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
@@ -22,6 +23,7 @@ public class BookReport implements Serializable {
     @JoinColumn(name="readBookId")
     private ReadBook readBook;
     private String bookReportContent;
+    @Builder.Default
     @OneToMany(mappedBy = "bookReport")
     private List<BookReportPhoto> photos = new ArrayList<>();
 }

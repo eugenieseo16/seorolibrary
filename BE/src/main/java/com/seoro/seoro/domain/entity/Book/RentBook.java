@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.seoro.seoro.domain.entity.ChatRoom.ChatRoom;
-import com.seoro.seoro.domain.entity.User.User;
 
 @Entity
 @Getter

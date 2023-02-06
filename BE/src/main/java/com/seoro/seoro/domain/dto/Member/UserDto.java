@@ -1,8 +1,8 @@
-package com.seoro.seoro.domain.dto.User;
+package com.seoro.seoro.domain.dto.Member;
 
 import java.util.Date;
 
-import com.seoro.seoro.domain.entity.User.LoginType;
+import com.seoro.seoro.domain.entity.Member.LoginType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.seoro.seoro.domain.entity.Book;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 
 @Entity
 @Getter
@@ -22,14 +22,15 @@ import com.seoro.seoro.domain.entity.User.User;
 public class ReadBook implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long readBookId;
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User user;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "memberId")
+    private Member member;
     private String isbn;
     private String bookTitle;
     private String bookImage;
     @Temporal(TemporalType.DATE)
     private Date readDate;
+    @Builder.Default
     @OneToMany(mappedBy = "readBook")
     private List<Review> reviews = new ArrayList<>();
 }

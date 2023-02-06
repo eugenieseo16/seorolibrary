@@ -7,22 +7,21 @@ import java.util.Optional;
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
-import com.seoro.seoro.domain.entity.ChatRoom.ChatRoom;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.domain.entity.Groups.GroupPost;
 import com.seoro.seoro.repository.ChatRoom.ChatRepository;
 
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.Groups;
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Group.GroupRepository;
-import com.seoro.seoro.repository.User.UserRepository;
+import com.seoro.seoro.repository.Member.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,8 +42,8 @@ public class GroupServiceImpl implements GroupService{
 		GroupMainResponseDto groupMainResponseDto = new GroupMainResponseDto();
 		System.out.println("userName = " + userName);
 		//현재 로그인한 사용자
-		User findUser = userRepository.findUserByUserName(userName);
-		System.out.println("findUser = " + findUser);
+		Member findMember = userRepository.findUserByMemberName(userName);
+		System.out.println("findUser = " + findMember);
 
 		//같은 동코드를 가진 독서모임 반환
 		// String myDongCode = findUser.getUserDongCode();
@@ -57,7 +56,7 @@ public class GroupServiceImpl implements GroupService{
 
 
 		//내가 참여하고 있는 독서모임 반환
-		List<GroupJoin> findGroupJoin = findUser.getGroupJoins();
+		List<GroupJoin> findGroupJoin = findMember.getGroupJoins();
 		System.out.println("findGroupJoin = " + findGroupJoin.size());
 		// for (int i=0; i<findGroupJoin.size(); i++) {
 		// 	System.out.println(findGroupJoin.get(i));
@@ -87,8 +86,8 @@ public class GroupServiceImpl implements GroupService{
 			online = true;
 		}
 
-		User host = new User();
-		Optional<User> tmpUser = userRepository.findById(requestDto.getGroupHost());
+		Member host = new Member();
+		Optional<Member> tmpUser = userRepository.findById(requestDto.getGroupHost());
 		if(tmpUser.isPresent()) {
 			host = tmpUser.get();
 		}else {
@@ -111,7 +110,7 @@ public class GroupServiceImpl implements GroupService{
 
 		saveGroupJoin = GroupJoin.builder()
 						.groups(saveGroup)
-						.user(host)
+						.member(host)
 						.build();
 
 		groupRepository.save(saveGroup);
@@ -141,7 +140,7 @@ public class GroupServiceImpl implements GroupService{
 					.postTitle(p.getGroupPostTitle())
 					.postTime(p.getGroupPostTime())
 					.postCategory(p.getPostCategory().toString())
-					.userName(p.getUser().getUserName())
+					.userName(p.getMember().getMemberName())
 					.build();
 			groupPost.add(gpd);
 		}

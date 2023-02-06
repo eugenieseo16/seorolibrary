@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-import com.seoro.seoro.domain.entity.User.User;
+import com.seoro.seoro.domain.entity.Member.Member;
 
 @Entity
 @Getter
@@ -18,9 +18,9 @@ public class OwnBook implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ownBookId;
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId")
-    private User user;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "memberId")
+    private Member member;
     private String isbn;
     private String bookTitle;
     private String bookImage;

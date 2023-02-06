@@ -1,6 +1,4 @@
-package com.seoro.seoro.domain.dto.User;
-
-import com.seoro.seoro.domain.entity.User.User;
+package com.seoro.seoro.domain.dto.Member;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
