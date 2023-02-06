@@ -1,6 +1,5 @@
 package com.seoro.seoro.domain.entity.Groups;
 
-import com.seoro.seoro.domain.entity.Book.Book;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,12 +16,10 @@ import java.io.Serializable;
 public class GroupBook implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupBookId;
-
     @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
     private Groups groups;
-
-    @ManyToOne(targetEntity = Book.class)
-    @JoinColumn(name = "isbn")
-    private Book book;
+    private String isbn;
+    private String bookTitle;
+    private String bookImage;
 }
