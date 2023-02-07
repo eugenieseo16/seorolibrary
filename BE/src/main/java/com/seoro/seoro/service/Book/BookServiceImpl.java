@@ -22,7 +22,10 @@ import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 // import com.seoro.seoro.domain.entity.User.User;
 // import com.seoro.seoro.repository.Book.OwnBookRepository;
+import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.Review;
+import com.seoro.seoro.domain.entity.Member.Member;
+import com.seoro.seoro.repository.Book.ReadBookRepository;
 import com.seoro.seoro.repository.Book.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -35,11 +38,30 @@ public class BookServiceImpl implements BookService {
 
 	// final BookRepository bookRepository;
 	final ReviewRepository reviewRepository;
+	final ReadBookRepository readBookRepository;
 	// final OwnBookRepository ownBookRepository;
 
 	@Override
+	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
+		Long memberId = 1L;
+		Member writer = new Member();
+
+		Review review = Review.builder()
+			.member(writer)
+			.reviewContent(requestDto.getReviewContent())
+			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()))
+			.build();
+		reviewRepository.save(review);
+		resultResponseDto.setResult(true);
+
+		return resultResponseDto;
+	}
+
+	@Override
 	public ReviewDto findReviewByIsbnAndMemberId(String isbn) {
-		String member_id="";
+		Long member_id=1L;
 		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);
 		ReviewDto dtoOutput = ReviewDto.builder()
 			.userName(review.getMember().getMemberName())
@@ -49,7 +71,6 @@ public class BookServiceImpl implements BookService {
 
 		return dtoOutput;
 	}
-
 	// public List<OwnBookDto> findOwnBookByIsbn(String isbn) {
 	// 	List<OwnBook> list = ownBookRepository.findByBook_Isbn(isbn);
 	// 	List<OwnBookDto> dtoList = new ArrayList<>();
@@ -61,8 +82,8 @@ public class BookServiceImpl implements BookService {
 	// 			.build());
 	// 	}
 	// 	return dtoList;
-	// }
 
+	// }
 	// @Override
 	// public List<BookDto> findAllBooks() {
 	// 	List<Book> list = bookRepository.findAll();
@@ -79,6 +100,7 @@ public class BookServiceImpl implements BookService {
 	// 				.build());
 	// 	}
 	// 	return dtoList;
+
 	// }
 
 	@Override
@@ -94,7 +116,9 @@ public class BookServiceImpl implements BookService {
 		ArrayList info = new ArrayList((Collection)responseResult.get("detail"));
 		JSONObject jsonlist = (JSONObject)info.get(0);
 		Map outputlist = (Map)jsonlist.get("book");
-		BookDto bookDto = new BookDto();
+
+		long count_review = reviewRepository.countByReadBook_Isbn(isbn);
+
 		//연도 형식 파악하고 추가하기
 		output = BookDto.builder()
 			.bookImage(outputlist.get("bookImageURL").toString())
@@ -103,11 +127,12 @@ public class BookServiceImpl implements BookService {
 			.bookAuthor(outputlist.get("authors").toString())
 			.bookDescrib(outputlist.get("description").toString())
 			.result(true)
+			.countReview(count_review)
 			.build();
 		return output;
 	}
-
 	//내 주변 보유사용자, 한줄평, 읽은 유저 수, 리뷰수 출력 추가 필요
+
 	@Override
 	public List<BookDto> findBook(String input) throws IOException, ParseException {
 		List<BookDto> output = new ArrayList<>();
@@ -165,20 +190,4 @@ public class BookServiceImpl implements BookService {
 		}
 		return output;
 	}
-	// @Override
-	// public ResultResponseDto makeReview(ReviewDto requestDto) {
-	// 	ResultResponseDto resultResponseDto = new ResultResponseDto();
-	//
-	// 	User writer = new User();
-	//
-	// 	Review review = Review.builder()
-	// 		.user(writer)
-	// 		.reviewContent(requestDto.getReviewContent())
-	// 		.book(bookRepository.findByIsbn(requestDto.getIsbn()))
-	// 		.build();
-	// 	reviewRepository.save(review);
-	// 	resultResponseDto.setResult(true);
-	//
-	// 	return resultResponseDto;
-	// }
 }
