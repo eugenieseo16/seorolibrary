@@ -12,7 +12,9 @@ import com.seoro.seoro.domain.dto.Member.MemberSignupDto;
 import com.seoro.seoro.domain.dto.Member.MemberUpdateDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Member.Member;
+import com.seoro.seoro.auth.LogoutAccessTokenRedisRepositoty;
 import com.seoro.seoro.repository.Member.MemberRepository;
+import com.seoro.seoro.util.JwtTokenUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberServiceImpl implements MemberService {
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
+	// private final RefreshTokenRedisRepository refreshTokenRedisRepository;
+	private final LogoutAccessTokenRedisRepositoty logoutAccessTokenRedisRepositoty;
+	private final JwtTokenUtil jwtTokenUtil;
 
 	@Override
 	public ResultResponseDto signupMember(MemberSignupDto requestDto) {
@@ -49,6 +54,7 @@ public class MemberServiceImpl implements MemberService {
 			.memberEmail(requestDto.getMemberEmail())
 			.memberName(requestDto.getMemberName())
 			.memberPassword(passwordEncoder.encode(requestDto.getMemberPassword()))
+			.memberGenre(requestDto.getMemberGenre())
 			.build();
 
 		memberRepository.save(member);
