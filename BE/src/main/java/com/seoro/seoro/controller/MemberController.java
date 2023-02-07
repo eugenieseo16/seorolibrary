@@ -1,5 +1,12 @@
 package com.seoro.seoro.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +31,22 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@PostMapping("/signup")
-	public ResultResponseDto signupMember(@ModelAttribute MemberSignupDto requestDto) {
+	public ResultResponseDto signupMember(@ModelAttribute @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
+
+		// 취향 카테고리 선택 작업 필요
+
+		if(bindingResult.hasErrors()) {
+			Map<String, String> errorMap = new HashMap<>();
+			for(FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put("valid+" + error.getField(), error.getDefaultMessage());
+				// log.info("error message : "+error.getDefaultMessage());
+			}
+
+			ResultResponseDto responseDto = new ResultResponseDto();
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
 		return memberService.signupMember(requestDto);
 	}
 
