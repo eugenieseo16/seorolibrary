@@ -1,0 +1,39 @@
+@import '../../styles/variables';
+
+.place-desciption-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+
+  .place-detail-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 10rem;
+    img {
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 2 / 1;
+    }
+  }
+  .place-detail-content-container {
+    display: flex;
+    flex-direction: column;
+    h6 {
+      font-size: 1rem;
+      line-height: 1.3rem;
+      font-weight: 200;
+      padding: 0.5rem;
+      white-space: normal;
+    }
+    h2 {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $deep-brown;
+    }
+  }
+}
