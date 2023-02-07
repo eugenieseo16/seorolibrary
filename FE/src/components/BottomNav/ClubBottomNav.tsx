@@ -1,23 +1,43 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './ClubBottomNav.styles.scss';
 import { useSpring, animated } from '@react-spring/web';
+import { useNavigate } from 'react-router-dom';
+import { useLastPathname } from '@src/hooks/usePathname';
 
-function Button({ text, value, selected }: any) {
+function Button({ text, value }: any) {
+  const navigate = useNavigate();
+  const url = value == 'main' ? '' : value;
+  const path = useLastPathname();
+  const selected = path == url;
+
+  const { color } = useSpring({
+    color: selected ? '#fffbf1' : '#583f31',
+    config: { mass: 5, tension: 500, friction: 80 },
+  });
+
   return (
-    <button className={selected == value ? 'selected' : ''} value={value}>
-      {text}
-    </button>
+    <animated.button
+      onClick={() => navigate(`/book-club/${1}/${url}`)}
+      className={path == url ? 'selected' : ''}
+      value={value}
+      style={{ color, zIndex: 1 }}
+    >
+      <span style={{ zIndex: 99 }}>{text}</span>
+    </animated.button>
   );
 }
 
 function ClubBottomNav() {
-  const [value, setValue] = useState<string>('posts');
   const [visible, setVisible] = useState(true);
   const scrollRef = useRef(0);
-  const { opacity, transform } = useSpring({
+  const path = useLastPathname();
+  const index = path == '' ? 0 : path == 'plan' ? 1 : 2;
+
+  const { opacity, transform, left } = useSpring({
     opacity: visible ? 1 : 0,
     transform: `translateY(${visible ? 0 : 180}px)`,
-    config: { mass: 5, tension: 500, friction: 80 },
+    left: `${index * (100 / 3)}%`,
+    config: { mass: 5, tension: 500, friction: 80, duration: 150 },
   });
 
   useEffect(() => {
@@ -35,10 +55,12 @@ function ClubBottomNav() {
 
   return (
     <animated.div style={{ opacity, transform }} className="club-bottom-nav">
-      <div onClick={(e: any) => setValue(e.target.value)}>
-        <Button text="게시판" value="posts" selected={value} />
-        <Button text="일정" value="plan" selected={value} />
-        <Button text="읽은책" value="readBooks" selected={value} />
+      <div style={{ position: 'relative' }}>
+        <Button text="게시판" value="main" />
+        <Button text="일정" value="plan" />
+        <Button text="읽은책" value="books" />
+        <animated.div style={{ left }} />
+        <div className="background" />
       </div>
     </animated.div>
   );

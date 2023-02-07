@@ -86,7 +86,6 @@ function BookClubMain() {
           ))}
         </div>
       </div>
-      <ClubBottomNav />
     </>
   ) : (
     <Loading />
