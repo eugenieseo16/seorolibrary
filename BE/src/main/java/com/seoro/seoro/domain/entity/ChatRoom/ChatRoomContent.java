@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.seoro.seoro.domain.entity.Member.Member;
@@ -28,6 +29,5 @@ public class ChatRoomContent implements Serializable {
     @OneToOne
     @JoinColumn(name = "contentId")
     private ContentDetail contentDetail;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private LocalDateTime time;
 }
