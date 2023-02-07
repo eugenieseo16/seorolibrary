@@ -1,12 +1,53 @@
 import React, { useState } from 'react';
-import { Input, Form, Upload, Select, Carousel } from 'antd';
+import { Input, Form, Upload, Select, Image, Button } from 'antd';
+import { CloseOutlined, FileImageOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
 
+import './PostGenerate.styles.scss';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
+import SearchHeader from '@components/SearchHeader/SearchHeader';
+
+const props: UploadProps = {
+  name: 'file',
+  multiple: true,
+
+  customRequest: ({ onSuccess }: any) => onSuccess('ok'),
+  itemRender: (_, file: any, __, { remove }) => {
+    const url = URL.createObjectURL(file.originFileObj);
+
+    return (
+      <div style={{ position: 'relative', display: 'inline-block' }}>
+        <Image
+          width={'100%'}
+          style={{
+            objectFit: 'cover',
+            aspectRatio: '1',
+            borderRadius: '1rem',
+          }}
+          src={url}
+          alt=""
+        />
+        <Button
+          style={{
+            position: 'absolute',
+            top: '-8px',
+            right: '-8px',
+          }}
+          onClick={() => remove()}
+          danger
+          shape="circle"
+          icon={<CloseOutlined />}
+        />
+      </div>
+    );
+  },
+};
+
+function Label({ text }: { text: string }) {
+  return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
+}
 
 function PostGenerate() {
-  const [imagePreview, setImagePreview] = useState<string[]>([]);
   const [form] = Form.useForm();
   const onFinish = (values: any) => {
     console.log('Success:', values);
@@ -16,86 +57,49 @@ function PostGenerate() {
     console.log('Failed:', errorInfo);
   };
 
-  const getBase64 = (img: any, callback: (url: string) => void) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
-    reader.readAsDataURL(img);
-  };
-
-  const handleChange = (info: any) => {
-    console.log(info);
-    // Get this url from response in real world.
-    const urls = info.fileList.map((file: any) =>
-      URL.createObjectURL(file.originFileObj),
-    );
-    setImagePreview(urls);
-  };
-
-  const props: UploadProps = {
-    name: 'file',
-    multiple: true,
-    onChange: handleChange,
-    customRequest: ({ onSuccess }: any) => onSuccess('ok'),
-    itemRender: (_, file: any, __, { remove }) => {
-      console.log(file);
-      const url = URL.createObjectURL(file.originFileObj);
-      return (
-        <div>
-          <img src={url} alt="" />
-        </div>
-      );
-    },
-  };
   return (
     <>
-      <div>
+      <SearchHeader text="게시글 작성하기" search={false} />
+      <div className="post-generate-container">
         <Form form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
           <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            label={<Label text="제목" />}
+            name="title"
+            rules={[{ required: true, message: '제목을 알려주세요' }]}
           >
             <Input />
           </Form.Item>
-          <Form.Item initialValue={'free'} label="Select" name="category">
-            <Select>
+          <Form.Item
+            label={<Label text="내용" />}
+            name="payload"
+            rules={[{ required: true, message: '내용을 알려주세요' }]}
+          >
+            <Input.TextArea rows={4} />
+          </Form.Item>
+          <Form.Item
+            label={<Label text="게시글 유형" />}
+            rules={[{ required: true, message: '게시판을 선택해주세요' }]}
+            initialValue={'free'}
+            name="category"
+          >
+            <Select style={{ fontFamily: 'NEXON' }}>
               <Select.Option value="free">자유글</Select.Option>
               <Select.Option value="notice">공지사항</Select.Option>
               <Select.Option value="recommend">책 추천</Select.Option>
               <Select.Option value="greeting">가입인사</Select.Option>
             </Select>
           </Form.Item>
-          <div>
-            <Carousel style={{ marginBottom: '1rem' }}>
-              {imagePreview?.map((url, i) => (
-                <div key={i}>
-                  <img
-                    src={url}
-                    alt=""
-                    style={{
-                      width: '100%',
-                      aspectRatio: '16/9',
-                      objectFit: 'cover',
-                    }}
-                  />
-                </div>
-              ))}
-            </Carousel>
+          <Form.Item
+            label={<Label text="사진" />}
+            name="images"
+            valuePropName="any"
+          >
             <Upload.Dragger {...props}>
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">
-                Click or drag file to this area to upload
-              </p>
-              <p className="ant-upload-hint">
-                Support for a single or bulk upload. Strictly prohibit from
-                uploading company data or other band files
-              </p>
+              <div className="ant-upload-container">
+                <p>사진추가</p>
+                <FileImageOutlined className="image-icon" />
+              </div>
             </Upload.Dragger>
-          </div>
-          <Form.Item label="TextArea" name="payload">
-            <Input.TextArea rows={4} />
           </Form.Item>
         </Form>
       </div>
