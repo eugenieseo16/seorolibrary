@@ -31,12 +31,11 @@ public class BookController {
 		return bookService.findByIsbn(isbn);
 	}
 
-	// @GetMapping("/review/{isbn}")
-	// public List<ReviewDto> searchReviewsByIsbn(@PathVariable String isbn){
-	// 	List<ReviewDto> reviews = new ArrayList<>();
-	// 	reviews= bookService.findReviewByIsbn(isbn);
-	// 	return reviews;
-	// }
+	@GetMapping("/review/{isbn}")
+	public ReviewDto searchReviewsByIsbn(@PathVariable String isbn){
+		ReviewDto review = bookService.findReviewByIsbnAndMemberId(isbn);
+		return review;
+	}
 
 	// @PostMapping("/review/{isbn}")
 	// public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){

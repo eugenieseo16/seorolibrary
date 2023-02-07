@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +19,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import com.seoro.seoro.domain.dto.Book.BookDto;
+import com.seoro.seoro.domain.dto.Book.ReviewDto;
 // import com.seoro.seoro.domain.entity.User.User;
 // import com.seoro.seoro.repository.Book.OwnBookRepository;
-// import com.seoro.seoro.repository.Book.ReviewRepository;
+import com.seoro.seoro.domain.entity.Book.Review;
+import com.seoro.seoro.repository.Book.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,22 +34,21 @@ import lombok.extern.slf4j.Slf4j;
 public class BookServiceImpl implements BookService {
 
 	// final BookRepository bookRepository;
-	// final ReviewRepository reviewRepository;
+	final ReviewRepository reviewRepository;
 	// final OwnBookRepository ownBookRepository;
 
-	// @Override
-	// public List<ReviewDto> findReviewByIsbn(String isbn) {
-	// 	List<Review> list = reviewRepository.findByBook_Isbn(isbn);
-	// 	List<ReviewDto> dtoList = new ArrayList<>();
-	// 	for(Review review: list){
-	// 		dtoList.add(ReviewDto.builder()
-	// 			.isbn(review.getBook().getIsbn())
-	// 			.userName(review.getUser().getUserName())
-	// 			.reviewContent(review.getReviewContent())
-	// 			.build());
-	// 	}
-	// 	return dtoList;
-	// }
+	@Override
+	public ReviewDto findReviewByIsbnAndMemberId(String isbn) {
+		String member_id="";
+		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);
+		ReviewDto dtoOutput = ReviewDto.builder()
+			.userName(review.getMember().getMemberName())
+			.isbn(review.getReadBook().getIsbn())
+			.reviewContent(review.getReviewContent())
+			.build();
+
+		return dtoOutput;
+	}
 
 	// public List<OwnBookDto> findOwnBookByIsbn(String isbn) {
 	// 	List<OwnBook> list = ownBookRepository.findByBook_Isbn(isbn);
@@ -107,14 +107,13 @@ public class BookServiceImpl implements BookService {
 		return output;
 	}
 
+	//내 주변 보유사용자, 한줄평, 읽은 유저 수, 리뷰수 출력 추가 필요
 	@Override
 	public List<BookDto> findBook(String input) throws IOException, ParseException {
 		List<BookDto> output = new ArrayList<>();
 		URL url =new URL("http://data4library.kr/api/srchBooks?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&keyword="+ URLEncoder.encode(input,"utf-8")+"&pageSize=100&format=json");
 		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
-
 		String result = br.readLine();
-		System.out.println(result);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
 		JSONObject responseResult = (JSONObject)jsonObject.get("response");
