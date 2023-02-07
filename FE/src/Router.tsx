@@ -32,6 +32,8 @@ import Near from '@pages/Near/Near';
 import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
 import WithOutNavLayout from '@pages/layouts/WithOutNavLayout';
 import PostGenerate from '@pages/PostGenerate/PostGenerate';
+import ClubBooks from '@pages/ClubBooks/ClubBooks';
+import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -65,8 +67,13 @@ function Router() {
         <Route path="*" element={'404'} />
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
-        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
+      </Route>
+
+      <Route path="" element={<BookClubNavLayout />}>
+        <Route path="/book-club/:id/books" element={<ClubBooks />} />
+        <Route path="/book-club/:id/plan" element={<ClubBooks />} />
+        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
       </Route>
     </Routes>
   );
