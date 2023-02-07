@@ -15,9 +15,10 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 public interface BookService {
 	// List<BookDto> findBook(String input);
 	// List<BookDto> findAllBooks();
-	// List<ReviewDto> findReviewByIsbn(String isbn);
-
 	// List<BookDto> findByBookTitleLikeOrBookAuthorLike(String input1, String input2);
+
+	ReviewDto findReviewByIsbnAndMemberId(String isbn);
+
 	List findBook(String input) throws IOException, ParseException;
 
 	BookDto findByIsbn(String isbn) throws IOException, ParseException;

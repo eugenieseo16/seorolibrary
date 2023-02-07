@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +25,7 @@ public class ReadBook implements Serializable {
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "memberId")
     private Member member;
+    @NotNull
     private String isbn;
     private String bookTitle;
     private String bookImage;

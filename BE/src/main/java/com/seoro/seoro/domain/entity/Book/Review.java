@@ -1,6 +1,8 @@
 package com.seoro.seoro.domain.entity.Book;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,8 +24,9 @@ public class Review implements Serializable {
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "memberId")
     private Member member;
+    @NotNull
     @ManyToOne(targetEntity = ReadBook.class)
-    @JoinColumn(name = "isbn")
+    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
     private ReadBook readBook;
     private String reviewContent;
 }
