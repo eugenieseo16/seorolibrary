@@ -1,9 +1,10 @@
+import React from 'react';
+import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useEffect, useRef } from 'react';
-
 
 function PlaceMap() {
   const mapElement = useRef(null);
-
+  const data = useMyQuery('/places.json');
 
   useEffect(() => {
     const { naver } = window;
@@ -26,9 +27,7 @@ function PlaceMap() {
     });
   }, []);
 
-
-  return <div ref={mapElement} style={{ minHeight: '400px' }} />;
+  return <div ref={mapElement} style={{ minHeight: '15rem' }} />;
 }
-
 
 export default PlaceMap;
