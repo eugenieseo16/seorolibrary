@@ -12,10 +12,10 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 @Service
 public interface MemberService {
 	public ResultResponseDto signupMember(MemberSignupDto requestDto);
+	public ResultResponseDto chechNameDuplication(String memberName);
+	public ResultResponseDto checkEmailDuplication(String memberEmail);
 	public List<MemberDto> findByMemberNameLike(String memberName);
 	public MemberDto viewMember(String memberName);
-
 	public MemberDto modifyProfile(MemberUpdateDto requestDto, String memberName);
-
 	public ResultResponseDto removeMember(String memberName);
 }

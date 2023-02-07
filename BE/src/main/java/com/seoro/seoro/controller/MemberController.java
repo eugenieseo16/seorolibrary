@@ -50,9 +50,15 @@ public class MemberController {
 		return memberService.signupMember(requestDto);
 	}
 
-	// 닉네임 중복
+	@GetMapping("/memberName/dupchk/{memberName}")
+	public ResultResponseDto checkNameDuplicate(@PathVariable String memberName) {
+		return memberService.chechNameDuplication(memberName);
+	}
 
-	// 이메일 중복
+	@GetMapping("/memberEmail/dupchk/{memberEmail}")
+	public ResultResponseDto checkEmailDuplicate(@PathVariable String memberEmail) {
+		return memberService.checkEmailDuplication(memberEmail);
+	}
 
 	@GetMapping("/{memberName}")
 	public MemberDto viewMember(@PathVariable String memberName) {
