@@ -12,7 +12,7 @@
 //
 // import com.seoro.seoro.domain.dto.Book.BookDto;
 // import com.seoro.seoro.service.Book.BookService;
-// import com.seoro.seoro.service.User.UserService;
+// import com.seoro.seoro.service.User.MemberService;
 //
 // import lombok.RequiredArgsConstructor;
 //
@@ -22,7 +22,7 @@
 // public class MainController {
 //
 // 	private final BookService bookService;
-// 	private final UserService userService;
+// 	private final MemberService userService;
 //
 // 	@GetMapping("/search/{input}")
 // 	public List<List> searchByInput(@PathVariable String input){

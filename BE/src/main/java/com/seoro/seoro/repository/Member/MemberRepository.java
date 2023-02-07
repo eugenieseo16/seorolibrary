@@ -1,6 +1,7 @@
 package com.seoro.seoro.repository.Member;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.seoro.seoro.domain.entity.Member.Member;
 
 @Repository
-public interface UserRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
 	List<Member> findByMemberNameLike(String userName);
-	Member findUserByMemberName(String userName);
+
+	Member findByMemberName(String userName);
+
+	Optional<Member> findByMemberEmail(String memberEmail);
+
+	void deleteByMemberName(String memberName);
 }
