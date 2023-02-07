@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberPasswordDto;
 import com.seoro.seoro.domain.dto.Member.MemberSignupDto;
 import com.seoro.seoro.domain.dto.Member.MemberUpdateDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -34,6 +35,7 @@ public class MemberController {
 	public ResultResponseDto signupMember(@ModelAttribute @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
 
 		// 취향 카테고리 선택 작업 필요
+		// 이메일 인증 작업 필요
 
 		if(bindingResult.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<>();
@@ -71,7 +73,10 @@ public class MemberController {
 		return memberService.modifyProfile(requestDto, memberName);
 	}
 
-	// 비밀번호 변경
+	@PutMapping("/{memberName}/password")
+	public ResultResponseDto modifyPassword(@ModelAttribute MemberPasswordDto requestDto, @PathVariable String memberName) {
+		return memberService.modifyPassword(requestDto, memberName);
+	}
 
 	@DeleteMapping("{memberName}")
 	public ResultResponseDto removeMember(@PathVariable String memberName, String memberEmail) {
