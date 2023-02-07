@@ -48,6 +48,26 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public ResultResponseDto chechNameDuplication(String memberName) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+		boolean nameDuplicate = memberRepository.existsByMemberName(memberName);
+
+		resultResponseDto.setResult(nameDuplicate);
+
+		return resultResponseDto;
+	}
+
+	@Override
+	public ResultResponseDto checkEmailDuplication(String memberEmail) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+		boolean emailDuplicate = memberRepository.existsByMemberEmail(memberEmail);
+
+		resultResponseDto.setResult(emailDuplicate);
+
+		return resultResponseDto;
+	}
+
+	@Override
 	public List<MemberDto> findByMemberNameLike(String input) {
 		List<Member> list = memberRepository.findByMemberNameLike(input);
 		List<MemberDto> dtoList = new ArrayList<>();
