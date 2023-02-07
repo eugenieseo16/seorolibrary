@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberPasswordDto;
 import com.seoro.seoro.domain.dto.Member.MemberSignupDto;
 import com.seoro.seoro.domain.dto.Member.MemberUpdateDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -25,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ResultResponseDto signupMember(MemberSignupDto requestDto) {
-		ResultResponseDto resultResponseDto = new ResultResponseDto();
+		ResultResponseDto responseDto = new ResultResponseDto();
 
 		if(memberRepository.findByMemberEmail(requestDto.getMemberEmail()).isPresent()) {
 			new RuntimeException("이미 가업된 이메일입니다.");
@@ -42,29 +43,29 @@ public class MemberServiceImpl implements MemberService {
 			.build();
 
 		memberRepository.save(member);
-		resultResponseDto.setResult(true);
+		responseDto.setResult(true);
 
-		return resultResponseDto;
+		return responseDto;
 	}
 
 	@Override
 	public ResultResponseDto chechNameDuplication(String memberName) {
-		ResultResponseDto resultResponseDto = new ResultResponseDto();
+		ResultResponseDto responseDto = new ResultResponseDto();
 		boolean nameDuplicate = memberRepository.existsByMemberName(memberName);
 
-		resultResponseDto.setResult(nameDuplicate);
+		responseDto.setResult(nameDuplicate);
 
-		return resultResponseDto;
+		return responseDto;
 	}
 
 	@Override
 	public ResultResponseDto checkEmailDuplication(String memberEmail) {
-		ResultResponseDto resultResponseDto = new ResultResponseDto();
+		ResultResponseDto responseDto = new ResultResponseDto();
 		boolean emailDuplicate = memberRepository.existsByMemberEmail(memberEmail);
 
-		resultResponseDto.setResult(emailDuplicate);
+		responseDto.setResult(emailDuplicate);
 
-		return resultResponseDto;
+		return responseDto;
 	}
 
 	@Override
@@ -130,12 +131,48 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public ResultResponseDto modifyPassword(MemberPasswordDto requestDto, String memberName) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		Member member = memberRepository.findByMemberName(memberName);
+
+		if(passwordEncoder.encode(requestDto.getMemberPassword()).equals(member.getMemberPassword())) {
+			System.out.println("현재 비밀번호와 일치하지 않습니다.");
+			if(requestDto.getNewPassword().equals(requestDto.getCheckPassword())) {
+				Member newMember = Member.builder()
+					.memberId(member.getMemberId())
+					.memberEmail(member.getMemberEmail())
+					.memberName(member.getMemberName())
+					.memberPassword(passwordEncoder.encode(requestDto.getNewPassword())) // 수정
+					.memberProfile(member.getMemberProfile())
+					.memberDongCode(member.getMemberDongCode())
+					.loginType(member.getLoginType())
+					.withdrawalDate(member.getWithdrawalDate())
+					.memberScore(member.getMemberScore())
+					.memberGenre(member.getMemberGenre())
+					.build();
+
+				memberRepository.save(newMember);
+				responseDto.setResult(true);
+			} else {
+				System.out.println("새 비밀번호가 일치하지 않습니다.");
+				responseDto.setResult(false);
+				return responseDto;
+			}
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		return responseDto;
+	}
+
+	@Override
 	public ResultResponseDto removeMember(String memberName) {
-		ResultResponseDto resultResponseDto = new ResultResponseDto();
+		ResultResponseDto responseDto = new ResultResponseDto();
 
 		memberRepository.deleteByMemberName(memberName);
-		resultResponseDto.setResult(true);
+		responseDto.setResult(true);
 
-		return resultResponseDto;
+		return responseDto;
 	}
 }
