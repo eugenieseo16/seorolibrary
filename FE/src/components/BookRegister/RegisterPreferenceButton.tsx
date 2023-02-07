@@ -10,21 +10,25 @@ function RegisterPreferenceButton() {
   const [barcode, setBarcode] = useState(true);
 
   return (
-    <div className="book-register-container">
+    <div className="preference-button-container">
       {barcode ? (
         <div>
-          <button onClick={() => setBarcode(!barcode)}>
-            <RiCamera3Line size={'2rem'} />
-            <span className="button-text">바코드로 인식하기</span>
-          </button>
+          <div className="preference-button-item">
+            <button onClick={() => setBarcode(!barcode)}>
+              <RiCamera3Line size={'2rem'} />
+              <span className="button-text">바코드로 인식하기</span>
+            </button>
+          </div>
           <Manual />
         </div>
       ) : (
         <div>
-          <button onClick={() => setBarcode(!barcode)}>
-            <RiEdit2Line size={'2rem'} />
-            <span className="button-text">직접 입력하기</span>
-          </button>
+          <div className="preference-button-item">
+            <button onClick={() => setBarcode(!barcode)}>
+              <RiEdit2Line size={'2rem'} />
+              <span className="button-text">직접 입력하기</span>
+            </button>
+          </div>
           <Barcode />
         </div>
       )}
