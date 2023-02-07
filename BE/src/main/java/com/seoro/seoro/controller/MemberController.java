@@ -22,6 +22,7 @@ import com.seoro.seoro.domain.dto.Member.MemberSignupDto;
 import com.seoro.seoro.domain.dto.Member.MemberUpdateDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Member.MemberService;
+import com.seoro.seoro.util.JwtTokenUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MemberController {
 	private final MemberService memberService;
+	private final JwtTokenUtil jwtTokenUtil;
 
 	@PostMapping("/signup")
 	public ResultResponseDto signupMember(@ModelAttribute @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
