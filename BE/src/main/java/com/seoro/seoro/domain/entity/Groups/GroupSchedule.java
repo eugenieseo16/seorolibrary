@@ -14,4 +14,6 @@ public class GroupSchedule implements Serializable {
     private Groups groups;
     @Temporal(TemporalType.DATE)
     private Date date;
+    private String scheduleTitle;
+    private String scheduleContent;
 }
