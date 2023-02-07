@@ -10,6 +10,18 @@
     box-shadow: $box-shadow;
     border-radius: 10px;
     overflow: hidden;
+    > div {
+      width: min(6rem, 25vw);
+      background-color: $brown;
+      position: absolute;
+      height: 100%;
+      top: 0;
+    }
+    .background {
+      width: 100%;
+      background-color: $beige;
+      z-index: -1;
+    }
   }
 
   button {
@@ -17,9 +29,8 @@
     font-family: 'BM-Pro';
     padding: 1rem;
     width: min(6rem, 25vw);
-  }
-  .selected {
-    background-color: $brown;
-    color: $beige;
+    z-index: 9;
+    position: relative;
+    background-color: transparent;
   }
 }
