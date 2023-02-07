@@ -11,8 +11,8 @@ import './BookClubMain.styles.scss';
 function MultiPreviewImage({ images }: { images: string[] }) {
   return (
     <Carousel dots={false} style={{ marginBottom: '1rem' }}>
-      {images.map(url => (
-        <div>
+      {images.map((url, i) => (
+        <div key={i}>
           <img src={url} alt="" />
         </div>
       ))}
@@ -35,7 +35,7 @@ function BookClubMain() {
           <h2>{detailData.title}</h2>
           <div>
             <h3>게시판</h3>
-            <button>글쓰기</button>
+            <button onClick={() => navigate('./generate-post')}>글쓰기</button>
           </div>
         </div>
         <div

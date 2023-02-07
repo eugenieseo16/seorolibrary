@@ -31,6 +31,7 @@ import MyPlaceArchive from '@pages/Places/MyPlaceArchive';
 import Near from '@pages/Near/Near';
 import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
 import WithOutNavLayout from '@pages/layouts/WithOutNavLayout';
+import PostGenerate from '@pages/PostGenerate/PostGenerate';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -65,6 +66,7 @@ function Router() {
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
         <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
+        <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
       </Route>
     </Routes>
   );
