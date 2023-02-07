@@ -6,10 +6,8 @@ import java.util.Optional;
 
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
-import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
-import com.seoro.seoro.domain.entity.Groups.GroupPost;
-import com.seoro.seoro.repository.ChatRoom.ChatRepository;
+import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
 
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
@@ -33,7 +31,7 @@ public class GroupServiceImpl implements GroupService{
 	private final GroupRepository groupRepository;
 	private final GroupJoinRepository groupJoinRepository;
 	private final UserRepository userRepository;
-	private final ChatRepository chatRepository;
+	private final ChatRoomRepository chatRepository;
 	private final GroupPostService groupPostService;
 
 
