@@ -25,5 +25,5 @@ public interface BookService {
 
 	List findBestSeller() throws IOException;
 
-	// ResultResponseDto makeReview(ReviewDto requestDto);
+	ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 }
