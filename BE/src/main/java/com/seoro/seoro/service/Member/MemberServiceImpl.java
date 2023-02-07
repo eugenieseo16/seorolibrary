@@ -27,19 +27,28 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ResultResponseDto signupMember(MemberSignupDto requestDto) {
 		ResultResponseDto responseDto = new ResultResponseDto();
+		Member member = new Member();
 
 		if(memberRepository.findByMemberEmail(requestDto.getMemberEmail()).isPresent()) {
 			new RuntimeException("이미 가업된 이메일입니다.");
+			responseDto.setResult(false);
+			return responseDto;
 		}
-		if(!requestDto.getMemberPassword().equals(requestDto.getDupchkPassword())) {
-			new RuntimeException("비밀번호가 일치하지 않습니다.");
-		}
+		// 비밀번호 재확인 오류 해결
+		// String password = requestDto.getMemberPassword();
+		// String checkPassword = requestDto.getDupchkPassword();
+		// log.info("password: " + password + " dupchk: " + checkPassword);
+		// if(!password.equals(checkPassword)) {
+		// 	log.info("비밀번호 불일치");
+		// 	new RuntimeException("비밀번호가 일치하지 않습니다.");
+		// 	responseDto.setResult(false);
+		// 	return responseDto;
+		// }
 
-		Member member = Member.builder()
+		member = Member.builder()
 			.memberEmail(requestDto.getMemberEmail())
 			.memberName(requestDto.getMemberName())
 			.memberPassword(passwordEncoder.encode(requestDto.getMemberPassword()))
-			.loginType(requestDto.getLoginType())
 			.build();
 
 		memberRepository.save(member);
@@ -91,7 +100,7 @@ public class MemberServiceImpl implements MemberService {
 
 		Member viewMember =  memberRepository.findByMemberName(memberName);
 		if(viewMember != null) {
-			responseDto = new MemberDto(member);
+			responseDto = new MemberDto(viewMember);
 			responseDto.setResult(true);
 		} else {
 			responseDto.setResult(false);
@@ -132,11 +141,11 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ResultResponseDto modifyPassword(MemberPasswordDto requestDto, String memberName) {
+		log.info("비밀번호 변경");
 		ResultResponseDto responseDto = new ResultResponseDto();
 		Member member = memberRepository.findByMemberName(memberName);
 
-		if(passwordEncoder.encode(requestDto.getMemberPassword()).equals(member.getMemberPassword())) {
-			System.out.println("현재 비밀번호와 일치하지 않습니다.");
+		if(!passwordEncoder.encode(requestDto.getMemberPassword()).equals(member.getMemberPassword())) {
 			if(requestDto.getNewPassword().equals(requestDto.getCheckPassword())) {
 				Member newMember = Member.builder()
 					.memberId(member.getMemberId())
@@ -154,11 +163,12 @@ public class MemberServiceImpl implements MemberService {
 				memberRepository.save(newMember);
 				responseDto.setResult(true);
 			} else {
-				System.out.println("새 비밀번호가 일치하지 않습니다.");
+				log.info("새 비밀번호가 일치하지 않습니다.");
 				responseDto.setResult(false);
 				return responseDto;
 			}
 		} else {
+			log.info("현재 비밀번호와 일치하지 않습니다.");
 			responseDto.setResult(false);
 			return responseDto;
 		}
@@ -169,9 +179,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ResultResponseDto removeMember(String memberName) {
 		ResultResponseDto responseDto = new ResultResponseDto();
+		Member member = memberRepository.findByMemberName(memberName);
 
-		memberRepository.deleteByMemberName(memberName);
-		responseDto.setResult(true);
+		if(member != null) {
+			memberRepository.delete(member);
+			responseDto.setResult(true);
+		}
 
 		return responseDto;
 	}

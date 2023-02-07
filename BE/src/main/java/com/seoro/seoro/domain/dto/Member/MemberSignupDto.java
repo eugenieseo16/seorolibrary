@@ -18,7 +18,7 @@ public class MemberSignupDto {
 	@Email(message = "이메일 형식이 올바르지 않습니다.")
 	private String memberEmail;
 	@NotBlank(message = "닉네임을 입력해주세요")
-	@Pattern(regexp = "^[a-z0-9]$", message = "닉네임은 영어 소문자와 숫자만 사용 가능합니다.")
+	@Pattern(regexp = "^(?=.*[a-z0-9])[a-z0-9]{3,16}$", message = "3자 이상 16자 이하, 영어 또는 숫자만 사용 가능합니다.")
 	private String memberName;
 	@NotBlank(message = "비밀번호를 입력해주세요")
 	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{5,20}$",
@@ -26,6 +26,5 @@ public class MemberSignupDto {
 	private String memberPassword;
 	@NotBlank(message = "비밀번호를 확인해주세요")
 	private String dupchkPassword;
-	private LoginType loginType;
 	private Long memberGenre;
 }
