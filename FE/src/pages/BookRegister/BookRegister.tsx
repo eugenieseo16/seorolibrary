@@ -9,7 +9,7 @@ import './BookRegister.styles.scss';
 
 function BookRegister() {
   return (
-    <div>
+    <div className="book-register-container">
       <Header text="도서 등록" />
       <RegisterPrefernceButton />
     </div>
