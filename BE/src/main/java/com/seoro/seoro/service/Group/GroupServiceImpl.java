@@ -21,7 +21,7 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Group.GroupRepository;
-import com.seoro.seoro.repository.Member.UserRepository;
+import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GroupServiceImpl implements GroupService{
 	private final GroupRepository groupRepository;
 	private final GroupJoinRepository groupJoinRepository;
-	private final UserRepository userRepository;
+	private final MemberRepository memberRepository;
 	private final ChatRepository chatRepository;
 	private final GroupPostService groupPostService;
 
@@ -42,7 +42,7 @@ public class GroupServiceImpl implements GroupService{
 		GroupMainResponseDto groupMainResponseDto = new GroupMainResponseDto();
 		System.out.println("userName = " + userName);
 		//현재 로그인한 사용자
-		Member findMember = userRepository.findUserByMemberName(userName);
+		Member findMember = memberRepository.findByMemberName(userName);
 		System.out.println("findUser = " + findMember);
 
 		//같은 동코드를 가진 독서모임 반환
@@ -87,7 +87,7 @@ public class GroupServiceImpl implements GroupService{
 		}
 
 		Member host = new Member();
-		Optional<Member> tmpUser = userRepository.findById(requestDto.getGroupHost());
+		Optional<Member> tmpUser = memberRepository.findById(requestDto.getGroupHost());
 		if(tmpUser.isPresent()) {
 			host = tmpUser.get();
 		}else {
