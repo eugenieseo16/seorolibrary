@@ -45,19 +45,27 @@ public class Member implements Serializable {
     private Integer memberScore;
     private Long memberGenre;
     @OneToMany(mappedBy = "friend")
+    @Builder.Default
     private List<Friend> friends = new ArrayList<>();
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<Review> reviews = new ArrayList<>();
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<ChatRoomJoin> chatRooms = new ArrayList<>();
     @OneToMany(mappedBy = "host")
+    @Builder.Default
     private List<Groups> hostGroups = new ArrayList<>();
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<GroupJoin> groupJoins = new ArrayList<>();
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<Place> places = new ArrayList<>();
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<OwnBook> ownBooks = new ArrayList<>();
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<ReadBook> readBooks = new ArrayList<>();
 }

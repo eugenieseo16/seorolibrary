@@ -24,7 +24,6 @@ import com.seoro.seoro.repository.Group.GroupApplyRepository;
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
 
-import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
@@ -246,7 +245,7 @@ public class GroupServiceImpl implements GroupService{
 	public ResultResponseDto applyGroup(Long groupId, Long userId) {
 		ResultResponseDto responseDto = new ResultResponseDto();
 		Member member = new Member();
-		Optional<Member> tmpMember = userRepository.findById(userId);
+		Optional<Member> tmpMember = memberRepository.findById(userId);
 		if (tmpMember.isPresent()) {
 			member = tmpMember.get();
 		} else {
@@ -277,7 +276,7 @@ public class GroupServiceImpl implements GroupService{
 	public GroupApplyReadResponseDto readGroupApplies(Long groupId, Long userId) {
 		GroupApplyReadResponseDto responseDto = new GroupApplyReadResponseDto();
 		Member member = new Member();
-		Optional<Member> tmpMember = userRepository.findById(userId);
+		Optional<Member> tmpMember = memberRepository.findById(userId);
 		if (tmpMember.isPresent()) {
 			member = tmpMember.get();
 		} else {
@@ -323,7 +322,7 @@ public class GroupServiceImpl implements GroupService{
 		
 		//Host 정보 가져오기
 		Member member = new Member();
-		Optional<Member> tmpMember = userRepository.findById(requestDto.getUserId());
+		Optional<Member> tmpMember = memberRepository.findById(requestDto.getUserId());
 		if (tmpMember.isPresent()) {
 			member = tmpMember.get();
 		} else {
@@ -332,7 +331,8 @@ public class GroupServiceImpl implements GroupService{
 		}
 		//신청자 정보 가져오기
 		Member applyMember = new Member();
-		Optional<Member> tmpApplyMember = userRepository.findById(requestDto.getApplyUserId());
+		Optional<Member> tmpApplyMember = memberRepository
+			.findById(requestDto.getApplyUserId());
 		if (tmpApplyMember.isPresent()) {
 			applyMember = tmpApplyMember.get();
 		} else {
