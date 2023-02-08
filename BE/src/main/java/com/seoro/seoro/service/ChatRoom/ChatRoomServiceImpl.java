@@ -22,7 +22,7 @@ import com.seoro.seoro.repository.ChatRoom.ChatRoomContentRepository;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomJoinRepository;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
 import com.seoro.seoro.repository.ChatRoom.ContentDetailRepository;
-import com.seoro.seoro.repository.Member.UserRepository;
+import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatRoomServiceImpl implements ChatRoomService {
 	private final ChatRoomRepository chatRoomRepository;
 	private final ChatRoomJoinRepository chatRoomJoinRepository;
-	private final UserRepository userRepository;
+	private final MemberRepository memberRepository;
 	private final ChatRoomContentRepository chatRoomContentRepository;
 	private final ContentDetailRepository contentDetailRepository;
 
@@ -42,7 +42,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		ChatRoomReadResponseDto responseDto = new ChatRoomReadResponseDto();
 		//현재 사용자 정보 가져오기
 		Member member = new Member();
-		Optional<Member> findMember = userRepository.findById(memberId);
+		Optional<Member> findMember = memberRepository.findById(memberId);
 		if(findMember.isPresent()) {
 			member = findMember.get();
 		} else {
@@ -82,8 +82,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	public ChatRoomCreateResponseDto createChatRoom(ChatRoomCreateRequestDto requestDto) {
 		ChatRoomCreateResponseDto responseDto = new ChatRoomCreateResponseDto();
 		//사용자 정보 가져오기
-		Optional<Member> tmpMe = userRepository.findById(requestDto.getUserId());
-		Optional<Member> tmpOther = userRepository.findById(requestDto.getOtherUserId());
+		Optional<Member> tmpMe = memberRepository.findById(requestDto.getUserId());
+		Optional<Member> tmpOther = memberRepository.findById(requestDto.getOtherUserId());
 		Member me = new Member();
 		Member other = new Member();
 		if(tmpMe.isPresent()) {
