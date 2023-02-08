@@ -38,4 +38,5 @@ export interface IBook {
   publisher: string;
   description: string;
   date: string;
+  published_year: string;
 }

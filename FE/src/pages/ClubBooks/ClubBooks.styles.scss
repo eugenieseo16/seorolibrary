@@ -10,8 +10,34 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    img {
-      width: 5rem;
+    gap: 1rem;
+    .book-data {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      > :nth-child(1) {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        h4 {
+          font-weight: 600;
+          font-size: 0.8rem;
+        }
+      }
+      h4,
+      p {
+        font-weight: 300;
+        font-size: 0.9rem;
+        word-break: keep-all;
+        @include overflow-multi-lines;
+        -webkit-line-clamp: 2;
+      }
+      h4 {
+        @include overflow-text;
+      }
+    }
+    .book-cover {
+      width: 6rem;
       aspect-ratio: 3/4;
       object-fit: cover;
     }
