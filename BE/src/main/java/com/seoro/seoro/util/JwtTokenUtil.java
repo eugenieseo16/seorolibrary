@@ -42,7 +42,7 @@ public class JwtTokenUtil {
 
 	public boolean isTokenExpired(String accessToken) {
 		Date expiration = extractAllClaims(accessToken).getExpiration();
-		return expiration.before(new Date());
+		return expiration.before(new Date(System.currentTimeMillis()));
 	}
 
 	public String generateAccessToken(String username) {
@@ -71,9 +71,9 @@ public class JwtTokenUtil {
 		return username.equals(userDetails.getUsername()) && !isTokenExpired(accessToken);
 	}
 
-	public long getRemainMilliseconds(String accessToken) {
+	public long getRemainMilliSeconds(String accessToken) {
 		Date expiration = extractAllClaims(accessToken).getExpiration();
-		Date now = new Date();
+		Date now = new Date(System.currentTimeMillis());
 		return expiration.getTime() - now.getTime();
 	}
 }
