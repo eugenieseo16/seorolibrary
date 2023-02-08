@@ -6,6 +6,13 @@
   color: $brown;
   font-family: NEXON;
 
+  .hold-user-detail-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+   }
+
   
   .book-info-summary {
     padding: 1rem;
