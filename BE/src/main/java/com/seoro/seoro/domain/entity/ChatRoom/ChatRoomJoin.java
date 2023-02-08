@@ -2,6 +2,8 @@ package com.seoro.seoro.domain.entity.ChatRoom;
 
 import javax.persistence.*;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,8 @@ import com.seoro.seoro.domain.entity.Member.Member;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 public class ChatRoomJoin implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chatRoomJoinId;

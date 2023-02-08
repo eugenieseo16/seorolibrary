@@ -11,6 +11,7 @@ import com.seoro.seoro.domain.entity.Member.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 	List<Member> findByMemberNameLike(String memberName);
+	List<Member> findByMemberDongCode(String myDongCode);
 	Optional<Member> findByMemberName(String memberName);
 	Optional<Member> findByMemberEmail(String memberEmail);
 	void deleteByMemberName(String memberName);

@@ -2,6 +2,7 @@ package com.seoro.seoro.controller;
 
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -20,13 +21,16 @@ public class GroupPostController {
     private final GroupPostService groupPostService;
 
     @PostMapping
-    public ResultResponseDto createGroupPost(@ModelAttribute GroupPostCreateRequestDto requestDto) {
+    public ResultResponseDto createGroupPost(@ModelAttribute("groupPostCreateRequestDto") GroupPostCreateRequestDto requestDto) {
+        System.out.println("여기로 들어오는건 맞니");
+        System.out.println(requestDto.toString());
+
         return groupPostService.createGroupPost(requestDto);
     }
 
     @GetMapping
-    public GroupPostReadResponseDto readGroupPost(Long groupId) {
-        return groupPostService.readGroupPost(groupId);
+    public GroupPostReadResponseDto readGroupPost(@ModelAttribute GroupPostReadRequestDto requestDto) {
+        return groupPostService.readGroupPost(requestDto);
     }
 
     @GetMapping("/{postid}")

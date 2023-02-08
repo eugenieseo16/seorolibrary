@@ -12,4 +12,5 @@ public interface GroupService {
 	public GroupMainResponseDto groupMain(String userName);
 	public ResultResponseDto makeGroup(GroupSignupRequestDto requestDto);
 	public GroupDetailResponseDto groupDetail(Long groupId);
+	public ResultResponseDto deleteGroup(Long groupId, Long userId);
 }

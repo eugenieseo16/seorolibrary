@@ -8,6 +8,8 @@ import BookDetail from '@pages/BookDetail/BookDetail';
 
 import MyLibrary from '@pages/UserLibrary/UserLibrary';
 import UserLibrary from '@pages/UserLibrary/UserLibrary';
+import Follow from '@pages/UserLibrary/Follow';
+
 import ProfileLog from '@pages/ProfileLog/ProfileLog';
 import ProfileStat from '@pages/ProfileStat/ProfileStat';
 import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
@@ -17,7 +19,7 @@ import MyArchive from '@pages/MyArchive/MyArchive';
 import CreateReport from '@pages/MyArchive/CreateReport';
 
 import Login from '@pages/Login';
-import WithNavLayout from '@pages/withNavLayout/WithNavLayout';
+import WithNavLayout from '@pages/layouts/WithNavLayout';
 
 import BookClub from '@pages/BookClub/BookClub';
 import BookClubDetail from '@pages/BookClubDetail/BookClubDetail';
@@ -26,10 +28,14 @@ import BookClubGenerate from '@pages/BookClubGenerate/BookClubGenerate';
 import Places from '@pages/Places/Places';
 import PlaceDetail from '@pages/PlaceDetail/PlaceDetail';
 import AddPlace from '@pages/PlaceDetail/AddPlace';
-import MyPlace from '@pages/PlaceDetail/MyPlace';
+import MyPlaceArchive from '@pages/Places/MyPlaceArchive';
 
 import Near from '@pages/Near/Near';
 import ClubDetailNavigator from '@pages/BookClubDetail/Navigator';
+import WithOutNavLayout from '@pages/layouts/WithOutNavLayout';
+import PostGenerate from '@pages/PostGenerate/PostGenerate';
+import ClubBooks from '@pages/ClubBooks/ClubBooks';
+import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -41,6 +47,10 @@ function Router() {
 
         <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:userId" element={<UserLibrary />} />
+
+        {/* /profile/userId/follow- 로 변경 필요 */}
+        <Route path="/profile/follow" element={<Follow />} />
+
         <Route path="/profile/log" element={<ProfileLog />} />
         <Route path="profile/statistics" element={<ProfileStat />} />
         <Route path="/profile/settings" element={<ProfileSettings />} />
@@ -51,17 +61,25 @@ function Router() {
 
         <Route path="/book-club" element={<BookClub />} />
         <Route path="/book-club/generate" element={<BookClubGenerate />} />
-        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
 
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
-        <Route path="/places/myplace" element={<MyPlace />} />
-        <Route path="/places/addplace" element={<AddPlace />} />
+        <Route path="/places/my-place-archive" element={<MyPlaceArchive />} />
+        <Route path="/places/add-place" element={<AddPlace />} />
 
         <Route path="/near" element={<Near />} />
         <Route path="/near/bookdetail/:id" element={<BookDetail />} />
 
         <Route path="*" element={'404'} />
+      </Route>
+      <Route path="" element={<WithOutNavLayout />}>
+        <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
+      </Route>
+
+      <Route path="" element={<BookClubNavLayout />}>
+        <Route path="/book-club/:id/books" element={<ClubBooks />} />
+        <Route path="/book-club/:id/plan" element={<ClubBooks />} />
+        <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
       </Route>
     </Routes>
   );

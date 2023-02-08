@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookDto;
@@ -12,13 +13,17 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 
 @Service
 public interface BookService {
+	// List<BookDto> findBook(String input);
+	// List<BookDto> findAllBooks();
+	// List<BookDto> findByBookTitleLikeOrBookAuthorLike(String input1, String input2);
 
-	List<BookDto> findAllBooks();
-	BookDto findByIsbn(String isbn);
-	List<ReviewDto> findReviewByIsbn(String isbn);
+	ReviewDto findReviewByIsbnAndMemberId(String isbn);
 
-	List<BookDto> findByBookTitleLikeOrBookAuthorLike(String input1, String input2);
-	String findBestSeller() throws IOException;
+	List findBook(String input) throws IOException, ParseException;
 
-	ResultResponseDto makeReview(ReviewDto requestDto);
+	BookDto findByIsbn(String isbn) throws IOException, ParseException;
+
+	List findBestSeller() throws IOException;
+
+	ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 }

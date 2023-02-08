@@ -3,6 +3,7 @@ package com.seoro.seoro.service.GroupPost;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
+import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -14,11 +15,17 @@ import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -31,6 +38,7 @@ public class GroupPostServiceImpl implements GroupPostService {
     @Override
     public ResultResponseDto createGroupPost(GroupPostCreateRequestDto requestDto) {
         ResultResponseDto resultResponseDto = new ResultResponseDto();
+        System.out.println("writer : " + requestDto.getWriter());
 
         //작성자 확인
         Optional<Member> findUser = memberRepository.findById(requestDto.getWriter());
@@ -41,6 +49,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             resultResponseDto.setResult(false);
             return resultResponseDto;
         }
+        System.out.println("writer : " + writer.getMemberName());
         //그룹 확인
         Optional<Groups> findGroup = groupRepository.findById(requestDto.getGroupId());
         Groups group = new Groups();
@@ -68,6 +77,7 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .groupPostTime(requestDto.getPostTime())
                 .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
                 .member(writer)
+                .isUpdate(false)
 //                .photos()
                 .build();
         groupPostRepository.save(saveGroupPost);
@@ -76,27 +86,39 @@ public class GroupPostServiceImpl implements GroupPostService {
     }
 
     @Override
-    public GroupPostReadResponseDto readGroupPost(Long groupId) {
+    public GroupPostReadResponseDto readGroupPost(GroupPostReadRequestDto requestDto) {
         GroupPostReadResponseDto responseDto = new GroupPostReadResponseDto();
         //그룹 정보 가져오기
         Groups group = new Groups();
-        System.out.println("groupId = " + groupId);
-        Optional<Groups> findGroup = groupRepository.findById(groupId);
+        Optional<Groups> findGroup = groupRepository.findById(requestDto.getGroupId());
         if(findGroup.isPresent()) {
             group = findGroup.get();
         } else {
             responseDto.setResult(false);
             return responseDto;
         }
-        
-        //그룹의 게시글 가져오기
-        List<GroupPost> posts = group.getPosts();
+
+        //그룹의 게시글 가져오기 - 최근 작성한 게시글부터 정렬 && pagenation
+        List<GroupPost> posts = new ArrayList<>();
+        if(PostCategory.valueOf(requestDto.getPostCategory()).equals(PostCategory.ALL)) {
+            //모든 게시물 출력
+            posts = groupPostRepository.findAllByGroupsOrderByGroupPostTimeDesc(group);
+        }
+        else {
+            posts = groupPostRepository.findGroupPostsByGroupsAndPostCategoryOrderByGroupPostTimeDesc(group, PostCategory.valueOf(requestDto.getPostCategory()));
+        }
+
         List<GroupPostDto> groupPost = new ArrayList<>();
-        for(GroupPost p : posts) {
+        for(int i=requestDto.getStartIdx()-1; i< requestDto.getStartIdx() + requestDto.getLimit()-1; i++) {
+            if(posts.size() == i) {
+                break;
+            }
+            GroupPost p = posts.get(i);
             GroupPostDto gpd = GroupPostDto.builder()
                 .postId(p.getGroupPostId())
                 .postTitle(p.getGroupPostTitle())
                 .postTime(p.getGroupPostTime())
+                .isUpdate(p.getIsUpdate())
                 .postCategory(p.getPostCategory().toString())
                 .userName(p.getMember().getMemberName())
                 .build();
@@ -126,7 +148,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .postCategory(post.getPostCategory().toString())
             .userName(post.getMember().getMemberName())
             .postContent(post.getGroupPostContent())
-            .postTime(post.getGroupPostTime())
+//            .postTime(post.getGroupPostTime())
             // .postImage()
             .build();
 
@@ -147,12 +169,14 @@ public class GroupPostServiceImpl implements GroupPostService {
         }
         Groups group = post.getGroups();
         Member writer = post.getMember();
+        LocalDateTime time = post.getGroupPostTime();
 
         post = GroupPost.builder()
             .groupPostId(postId)
             .groupPostTitle(requestDto.getPostTitle())
             .groupPostContent(requestDto.getPostContent())
-            .groupPostTime(requestDto.getPostTime())
+            .groupPostTime(time)
+            .isUpdate(true)
             .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
             .groups(group)
             .member(writer)
@@ -168,6 +192,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .userName(post.getMember().getMemberName())
             .postContent(post.getGroupPostContent())
             .postTime(post.getGroupPostTime())
+            .isUpdate(post.getIsUpdate())
             // .postImage()
             .build();
 

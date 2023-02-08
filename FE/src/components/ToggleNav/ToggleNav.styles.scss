@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  position: relative;
   > div {
     cursor: pointer;
     display: flex;
@@ -12,9 +13,12 @@
     color: $light-brown;
     padding: 1rem 0;
   }
-  .selected {
-    border-color: $deep-brown;
-    color: $deep-brown;
+  p {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: $brown;
   }
+
   margin-bottom: 1rem;
 }
