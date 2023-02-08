@@ -14,9 +14,11 @@ export interface IClubDetailMetaData {
   meeting_count: number;
 }
 export interface IUser {
+  _id: string;
   image_url: string;
   username: string;
   nickname: string;
+  location?: string;
 }
 export interface IUserResponse {
   data: IUser[];
@@ -27,4 +29,14 @@ export interface IPost {
   image_url: string[];
   category: 'free' | 'notice' | 'recommend' | 'greet';
   user: IUser;
+}
+export interface IBook {
+  id: string;
+  image_url: string;
+  title: string;
+  author: string;
+  publisher: string;
+  description: string;
+  date: string;
+  published_year: string;
 }

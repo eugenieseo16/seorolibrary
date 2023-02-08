@@ -8,7 +8,6 @@ import BookClubDetail from './BookClubDetail';
 function ClubDetailNavigator() {
   const user = useSelector((state: any) => state.user);
   const { id } = useParams();
-  console.log(id, user._id);
 
   return <div>{user._id === id ? <BookClubMain /> : <BookClubDetail />}</div>;
 }
