@@ -19,7 +19,7 @@ function HoldBook() {
 
   return (
     <div className="hold-book-container">
-      <h1>보유 도서</h1>
+      <h1>짱구의 또 다른 보유 도서</h1>
       <Suspense fallback={<span>Loading...</span>}>
         <Slider {...settings} className="user-slider-hold-book">
           {booksData?.map((data: any, i: number) => (

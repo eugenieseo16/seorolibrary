@@ -17,11 +17,9 @@ function HoldUser() {
   const userData = useMyQuery('/userFollower.json');
   const navigate = useNavigate();
 
-  console.log(userData);
-
   return(
     <div className="hold-user-container">
-      <h1>보유 도서</h1>
+      <h1>이 책을 보유 중인 사용자</h1>
       <Suspense fallback={<span>Loading...</span>}>
         <Slider {...settings} className="user-slider-hold-user">
           {userData?.map((data: any, i: number) => (
