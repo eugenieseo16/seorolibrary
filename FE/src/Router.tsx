@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Home from '@pages/Home';
 import Loading from '@pages/Loading';
 import BookDetail from '@pages/BookDetail/BookDetail';
+import HoldBookDetail from '@pages/BookDetail/BookDetail';
 import BookDetailLog from '@pages/BookDetail/BookDetailLog';
 
 import MyLibrary from '@pages/UserLibrary/UserLibrary';
@@ -12,7 +13,6 @@ import UserLibrary from '@pages/UserLibrary/UserLibrary';
 import Follow from '@pages/UserLibrary/Follow';
 
 import ProfileLog from '@pages/ProfileLog/ProfileLog';
-import ProfileStat from '@pages/ProfileStat/ProfileStat';
 import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
 import BookRegister from '@pages/BookRegister/BookRegister';
 
@@ -45,7 +45,9 @@ function Router() {
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        
         <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/profile/:userId/book/:id" element={<HoldBookDetail />} />
         <Route path="/book/:id/log" element={<BookDetailLog />} />
 
         <Route path="/profile" element={<MyLibrary />} />
@@ -55,7 +57,6 @@ function Router() {
         <Route path="/profile/follow" element={<Follow />} />
 
         <Route path="/profile/log" element={<ProfileLog />} />
-        <Route path="profile/statistics" element={<ProfileStat />} />
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/register" element={<BookRegister />} />
 
