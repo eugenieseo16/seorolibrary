@@ -11,4 +11,5 @@ import com.seoro.seoro.domain.entity.Groups.Groups;
 public interface GroupRepository extends JpaRepository<Groups, Long>{
 
 	List<Groups> findGroupsByGroupDongCode(String dongCode);
+	void deleteById(Long groupId);
 }

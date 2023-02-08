@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.swing.*;
+
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
@@ -143,5 +145,35 @@ public class GroupServiceImpl implements GroupService{
 				.build();
 
 		return groupDetailResponseDto;
+	}
+
+	@Override
+	public ResultResponseDto deleteGroup(Long groupId, Long userId) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		Member member = new Member();
+		Optional<Member> tmpMember = userRepository.findById(userId);
+		if(tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if(tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		}
+		else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		
+		if(group.getHost().equals(member)) { //현재 사용자가 독서모임을 만든 사람이라면
+			groupRepository.deleteById(groupId);
+		}
+
+		responseDto.setResult(true);
+		return responseDto;
 	}
 }
