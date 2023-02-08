@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.swing.*;
 
+import com.seoro.seoro.domain.dto.Group.GroupApplyReadResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupApplyUserDto;
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
@@ -185,7 +187,7 @@ public class GroupServiceImpl implements GroupService{
 		ResultResponseDto responseDto = new ResultResponseDto();
 		Member member = new Member();
 		Optional<Member> tmpMember = userRepository.findById(userId);
-		if(tmpMember.isPresent()) {
+		if (tmpMember.isPresent()) {
 			member = tmpMember.get();
 		} else {
 			responseDto.setResult(false);
@@ -194,10 +196,9 @@ public class GroupServiceImpl implements GroupService{
 
 		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
 		Groups group = new Groups();
-		if(tmpGroup.isPresent()) {
+		if (tmpGroup.isPresent()) {
 			group = tmpGroup.get();
-		}
-		else {
+		} else {
 			responseDto.setResult(false);
 			return responseDto;
 		}
@@ -210,5 +211,46 @@ public class GroupServiceImpl implements GroupService{
 		groupApplyRepository.save(groupApply);
 		responseDto.setResult(true);
 		return responseDto;
+	}
+
+	@Override
+	public GroupApplyReadResponseDto readGroupApplies(Long groupId, Long userId) {
+		GroupApplyReadResponseDto responseDto = new GroupApplyReadResponseDto();
+		Member member = new Member();
+		Optional<Member> tmpMember = userRepository.findById(userId);
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		if(group.getHost().equals(member)) { //현재 사용자가 독서모임을 만든 사람이라면
+			List<GroupApply> groupApplyList = groupApplyRepository.findByGroups(group);
+			List<GroupApplyUserDto> applyUsers = new ArrayList<>();
+			for(GroupApply apply : groupApplyList) {
+				GroupApplyUserDto userDto = GroupApplyUserDto.builder()
+					.userId(apply.getMember().getMemberId())
+					.userName(apply.getMember().getMemberName())
+					.build();
+				applyUsers.add(userDto);
+			}
+			responseDto.setResult(true);
+			responseDto.setGroupApplies(applyUsers);
+			return responseDto;
+		}
+		else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
 	}
 }
