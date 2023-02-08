@@ -11,6 +11,8 @@ import com.seoro.seoro.domain.dto.Group.GroupApplyUserDto;
 import com.seoro.seoro.domain.dto.Group.GroupApproveRequestDto;
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupMemberDto;
+import com.seoro.seoro.domain.dto.Group.GroupMemberReadResponseDto;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
@@ -317,6 +319,41 @@ public class GroupServiceImpl implements GroupService{
 			groupApplyRepository.save(done); //처리 완료
 		}
 		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	@Override
+	public GroupMemberReadResponseDto readGroupMembers(Long groupId) {
+		GroupMemberReadResponseDto responseDto = new GroupMemberReadResponseDto();
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		List<GroupJoin> findGroupJoins = groupJoinRepository.findByGroups(group);
+		List<GroupMemberDto> members = new ArrayList<>();
+		//방장 맨 처음에 넣기
+		GroupMemberDto hostDto = GroupMemberDto.builder()
+			.userId(group.getHost().getMemberId())
+			.userName(group.getHost().getMemberName())
+			.build();
+		members.add(hostDto);
+		for(GroupJoin join : findGroupJoins) {
+			if(!join.getMember().equals(group.getHost())) {
+				GroupMemberDto memberDto = GroupMemberDto.builder()
+					.userId(join.getMember().getMemberId())
+					.userName(join.getMember().getMemberName())
+					.build();
+				members.add(memberDto);
+			}
+		}
+		responseDto.setResult(true);
+		responseDto.setGroupMembers(members);
 		return responseDto;
 	}
 }

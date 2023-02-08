@@ -6,6 +6,7 @@ import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupMemberReadResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
@@ -18,4 +19,6 @@ public interface GroupService {
 	public ResultResponseDto applyGroup(Long groupId, Long userId);
 	GroupApplyReadResponseDto readGroupApplies(Long groupId, Long userId);
 	ResultResponseDto approveGroupApply(GroupApproveRequestDto requestDto);
+
+	GroupMemberReadResponseDto readGroupMembers(Long groupId);
 }
