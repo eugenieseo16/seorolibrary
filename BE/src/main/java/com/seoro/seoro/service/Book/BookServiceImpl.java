@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
 		Review review = Review.builder()
 			.member(writer)
 			.reviewContent(requestDto.getReviewContent())
-			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()))
+			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()).get())
 			.build();
 		reviewRepository.save(review);
 		resultResponseDto.setResult(true);

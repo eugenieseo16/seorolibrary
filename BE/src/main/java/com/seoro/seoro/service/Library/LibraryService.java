@@ -12,7 +12,7 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 public interface LibraryService {
 	// 독서록 관련
 	public List<BookReportDto> viewBookReportList(Long userId);
-	public ResultResponseDto makeBookReport(BookReportDto requestDto);
+	public ResultResponseDto makeBookReport(BookReportDto requestDto, Long memberId);
 	public BookReportDto viewBookReport(Long bookReportId);
 	public ResultResponseDto modifyBookReport(BookReportDto requestDto, Long bookReportId);
 	public ResultResponseDto removeBookReport(Long bookReportId);

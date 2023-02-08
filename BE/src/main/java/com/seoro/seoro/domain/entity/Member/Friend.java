@@ -15,5 +15,8 @@ public class Friend implements Serializable {
     private Long friendId;
     @ManyToOne
     @JoinColumn(name = "memberId")
-    private Member friend;
+    private Member followerId;
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member followingId;
 }
