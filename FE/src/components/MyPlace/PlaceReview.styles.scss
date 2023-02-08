@@ -1,0 +1,42 @@
+@import '../../styles/variables';
+
+.place-review-container {
+  .place-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+  }
+  .place-review-item {
+    // padding: 1rem;
+    .place-review-user-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+    .place-review-detail {
+      padding: 1.3rem;
+      line-height: 1.3rem;
+    }
+  }
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid $deep-brown;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding-left: 1rem;
+    color: $deep-brown;
+  }
+  p {
+    padding: 1rem;
+  }
+  .ant-btn-primary {
+    background-color: $deep-brown;
+  }
+}
