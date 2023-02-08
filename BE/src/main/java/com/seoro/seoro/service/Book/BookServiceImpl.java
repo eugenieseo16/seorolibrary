@@ -17,6 +17,7 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
@@ -71,6 +72,7 @@ public class BookServiceImpl implements BookService {
 
 		return dtoOutput;
 	}
+
 	// public List<OwnBookDto> findOwnBookByIsbn(String isbn) {
 	// 	List<OwnBook> list = ownBookRepository.findByBook_Isbn(isbn);
 	// 	List<OwnBookDto> dtoList = new ArrayList<>();
@@ -118,7 +120,7 @@ public class BookServiceImpl implements BookService {
 		Map outputlist = (Map)jsonlist.get("book");
 
 		long count_review = reviewRepository.countByReadBook_Isbn(isbn);
-
+		long count_readpeople = readBookRepository.countByIsbn(isbn);
 		//연도 형식 파악하고 추가하기
 		output = BookDto.builder()
 			.bookImage(outputlist.get("bookImageURL").toString())
@@ -128,10 +130,11 @@ public class BookServiceImpl implements BookService {
 			.bookDescrib(outputlist.get("description").toString())
 			.result(true)
 			.countReview(count_review)
+			.countReader(count_readpeople)
 			.build();
 		return output;
 	}
-	//내 주변 보유사용자, 한줄평, 읽은 유저 수, 리뷰수 출력 추가 필요
+	//내 주변 보유사용자, 한줄평 출력 추가 필요
 
 	@Override
 	public List<BookDto> findBook(String input) throws IOException, ParseException {
@@ -146,6 +149,8 @@ public class BookServiceImpl implements BookService {
 		for(Object list: docs){
 			JSONObject jsonlist = (JSONObject)list;
 			Map outputlist = (Map)jsonlist.get("doc");
+			System.out.println(jsonlist);
+			System.out.println("!!");
 			BookDto bookDto = new BookDto();
 			output.add(BookDto.builder()
 				.bookImage(outputlist.get("bookImageURL").toString())

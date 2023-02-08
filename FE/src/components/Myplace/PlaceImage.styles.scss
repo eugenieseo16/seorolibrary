@@ -9,11 +9,11 @@
   .place-detail-image-container {
     position: relative;
     overflow: hidden;
-    height: 10rem;
-    img {
+    // height: 15rem;
+    .ant-image-img {
       width: 100%;
       object-fit: cover;
-      aspect-ratio: 2 / 1;
+      aspect-ratio: 1 / 1;
     }
   }
   .place-detail-content-container {
@@ -22,8 +22,8 @@
     h6 {
       font-size: 1rem;
       line-height: 1.3rem;
-      font-weight: 200;
-      padding: 0.5rem;
+      font-weight: 400;
+      padding: 1.3rem;
       white-space: normal;
     }
     h2 {
