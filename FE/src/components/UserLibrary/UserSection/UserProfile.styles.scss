@@ -1,7 +1,8 @@
 @import '../../../styles/variables';
 
 .user-profile-container {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
+  color: $deep-brown;
   .user-profile {
     display: flex;
     // flex-direction: row;
@@ -17,20 +18,15 @@
       flex-direction: column;
       justify-content: space-between;
       .profile-user {
-        display:flex;
+        display: flex;
+        align-items: center;
         margin-top: 5px;
         margin-bottom: 5px;
-        h2 {
-          font-size: 1.3rem;
-          margin-right: 10px;
-        }
       }
-
 
       .profile-button {
         display: flex;
-        justify-content: end;
-        
+        justify-content: start;
       }
     }
   }
@@ -50,7 +46,6 @@
     color: $beige;
     text-decoration: none;
     align-content: center;
-    
 
     display: inline-block;
     width: auto;
@@ -60,5 +55,17 @@
 
     background: $brown;
     border-radius: 25px;
+  }
+  h2 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-right: 10px;
+  }
+  span {
+    font-size: 0.8rem;
+  }
+  p {
+    font-size: 0.9rem;
+    padding: 5px 0px; 
   }
 }

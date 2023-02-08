@@ -50,8 +50,17 @@ export default function UserProfile({ isMe }: UserProfileProps) {
               </div>
 
               <div className="profile-follow">
-                <span>
-                  팔로잉: {userData?.following} 팔로워: {userData?.follower}
+                <span
+                  className="following"
+                  onClick={() => navigate(`/profile/follow`)}
+                >
+                  팔로잉: {userData?.following}
+                </span>
+                <span
+                  className="follower"
+                  onClick={() => navigate(`/profile/follow`)}
+                >
+                  ⠀팔로워: {userData?.follower}
                 </span>
               </div>
             </div>
@@ -70,12 +79,6 @@ export default function UserProfile({ isMe }: UserProfileProps) {
               ) : (
                 <div className="profile-button">
                   <button onClick={onClickBookRegister}>도서 등록</button>
-                  <button className="icon-button">
-                    <FaRegChartBar
-                      onClick={onClickUserStatistics}
-                      size={'1rem'}
-                    />
-                  </button>
                 </div>
               )}
             </div>

@@ -100,14 +100,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberDto> findByMemberNameLike(String input) {
 		List<Member> list = memberRepository.findByMemberNameLike(input);
+		System.out.println(list.size());
 		List<MemberDto> dtoList = new ArrayList<>();
 		for(Member member : list){
 			dtoList.add(MemberDto.builder()
-					.memberProfile(member.getMemberProfile())
-					.memberEmail(member.getMemberEmail())
-					.memberScore(member.getMemberScore())
-					.memberDongCode(member.getMemberDongCode())
-					.memberName(member.getMemberName())
+				.memberProfile(member.getMemberProfile())
+				.memberEmail(member.getMemberEmail())
+				.memberScore(member.getMemberScore())
+				.memberDongCode(member.getMemberDongCode())
+				.memberName(member.getMemberName())
 				.build());
 		}
 		return dtoList;
