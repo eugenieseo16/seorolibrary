@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.seoro.seoro.util.JwtTokenUtil;
 
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -71,8 +72,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private String getToken(HttpServletRequest request) {
 		String headerAuth = request.getHeader("Authorization");
-		if(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer")) {
-			// 'Bearer '를 제외하여 JWT 정보 가져오기
+		if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
 			return headerAuth.substring(7);
 		}
 		return null;

@@ -2,14 +2,26 @@ package com.seoro.seoro.service.Member;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.seoro.seoro.auth.CacheKey;
+import com.seoro.seoro.auth.JwtExpirationEnums;
+import com.seoro.seoro.auth.LogoutAcessToken;
+import com.seoro.seoro.auth.RefreshToken;
+import com.seoro.seoro.auth.RefreshTokenRedisRepository;
+import com.seoro.seoro.domain.dto.Member.LoginDto;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.Member.MemberPasswordDto;
 import com.seoro.seoro.domain.dto.Member.MemberSignupDto;
 import com.seoro.seoro.domain.dto.Member.MemberUpdateDto;
+import com.seoro.seoro.domain.dto.Member.TokenDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.auth.LogoutAccessTokenRedisRepositoty;
@@ -19,13 +31,15 @@ import com.seoro.seoro.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import static com.seoro.seoro.auth.JwtExpirationEnums.REFRESH_TOKEN_EXPIRATION_TIME;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
-	// private final RefreshTokenRedisRepository refreshTokenRedisRepository;
+	private final RefreshTokenRedisRepository refreshTokenRedisRepository;
 	private final LogoutAccessTokenRedisRepositoty logoutAccessTokenRedisRepositoty;
 	private final JwtTokenUtil jwtTokenUtil;
 
@@ -39,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
 			responseDto.setResult(false);
 			return responseDto;
 		}
-		// 비밀번호 재확인 오류 해결
+		// 비밀번호 재확인 주석 처리
 		// String password = requestDto.getMemberPassword();
 		// String checkPassword = requestDto.getDupchkPassword();
 		// log.info("password: " + password + " dupchk: " + checkPassword);
@@ -104,7 +118,7 @@ public class MemberServiceImpl implements MemberService {
 		Member member = new Member();
 		MemberDto responseDto = new MemberDto();
 
-		Member viewMember =  memberRepository.findByMemberName(memberName);
+		Member viewMember =  memberRepository.findByMemberName(memberName).get();
 		if(viewMember != null) {
 			responseDto = new MemberDto(viewMember);
 			responseDto.setResult(true);
@@ -118,7 +132,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberDto modifyProfile(MemberUpdateDto requestDto, String memberName) {
-		Member member = memberRepository.findByMemberName(memberName);
+		Member member = memberRepository.findByMemberName(memberName).get();
 		MemberDto responseDto = new MemberDto(member);
 
 		if(member != null) {
@@ -149,7 +163,7 @@ public class MemberServiceImpl implements MemberService {
 	public ResultResponseDto modifyPassword(MemberPasswordDto requestDto, String memberName) {
 		log.info("비밀번호 변경");
 		ResultResponseDto responseDto = new ResultResponseDto();
-		Member member = memberRepository.findByMemberName(memberName);
+		Member member = memberRepository.findByMemberName(memberName).get();
 
 		if(!passwordEncoder.encode(requestDto.getMemberPassword()).equals(member.getMemberPassword())) {
 			if(requestDto.getNewPassword().equals(requestDto.getCheckPassword())) {
@@ -185,7 +199,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ResultResponseDto removeMember(String memberName) {
 		ResultResponseDto responseDto = new ResultResponseDto();
-		Member member = memberRepository.findByMemberName(memberName);
+		Member member = memberRepository.findByMemberName(memberName).get();
 
 		if(member != null) {
 			memberRepository.delete(member);
@@ -193,5 +207,74 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		return responseDto;
+	}
+
+	@Override
+	public TokenDto login(LoginDto requestDto) {
+		Member member = memberRepository.findByMemberEmail(requestDto.getEmail()).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
+		checkPassword(requestDto.getPassword(), member.getMemberPassword());
+
+		String username = member.getMemberName();
+		String accessToken = jwtTokenUtil.generateAccessToken(username);
+		RefreshToken refreshToken = saveRefreshToken(username);
+
+		return TokenDto.of(accessToken, refreshToken.getRefreshToken());
+	}
+
+	@CacheEvict(value = CacheKey.USER, key = "#username")
+	public void logout(TokenDto tokenDto, String username) {
+		String accessToken = resolveToken(tokenDto.getAccessToken());
+		long remainMilliSeconds = jwtTokenUtil.getRemainMilliSeconds(accessToken);
+		refreshTokenRedisRepository.deleteById(username);
+		logoutAccessTokenRedisRepositoty.save(LogoutAcessToken.of(accessToken, username, remainMilliSeconds));
+	}
+
+	private void checkPassword(String rawPassword, String findMemberPassword) {
+		if(!passwordEncoder.matches(rawPassword, findMemberPassword)) {
+			throw new IllegalArgumentException("비밀번호가 맞지 않습니다.");
+		}
+	}
+
+	private RefreshToken saveRefreshToken(String username) {
+		return refreshTokenRedisRepository.save(RefreshToken.createRefreshToken(username,
+			jwtTokenUtil.generateRefreshToken(username), REFRESH_TOKEN_EXPIRATION_TIME.getValue()));
+	}
+
+	private String resolveToken(String token) {
+		return token.substring(7);
+	}
+
+	public TokenDto reissue(String refreshToken) {
+		log.info("refreshToken: " + refreshToken);
+		refreshToken = resolveToken(refreshToken);
+		log.info("refreshToken: " + refreshToken);
+		String username = getCurrentUsername();
+		log.info("username: " + username);
+		RefreshToken redisRefreshToken = refreshTokenRedisRepository.findById(username).orElseThrow(NoSuchElementException::new);
+
+		if(refreshToken.equals(redisRefreshToken.getRefreshToken())) {
+			return reissueRefreshToken(refreshToken, username);
+		}
+		throw new IllegalArgumentException("토큰이 일치하지 않습니다");
+	}
+
+	private String getCurrentUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		// UserDetails principal = (UserDetails) authentication.getPrincipal();
+		String username = authentication.getName();
+		return username;
+	}
+
+	private TokenDto reissueRefreshToken(String refreshToken, String username) {
+		if(lessThanReissueExpirationTimesLeft(refreshToken)) {
+			String accessToken = jwtTokenUtil.generateAccessToken(username);
+			return TokenDto.of(accessToken, saveRefreshToken(username).getRefreshToken());
+		}
+
+		return TokenDto.of(jwtTokenUtil.generateAccessToken(username), refreshToken);
+	}
+
+	private boolean lessThanReissueExpirationTimesLeft(String refreshToken) {
+		return jwtTokenUtil.getRemainMilliSeconds(refreshToken) < JwtExpirationEnums.REISSUE_EXPIRATION_TIME.getValue();
 	}
 }

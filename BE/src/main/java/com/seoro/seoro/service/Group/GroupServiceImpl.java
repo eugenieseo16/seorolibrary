@@ -42,7 +42,7 @@ public class GroupServiceImpl implements GroupService{
 		GroupMainResponseDto groupMainResponseDto = new GroupMainResponseDto();
 		System.out.println("userName = " + userName);
 		//현재 로그인한 사용자
-		Member findMember = memberRepository.findByMemberName(userName);
+		Member findMember = memberRepository.findByMemberName(userName).get();
 		System.out.println("findUser = " + findMember);
 
 		//같은 동코드를 가진 독서모임 반환
