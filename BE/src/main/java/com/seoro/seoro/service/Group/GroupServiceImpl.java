@@ -8,9 +8,11 @@ import javax.swing.*;
 
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
+import com.seoro.seoro.domain.entity.Groups.GroupApply;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
 
+import com.seoro.seoro.repository.Group.GroupApplyRepository;
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
 
@@ -30,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService{
+	private final GroupApplyRepository groupApplyRepository;
 	private final GroupRepository groupRepository;
 	private final GroupJoinRepository groupJoinRepository;
 	private final UserRepository userRepository;
@@ -173,6 +176,38 @@ public class GroupServiceImpl implements GroupService{
 			groupRepository.deleteById(groupId);
 		}
 
+		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	@Override
+	public ResultResponseDto applyGroup(Long groupId, Long userId) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		Member member = new Member();
+		Optional<Member> tmpMember = userRepository.findById(userId);
+		if(tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if(tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		}
+		else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		GroupApply groupApply = GroupApply.builder()
+			.groups(group)
+			.member(member)
+			.isDelete(false)
+			.build();
+		groupApplyRepository.save(groupApply);
 		responseDto.setResult(true);
 		return responseDto;
 	}

@@ -37,4 +37,9 @@ public class GroupController {
 	public ResultResponseDto deleteGroup(@PathVariable("groupid") Long groupId, @RequestParam("userId") Long userId) {
 		return groupService.deleteGroup(groupId, userId);
 	}
+
+	@PostMapping("/apply/{groupid}")
+	public ResultResponseDto applyGroup(@PathVariable("groupid") Long groupId, Long userId) {
+		return groupService.applyGroup(groupId, userId);
+	}
 }
