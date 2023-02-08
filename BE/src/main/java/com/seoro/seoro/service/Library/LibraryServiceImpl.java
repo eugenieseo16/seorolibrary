@@ -10,8 +10,10 @@ import com.seoro.seoro.domain.dto.Book.BookReportDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.BookReport;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
+import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Book.BookReportRepository;
 import com.seoro.seoro.repository.Book.ReadBookRepository;
+import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,27 +24,29 @@ import lombok.extern.slf4j.Slf4j;
 public class LibraryServiceImpl implements LibraryService {
 	private final BookReportRepository bookReportRepository;
 	private final ReadBookRepository readBookRepository;
+	private final MemberRepository memberRepository;
 
 	@Override
-	public List<BookReportDto> viewBookReportList(Long userId) {
-		List<BookReportDto> bookReportList = new ArrayList<>();
-		
-		// query dsl 사용해서 readBook이랑 bookReport join하여 userId로 user의 bookReport 전체 조회
-		
-		return null;
+	public List<BookReportDto> viewBookReportList(Long memberId) {
+		List<BookReportDto> bookReportList = bookReportRepository.findBookReportsByMemberId(memberId);
+		return bookReportList;
 	}
 
 	@Override
-	public ResultResponseDto makeBookReport(BookReportDto requestDto) {
+	public ResultResponseDto makeBookReport(BookReportDto requestDto, Long memberId) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
 
 		BookReport bookReport = new BookReport();
 		ReadBook readBook = new ReadBook();
-		readBook = readBookRepository.findByReadBookId(requestDto.getReadBookId());
+		readBook = readBookRepository.findByReadBookId(requestDto.getReadBookId()).get();
+		Member nowMember = memberRepository.findById(memberId).get();
 
 		// 이미지 저장 추가
+
 		bookReport = BookReport.builder()
 			.readBook(readBook)
+			.member(nowMember)
+			.bookReportTitle(requestDto.getBookReportTitle())
 			.bookReportContent(requestDto.getBookReportContent())
 			.build();
 
@@ -58,7 +62,7 @@ public class LibraryServiceImpl implements LibraryService {
 		BookReport responseBookReport = bookReport.get();
 
 		BookReportDto responsetDto = new BookReportDto
-			(responseBookReport.getReadBook().getReadBookId(), responseBookReport.getBookReportContent());
+			(responseBookReport.getReadBook().getReadBookId(), responseBookReport.getBookReportTitle(), responseBookReport.getBookReportContent());
 
 		return responsetDto;
 	}
@@ -72,9 +76,11 @@ public class LibraryServiceImpl implements LibraryService {
 			BookReport newBookReport = bookReport.get();
 
 			// 이미지 수정 추가
+
 			newBookReport = BookReport.builder()
 				.bookReportId(bookReportId)
 				.readBook(newBookReport.getReadBook())
+				.bookReportTitle(requestDto.getBookReportTitle())
 				.bookReportContent(requestDto.getBookReportContent())
 				.build();
 

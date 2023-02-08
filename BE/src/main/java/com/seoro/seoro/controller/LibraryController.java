@@ -29,8 +29,8 @@ public class LibraryController {
 	}
 
 	@PostMapping("{memberId}/report")
-	public ResultResponseDto makeBookReport(@ModelAttribute BookReportDto requestDto) {
-		return libraryService.makeBookReport(requestDto);
+	public ResultResponseDto makeBookReport(@ModelAttribute BookReportDto requestDto, @PathVariable Long memberId) {
+		return libraryService.makeBookReport(requestDto, memberId);
 	}
 
 	@GetMapping("{memberId}/report/{bookReportId}")
