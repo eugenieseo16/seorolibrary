@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import MyPlaceHeader from '../../components/Myplace/MyPlaceHeader';
-import MyPlaceReview from '@components/Myplace/MyPlaceReview';
-import MyPlaceAdd from '@components/Myplace/MyPlaceAdd';
+import MyPlaceHeader from '../../components/MyPlace/MyPlaceHeader';
+import MyPlaceReview from '@components/MyPlace/MyPlaceReview';
+import MyPlaceAdd from '@components/MyPlace/MyPlaceAdd';
 import ToggleNav from '@components/ToggleNav/ToggleNav';
 import './MyPlace.styles.scss';
 
