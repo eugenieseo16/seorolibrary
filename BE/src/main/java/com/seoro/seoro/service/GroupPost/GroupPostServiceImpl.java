@@ -11,7 +11,7 @@ import com.seoro.seoro.domain.entity.Groups.*;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Group.GroupRepository;
 import com.seoro.seoro.repository.GroupPost.GroupPostRepository;
-import com.seoro.seoro.repository.Member.UserRepository;
+import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class GroupPostServiceImpl implements GroupPostService {
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final GroupPostRepository groupPostRepository;
     private final GroupRepository groupRepository;
 
@@ -41,7 +41,7 @@ public class GroupPostServiceImpl implements GroupPostService {
         System.out.println("writer : " + requestDto.getWriter());
 
         //작성자 확인
-        Optional<Member> findUser = userRepository.findById(requestDto.getWriter());
+        Optional<Member> findUser = memberRepository.findById(requestDto.getWriter());
         Member writer = new Member();
         if(findUser.isPresent()) {
             writer = findUser.get();
