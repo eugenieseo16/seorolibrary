@@ -1,0 +1,164 @@
+[
+  {
+    "id": "12da123",
+    "image_url": "https://image.yes24.com/goods/61779464/XL",
+    "title": "죽고 싶지만 떡볶이는 먹고 싶어",
+    "is_available": true,
+    "author": "김난도",
+    "publisher": "한빛미디어",
+    "date": "1675819878978",
+    "description": "효율적인 리액트 애플리케이션 작성법을 간결하고 쉽고 빠르게 배우기. 브라우저에서 작동하는 자바스크립트, CSS, HTML을 아는 웹 개발자나 소프트웨어 엔지니어에게 이상적인 이 책은 최신 리액트 코드를 작성하기 위한 모범 사례와 패턴을 소개한다.",
+    "read_users": [
+      {
+        "image_url": "https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png",
+        "username": "kim-ssafy",
+        "nickname": "김싸피"
+      },
+      {
+        "image_url": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDNfMTgy/MDAxNjE0NzgwODAxMDc2.v4N4fy19yP61IAxB2OsEcDSdLRjy6olw7nesE3mIlSsg.S2KK9YZF82qTuG7E8zX4SSwMQdtrKTs6YiG6yQ-8a_sg.JPEG.sosohan_n/IMG_3624.JPG?type=w800",
+        "username": "zzang-ah",
+        "nickname": "짱아"
+      },
+      {
+        "image_url": "https://i.pinimg.com/1200x/56/cc/80/56cc80ea80aff65bc09c7967b993821c.jpg",
+        "username": "shin-zzang",
+        "nickname": "짱구"
+      }
+    ]
+  },
+  {
+    "id": "jkladsu987",
+    "image_url": "http://image.yes24.com/goods/109705390/XL",
+    "title": "역행자",
+    "is_available": true,
+    "author": "김난도",
+    "publisher": "한빛미디어",
+    "date": "1675819878978",
+    "description": "효율적인 리액트 애플리케이션 작성법을 간결하고 쉽고 빠르게 배우기. 브라우저에서 작동하는 자바스크립트, CSS, HTML을 아는 웹 개발자나 소프트웨어 엔지니어에게 이상적인 이 책은 최신 리액트 코드를 작성하기 위한 모범 사례와 패턴을 소개한다.",
+    "read_users": [
+      {
+        "image_url": "https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png",
+        "username": "kim-ssafy",
+        "nickname": "김싸피"
+      },
+      {
+        "image_url": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDNfMTgy/MDAxNjE0NzgwODAxMDc2.v4N4fy19yP61IAxB2OsEcDSdLRjy6olw7nesE3mIlSsg.S2KK9YZF82qTuG7E8zX4SSwMQdtrKTs6YiG6yQ-8a_sg.JPEG.sosohan_n/IMG_3624.JPG?type=w800",
+        "username": "zzang-ah",
+        "nickname": "짱아"
+      },
+      {
+        "image_url": "https://i.pinimg.com/1200x/56/cc/80/56cc80ea80aff65bc09c7967b993821c.jpg",
+        "username": "shin-zzang",
+        "nickname": "짱구"
+      }
+    ]
+  },
+  {
+    "id": "ojiasd978",
+    "image_url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1487452255l/34330821.jpg",
+    "title": "언어의 온도",
+    "is_available": false,
+    "author": "김난도",
+    "publisher": "한빛미디어",
+    "date": "1675819878978",
+    "description": "효율적인 리액트 애플리케이션 작성법을 간결하고 쉽고 빠르게 배우기. 브라우저에서 작동하는 자바스크립트, CSS, HTML을 아는 웹 개발자나 소프트웨어 엔지니어에게 이상적인 이 책은 최신 리액트 코드를 작성하기 위한 모범 사례와 패턴을 소개한다.",
+    "read_users": [
+      {
+        "image_url": "https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png",
+        "username": "kim-ssafy",
+        "nickname": "김싸피"
+      },
+      {
+        "image_url": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDNfMTgy/MDAxNjE0NzgwODAxMDc2.v4N4fy19yP61IAxB2OsEcDSdLRjy6olw7nesE3mIlSsg.S2KK9YZF82qTuG7E8zX4SSwMQdtrKTs6YiG6yQ-8a_sg.JPEG.sosohan_n/IMG_3624.JPG?type=w800",
+        "username": "zzang-ah",
+        "nickname": "짱아"
+      },
+      {
+        "image_url": "https://i.pinimg.com/1200x/56/cc/80/56cc80ea80aff65bc09c7967b993821c.jpg",
+        "username": "shin-zzang",
+        "nickname": "짱구"
+      }
+    ]
+  },
+  {
+    "id": "jioafsyi",
+    "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791190538510.jpg",
+    "title": "만일 내가 인생을 다시 산다면",
+    "is_available": true,
+    "author": "김난도",
+    "publisher": "한빛미디어",
+    "date": "1675819878978",
+    "description": "효율적인 리액트 애플리케이션 작성법을 간결하고 쉽고 빠르게 배우기. 브라우저에서 작동하는 자바스크립트, CSS, HTML을 아는 웹 개발자나 소프트웨어 엔지니어에게 이상적인 이 책은 최신 리액트 코드를 작성하기 위한 모범 사례와 패턴을 소개한다.",
+    "read_users": [
+      {
+        "image_url": "https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png",
+        "username": "kim-ssafy",
+        "nickname": "김싸피"
+      },
+      {
+        "image_url": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDNfMTgy/MDAxNjE0NzgwODAxMDc2.v4N4fy19yP61IAxB2OsEcDSdLRjy6olw7nesE3mIlSsg.S2KK9YZF82qTuG7E8zX4SSwMQdtrKTs6YiG6yQ-8a_sg.JPEG.sosohan_n/IMG_3624.JPG?type=w800",
+        "username": "zzang-ah",
+        "nickname": "짱아"
+      },
+      {
+        "image_url": "https://i.pinimg.com/1200x/56/cc/80/56cc80ea80aff65bc09c7967b993821c.jpg",
+        "username": "shin-zzang",
+        "nickname": "짱구"
+      }
+    ]
+  },
+  {
+    "id": "jasdjkllfh",
+    "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788959897094.jpg",
+    "title": "트렌드 코리아 2023",
+    "is_available": false,
+    "author": "김난도",
+    "publisher": "한빛미디어",
+    "date": "1675819878978",
+    "description": "효율적인 리액트 애플리케이션 작성법을 간결하고 쉽고 빠르게 배우기. 브라우저에서 작동하는 자바스크립트, CSS, HTML을 아는 웹 개발자나 소프트웨어 엔지니어에게 이상적인 이 책은 최신 리액트 코드를 작성하기 위한 모범 사례와 패턴을 소개한다.",
+    "read_users": [
+      {
+        "image_url": "https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png",
+        "username": "kim-ssafy",
+        "nickname": "김싸피"
+      },
+      {
+        "image_url": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDNfMTgy/MDAxNjE0NzgwODAxMDc2.v4N4fy19yP61IAxB2OsEcDSdLRjy6olw7nesE3mIlSsg.S2KK9YZF82qTuG7E8zX4SSwMQdtrKTs6YiG6yQ-8a_sg.JPEG.sosohan_n/IMG_3624.JPG?type=w800",
+        "username": "zzang-ah",
+        "nickname": "짱아"
+      },
+      {
+        "image_url": "https://i.pinimg.com/1200x/56/cc/80/56cc80ea80aff65bc09c7967b993821c.jpg",
+        "username": "shin-zzang",
+        "nickname": "짱구"
+      }
+    ]
+  },
+  {
+    "id": "asldhjkasu90",
+    "image_url": "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161571188.jpg",
+    "title": "불편한 편의점",
+    "is_available": true,
+    "author": "김난도",
+    "publisher": "한빛미디어",
+    "date": "1675819878978",
+    "description": "효율적인 리액트 애플리케이션 작성법을 간결하고 쉽고 빠르게 배우기. 브라우저에서 작동하는 자바스크립트, CSS, HTML을 아는 웹 개발자나 소프트웨어 엔지니어에게 이상적인 이 책은 최신 리액트 코드를 작성하기 위한 모범 사례와 패턴을 소개한다.",
+    "read_users": [
+      {
+        "image_url": "https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png",
+        "username": "kim-ssafy",
+        "nickname": "김싸피"
+      },
+      {
+        "image_url": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDNfMTgy/MDAxNjE0NzgwODAxMDc2.v4N4fy19yP61IAxB2OsEcDSdLRjy6olw7nesE3mIlSsg.S2KK9YZF82qTuG7E8zX4SSwMQdtrKTs6YiG6yQ-8a_sg.JPEG.sosohan_n/IMG_3624.JPG?type=w800",
+        "username": "zzang-ah",
+        "nickname": "짱아"
+      },
+      {
+        "image_url": "https://i.pinimg.com/1200x/56/cc/80/56cc80ea80aff65bc09c7967b993821c.jpg",
+        "username": "shin-zzang",
+        "nickname": "짱구"
+      }
+    ]
+  }
+]

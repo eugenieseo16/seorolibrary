@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { faker } from '@faker-js/faker';
@@ -7,40 +7,33 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import './NearBooks.styles.scss';
 import ExchangeAvailable from './ExchangeAvailable';
+import { useMyQuery } from '@src/hooks/useMyQuery';
+import { IBook, IUser } from '@src/types/types';
 
-// import { MdLocalCafe } from 'react-icons/md';
+interface INearBook extends IBook {
+  is_available: boolean;
+  user: IUser;
+}
 
-const Nearbooks = () => {
-  const [booksData, setBooksData] = useState<any>();
-  const getBooksData = async () => await (await fetch('/books.json')).json();
-  const { data } = useQuery('near-books', getBooksData);
-
-  const fetchData = () => {
-    setTimeout(() => {
-      setBooksData(booksData.concat(Array.from({ length: 6 })));
-    }, 1500);
-  };
-
-  const author = faker.name.firstName();
-  const distance = Math.floor(Math.random() * 1000 + 100) + 'm';
+function Nearbooks() {
+  const books: INearBook[] = useMyQuery('/books.json');
 
   const navigate = useNavigate();
-
   return (
     <InfiniteScroll
       className="near-books-container"
       dataLength={8}
-      next={fetchData}
+      next={() => {}}
       hasMore={true}
       loader=""
     >
-      <div>
-        {data?.map((nearBooks: any, i: number) => (
+      <Suspense fallback={'Loading...'}>
+        {books?.map((book, i: number) => (
           <Row key={i} className="book-container">
             <Col span={8}>
               {/* 책 사진 */}
               <img
-                src={nearBooks.image_url}
+                src={book.image_url}
                 alt=""
                 onClick={() => navigate(`/near/bookdetail/${i}`)}
               />
@@ -49,23 +42,18 @@ const Nearbooks = () => {
             <Col span={15} className="book-description-container">
               <div onClick={() => navigate(`/near/bookdetail/${i}`)}>
                 {/* 책 제목 */}
-                <h2>{nearBooks.title}</h2>
+                <h2>{book.title}</h2>
                 {/* 책 저자 */}
-                <h6>{author}</h6>
+                <h6>{book.author}</h6>
                 {/* 책 설명 */}
-                <h6>
-                  {nearBooks.title}
-                  {nearBooks.title}
-                  {nearBooks.title}
-                </h6>
+                <h6>{book.description}</h6>
                 <br />
               </div>
               <div>
                 {/* 이용자 & 거리*/}
                 <h2>
-                  {author}
-                  &nbsp;
-                  {distance}
+                  {book.user?.nickname}
+                  {book.user.location}
                 </h2>
                 <ExchangeAvailable />
               </div>
@@ -73,9 +61,9 @@ const Nearbooks = () => {
           </Row>
         ))}
         <div className="near-book-line"></div>
-      </div>
+      </Suspense>
     </InfiniteScroll>
   );
-};
+}
 
 export default Nearbooks;
