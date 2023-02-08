@@ -50,9 +50,18 @@ export default function UserProfile({ isMe }: UserProfileProps) {
               </div>
 
               <div className="profile-follow">
-                <p>
-                  팔로잉: {userData?.following}⠀ 팔로워: {userData?.follower}
-                </p>
+                <span
+                  className="following"
+                  onClick={() => navigate(`/profile/follow`)}
+                >
+                  팔로잉: {userData?.following}
+                </span>
+                <span
+                  className="follower"
+                  onClick={() => navigate(`/profile/follow`)}
+                >
+                  ⠀팔로워: {userData?.follower}
+                </span>
               </div>
             </div>
 
