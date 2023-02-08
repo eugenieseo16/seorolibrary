@@ -30,7 +30,11 @@ public class GroupController {
 
 	@GetMapping("/detail/{groupid}")
 	public GroupDetailResponseDto groupDetail(@PathVariable("groupid") Long groupId) {
-		
 		return groupService.groupDetail(groupId);
+	}
+
+	@DeleteMapping("/{groupid}")
+	public ResultResponseDto deleteGroup(@PathVariable("groupid") Long groupId, @RequestParam("userId") Long userId) {
+		return groupService.deleteGroup(groupId, userId);
 	}
 }

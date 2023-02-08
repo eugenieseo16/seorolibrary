@@ -40,19 +40,19 @@ public class Groups implements Serializable {
     private Date groupEndDate;
     private Long groupGenre;
     @Builder.Default
-    @OneToMany(mappedBy = "groups")
+    @OneToMany(mappedBy = "groups", cascade = CascadeType.REMOVE)
     private List<GroupApply> applies = new ArrayList<>();
     @Builder.Default
-    @OneToMany(mappedBy = "groups")
+    @OneToMany(mappedBy = "groups", cascade = CascadeType.REMOVE)
     private List<GroupJoin> joins = new ArrayList<>();
     @Builder.Default
-    @OneToMany(mappedBy = "groups")
+    @OneToMany(mappedBy = "groups", cascade = CascadeType.REMOVE)
     private List<GroupPost> posts = new ArrayList<>();
     @Builder.Default
-    @OneToMany(mappedBy = "groups")
+    @OneToMany(mappedBy = "groups", cascade = CascadeType.REMOVE)
     private List<GroupBook> books = new ArrayList<>();
     @Builder.Default
-    @OneToMany(mappedBy = "groups")
+    @OneToMany(mappedBy = "groups", cascade = CascadeType.REMOVE)
     private List<GroupSchedule> meetings = new ArrayList<>();
 
 }
