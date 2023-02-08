@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+.club-books-container {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  .book {
+    border-radius: 8px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    img {
+      width: 5rem;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+    h3 {
+      font-size: 1.1rem;
+      @include overflow-text;
+    }
+    > div {
+      @include overflow-text;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
