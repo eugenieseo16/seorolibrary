@@ -9,7 +9,10 @@ import java.util.List;
 
 import com.seoro.seoro.domain.entity.Member.Member;
 
+import lombok.Getter;
+
 @Entity
+@Getter
 public class Place implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long placeId;
