@@ -7,7 +7,7 @@ import { Col, Row } from 'antd';
 import './PlaceImage.styles.scss';
 
 function PlaceImage() {
-  const title = '가게 이름';
+  // const title = '가게 이름';
   const description =
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae modi id nobis ex necessitatibus magnam officia, harum eveniet, distinctio praesentium provident corporis odio recusandae sunt accusamus. Quidem et ducimus exercitationem.';
 
@@ -45,12 +45,6 @@ function PlaceImage() {
       </div>
       {/* 장소 설명 */}
       <div className="place-detail-content-container">
-        {/* 장소 이름 */}
-        <h2>
-          <MdLocalCafe />
-          &nbsp;
-          {title}
-        </h2>
         {/* 장소 설명 */}
         <h6>{description}</h6>
       </div>
