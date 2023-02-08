@@ -9,38 +9,42 @@ import BookReview from '@components/BookInfo/BookReview';
 import HoldBook from '@components/BookInfo/Carousel/HoldBook'
 import HoldUser from '@components/BookInfo/Carousel/HoldUser'
 
+import { FaQuoteLeft } from 'react-icons/fa';
+
 import './BookDetail.styles.scss';
 
 function BookDetail() {
   const location = useLocation();
-
-  // console.log(location.pathname);
-
   const isUser = (location.pathname).includes("profile");
 
   return (
     <div className="book-detail-container">
-      <h1>{location.pathname}</h1>
-      <BookDetailHeader />
-      {/* <SearchHeader text="도서 정보" /> */}
-      <BookInfo />
-      <BookStat />
       { isUser ? (
+        // {/* 사용자 도서 상세- 사용자의 보유도서 캐러셀*/}
         <div>
-          {/* 사용자 도서 상세- 사용자의 보유도서 캐러셀*/}
+          <BookDetailHeader />
+          <div className="hold-user-detail-container">
+            <FaQuoteLeft/>
+            <h1>미래에 다가올 시대를 준비할 수 있는 책</h1>       
+          </div>
+          <BookInfo />
+          <BookStat />
           <HoldBook/>
-          
+          <BookReview />
         </div>
       ) : (
+      // {/* 표준 도서상세- 근처 도서 보유 사용자 캐러셀 */}
         <div>
-          {/* 표준 도서상세- 근처 도서 보유 사용자 캐러셀 */}
+          <BookDetailHeader />
+          <BookInfo />
+          <BookStat />
           <HoldUser/>
+          <BookReview />
         </div>
       )}
       
 
       
-      <BookReview />
     </div>
   );
 }
