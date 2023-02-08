@@ -1,7 +1,5 @@
 package com.seoro.seoro.domain.dto.Group;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class GroupApplyReadResponseDto {
-	private Boolean result;
-	private List<GroupApplyUserDto> groupApplies;
+@NoArgsConstructor
+public class GroupApplyUserDto {
+	private Long userId;
+	private String userName;
 }
