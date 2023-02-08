@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import Barcode from '@components/BookRegister/Barcode';
-import Manual from '@components/BookRegister/Manual';
 
 import { RiCamera3Line, RiEdit2Line } from 'react-icons/ri';
 
-import './RegisterPreferenceButton.styles.scss';
+import './RegisterDetail.styles.scss';
 
-function RegisterPreferenceButton() {
+function RegisterDetail() {
   const [barcode, setBarcode] = useState(true);
 
   return (
@@ -19,7 +17,6 @@ function RegisterPreferenceButton() {
               <span className="button-text">바코드로 인식하기</span>
             </button>
           </div>
-          <Manual />
         </div>
       ) : (
         <div>
@@ -29,11 +26,11 @@ function RegisterPreferenceButton() {
               <span className="button-text">직접 입력하기</span>
             </button>
           </div>
-          <Barcode />
+          <h1>바코드 스캐너 넣어주기</h1>
         </div>
       )}
     </div>
   );
 }
 
-export default RegisterPreferenceButton;
+export default RegisterDetail;
