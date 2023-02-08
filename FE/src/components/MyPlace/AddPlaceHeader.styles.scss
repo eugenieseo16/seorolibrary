@@ -1,0 +1,21 @@
+@import '../../styles/variables';
+
+.add-place-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: $deep-brown;
+  font-size: 1.5rem;
+  font-weight: 800;
+
+  .add-place-header-icon-container {
+    display: flex;
+
+    .add-place-header-icon-item {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+    }
+  }
+}
