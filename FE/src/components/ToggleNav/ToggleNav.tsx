@@ -42,7 +42,7 @@ function ToggleNav({ selectedId, setSelectedId, items }: IToggleNavProps) {
   return (
     <div className="recommend-nav" onClick={setId}>
       {items.map((item, i) => (
-        <>
+        <React.Fragment key={i}>
           <NavItem
             onClick={() => setIndex(i)}
             text={item.text}
@@ -57,7 +57,7 @@ function ToggleNav({ selectedId, setSelectedId, items }: IToggleNavProps) {
               left,
             }}
           />
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
