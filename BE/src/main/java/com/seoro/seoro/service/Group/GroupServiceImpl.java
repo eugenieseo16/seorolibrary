@@ -25,7 +25,7 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Group.GroupRepository;
-import com.seoro.seoro.repository.Member.UserRepository;
+import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +36,8 @@ import lombok.extern.slf4j.Slf4j;
 public class GroupServiceImpl implements GroupService{
 	private final GroupRepository groupRepository;
 	private final GroupJoinRepository groupJoinRepository;
-	private final UserRepository userRepository;
 	private final ChatRoomRepository chatRepository;
+	private final MemberRepository memberRepository;
 	private final GroupPostService groupPostService;
 
 
@@ -46,8 +46,8 @@ public class GroupServiceImpl implements GroupService{
 		GroupMainResponseDto groupMainResponseDto = new GroupMainResponseDto();
 		System.out.println("userName = " + userName);
 		//현재 로그인한 사용자
-		Member findMember = userRepository.findByMemberName(userName);
-		System.out.println("findMember = " + findMember);
+		Member findMember = memberRepository.findByMemberName(userName).get();
+		System.out.println("findUser = " + findMember);
 
 		//내 동코드와 장르를 받아옴
 		String myDongCode = findMember.getMemberDongCode();
@@ -83,7 +83,7 @@ public class GroupServiceImpl implements GroupService{
 
 
 		//같은 동코드를 가진 사용자들 추천순으로 반환
-		List<Member> dongMember = userRepository.findByMemberDongCode(myDongCode);
+		List<Member> dongMember = memberRepository.findByMemberDongCode(myDongCode);
 		if(dongMember.size()>0){
 			Collections.sort(dongMember, new Comparator<Member>(){
 				@Override
@@ -144,7 +144,7 @@ public class GroupServiceImpl implements GroupService{
 		}
 
 		Member host = new Member();
-		Optional<Member> tmpUser = userRepository.findById(requestDto.getGroupHost());
+		Optional<Member> tmpUser = memberRepository.findById(requestDto.getGroupHost());
 		if(tmpUser.isPresent()) {
 			host = tmpUser.get();
 		}else {
@@ -208,7 +208,7 @@ public class GroupServiceImpl implements GroupService{
 	public ResultResponseDto deleteGroup(Long groupId, Long userId) {
 		ResultResponseDto responseDto = new ResultResponseDto();
 		Member member = new Member();
-		Optional<Member> tmpMember = userRepository.findById(userId);
+		Optional<Member> tmpMember = memberRepository.findById(userId);
 		if(tmpMember.isPresent()) {
 			member = tmpMember.get();
 		} else {
@@ -225,7 +225,7 @@ public class GroupServiceImpl implements GroupService{
 			responseDto.setResult(false);
 			return responseDto;
 		}
-		
+
 		if(group.getHost().equals(member)) { //현재 사용자가 독서모임을 만든 사람이라면
 			groupRepository.deleteById(groupId);
 		}

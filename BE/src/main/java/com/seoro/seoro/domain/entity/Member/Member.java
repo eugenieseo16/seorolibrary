@@ -3,7 +3,10 @@ package com.seoro.seoro.domain.entity.Member;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +22,9 @@ import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Place.Place;
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;

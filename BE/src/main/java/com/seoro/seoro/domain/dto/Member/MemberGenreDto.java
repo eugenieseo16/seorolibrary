@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserGenreDto {
+public class MemberGenreDto {
 	private Long userGenreId;
 	private Long userId;
 	private Long genreId;

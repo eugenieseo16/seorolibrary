@@ -23,28 +23,28 @@ import lombok.RequiredArgsConstructor;
 public class LibraryController {
 	private final LibraryService libraryService;
 
-	@GetMapping("{userId}/report")
+	@GetMapping("{memberId}/report")
 	public List<BookReportDto> viewBookReportList(@PathVariable Long userId) {
 		return libraryService.viewBookReportList(userId);
 	}
 
-	@PostMapping("{userId}/report")
+	@PostMapping("{memberId}/report")
 	public ResultResponseDto makeBookReport(@ModelAttribute BookReportDto requestDto) {
 		return libraryService.makeBookReport(requestDto);
 	}
 
-	@GetMapping("{userId}/report/{bookReportId}")
+	@GetMapping("{memberId}/report/{bookReportId}")
 	public BookReportDto viewBookReport(@PathVariable Long bookReportId) {
 		return libraryService.viewBookReport(bookReportId);
 	}
 
-	@PutMapping("{userId}/report/{bookReportId}")
+	@PutMapping("{memberId}/report/{bookReportId}")
 	public ResultResponseDto modifyBookReport(@ModelAttribute BookReportDto reportDto, @PathVariable Long bookReportId) {
 		System.out.println("bookReportId: " + bookReportId);
 		return libraryService.modifyBookReport(reportDto, bookReportId);
 	}
 
-	@DeleteMapping("{userId}/report/{bookReportId}")
+	@DeleteMapping("{memberId}/report/{bookReportId}")
 	public ResultResponseDto removeBookReport(@PathVariable Long bookReportId) {
 		return libraryService.removeBookReport(bookReportId);
 	}
