@@ -73,7 +73,14 @@ function BookClubMain() {
         <div className="posts-container">
           {posts?.map((post, i: number) => (
             <div key={i} className="post-container">
-              <div className="category">{post.category}</div>
+              <div className="post-header">
+                <div className="profile">
+                  <img src={post.user.image_url} alt="" />
+                  <span>{post.user.nickname}</span>
+                </div>
+
+                <div className="category">{post.category}</div>
+              </div>
               <h3>{post.title}</h3>
               <div>
                 {post.image_url && (
@@ -81,7 +88,6 @@ function BookClubMain() {
                 )}
                 <p>{post.payload}</p>
               </div>
-              <div>{post.user.nickname}</div>
             </div>
           ))}
         </div>
