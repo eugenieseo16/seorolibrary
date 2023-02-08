@@ -43,6 +43,7 @@ function Router() {
     <Routes>
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/book/:id" element={<BookDetail />} />
 
         <Route path="/profile" element={<MyLibrary />} />
