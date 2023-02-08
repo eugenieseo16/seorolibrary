@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GroupApplyUserDto {
+	private Long groupApplyId;
 	private Long userId;
 	private String userName;
 }

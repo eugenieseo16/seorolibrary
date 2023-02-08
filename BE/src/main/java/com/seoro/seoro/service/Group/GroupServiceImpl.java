@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import com.seoro.seoro.domain.dto.Group.GroupApplyReadResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupApplyUserDto;
+import com.seoro.seoro.domain.dto.Group.GroupApproveRequestDto;
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
@@ -18,6 +19,7 @@ import com.seoro.seoro.repository.Group.GroupApplyRepository;
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
 
+import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
@@ -238,11 +240,14 @@ public class GroupServiceImpl implements GroupService{
 			List<GroupApply> groupApplyList = groupApplyRepository.findByGroups(group);
 			List<GroupApplyUserDto> applyUsers = new ArrayList<>();
 			for(GroupApply apply : groupApplyList) {
-				GroupApplyUserDto userDto = GroupApplyUserDto.builder()
-					.userId(apply.getMember().getMemberId())
-					.userName(apply.getMember().getMemberName())
-					.build();
-				applyUsers.add(userDto);
+				if(!apply.getIsDelete()) { //승인, 거부 안한 사용자만 뜨게
+					GroupApplyUserDto userDto = GroupApplyUserDto.builder()
+						.groupApplyId(apply.getGroupAplyId())
+						.userId(apply.getMember().getMemberId())
+						.userName(apply.getMember().getMemberName())
+						.build();
+					applyUsers.add(userDto);	
+				}
 			}
 			responseDto.setResult(true);
 			responseDto.setGroupApplies(applyUsers);
@@ -252,5 +257,66 @@ public class GroupServiceImpl implements GroupService{
 			responseDto.setResult(false);
 			return responseDto;
 		}
+	}
+
+	@Override
+	public ResultResponseDto approveGroupApply(GroupApproveRequestDto requestDto) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		
+		//Host 정보 가져오기
+		Member member = new Member();
+		Optional<Member> tmpMember = userRepository.findById(requestDto.getUserId());
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//신청자 정보 가져오기
+		Member applyMember = new Member();
+		Optional<Member> tmpApplyMember = userRepository.findById(requestDto.getApplyUserId());
+		if (tmpApplyMember.isPresent()) {
+			applyMember = tmpApplyMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(requestDto.getGroupId());
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//독서 모임 참여 신청 정보 가져오기
+		Optional<GroupApply> tmpGroupApply = groupApplyRepository.findById(requestDto.getGroupApplyId());
+		GroupApply groupApply = new GroupApply();
+		if (tmpGroupApply.isPresent()) {
+			groupApply = tmpGroupApply.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		if(group.getHost().equals(member)) { //방장이 맞으면
+			if(requestDto.getIsApprove()) { //승인
+				GroupJoin join = GroupJoin.builder()
+					.groups(group)
+					.member(applyMember)
+					.build();
+				groupJoinRepository.save(join);
+			}
+			GroupApply done = GroupApply.builder()
+				.groupAplyId(groupApply.getGroupAplyId())
+				.groups(group)
+				.isDelete(true)
+				.member(applyMember)
+				.build();
+			groupApplyRepository.save(done); //처리 완료
+		}
+		responseDto.setResult(true);
+		return responseDto;
 	}
 }

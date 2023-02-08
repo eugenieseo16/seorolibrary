@@ -1,6 +1,7 @@
 package com.seoro.seoro.controller;
 
 import com.seoro.seoro.domain.dto.Group.GroupApplyReadResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupApproveRequestDto;
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,5 +48,10 @@ public class GroupController {
 	@GetMapping("/apply/{groupid}")
 	public GroupApplyReadResponseDto readGroupApplies(@PathVariable("groupid") Long groupId, Long userId) {
 		return groupService.readGroupApplies(groupId, userId);
+	}
+
+	@PostMapping("/approve")
+	public ResultResponseDto approveGroupApply(GroupApproveRequestDto requestDto) {
+		return groupService.approveGroupApply(requestDto);
 	}
 }
