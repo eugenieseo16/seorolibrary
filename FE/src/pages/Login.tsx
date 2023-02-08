@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
-    <div style={{ fontSize: '2rem' }}>
-      <h1 style={{ fontFamily: 'BM-Pro' }}>배민</h1>
-      <h1 style={{ fontFamily: 'NEXON', fontWeight: 200 }}>넥슨 200</h1>
-      <h1 style={{ fontFamily: 'NEXON', fontWeight: 400 }}>넥슨 400</h1>
-      <h1 style={{ fontFamily: 'NEXON', fontWeight: 600 }}>넥슨 600</h1>
+    <div className="login-container">
+      <div className="login-box-container">
+        jjjjdkdkdkldfslkfdslkjdsflkjsalkjsadlkjdsalkj\\
+        {/* <form>
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+          <button type="submit">Login</button>
+        </form> */}
+      </div>
     </div>
   );
 }
