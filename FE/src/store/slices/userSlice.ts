@@ -1,14 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface IUser {
-  username: string;
-  password: string;
-  _id: string;
-  location?: {
-    latitude: string;
-    longitude: string;
-  };
-}
+import { IUser } from '@src/types/types';
 
 const userSlice = createSlice({
   name: 'user',
