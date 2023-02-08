@@ -8,6 +8,8 @@ import BookDetail from '@pages/BookDetail/BookDetail';
 
 import MyLibrary from '@pages/UserLibrary/UserLibrary';
 import UserLibrary from '@pages/UserLibrary/UserLibrary';
+import Follow from '@pages/UserLibrary/Follow';
+
 import ProfileLog from '@pages/ProfileLog/ProfileLog';
 import ProfileStat from '@pages/ProfileStat/ProfileStat';
 import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
@@ -45,6 +47,10 @@ function Router() {
 
         <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:userId" element={<UserLibrary />} />
+
+        {/* /profile/userId/follow- 로 변경 필요 */}
+        <Route path="/profile/follow" element={<Follow />} />
+
         <Route path="/profile/log" element={<ProfileLog />} />
         <Route path="profile/statistics" element={<ProfileStat />} />
         <Route path="/profile/settings" element={<ProfileSettings />} />
