@@ -7,11 +7,11 @@ import './PlaceDetailHeader.styles.scss';
 function PlaceDetailHeader() {
   const navigate = useNavigate();
   const onClickAddPlace = () => {
-    navigate(`add-place`);
+    navigate(`/places/add-place`);
   };
 
   const onClickMyPlaceArchive = () => {
-    navigate(`my-place-archive`);
+    navigate(`/places/my-place-archive`);
   };
 
   return (
