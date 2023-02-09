@@ -2,7 +2,7 @@ import React from 'react';
 import { MdOutlineChevronRight } from 'react-icons/md';
 
 import Recommend from '@components/Recommend/Recommend';
-import './BookClub.styles.scss';
+import './bookClub.styles.scss';
 import ClubRecommendCarousel from '@components/Carousel/ClubRecommendCarousel';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import { useNavigate } from 'react-router-dom';
