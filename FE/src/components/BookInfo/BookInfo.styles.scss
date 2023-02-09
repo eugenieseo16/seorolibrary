@@ -6,16 +6,16 @@
     display: flex;
     justify-content: center;
   }
-  .exchange-available{
-    display:flex;
+  .exchange-available {
+    display: flex;
     justify-content: center;
     margin-top: 10px;
-    margin-bottom: 20px;
   }
   .book-primary-info {
     display: flex;
     flex-direction: column;
     text-align: center;
+    padding: 1rem 0rem;
   }
 
   img {
@@ -36,6 +36,6 @@
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;  
+    text-overflow: ellipsis;
   }
 }
