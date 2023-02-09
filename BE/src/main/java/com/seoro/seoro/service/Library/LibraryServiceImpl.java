@@ -17,6 +17,7 @@ import com.seoro.seoro.domain.dto.Book.ReadBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Group.GroupShowDto;
 import com.seoro.seoro.domain.dto.Library.LibraryDto;
+import com.seoro.seoro.domain.dto.Member.FriendDto;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.BookReport;
@@ -66,16 +67,7 @@ public class LibraryServiceImpl implements LibraryService {
 		responseDto.setMemberInfo(new MemberDto(member));
 
 		// 참여 모임
-		List<GroupShowDto> groupShowDto = new ArrayList<>();
-		List<GroupJoin> findGroupJoin = member.getGroupJoins();
-		for(GroupJoin groupJoin : findGroupJoin) {
-			Groups groups = groupJoin.getGroups();
-			groupShowDto.add(GroupShowDto.builder()
-				.groupProfile(groups.getGroupProfile())
-				.groupDescrib(groups.getGroupIntroduction())
-				.groupName(groups.getGroupName())
-				.build());
-		}
+		List<GroupShowDto> groupShowDto = getMyGroups(memberId);
 		responseDto.setMyGroups(groupShowDto);
 
 		// 보유 도서
@@ -146,7 +138,10 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public List<GroupShowDto> viewMyGroup(Long memberId) {
-		// 코드 중복 리팩토링 필요
+		return getMyGroups(memberId);
+	}
+
+	private List<GroupShowDto> getMyGroups(Long memberId) {
 		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 
 		List<GroupShowDto> groupShowDto = new ArrayList<>();
@@ -295,7 +290,50 @@ public class LibraryServiceImpl implements LibraryService {
 		return resultResponseDto;
 	}
 
-	// 친구 추가
-	// 친구 삭제
-	// 친구 목록 조회
+	@Override
+	public LibraryDto makeFriend(Long memberId) {
+		LibraryDto responseDto = libraryMain(memberId);
+
+		// jwt 토큰 정보
+		String email = null;
+		Member member = memberRepository.findByMemberEmail(email).get();
+
+		Friend friend = Friend.builder()
+			.follower(member)
+			.following(memberId)
+			.build();
+		friendRepository.save(friend);
+		responseDto.setMyFollowings(responseDto.getMyFollowers() + 1);
+
+		return responseDto;
+	}
+
+	@Override
+	public LibraryDto deleteFriend(Long memberId) {
+		LibraryDto responseDto = libraryMain(memberId);
+
+		// jwt 토큰 정보
+		String email = null;
+		Member member = memberRepository.findByMemberEmail(email).get();
+
+		Friend friend = friendRepository.findByFollowerAndFollowing(member, memberId).orElseThrow(() -> new NoSuchElementException("친구가 아닙니다"));
+
+		friendRepository.delete(friend);
+		responseDto.setMyFollowings(responseDto.getMyFollowers() - 1);
+
+		return responseDto;
+	}
+
+	@Override
+	public List<FriendDto> viewFriendList(Long memberId) {
+		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 존재하지 않습니다."));
+
+		List<FriendDto> friendDtoList = new ArrayList<>();
+		List<Friend> friends = member.getFriends();
+		for(Friend friend : friends) {
+			friendDtoList.add(new FriendDto(friend));
+		}
+
+		return friendDtoList;
+	}
 }
