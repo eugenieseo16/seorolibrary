@@ -3,6 +3,7 @@ import './ClubBottomNav.styles.scss';
 import { useSpring, animated } from '@react-spring/web';
 import { useNavigate } from 'react-router-dom';
 import { useLastPathname } from '@src/hooks/usePathname';
+import useScroll from '@src/hooks/useScroll';
 
 function Button({ text, value, selected }: any) {
   const navigate = useNavigate();
@@ -27,30 +28,16 @@ function Button({ text, value, selected }: any) {
 }
 
 function ClubBottomNav() {
-  const [visible, setVisible] = useState(true);
-  const scrollRef = useRef(0);
   const path = useLastPathname();
   const index = path == 'plan' ? 1 : path == 'books' ? 2 : 0;
+  const direction = useScroll();
 
   const { opacity, transform, left } = useSpring({
-    opacity: visible ? 1 : 0,
-    transform: `translateY(${visible ? 0 : 180}px)`,
+    opacity: direction === 'up' ? 1 : 0,
+    transform: `translateY(${direction === 'up' ? 0 : 180}px)`,
     left: `${index * (100 / 3)}%`,
     config: { mass: 5, tension: 500, friction: 80, duration: 150 },
   });
-
-  useEffect(() => {
-    const scrollHandler = () => {
-      if (scrollRef.current < window.pageYOffset) {
-        if (visible) setVisible(false);
-      } else {
-        if (!visible) setVisible(true);
-      }
-      scrollRef.current = window.pageYOffset;
-    };
-    window.addEventListener('scroll', scrollHandler);
-    return () => window.removeEventListener('scroll', scrollHandler);
-  }, [visible]);
 
   return (
     <animated.div style={{ opacity, transform }} className="club-bottom-nav">
