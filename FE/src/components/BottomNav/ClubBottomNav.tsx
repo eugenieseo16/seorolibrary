@@ -33,8 +33,8 @@ function ClubBottomNav() {
   const direction = useScroll();
 
   const { opacity, transform, left } = useSpring({
-    opacity: direction === 'up' ? 1 : 0,
-    transform: `translateY(${direction === 'up' ? 0 : 180}px)`,
+    opacity: direction === 'down' ? 0 : 1,
+    transform: `translateY(${direction === 'down' ? 180 : 0}px)`,
     left: `${index * (100 / 3)}%`,
     config: { mass: 5, tension: 500, friction: 80, duration: 150 },
   });

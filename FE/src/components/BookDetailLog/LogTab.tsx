@@ -5,8 +5,6 @@ import BookReader from '@components/BookDetailLog/BookReader';
 import BookComment from '@components/BookDetailLog/BookComment';
 import BookReview from '@components/BookDetailLog/BookReview';
 
-
-
 interface LogTabProps {
   tab: string;
 }
@@ -27,12 +25,11 @@ function LogTab({ tab }: LogTabProps) {
       />
 
       {selectedId === 'reader' ? (
-        <BookReader/>
-      ) :
-      selectedId === 'comment' ? (
-        <BookComment/>
+        <BookReader />
+      ) : selectedId === 'comment' ? (
+        <BookComment />
       ) : (
-        <BookReview/>
+        <BookReview />
       )}
     </div>
   );

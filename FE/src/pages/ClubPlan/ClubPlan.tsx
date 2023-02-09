@@ -29,8 +29,8 @@ const ClubPlan: React.FC = () => {
   const plans: IPlan[] = useMyQuery('/plan.json');
 
   const { opacity, transform } = useSpring({
-    opacity: direction === 'up' ? 1 : 0.4,
-    transform: `scale(${direction === 'up' ? 1 : 0.7}) translateY(${
+    opacity: direction !== 'down' ? 1 : 0.4,
+    transform: `scale(${direction !== 'down' ? 1 : 0.7}) translateY(${
       direction === 'up' ? 0 : 80
     }px)`,
     config: { mass: 5, tension: 500, friction: 80, duration: 150 },
