@@ -8,6 +8,8 @@ import BookDetail from '@pages/BookDetail/BookDetail';
 import HoldBookDetail from '@pages/BookDetail/BookDetail';
 import BookDetailLog from '@pages/BookDetail/BookDetailLog';
 
+import Search from '@pages/Search/Search';
+
 import MyLibrary from '@pages/UserLibrary/UserLibrary';
 import UserLibrary from '@pages/UserLibrary/UserLibrary';
 import Follow from '@pages/UserLibrary/Follow';
@@ -46,7 +48,9 @@ function Router() {
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        
+
+        <Route path="/search" element={<Search />} />
+
         <Route path="/book/:id" element={<BookDetail />} />
         <Route path="/profile/:userId/book/:id" element={<HoldBookDetail />} />
         <Route path="/book/:id/log" element={<BookDetailLog />} />
