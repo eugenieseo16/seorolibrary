@@ -76,6 +76,12 @@ export default function UserProfile({ isMe }: UserProfileProps) {
               ) : (
                 <div className="profile-button">
                   <button onClick={onClickBookRegister}>도서 등록</button>
+                  <button className="icon-button">
+                    <RiChat3Line
+                      // onClick={}
+                      size={'1rem'}
+                    />
+                  </button>
                 </div>
               )}
             </div>

@@ -17,16 +17,16 @@ function HoldUser() {
   const userData = useMyQuery('/userFollower.json');
   const navigate = useNavigate();
 
-  return(
+  return (
     <div className="hold-user-container">
       <h1>이 책을 보유 중인 사용자</h1>
       <Suspense fallback={<span>Loading...</span>}>
         <Slider {...settings} className="user-slider-hold-user">
           {userData?.map((data: any, i: number) => (
             <div
-            key={i}
-            className="hold-user-container"
-            onClick={() => navigate(`/book/${i}`)}
+              key={i}
+              className="hold-user-container"
+              onClick={() => navigate(`/profile/${i}`)}
             >
               <div className="hold-user-item">
                 <img src={data.avatar} alt="" />
