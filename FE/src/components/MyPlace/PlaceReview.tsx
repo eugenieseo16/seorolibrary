@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { Rate } from 'antd';
 
 import './PlaceReview.styles.scss';
+import AddPlaceReviewModal from './AddPlaceReviewModal';
 
 function PlaceReview() {
   const getBookReview = async () =>
     await (await fetch('/bookReview.json')).json();
   const { data } = useQuery('book-review', getBookReview);
-
-  const [showModal, setShowModal] = useState(false);
-  const onClickStarRating = () => {
-    setShowModal(!showModal);
-  };
 
   return (
     <div className="place-review-container">
@@ -21,13 +16,8 @@ function PlaceReview() {
           <h2>리뷰</h2>
         </div>
         <div className="place-review-header-icon-container">
-          <div
-            className="place-review-header-icon-item"
-            onClick={onClickStarRating}
-          >
-            <Rate defaultValue={5} />
-            <span className="ant-rate-text"></span>
-            {showModal && <div>Modal appears</div>}
+          <div className="place-review-header-icon-item">
+            <AddPlaceReviewModal />
           </div>
         </div>
       </div>
