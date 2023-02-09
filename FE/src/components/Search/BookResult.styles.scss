@@ -1,0 +1,40 @@
+@import '../../styles/variables';
+.book-result-container {
+  .book-result-item {
+    display: flex;
+    padding: 10px 0px;
+    border-bottom: 1px $light-brown solid;
+
+    .book-detail-container {
+      display: flex;
+      flex-direction: column;
+
+      h1 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 95%;
+        margin-bottom: 10px;
+      }
+      h2 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+    }
+    p {
+      font-size: 0.8rem;
+      line-height: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  img {
+    width: 100px;
+    padding: 10px;
+  }
+}
