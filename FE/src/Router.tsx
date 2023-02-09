@@ -45,9 +45,10 @@ function Router() {
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        
+
         <Route path="/book/:id" element={<BookDetail />} />
         <Route path="/profile/:userId/book/:id" element={<HoldBookDetail />} />
+        <Route path="/profile/book/:id" element={<HoldBookDetail />} />
         <Route path="/book/:id/log" element={<BookDetailLog />} />
 
         <Route path="/profile" element={<MyLibrary />} />
