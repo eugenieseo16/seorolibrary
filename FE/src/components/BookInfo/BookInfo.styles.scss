@@ -6,27 +6,36 @@
     display: flex;
     justify-content: center;
   }
+  .exchange-available {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
   .book-primary-info {
     display: flex;
     flex-direction: column;
     text-align: center;
-  }
-  .book-description {
-    overflow: hidden;
-    text-overflow: 일립시스;
-    white-space: no-wrap;
+    padding: 1rem 0rem;
   }
 
   img {
     width: 50%;
+    filter: drop-shadow(0 0 1px $brown);
   }
   h1 {
-    font-size: 1.5rem;
-    padding: 1rem;
+    font-size: 1.3rem;
+    padding: 16px;
     font-weight: 800;
     color: $deep-brown;
   }
   p {
-    padding: 0.5rem;
+    padding: 0rem 1rem;
+    font-size: 0.8rem;
+    line-height: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

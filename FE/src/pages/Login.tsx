@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import LoginToggle from '@components/Login/LoginToggle';
 
 function Login() {
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+
   return (
-    <div style={{ fontSize: '2rem' }}>
-      <h1 style={{ fontFamily: 'BM-Pro' }}>배민</h1>
-      <h1 style={{ fontFamily: 'NEXON', fontWeight: 200 }}>넥슨 200</h1>
-      <h1 style={{ fontFamily: 'NEXON', fontWeight: 400 }}>넥슨 400</h1>
-      <h1 style={{ fontFamily: 'NEXON', fontWeight: 600 }}>넥슨 600</h1>
+    <div className="login-container">
+      <div className="login-toggle-container">
+        <LoginToggle />
+      </div>
     </div>
   );
 }

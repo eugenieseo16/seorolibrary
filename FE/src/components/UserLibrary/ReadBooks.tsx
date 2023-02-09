@@ -14,7 +14,7 @@ function ReadBooks() {
   return (
     <div className="book-shelf-container">
       {data?.data?.map((book: any, i: number) => (
-        <div className="book-item" key={i} onClick={() => navigate(`/book/${i}`)}>
+        <div className="book-item" key={i} onClick={() => navigate(`book/${i}`)}>
         <img src={book.image_url} alt="" />
           <h2>{book.title}</h2>
         </div>

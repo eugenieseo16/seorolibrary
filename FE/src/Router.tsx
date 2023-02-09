@@ -5,13 +5,16 @@ import { useSelector } from 'react-redux';
 import Home from '@pages/Home';
 import Loading from '@pages/Loading';
 import BookDetail from '@pages/BookDetail/BookDetail';
+import HoldBookDetail from '@pages/BookDetail/BookDetail';
+import BookDetailLog from '@pages/BookDetail/BookDetailLog';
+
+import Search from '@pages/Search/Search';
 
 import MyLibrary from '@pages/UserLibrary/UserLibrary';
 import UserLibrary from '@pages/UserLibrary/UserLibrary';
 import Follow from '@pages/UserLibrary/Follow';
 
 import ProfileLog from '@pages/ProfileLog/ProfileLog';
-import ProfileStat from '@pages/ProfileStat/ProfileStat';
 import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
 import BookRegister from '@pages/BookRegister/BookRegister';
 
@@ -36,6 +39,7 @@ import WithOutNavLayout from '@pages/layouts/WithOutNavLayout';
 import PostGenerate from '@pages/PostGenerate/PostGenerate';
 import ClubBooks from '@pages/ClubBooks/ClubBooks';
 import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
+import ClubPlan from '@pages/ClubPlan/ClubPlan';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -43,7 +47,13 @@ function Router() {
     <Routes>
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/search" element={<Search />} />
+
         <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/profile/:userId/book/:id" element={<HoldBookDetail />} />
+        <Route path="/book/:id/log" element={<BookDetailLog />} />
 
         <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:userId" element={<UserLibrary />} />
@@ -52,7 +62,6 @@ function Router() {
         <Route path="/profile/follow" element={<Follow />} />
 
         <Route path="/profile/log" element={<ProfileLog />} />
-        <Route path="profile/statistics" element={<ProfileStat />} />
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/register" element={<BookRegister />} />
 
@@ -78,7 +87,7 @@ function Router() {
 
       <Route path="" element={<BookClubNavLayout />}>
         <Route path="/book-club/:id/books" element={<ClubBooks />} />
-        <Route path="/book-club/:id/plan" element={<ClubBooks />} />
+        <Route path="/book-club/:id/plan" element={<ClubPlan />} />
         <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
       </Route>
     </Routes>

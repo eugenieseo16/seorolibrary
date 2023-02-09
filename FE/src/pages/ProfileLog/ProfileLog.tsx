@@ -9,7 +9,7 @@ function ProfileLog () {
 
   return (
     <div>
-      <Header text="프로필 로그"/>
+      <Header text="프로필 로그(임시 헤더)"/>
       <LogTab tab={state}/>
     </div>
   )
