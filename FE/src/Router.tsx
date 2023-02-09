@@ -36,6 +36,7 @@ import WithOutNavLayout from '@pages/layouts/WithOutNavLayout';
 import PostGenerate from '@pages/PostGenerate/PostGenerate';
 import ClubBooks from '@pages/ClubBooks/ClubBooks';
 import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
+import ClubPlan from '@pages/ClubPlan/ClubPlan';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -78,7 +79,7 @@ function Router() {
 
       <Route path="" element={<BookClubNavLayout />}>
         <Route path="/book-club/:id/books" element={<ClubBooks />} />
-        <Route path="/book-club/:id/plan" element={<ClubBooks />} />
+        <Route path="/book-club/:id/plan" element={<ClubPlan />} />
         <Route path="/book-club/:id" element={<ClubDetailNavigator />} />
       </Route>
     </Routes>
