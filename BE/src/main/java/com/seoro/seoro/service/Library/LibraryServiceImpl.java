@@ -54,6 +54,7 @@ public class LibraryServiceImpl implements LibraryService {
 		// 본인 여부
 		// 토큰 정보 비교로 수정
 		boolean isOwn;
+		Member me = null;
 		if(memberId.equals(member.getMemberId())) {
 			isOwn = true;
 		} else {
@@ -101,11 +102,18 @@ public class LibraryServiceImpl implements LibraryService {
 		// 채팅방 api 완성 후 추가
 
 		// 팔로워 명수
+		Long countFollower = friendRepository.countByFollowing(member);
+		responseDto.setMyFollowers(countFollower);
+
+		// 팔로잉 명수
+		Long countFollowing = friendRepository.countByFollower(member);
+		responseDto.setMyFollowings(countFollowing);
 
 		// 팔로잉 여부
 		boolean isFollowing;
 		if(!isOwn) {
-			Optional<Friend> friend = friendRepository.findById(memberId);
+			// 팔로잉에 유저 아이디 팔로워에 내 아이디면 팔로잉한 유저
+			Optional<Friend> friend = friendRepository.findByFollowerAndFollowing(me, memberId);
 			if(friend.isPresent()) {
 				isFollowing = true;
 			} else {
