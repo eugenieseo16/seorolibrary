@@ -1,27 +1,50 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import BookDetailHeader from '@components/BookInfo/BookDetailHeader';
-import SearchHeader from '@components/SearchHeader/SearchHeader';
 import BookInfo from '@components/BookInfo/BookInfo';
 import BookStat from '@components/BookInfo/BookStat';
 import BookReview from '@components/BookInfo/BookReview';
 
+import HoldBook from '@components/BookInfo/Carousel/HoldBook'
+import HoldUser from '@components/BookInfo/Carousel/HoldUser'
+
+import { FaQuoteLeft } from 'react-icons/fa';
+
 import './BookDetail.styles.scss';
 
 function BookDetail() {
+  const location = useLocation();
+  const isUser = (location.pathname).includes("profile");
+
   return (
     <div className="book-detail-container">
-      <BookDetailHeader />
-      {/* <SearchHeader text="도서 정보" /> */}
-      <BookInfo />
-      <BookStat />
-      {/* 사용자의 보유도서 상세를 클릭한 경우 */}
-      <div>보유도서</div>
-      <p>carousel</p>
-      {/* 표준 도서상세 */}
-      <div>보유사용자</div>
-      <p>carousel</p>
-      <BookReview />
+      { isUser ? (
+        // {/* 사용자 도서 상세- 사용자의 보유도서 캐러셀*/}
+        <div>
+          <BookDetailHeader />
+          <div className="hold-user-detail-container">
+            <FaQuoteLeft/>
+            <h1>미래에 다가올 시대를 준비할 수 있는 책</h1>       
+          </div>
+          <BookInfo />
+          <BookStat />
+          <HoldBook/>
+          <BookReview />
+        </div>
+      ) : (
+      // {/* 표준 도서상세- 근처 도서 보유 사용자 캐러셀 */}
+        <div>
+          <BookDetailHeader />
+          <BookInfo />
+          <BookStat />
+          <HoldUser/>
+          <BookReview />
+        </div>
+      )}
+      
+
+      
     </div>
   );
 }

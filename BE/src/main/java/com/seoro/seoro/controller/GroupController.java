@@ -1,9 +1,12 @@
 package com.seoro.seoro.controller;
 
+import com.seoro.seoro.domain.dto.Group.GroupApplyReadResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupApproveRequestDto;
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import org.springframework.web.bind.annotation.*;
 
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupMemberReadResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Group.GroupService;
@@ -36,5 +39,25 @@ public class GroupController {
 	@DeleteMapping("/{groupid}")
 	public ResultResponseDto deleteGroup(@PathVariable("groupid") Long groupId, @RequestParam("userId") Long userId) {
 		return groupService.deleteGroup(groupId, userId);
+	}
+
+	@PostMapping("/apply/{groupid}")
+	public ResultResponseDto applyGroup(@PathVariable("groupid") Long groupId, Long userId) {
+		return groupService.applyGroup(groupId, userId);
+	}
+
+	@GetMapping("/apply/{groupid}")
+	public GroupApplyReadResponseDto readGroupApplies(@PathVariable("groupid") Long groupId, Long userId) {
+		return groupService.readGroupApplies(groupId, userId);
+	}
+
+	@PostMapping("/approve")
+	public ResultResponseDto approveGroupApply(GroupApproveRequestDto requestDto) {
+		return groupService.approveGroupApply(requestDto);
+	}
+
+	@GetMapping("/members")
+	public GroupMemberReadResponseDto readGroupMembers(@RequestParam("groupId") Long groupId) {
+		return groupService.readGroupMembers(groupId);
 	}
 }

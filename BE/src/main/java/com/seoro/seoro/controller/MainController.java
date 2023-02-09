@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.service.Book.BookService;
-import com.seoro.seoro.service.Member.UserService;
+import com.seoro.seoro.service.Member.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,13 +22,13 @@ import lombok.RequiredArgsConstructor;
 public class MainController {
 
 	private final BookService bookService;
-	private final UserService userService;
+	private final MemberService memberService;
 
 	@GetMapping("/search/{input}")
 	public List<List> searchByInput(@PathVariable String input) throws IOException, ParseException {
 		List<List> result = new ArrayList<>();
 		result.add(bookService.findBook(input));
-		result.add(userService.findByMemberNameLike("%"+input+"%"));
+		result.add(memberService.findByMemberNameLike("%"+input+"%"));
 		return result;
 	}
 

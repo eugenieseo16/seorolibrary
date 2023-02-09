@@ -21,7 +21,9 @@ public class ChatRoom implements Serializable {
     private Long chatRoomId;
 
     @OneToMany(mappedBy = "chatRoom")
+    @Builder.Default
     private List<ChatRoomContent> contents = new ArrayList<>();
     @OneToMany(mappedBy = "chatRoom")
+    @Builder.Default
     private List<ChatRoomJoin> joins = new ArrayList<>();
 }

@@ -8,13 +8,19 @@ import java.util.Optional;
 
 import javax.swing.*;
 
+import com.seoro.seoro.domain.dto.Group.GroupApplyReadResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupApplyUserDto;
+import com.seoro.seoro.domain.dto.Group.GroupApproveRequestDto;
 import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
 import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
+import com.seoro.seoro.domain.dto.Group.GroupMemberDto;
+import com.seoro.seoro.domain.dto.Group.GroupMemberReadResponseDto;
+import com.seoro.seoro.domain.entity.Groups.GroupApply;
 import com.seoro.seoro.domain.dto.Group.GroupShowDto;
 import com.seoro.seoro.domain.dto.Member.RecommendMemberDto;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
-
+import com.seoro.seoro.repository.Group.GroupApplyRepository;
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
 
@@ -34,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService{
+	private final GroupApplyRepository groupApplyRepository;
 	private final GroupRepository groupRepository;
 	private final GroupJoinRepository groupJoinRepository;
 	private final ChatRoomRepository chatRepository;
@@ -231,6 +238,178 @@ public class GroupServiceImpl implements GroupService{
 		}
 
 		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	@Override
+	public ResultResponseDto applyGroup(Long groupId, Long userId) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		Member member = new Member();
+		Optional<Member> tmpMember = memberRepository.findById(userId);
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		GroupApply groupApply = GroupApply.builder()
+			.groups(group)
+			.member(member)
+			.isDelete(false)
+			.build();
+		groupApplyRepository.save(groupApply);
+		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	@Override
+	public GroupApplyReadResponseDto readGroupApplies(Long groupId, Long userId) {
+		GroupApplyReadResponseDto responseDto = new GroupApplyReadResponseDto();
+		Member member = new Member();
+		Optional<Member> tmpMember = memberRepository.findById(userId);
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		if(group.getHost().equals(member)) { //현재 사용자가 독서모임을 만든 사람이라면
+			List<GroupApply> groupApplyList = groupApplyRepository.findByGroups(group);
+			List<GroupApplyUserDto> applyUsers = new ArrayList<>();
+			for(GroupApply apply : groupApplyList) {
+				if(!apply.getIsDelete()) { //승인, 거부 안한 사용자만 뜨게
+					GroupApplyUserDto userDto = GroupApplyUserDto.builder()
+						.groupApplyId(apply.getGroupAplyId())
+						.userId(apply.getMember().getMemberId())
+						.userName(apply.getMember().getMemberName())
+						.build();
+					applyUsers.add(userDto);	
+				}
+			}
+			responseDto.setResult(true);
+			responseDto.setGroupApplies(applyUsers);
+			return responseDto;
+		}
+		else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+	}
+
+	@Override
+	public ResultResponseDto approveGroupApply(GroupApproveRequestDto requestDto) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		
+		//Host 정보 가져오기
+		Member member = new Member();
+		Optional<Member> tmpMember = memberRepository.findById(requestDto.getUserId());
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//신청자 정보 가져오기
+		Member applyMember = new Member();
+		Optional<Member> tmpApplyMember = memberRepository
+			.findById(requestDto.getApplyUserId());
+		if (tmpApplyMember.isPresent()) {
+			applyMember = tmpApplyMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(requestDto.getGroupId());
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//독서 모임 참여 신청 정보 가져오기
+		Optional<GroupApply> tmpGroupApply = groupApplyRepository.findById(requestDto.getGroupApplyId());
+		GroupApply groupApply = new GroupApply();
+		if (tmpGroupApply.isPresent()) {
+			groupApply = tmpGroupApply.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		if(group.getHost().equals(member)) { //방장이 맞으면
+			if(requestDto.getIsApprove()) { //승인
+				GroupJoin join = GroupJoin.builder()
+					.groups(group)
+					.member(applyMember)
+					.build();
+				groupJoinRepository.save(join);
+			}
+			GroupApply done = GroupApply.builder()
+				.groupAplyId(groupApply.getGroupAplyId())
+				.groups(group)
+				.isDelete(true)
+				.member(applyMember)
+				.build();
+			groupApplyRepository.save(done); //처리 완료
+		}
+		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	@Override
+	public GroupMemberReadResponseDto readGroupMembers(Long groupId) {
+		GroupMemberReadResponseDto responseDto = new GroupMemberReadResponseDto();
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		List<GroupJoin> findGroupJoins = groupJoinRepository.findByGroups(group);
+		List<GroupMemberDto> members = new ArrayList<>();
+		//방장 맨 처음에 넣기
+		GroupMemberDto hostDto = GroupMemberDto.builder()
+			.userId(group.getHost().getMemberId())
+			.userName(group.getHost().getMemberName())
+			.build();
+		members.add(hostDto);
+		for(GroupJoin join : findGroupJoins) {
+			if(!join.getMember().equals(group.getHost())) {
+				GroupMemberDto memberDto = GroupMemberDto.builder()
+					.userId(join.getMember().getMemberId())
+					.userName(join.getMember().getMemberName())
+					.build();
+				members.add(memberDto);
+			}
+		}
+		responseDto.setResult(true);
+		responseDto.setGroupMembers(members);
 		return responseDto;
 	}
 }
