@@ -31,6 +31,10 @@ public class PlaceController {
 		return placeService.findAllPlaces();
 	}
 
+	@GetMapping("/my")
+	public List<PlaceDto> findMyPlaces(){
+		return placeService.findMyPlaces();
+	}
 
 	// @GetMapping("/detail/{isbn}")
 	// public BookDto findByIsbn(@PathVariable String isbn) throws IOException, ParseException {

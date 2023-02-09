@@ -28,4 +28,7 @@ public interface PlaceService {
 	// ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 
 	List<PlaceDto> findAllPlaces();
+
+	List<PlaceDto> findMyPlaces();
+
 }

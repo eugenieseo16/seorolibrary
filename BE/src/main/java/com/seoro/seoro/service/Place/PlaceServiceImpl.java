@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +41,23 @@ public class PlaceServiceImpl implements PlaceService {
 
 	final PlaceRepository placeRepository;
 
+	//좀 더 생각해보기
 	@Override
 	public List<PlaceDto> findAllPlaces() {
 		List<Place> list = placeRepository.findAll();
+		String myDongCode = "1123064";
+		Collections.sort(list, new Comparator<Place>() {
+			@Override
+			public int compare(Place o1, Place o2) {
+				if(myDongCode.equals(o1.getDongCode())==myDongCode.equals(o2.getDongCode())){
+					return 0;
+				} else if (myDongCode.equals(o1.getDongCode())) {
+					return -1;
+				}else{
+					return 1;
+				}
+			}
+		});
 		List<PlaceDto> dtoList = new ArrayList<>();
 		for(Place place: list){
 			dtoList.add(PlaceDto.builder()
@@ -50,6 +66,22 @@ public class PlaceServiceImpl implements PlaceService {
 					.placeId(place.getPlaceId())
 					.placeName(place.getPlaceName())
 					.build());
+		}
+		return dtoList;
+	}
+
+	@Override
+	public List<PlaceDto> findMyPlaces() {
+		Long memberId = 999L;
+		List<Place> list = placeRepository.findByMember_MemberIdOrReviews_Member_MemberId(memberId,memberId);
+		List<PlaceDto> dtoList = new ArrayList<>();
+		for(Place place: list){
+			dtoList.add(PlaceDto.builder()
+				.placeLongitude(place.getPlaceLongitude())
+				.placeLatitude(place.getPlaceLatitude())
+				.placeId(place.getPlaceId())
+				.placeName(place.getPlaceName())
+				.build());
 		}
 		return dtoList;
 	}
