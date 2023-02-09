@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
 		Review review = Review.builder()
 			.member(writer)
 			.reviewContent(requestDto.getReviewContent())
-			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()))
+			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()).get())
 			.build();
 		reviewRepository.save(review);
 		resultResponseDto.setResult(true);
@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
 		Long member_id=1L;
 		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);
 		ReviewDto dtoOutput = ReviewDto.builder()
-			.userName(review.getMember().getMemberName())
+			.memberName(review.getMember().getMemberName())
 			.isbn(review.getReadBook().getIsbn())
 			.reviewContent(review.getReviewContent())
 			.build();
@@ -106,7 +106,7 @@ public class BookServiceImpl implements BookService {
 	// }
 
 	@Override
-	public BookDto findByIsbn(String isbn) throws IOException, ParseException {
+	public BookDto viewBookDetail(String isbn) throws IOException, ParseException {
 		BookDto output;
 		URL url =new URL("http://data4library.kr/api/srchDtlList?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&isbn13="+isbn+"&format=json");
 		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
@@ -134,7 +134,8 @@ public class BookServiceImpl implements BookService {
 			.build();
 		return output;
 	}
-	//내 주변 보유사용자, 한줄평 출력 추가 필요
+
+	//내 주변 보유사용자, 리뷰 출력 추가 필요
 
 	@Override
 	public List<BookDto> findBook(String input) throws IOException, ParseException {

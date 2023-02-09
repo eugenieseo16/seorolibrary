@@ -14,10 +14,10 @@ export interface IClubDetailMetaData {
   meeting_count: number;
 }
 export interface IUser {
-  _id: string;
-  image_url: string;
-  username: string;
-  nickname: string;
+  _id?: string;
+  image_url?: string;
+  username?: string;
+  nickname?: string;
   location?: string;
 }
 export interface IUserResponse {
