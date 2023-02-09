@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookReportDto {
-	// private Long bookReportId;
 	private Long readBookId;
+	private String bookReportTitle;
 	private String bookReportContent;
 	// private String photo;
 }

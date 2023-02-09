@@ -21,7 +21,7 @@ public interface BookService {
 
 	List findBook(String input) throws IOException, ParseException;
 
-	BookDto findByIsbn(String isbn) throws IOException, ParseException;
+	BookDto viewBookDetail(String isbn) throws IOException, ParseException;
 
 	List findBestSeller() throws IOException;
 
