@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class FriendDto {
-	private Long friendId;
-	private Long userId;
+	private Long followerId;
+	private Long followingId;
 }

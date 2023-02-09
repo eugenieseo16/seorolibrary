@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
 		Long member_id=1L;
 		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);
 		ReviewDto dtoOutput = ReviewDto.builder()
-			.userName(review.getMember().getMemberName())
+			.memberName(review.getMember().getMemberName())
 			.isbn(review.getReadBook().getIsbn())
 			.reviewContent(review.getReviewContent())
 			.build();

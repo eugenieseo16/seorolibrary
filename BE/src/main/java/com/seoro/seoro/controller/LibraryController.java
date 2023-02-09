@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
+import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
+import com.seoro.seoro.domain.dto.Book.ReviewDto;
+import com.seoro.seoro.domain.dto.Group.GroupShowDto;
+import com.seoro.seoro.domain.dto.Library.LibraryDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
+import com.seoro.seoro.domain.entity.Book.Review;
 import com.seoro.seoro.service.Library.LibraryService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +27,26 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/librarys")
 public class LibraryController {
 	private final LibraryService libraryService;
+
+	@GetMapping("/{memberId}")
+	public LibraryDto libraryMain(@PathVariable Long memberId) {
+		return libraryService.libraryMain(memberId);
+	}
+
+	@GetMapping("/{memberId}/groups")
+	public List<GroupShowDto> viewMyGroup(@PathVariable Long memberId) {
+		return libraryService.viewMyGroup(memberId);
+	}
+
+	@GetMapping("/{memberId}/comments")
+	public List<OwnCommentDto> viewMyComment(@PathVariable Long memberId) {
+		return libraryService.viewMyComment(memberId);
+	}
+
+	@GetMapping("/{memberId}/reviews")
+	public List<ReviewDto> viewMyReview(@PathVariable Long memberId) {
+		return libraryService.viewMyReview(memberId);
+	}
 
 	@GetMapping("{memberId}/report")
 	public List<BookReportDto> viewBookReportList(@PathVariable Long userId) {
