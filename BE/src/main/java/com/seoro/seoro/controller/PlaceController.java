@@ -1,9 +1,7 @@
 package com.seoro.seoro.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seoro.seoro.domain.dto.Book.BookDto;
-import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
 import com.seoro.seoro.domain.dto.Place.PlaceDto;
+import com.seoro.seoro.domain.dto.Place.PlaceShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Place.PlaceService;
 
@@ -28,7 +25,7 @@ public class PlaceController {
 	private final PlaceService placeService;
 
 	@GetMapping()
-	public List<PlaceDto> findAllPlaces(){
+	public List<PlaceShowDto> findAllPlaces(){
 		return placeService.findAllPlaces();
 	}
 
@@ -38,13 +35,14 @@ public class PlaceController {
 	}
 
 	@GetMapping("/my")
-	public List<PlaceDto>[] findMyPlaces(){
+	public List<PlaceShowDto>[] findMyPlaces(){
 		return placeService.findMyPlaces();
 	}
 
 	@GetMapping("/detail/{placeId}")
-	public PlaceDto placeDetail(@PathVariable("placeId") String placeId){
-		return placeService.placeDetail();
+	public PlaceDto placeDetail(@PathVariable("placeId") Long placeId){
+		PlaceDto placeDto = placeService.placeDetail(placeId);
+		return placeDto;
 	}
 
 	// @GetMapping("/detail/{isbn}")

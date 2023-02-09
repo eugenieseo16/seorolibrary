@@ -1,41 +1,23 @@
 package com.seoro.seoro.service.Place;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
 import com.seoro.seoro.domain.dto.Place.PlaceDto;
+import com.seoro.seoro.domain.dto.Place.PlaceReviewDto;
+import com.seoro.seoro.domain.dto.Place.PlaceShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
-import com.seoro.seoro.domain.entity.Book.Review;
-import com.seoro.seoro.domain.entity.Groups.GroupJoin;
-import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.domain.entity.Place.Place;
-import com.seoro.seoro.domain.entity.Place.PlacePhoto;
 import com.seoro.seoro.domain.entity.Place.PlaceReview;
-import com.seoro.seoro.repository.Book.ReadBookRepository;
-import com.seoro.seoro.repository.Book.ReviewRepository;
 import com.seoro.seoro.repository.Member.MemberRepository;
 import com.seoro.seoro.repository.Place.PlacePhotoRepository;
 import com.seoro.seoro.repository.Place.PlaceRepository;
@@ -55,7 +37,7 @@ public class PlaceServiceImpl implements PlaceService {
 	final MemberRepository memberRepository;
 
 	@Override
-	public List<PlaceDto> findAllPlaces() {
+	public List<PlaceShowDto> findAllPlaces() {
 		List<Place> list = placeRepository.findAll();
 		String myDongCode = "1123064";
 		Collections.sort(list, new Comparator<Place>() {
@@ -70,9 +52,9 @@ public class PlaceServiceImpl implements PlaceService {
 				}
 			}
 		});
-		List<PlaceDto> dtoList = new ArrayList<>();
+		List<PlaceShowDto> dtoList = new ArrayList<>();
 		for(Place place: list){
-			dtoList.add(PlaceDto.builder()
+			dtoList.add(PlaceShowDto.builder()
 					.placeLongitude(place.getPlaceLongitude())
 					.placeLatitude(place.getPlaceLatitude())
 					.placeId(place.getPlaceId())
@@ -83,14 +65,14 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public List<PlaceDto>[] findMyPlaces() {
+	public List<PlaceShowDto>[] findMyPlaces() {
 		Long memberId = 999L;
 		List<Place> list1 = placeRepository.findByMember_MemberId(memberId);
-		List<PlaceDto>[] dtoList = new ArrayList[2];
+		List<PlaceShowDto>[] dtoList = new ArrayList[2];
 		dtoList[0] = new ArrayList<>();
 		dtoList[1] = new ArrayList<>();
 		for(Place place: list1){
-			dtoList[0].add(PlaceDto.builder()
+			dtoList[0].add(PlaceShowDto.builder()
 				.placeLongitude(place.getPlaceLongitude())
 				.placeLatitude(place.getPlaceLatitude())
 				.placeId(place.getPlaceId())
@@ -100,7 +82,7 @@ public class PlaceServiceImpl implements PlaceService {
 		}
 		List<PlaceReview> list2 = placeReviewRepository.findByMember_MemberId(memberId);
 		for(PlaceReview review: list2){
-			dtoList[1].add(PlaceDto.builder()
+			dtoList[1].add(PlaceShowDto.builder()
 				.placeLongitude(review.getPlace().getPlaceLongitude())
 				.placeLatitude(review.getPlace().getPlaceLatitude())
 				.placeId(review.getPlace().getPlaceId())
@@ -153,6 +135,29 @@ public class PlaceServiceImpl implements PlaceService {
 		placeRepository.save(savePlace);
 		resultResponseDto.setResult(true);
 		return resultResponseDto;
+	}
+
+	@Override
+	public PlaceDto placeDetail(Long placeId) {
+		Place place=placeRepository.findByPlaceId(placeId);
+		List<PlaceReviewDto> reviews = new ArrayList<PlaceReviewDto>();
+		for(PlaceReview review: place.getReviews()){
+			reviews.add(PlaceReviewDto.builder()
+					.placeReviewPhotos(review.getPhotos())
+					.reviewContent(review.getReviewContent())
+					.memberName(review.getMember().getMemberName())
+					.score(review.getScore())
+				.build());
+		}
+		PlaceDto outputDto = PlaceDto.builder()
+			.placeReview(reviews)
+			.placePhoto(place.getPhotos())
+			.placeName(place.getPlaceName())
+			.placeLongitude(place.getPlaceLongitude())
+			.placeLatitude(place.getPlaceLatitude())
+			.result(true)
+			.build();
+		return outputDto;
 	}
 
 }
