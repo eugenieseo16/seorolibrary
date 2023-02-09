@@ -1,0 +1,18 @@
+.user-follow-container {
+  .user-follow-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #baaf92;
+    padding: 10px;
+  }
+  img {
+    border-radius: 50%;
+
+    width: 3rem;
+    height: 3rem;
+  }
+  p {
+    color: #785e4d;
+    margin-left: 10px;
+  }
+}
