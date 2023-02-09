@@ -1,15 +1,12 @@
 package com.seoro.seoro.service.Place;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.dto.Book.BookDto;
-import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
 import com.seoro.seoro.domain.dto.Place.PlaceDto;
+import com.seoro.seoro.domain.dto.Place.PlaceShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
 @Service
@@ -28,9 +25,11 @@ public interface PlaceService {
 	//
 	// ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 
-	List<PlaceDto> findAllPlaces();
+	List<PlaceShowDto> findAllPlaces();
 
-	List<PlaceDto>[] findMyPlaces();
+	List<PlaceShowDto>[] findMyPlaces();
 
 	ResultResponseDto addPlace(PlaceAddRequestDto requestDto);
+
+	PlaceDto placeDetail(Long placeId);
 }
