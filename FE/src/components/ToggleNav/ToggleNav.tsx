@@ -32,7 +32,9 @@ function NavItem({ id, text, selectedId, ...rest }: any) {
 
 function ToggleNav({ selectedId, setSelectedId, items }: IToggleNavProps) {
   const setId = ({ target }: any) => setSelectedId(target.id);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(
+    items.findIndex(item => item.id === selectedId),
+  );
 
   const { left } = useSpring({
     left: `${index * (100 / items.length)}%`,

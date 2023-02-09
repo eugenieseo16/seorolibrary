@@ -7,4 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResultResponseDto {
 	private Boolean result;
+
+	public ResultResponseDto(boolean result) {
+		this.result = result;
+	}
 }

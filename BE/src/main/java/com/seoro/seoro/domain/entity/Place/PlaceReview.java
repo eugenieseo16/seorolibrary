@@ -13,7 +13,7 @@ public class PlaceReview implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long placeReviewId;
     @ManyToOne(targetEntity = Place.class)
-    @JoinColumn(name = "placeId")
+    @JoinColumn(name = "placeId"    )
     private Place place;
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "memberId")
