@@ -214,7 +214,16 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public List<BookReportDto> viewBookReportList(Long memberId) {
-		List<BookReportDto> bookReportList = bookReportRepository.findBookReportsByMemberId(memberId);
+		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 존재하지 않습니다."));
+
+		List<BookReportDto> bookReportList = new ArrayList<>();
+
+		List<ReadBook> readBooks = member.getReadBooks(); // 유저가 읽은 책 리스트
+		List<BookReport> bookReports = new ArrayList<>();
+		for(ReadBook readBook : readBooks) {
+			// 구현
+		}
+
 		return bookReportList;
 	}
 

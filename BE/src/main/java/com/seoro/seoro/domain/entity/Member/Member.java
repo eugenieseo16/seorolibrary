@@ -44,7 +44,7 @@ public class Member implements Serializable {
     private Date withdrawalDate;
     private Integer memberScore;
     private Long memberGenre;
-    @OneToMany(mappedBy = "friend")
+    @OneToMany(mappedBy = "follower")
     @Builder.Default
     private List<Friend> friends = new ArrayList<>();
     @OneToMany(mappedBy = "member")
