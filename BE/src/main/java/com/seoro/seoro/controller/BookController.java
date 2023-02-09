@@ -28,8 +28,8 @@ public class BookController {
 	private final BookService bookService;
 
 	@GetMapping("/detail/{isbn}")
-	public BookDto findByIsbn(@PathVariable String isbn) throws IOException, ParseException {
-		return bookService.findByIsbn(isbn);
+	public BookDto viewBookDetail(@PathVariable String isbn) throws IOException, ParseException {
+		return bookService.viewBookDetail(isbn);
 	}
 
 	@GetMapping("/review/{isbn}")

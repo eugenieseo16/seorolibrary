@@ -33,6 +33,16 @@ public class LibraryController {
 		return libraryService.libraryMain(memberId);
 	}
 
+	@DeleteMapping("/{memberId}/own/{isbn}")
+	public ResultResponseDto deleteOwnBook(@PathVariable Long memberId, @PathVariable String isbn) {
+		return libraryService.deleteOwnBook(memberId, isbn);
+	}
+
+	@DeleteMapping("/{memberId}/read/{isbn}")
+	public ResultResponseDto deleteReadBook(@PathVariable Long memberId, @PathVariable String isbn) {
+		return libraryService.deleteReadBook(memberId, isbn);
+	}
+
 	@GetMapping("/{memberId}/groups")
 	public List<GroupShowDto> viewMyGroup(@PathVariable Long memberId) {
 		return libraryService.viewMyGroup(memberId);

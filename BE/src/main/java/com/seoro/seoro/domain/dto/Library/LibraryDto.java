@@ -28,5 +28,7 @@ public class LibraryDto {
 	private List<RentBookDto> myRentBooks;
 	private Long myOwnComment;
 	private Long myReview;
-	private Long myFriends;
+	private Long myFollowers;
+	private Long myFollowings;
+	private boolean isFollowing;
 }
