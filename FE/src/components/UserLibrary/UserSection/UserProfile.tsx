@@ -22,9 +22,6 @@ export default function UserProfile({ isMe }: UserProfileProps) {
   const query = useMyQuery('/user.json');
   const [userData, setUserData] = useState<IUserProfileData | null>(null);
   const navigate = useNavigate();
-  const onClickUserStatistics = () => {
-    navigate(`/profile/statistics`);
-  };
   const onClickBookRegister = () => {
     navigate(`/profile/register`);
   };
