@@ -16,6 +16,7 @@ import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Group.GroupShowDto;
 import com.seoro.seoro.domain.dto.Library.LibraryDto;
+import com.seoro.seoro.domain.dto.Member.FriendDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.Review;
 import com.seoro.seoro.service.Library.LibraryService;
@@ -82,5 +83,20 @@ public class LibraryController {
 	@DeleteMapping("{memberId}/report/{bookReportId}")
 	public ResultResponseDto removeBookReport(@PathVariable Long bookReportId) {
 		return libraryService.removeBookReport(bookReportId);
+	}
+
+	@PostMapping("/{memberId}/friends")
+	public LibraryDto makeFriend(@PathVariable Long memberId) {
+		return libraryService.makeFriend(memberId);
+	}
+
+	@DeleteMapping("/{memberId}/friends")
+	public LibraryDto deleteFriend(@PathVariable Long memberId) {
+		return libraryService.deleteFriend(memberId);
+	}
+
+	@GetMapping("/{memberId}/friends")
+	public List<FriendDto> viewFriendList(@PathVariable Long memberId) {
+		return libraryService.viewFriendList(memberId);
 	}
 }

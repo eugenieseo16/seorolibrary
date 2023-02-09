@@ -15,6 +15,7 @@ import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Group.GroupShowDto;
 import com.seoro.seoro.domain.dto.Library.LibraryDto;
+import com.seoro.seoro.domain.dto.Member.FriendDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.Review;
 
@@ -34,4 +35,7 @@ public interface LibraryService {
 	public BookReportDto viewBookReport(Long bookReportId);
 	public ResultResponseDto modifyBookReport(BookReportDto requestDto, Long bookReportId);
 	public ResultResponseDto removeBookReport(Long bookReportId);
+	public LibraryDto makeFriend(Long memberId);
+	public LibraryDto deleteFriend(Long memberId);
+	public List<FriendDto> viewFriendList(Long memberId);
 }
