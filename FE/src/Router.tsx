@@ -53,6 +53,7 @@ function Router() {
 
         <Route path="/book/:id" element={<BookDetail />} />
         <Route path="/profile/:userId/book/:id" element={<HoldBookDetail />} />
+        <Route path="/profile/book/:id" element={<HoldBookDetail />} />
         <Route path="/book/:id/log" element={<BookDetailLog />} />
 
         <Route path="/profile" element={<MyLibrary />} />
