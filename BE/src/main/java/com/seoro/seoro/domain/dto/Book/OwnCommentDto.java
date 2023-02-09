@@ -11,20 +11,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OwnBookDto {
-	private Long memberId;
+public class OwnCommentDto {
 	private String isbn;
 	private String bookTitle;
 	private String bookImage;
 	private String ownComment;
-	private Boolean isOwn;
 
-	public OwnBookDto(OwnBook ownBook) {
-		this.memberId = ownBook.getMember().getMemberId();
+	public OwnCommentDto(OwnBook ownBook) {
 		this.isbn = ownBook.getIsbn();
 		this.bookTitle = ownBook.getBookTitle();
-		this.bookImage = ownBook.getBookImage();
 		this.ownComment = ownBook.getOwnComment();
-		this.isOwn = ownBook.getIsOwn();
+		this.bookImage = ownBook.getBookImage();
 	}
 }
