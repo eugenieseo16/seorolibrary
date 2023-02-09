@@ -47,11 +47,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors()
 			.and()
-			.csrf().disable();
+			.csrf().disable()
+				.headers()
+					.frameOptions().sameOrigin();
 
 		// 개발 진행 중이므로 지금은 접근 권한 모두 허용
 		http.authorizeRequests()
-			.antMatchers("/**").permitAll();
+			.anyRequest().permitAll();
 
 		// jwtEntryPoint에서 에러 해결
 		http.exceptionHandling().

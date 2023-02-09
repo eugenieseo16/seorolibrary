@@ -1,13 +1,16 @@
 package com.seoro.seoro.service.Library;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
+import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
 import com.seoro.seoro.domain.dto.Book.ReadBookDto;
@@ -22,10 +25,12 @@ import com.seoro.seoro.domain.entity.Book.ReadBook;
 import com.seoro.seoro.domain.entity.Book.Review;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.domain.entity.Groups.Groups;
+import com.seoro.seoro.domain.entity.Member.Friend;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Book.BookReportRepository;
 import com.seoro.seoro.repository.Book.OwnBookRepository;
 import com.seoro.seoro.repository.Book.ReadBookRepository;
+import com.seoro.seoro.repository.Member.FriendRepository;
 import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +44,7 @@ public class LibraryServiceImpl implements LibraryService {
 	private final ReadBookRepository readBookRepository;
 	private final OwnBookRepository ownBookRepository;
 	private final MemberRepository memberRepository;
+	private final FriendRepository friendRepository;
 
 	@Override
 	public LibraryDto libraryMain(Long memberId) {
@@ -46,11 +52,14 @@ public class LibraryServiceImpl implements LibraryService {
 		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 
 		// 본인 여부
+		// 토큰 정보 비교로 수정
+		boolean isOwn;
 		if(memberId.equals(member.getMemberId())) {
-			responseDto.setOwn(true);
+			isOwn = true;
 		} else {
-			responseDto.setOwn(false);
+			isOwn = false;
 		}
+		responseDto.setOwn(isOwn);
 
 		// 프로필
 		responseDto.setMemberInfo(new MemberDto(member));
@@ -69,11 +78,7 @@ public class LibraryServiceImpl implements LibraryService {
 		responseDto.setMyGroups(groupShowDto);
 
 		// 보유 도서
-		List<OwnBook> ownBooks = member.getOwnBooks();
-		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
-		for(OwnBook ownBook : ownBooks) {
-			ownBookDtoList.add(new OwnBookDto(ownBook));
-		}
+		List<OwnBookDto> ownBookDtoList = getOwnBookList(member);
 		responseDto.setMyOwnBooks(ownBookDtoList);
 
 		// 읽은 도서
@@ -95,12 +100,41 @@ public class LibraryServiceImpl implements LibraryService {
 		// 빌린 도서
 		// 채팅방 api 완성 후 추가
 
-		// 친구
-		
+		// 팔로워 명수
+
+		// 팔로잉 여부
+		boolean isFollowing;
+		if(!isOwn) {
+			Optional<Friend> friend = friendRepository.findById(memberId);
+			if(friend.isPresent()) {
+				isFollowing = true;
+			} else {
+				isFollowing = false;
+			}
+		} else {
+			isFollowing = false;
+		}
+		responseDto.setFollowing(isFollowing);
+
 		return responseDto;
 	}
 
-	// 도서 상세 조회
+	private List<OwnBookDto> getOwnBookList(Member member) {
+		List<OwnBook> ownBooks = member.getOwnBooks();
+		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
+		for(OwnBook ownBook : ownBooks) {
+			ownBookDtoList.add(new OwnBookDto(ownBook));
+		}
+		return ownBookDtoList;
+	}
+
+	@Override
+	public OwnBookDetailDto viewOwnBookDetail(String isbn) throws IOException, ParseException {
+		// viewBookDetail
+		// set한줄평 다른보유도서
+
+		return null;
+	}
 
 	@Override
 	public List<GroupShowDto> viewMyGroup(Long memberId) {
@@ -121,10 +155,33 @@ public class LibraryServiceImpl implements LibraryService {
 		return groupShowDto;
 	}
 
-	// 보유 도서 등록
+	@Override
+	public OwnBookDto makeOwnBookWithIsbn(Long memberId, Long isbn) {
+		// 바코드로 등록
 
-	// 보유 도서 삭제
+		return null;
+	}
 
+	@Override
+	public OwnBookDto makeOwnBookWithSearch(Long memberId, Long isbn) {
+		// 검색으로 등록
+
+		return null;
+	}
+
+	@Override
+	public ResultResponseDto deleteOwnBook(Long memberId, String isbn) {
+		OwnBook ownBook = ownBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
+		ownBookRepository.delete(ownBook);
+		return new ResultResponseDto(true);
+	}
+
+	@Override
+	public ResultResponseDto deleteReadBook(Long memberId, String isbn) {
+		ReadBook readBook = readBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
+		readBookRepository.delete(readBook);
+		return new ResultResponseDto(true);
+	}
 
 	@Override
 	public List<OwnCommentDto> viewMyComment(Long memberId) {
@@ -138,8 +195,6 @@ public class LibraryServiceImpl implements LibraryService {
 
 		return commentDtoList;
 	}
-
-	// 읽은 도서 삭제
 
 	@Override
 	public List<ReviewDto> viewMyReview(Long memberId) {
