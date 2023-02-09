@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
+import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
 import com.seoro.seoro.domain.dto.Place.PlaceDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Place.PlaceService;
@@ -31,9 +32,19 @@ public class PlaceController {
 		return placeService.findAllPlaces();
 	}
 
+	@PostMapping()
+	public ResultResponseDto addPlace(@ModelAttribute PlaceAddRequestDto requestDto){
+		return placeService.addPlace(requestDto);
+	}
+
 	@GetMapping("/my")
-	public List<PlaceDto> findMyPlaces(){
+	public List<PlaceDto>[] findMyPlaces(){
 		return placeService.findMyPlaces();
+	}
+
+	@GetMapping("/detail/{placeId}")
+	public PlaceDto placeDetail(@PathVariable("placeId") String placeId){
+		return placeService.placeDetail();
 	}
 
 	// @GetMapping("/detail/{isbn}")

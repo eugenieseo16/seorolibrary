@@ -29,7 +29,6 @@ public class BookController {
 
 	@GetMapping("/detail/{isbn}")
 	public BookDto findByIsbn(@PathVariable String isbn) throws IOException, ParseException
-
 	{
 		return bookService.findByIsbn(isbn);
 	}

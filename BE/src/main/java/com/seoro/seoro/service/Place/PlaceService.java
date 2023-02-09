@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
+import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
 import com.seoro.seoro.domain.dto.Place.PlaceDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
@@ -29,6 +30,7 @@ public interface PlaceService {
 
 	List<PlaceDto> findAllPlaces();
 
-	List<PlaceDto> findMyPlaces();
+	List<PlaceDto>[] findMyPlaces();
 
+	ResultResponseDto addPlace(PlaceAddRequestDto requestDto);
 }
