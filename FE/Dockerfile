@@ -1,4 +1,4 @@
-FROM node:16.17.1 as build-stage
+FROM node:16.19.0 as build-stage
 RUN npm install -g http-server
 WORKDIR /app
 COPY package*.json ./
