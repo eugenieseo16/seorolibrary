@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BarcodeScanner from './BarcodeScanner';
 
 import { RiCamera3Line, RiEdit2Line } from 'react-icons/ri';
 
@@ -26,7 +27,7 @@ function RegisterDetail() {
               <span className="button-text">직접 입력하기</span>
             </button>
           </div>
-          <h1>바코드 스캐너 넣어주기</h1>
+          <BarcodeScanner />
         </div>
       )}
     </div>
