@@ -8,5 +8,7 @@ import org.springframework.data.repository.query.Param;
 import com.seoro.seoro.domain.entity.Place.Place;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
-	List<Place> findByMember_MemberIdOrReviews_Member_MemberId(@Param(value="memberId") Long memberId, @Param(value="memberId")Long memberId2);
+	List<Place> findByMember_MemberId(@Param(value="memberId") Long memberId);
+
+	Place findByPlaceId(Long placeId);
 }
