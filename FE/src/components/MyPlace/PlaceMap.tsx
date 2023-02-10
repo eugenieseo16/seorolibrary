@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 
 declare global {
@@ -8,20 +8,55 @@ declare global {
 }
 
 function PlaceMap() {
+  const mapContainer = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-    const options = {
-      //지도를 생성할 때 필요한 기본 옵션
-      center: new window.kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-      level: 3, //지도의 레벨(확대, 축소 정도)
+    if (!mapContainer.current) {
+      return;
+    }
+
+    const mapOptions = {
+      center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3,
     };
 
-    const map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    const map = new window.kakao.maps.Map(mapContainer.current, mapOptions);
+    const geocoder = new window.kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(
+      '서울 강남구 테헤란로 212',
+      function (result: any, status: any) {
+        if (status === window.kakao.maps.services.Status.OK) {
+          const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+
+          const marker = new window.kakao.maps.Marker({
+            map,
+            position: coords,
+          });
+
+          // const infowindow = new window.kakao.maps.InfoWindow({
+          //   content:
+          //     '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>',
+          // });
+          // infowindow.open(map, marker);
+
+          map.setCenter(coords);
+        }
+      },
+    );
+
+    return () => {
+      map.setMap(null);
+    };
   }, []);
 
   return (
-    <div className="App">
-      <div id="map" style={{ width: '100%', height: '15rem' }} />
+    <div>
+      <div
+        id="map"
+        ref={mapContainer}
+        style={{ width: '100%', height: '400px' }}
+      />
     </div>
   );
 }
