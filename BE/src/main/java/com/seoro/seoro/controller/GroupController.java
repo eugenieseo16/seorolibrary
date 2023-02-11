@@ -66,5 +66,9 @@ public class GroupController {
 		return groupService.createGroupSchedule(requestDto);
 	}
 
-	
+	@PutMapping("/schedule")
+	public GroupScheduleUpdateResponseDto updateGroupSchedule(@ModelAttribute GroupScheduleUpdateRequestDto requestDto) {
+		return groupService.updateGroupSchedule(requestDto);
+	}
+
 }

@@ -11,9 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupScheduleCreateRequestDto {
+public class GroupScheduleUpdateResponseDto {
+    private Boolean result;
     private Long groupId;
     private Long writerId;
     private String groupScheduleTitle;
+    private LocalDateTime groupScheduleTime;
     private String groupScheduleContent;
 }

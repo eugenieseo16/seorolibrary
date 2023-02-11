@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.*;
-
 import com.seoro.seoro.domain.dto.Group.*;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
 import com.seoro.seoro.domain.dto.Member.RecommendMemberDto;
@@ -483,6 +481,63 @@ public class GroupServiceImpl implements GroupService{
 			return responseDto;
 		}
 		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	@Override
+	public GroupScheduleUpdateResponseDto updateGroupSchedule(GroupScheduleUpdateRequestDto requestDto) {
+		GroupScheduleUpdateResponseDto responseDto = new GroupScheduleUpdateResponseDto();
+		//Host 정보 가져오기
+		Member member = new Member();
+		Optional<Member> tmpMember = memberRepository.findById(requestDto.getWriterId());
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(requestDto.getGroupId());
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		//독서 모임 일정 정보 가져오기
+		Optional<GroupSchedule> tmpGroupSchedule = groupScheduleRepository.findById(requestDto.getGroupScheduleId());
+		GroupSchedule schedule = new GroupSchedule();
+		if (tmpGroupSchedule.isPresent()) {
+			schedule = tmpGroupSchedule.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		GroupSchedule s = new GroupSchedule();
+		if(member.equals(group.getHost())) { //방장만 작성 가능
+			s = GroupSchedule.builder()
+					.groupScheduleId(schedule.getGroupScheduleId())
+					.groups(group)
+					.scheduleTitle(requestDto.getGroupScheduleTitle())
+					.scheduleContent(requestDto.getGroupScheduleContent())
+					.build();
+			groupScheduleRepository.save(s);
+		}
+		else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		responseDto = GroupScheduleUpdateResponseDto.builder()
+				.result(true)
+				.groupId(group.getGroupId())
+				.writerId(member.getMemberId())
+				.groupScheduleTitle(s.getScheduleTitle())
+				.groupScheduleContent(s.getScheduleContent())
+				.build();
 		return responseDto;
 	}
 }
