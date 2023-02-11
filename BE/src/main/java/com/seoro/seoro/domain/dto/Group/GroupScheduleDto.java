@@ -11,10 +11,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupScheduleDetailResponseDto {
-    private Boolean result;
+public class GroupScheduleDto {
     private Long groupScheduleId;
-    private Long groupId;
     private String groupScheduleTitle;
     private LocalDateTime groupScheduleTime;
     private String groupScheduleContent;

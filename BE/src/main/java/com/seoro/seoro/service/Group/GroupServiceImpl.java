@@ -558,10 +558,40 @@ public class GroupServiceImpl implements GroupService{
 		responseDto = GroupScheduleDetailResponseDto.builder()
 				.result(true)
 				.groupId(schedule.getGroups().getGroupId())
+				.groupScheduleId(schedule.getGroupScheduleId())
 				.groupScheduleTitle(schedule.getScheduleTitle())
 				.groupScheduleTime(schedule.getDate())
 				.groupScheduleContent(schedule.getScheduleContent())
 				.build();
+		return responseDto;
+	}
+
+	@Override
+	public GroupScheduleListResponseDto readGroupScheduleList(Long groupId) {
+		GroupScheduleListResponseDto responseDto = new GroupScheduleListResponseDto();
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		List<GroupScheduleDto> schedules = new ArrayList<>();
+		List<GroupSchedule> findGroupSchedules = groupScheduleRepository.findByGroupsOrderByDateDesc(group);
+		for(GroupSchedule s : findGroupSchedules) {
+			GroupScheduleDto sDto = GroupScheduleDto.builder()
+					.groupScheduleId(s.getGroupScheduleId())
+					.groupScheduleTitle(s.getScheduleTitle())
+					.groupScheduleTime(s.getDate())
+					.groupScheduleContent(s.getScheduleContent())
+					.build();
+			schedules.add(sDto);
+		}
+		responseDto.setResult(true);
+		responseDto.setSchedules(schedules);
 		return responseDto;
 	}
 }
