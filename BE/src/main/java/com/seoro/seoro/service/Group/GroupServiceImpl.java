@@ -8,15 +8,8 @@ import java.util.Optional;
 
 import javax.swing.*;
 
-import com.seoro.seoro.domain.dto.Group.GroupApplyReadResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupApplyUserDto;
-import com.seoro.seoro.domain.dto.Group.GroupApproveRequestDto;
-import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupMemberDto;
-import com.seoro.seoro.domain.dto.Group.GroupMemberReadResponseDto;
+import com.seoro.seoro.domain.dto.Group.*;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
-import com.seoro.seoro.domain.dto.Group.GroupShowDto;
 import com.seoro.seoro.domain.dto.Member.RecommendMemberDto;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
@@ -26,7 +19,6 @@ import com.seoro.seoro.service.GroupPost.GroupPostService;
 
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Member.Member;
@@ -163,6 +155,7 @@ public class GroupServiceImpl implements GroupService{
 		saveGroup = Groups.builder()
 			.groupName(requestDto.getGroupName())
 			.host(host)
+			.groupPassword(requestDto.getGroupPassword())
 			.groupCapacity(requestDto.getGroupCapacity())
 			.groupDongCode(requestDto.getGroupDongCode())
 			.groupProfile(requestDto.getGroupProfile())
@@ -410,6 +403,44 @@ public class GroupServiceImpl implements GroupService{
 		}
 		responseDto.setResult(true);
 		responseDto.setGroupMembers(members);
+		return responseDto;
+	}
+
+	@Override
+	public ResultResponseDto enterGroup(Long groupId, GroupEnterRequestDto requestDto) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		//신청자 정보 가져오기
+		Member applyMember = new Member();
+		Optional<Member> tmpApplyMember = memberRepository
+				.findById(requestDto.getUserId());
+		if (tmpApplyMember.isPresent()) {
+			applyMember = tmpApplyMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(requestDto.getGroupId());
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		if(group.getGroupPassword().equals(requestDto.getWritePassword())) {
+			//비밀번호 맞음
+			GroupJoin join = GroupJoin.builder()
+					.groups(group)
+					.member(applyMember)
+					.build();
+			groupJoinRepository.save(join);
+			responseDto.setResult(true);
+		}
+		else { //비밀번호 틀림
+			responseDto.setResult(false);
+		}
+
 		return responseDto;
 	}
 }
