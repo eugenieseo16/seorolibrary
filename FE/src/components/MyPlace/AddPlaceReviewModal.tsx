@@ -67,7 +67,6 @@ function AddPlaceReviewModal() {
               maxLength={255}
               style={{ height: 300 }}
               placeholder="리뷰를 작성해주세요"
-              className="modal-textarea"
             />
           </Form.Item>
         </Form>
