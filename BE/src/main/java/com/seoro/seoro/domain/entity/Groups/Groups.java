@@ -29,6 +29,7 @@ public class Groups implements Serializable {
     private Long groupChatId;
     @NotNull
     private String groupName;
+    private String groupPassword;
     private String groupIntroduction;
     private int groupCapacity;
     private String groupProfile;

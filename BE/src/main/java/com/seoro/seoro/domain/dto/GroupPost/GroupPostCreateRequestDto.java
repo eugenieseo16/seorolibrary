@@ -17,5 +17,5 @@ public class GroupPostCreateRequestDto {
     private String postCategory;
     private String postContent;
     private LocalDateTime postTime;
-//    private String[] postImage;
+    private String[] postImage;
 }

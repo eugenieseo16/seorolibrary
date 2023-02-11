@@ -1,13 +1,8 @@
 package com.seoro.seoro.service.Group;
 
-import com.seoro.seoro.domain.dto.Group.GroupApplyReadResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupApproveRequestDto;
-import com.seoro.seoro.domain.dto.Group.GroupDetailResponseDto;
+import com.seoro.seoro.domain.dto.Group.*;
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.dto.Group.GroupMainResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupMemberReadResponseDto;
-import com.seoro.seoro.domain.dto.Group.GroupSignupRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
 @Service
@@ -17,8 +12,8 @@ public interface GroupService {
 	public GroupDetailResponseDto groupDetail(Long groupId);
 	public ResultResponseDto deleteGroup(Long groupId, Long userId);
 	public ResultResponseDto applyGroup(Long groupId, Long userId);
-	GroupApplyReadResponseDto readGroupApplies(Long groupId, Long userId);
-	ResultResponseDto approveGroupApply(GroupApproveRequestDto requestDto);
-
-	GroupMemberReadResponseDto readGroupMembers(Long groupId);
+	public GroupApplyReadResponseDto readGroupApplies(Long groupId, Long userId);
+	public ResultResponseDto approveGroupApply(GroupApproveRequestDto requestDto);
+	public GroupMemberReadResponseDto readGroupMembers(Long groupId);
+	public ResultResponseDto enterGroup(Long groupId, GroupEnterRequestDto requestDto);
 }

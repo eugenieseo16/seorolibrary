@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class GroupSignupRequestDto {
 	private String groupName;
 	private Long groupHost;
+	private String groupPassword;
 	private Integer groupCapacity;
 	private String groupDongCode;
 	private String groupProfile;
