@@ -523,6 +523,7 @@ public class GroupServiceImpl implements GroupService{
 					.groups(group)
 					.scheduleTitle(requestDto.getGroupScheduleTitle())
 					.scheduleContent(requestDto.getGroupScheduleContent())
+					.date(schedule.getDate())
 					.build();
 			groupScheduleRepository.save(s);
 		}
@@ -537,6 +538,29 @@ public class GroupServiceImpl implements GroupService{
 				.writerId(member.getMemberId())
 				.groupScheduleTitle(s.getScheduleTitle())
 				.groupScheduleContent(s.getScheduleContent())
+				.build();
+		return responseDto;
+	}
+
+	@Override
+	public GroupScheduleDetailResponseDto readGroupSchedule(Long scheduleId) {
+		GroupScheduleDetailResponseDto responseDto = new GroupScheduleDetailResponseDto();
+		//독서 모임 일정 정보 가져오기
+		Optional<GroupSchedule> tmpGroupSchedule = groupScheduleRepository.findById(scheduleId);
+		GroupSchedule schedule = new GroupSchedule();
+		if (tmpGroupSchedule.isPresent()) {
+			schedule = tmpGroupSchedule.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		responseDto = GroupScheduleDetailResponseDto.builder()
+				.result(true)
+				.groupId(schedule.getGroups().getGroupId())
+				.groupScheduleTitle(schedule.getScheduleTitle())
+				.groupScheduleTime(schedule.getDate())
+				.groupScheduleContent(schedule.getScheduleContent())
 				.build();
 		return responseDto;
 	}

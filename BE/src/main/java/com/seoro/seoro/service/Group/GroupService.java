@@ -18,4 +18,5 @@ public interface GroupService {
 	public ResultResponseDto enterGroup(Long groupId, GroupEnterRequestDto requestDto);
     public ResultResponseDto createGroupSchedule(GroupScheduleCreateRequestDto requestDto);
 	public GroupScheduleUpdateResponseDto updateGroupSchedule(GroupScheduleUpdateRequestDto requestDto);
+	public GroupScheduleDetailResponseDto readGroupSchedule(Long scheduleId);
 }
