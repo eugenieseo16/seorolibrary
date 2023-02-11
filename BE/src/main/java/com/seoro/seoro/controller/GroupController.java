@@ -80,4 +80,9 @@ public class GroupController {
 	public GroupScheduleListResponseDto readGroupScheduleList(@RequestParam("groupId") Long groupId) {
 		return groupService.readGroupScheduleList(groupId);
 	}
+
+	@DeleteMapping("/schedule/{scheduleid}")
+	public ResultResponseDto delGroupSchedule(@PathVariable("scheduleid") Long scheduleId, @RequestParam("userId") Long userId) {
+		return groupService.delGroupSchedule(scheduleId, userId);
+	}
 }
