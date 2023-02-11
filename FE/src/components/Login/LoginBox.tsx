@@ -51,9 +51,7 @@ function LoginBox() {
       <div className="login-button-container">
         <Form>
           <Form.Item>
-            <Button htmlType="submit" className="login-form-button">
-              로그인
-            </Button>
+            <Button htmlType="submit">로그인</Button>
           </Form.Item>
         </Form>
       </div>
