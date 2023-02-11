@@ -22,6 +22,7 @@ import MyArchive from '@pages/MyArchive/MyArchive';
 import CreateReport from '@pages/MyArchive/CreateReport';
 
 import Login from '@pages/Login';
+import Signup from '@pages/Signup';
 import WithNavLayout from '@pages/layouts/WithNavLayout';
 
 import BookClub from '@pages/BookClub/BookClub';
@@ -48,6 +49,7 @@ function Router() {
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         <Route path="/search" element={<Search />} />
 
