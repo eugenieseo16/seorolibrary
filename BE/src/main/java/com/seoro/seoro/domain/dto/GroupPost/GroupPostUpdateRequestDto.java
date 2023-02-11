@@ -18,5 +18,6 @@ public class GroupPostUpdateRequestDto {
 	private String postTitle;
 	private String postCategory;
 	private String postContent;
+	private String[] postImage;
 	private LocalDateTime postTime;
 }
