@@ -13,6 +13,7 @@
   margin-top: 2rem;
   align-items: center;
   font-family: 'NEXON' !important;
+  overflow: scroll;
   img {
     margin: 1rem 0 0.5rem 0;
     width: 3rem;
@@ -42,9 +43,6 @@
     ::-webkit-input-placeholder {
       /* 크롬 4–56 */
       color: $light-brown;
-    }
-    .login-form-button {
-      // color: $deep-brown;
     }
   }
   .login-button-container {
