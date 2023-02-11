@@ -55,7 +55,7 @@ function PlaceMap() {
       <div
         id="map"
         ref={mapContainer}
-        style={{ width: '100%', height: '400px' }}
+        style={{ width: '100%', height: '15rem' }}
       />
     </div>
   );
