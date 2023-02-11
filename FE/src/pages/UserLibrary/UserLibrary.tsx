@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import SearchHeader from '@components/SearchHeader/SearchHeader';
+import Header from '@components/Header/Header';
 import UserHeader from '@components/UserLibrary/UserHeader';
 import UserProfile from '@components/UserLibrary/UserSection/UserProfile';
 import UserStat from '@components/UserLibrary/UserStat';
@@ -12,13 +12,17 @@ import './UserLibrary.styles.scss';
 function UserLibrary() {
   const { state } = useLocation();
 
+  const location = useLocation();
+  const path = location.pathname;
+
   return (
     <div className="user-library-container">
-      {/* api 연결되면 userId로 구분해서 구현할 예정 */}
-      {/* 타 사용자의 도서관일 경우 */}
-      {/* <SearchHeader text="나의 도서관" /> */}
-      {/* 나의 도서관일 경우 */}
-      <UserHeader />
+      {path === '/profile' ? (
+        <UserHeader />
+      ) : (
+        <Header text="훈나무님의 도서관" />
+      )}
+
       <UserProfile isMe={state} />
       <UserStat />
       <BookTab />
