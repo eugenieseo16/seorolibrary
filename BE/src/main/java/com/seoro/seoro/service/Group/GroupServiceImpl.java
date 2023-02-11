@@ -594,4 +594,48 @@ public class GroupServiceImpl implements GroupService{
 		responseDto.setSchedules(schedules);
 		return responseDto;
 	}
+
+	@Override
+	public ResultResponseDto delGroupSchedule(Long scheduleId, Long userId) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		//독서 모임 일정 정보 가져오기
+		Optional<GroupSchedule> tmpGroupSchedule = groupScheduleRepository.findById(scheduleId);
+		GroupSchedule schedule = new GroupSchedule();
+		if (tmpGroupSchedule.isPresent()) {
+			schedule = tmpGroupSchedule.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(schedule.getGroups().getGroupId());
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		//Host 정보 가져오기
+		Member member = new Member();
+		Optional<Member> tmpMember = memberRepository.findById(userId);
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		if(member.equals(group.getHost())) { //방장만 작성 가능
+			groupScheduleRepository.deleteById(schedule.getGroupScheduleId());
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		responseDto.setResult(true);
+		return responseDto;
+	}
 }
