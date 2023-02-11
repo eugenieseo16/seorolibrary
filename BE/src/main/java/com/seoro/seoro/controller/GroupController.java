@@ -60,4 +60,11 @@ public class GroupController {
 	public GroupMemberReadResponseDto readGroupMembers(@RequestParam("groupId") Long groupId) {
 		return groupService.readGroupMembers(groupId);
 	}
+
+	@PostMapping("/schedule")
+	public ResultResponseDto createGroupSchedule(@ModelAttribute GroupScheduleCreateRequestDto requestDto) {
+		return groupService.createGroupSchedule(requestDto);
+	}
+
+	
 }

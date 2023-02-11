@@ -12,9 +12,11 @@ import com.seoro.seoro.domain.dto.Group.*;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
 import com.seoro.seoro.domain.dto.Member.RecommendMemberDto;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
+import com.seoro.seoro.domain.entity.Groups.GroupSchedule;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
 import com.seoro.seoro.repository.Group.GroupApplyRepository;
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
+import com.seoro.seoro.repository.Group.GroupScheduleRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
 
 import org.springframework.stereotype.Service;
@@ -38,6 +40,7 @@ public class GroupServiceImpl implements GroupService{
 	private final ChatRoomRepository chatRepository;
 	private final MemberRepository memberRepository;
 	private final GroupPostService groupPostService;
+	private final GroupScheduleRepository groupScheduleRepository;
 
 
 	@Override
@@ -441,6 +444,45 @@ public class GroupServiceImpl implements GroupService{
 			responseDto.setResult(false);
 		}
 
+		return responseDto;
+	}
+
+	@Override
+	public ResultResponseDto createGroupSchedule(GroupScheduleCreateRequestDto requestDto) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		System.out.println(requestDto.toString());
+		//Host 정보 가져오기
+		Member member = new Member();
+		Optional<Member> tmpMember = memberRepository.findById(requestDto.getWriterId());
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(requestDto.getGroupId());
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		if(member.equals(group.getHost())) { //방장만 작성 가능
+			GroupSchedule schedule = GroupSchedule.builder()
+					.groups(group)
+					.scheduleTitle(requestDto.getGroupScheduleTitle())
+					.scheduleContent(requestDto.getGroupScheduleContent())
+				.build();
+			groupScheduleRepository.save(schedule);
+		}
+		else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+		responseDto.setResult(true);
 		return responseDto;
 	}
 }
