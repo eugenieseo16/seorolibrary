@@ -1,5 +1,61 @@
 @import '../../styles/variables';
 
-.create-report-container{
+.create-report-container {
   padding: 0 10px;
+  .my-archive-report-generate-container {
+    padding: 0 10px;
+    input,
+    .ant-select-selector {
+      height: 3rem !important;
+    }
+    .ant-select-selection-item {
+      font-family: 'NEXON';
+    }
+    .ant-select-selection-item {
+      display: flex;
+      align-items: center;
+    }
+    .ant-upload-list-item-container {
+      width: 100% !important;
+    }
+    .carousel-item {
+      position: relative;
+    }
+    .ant-upload-container {
+      display: flex;
+      justify-content: space-between;
+    }
+    .ant-upload-list {
+      display: flex;
+      margin-top: 1rem;
+      > div {
+        padding: 0.5rem;
+        width: 8rem;
+      }
+      img {
+        box-shadow: $box-shadow;
+      }
+    }
+    .ant-upload-drag {
+      padding: 0 11px;
+      background-color: #fff;
+      border: 1px solid #d9d9d9;
+      .ant-upload-container {
+        display: flex;
+        align-items: center;
+        p {
+          font-size: 0.8rem;
+          font-family: 'NEXON';
+        }
+      }
+    }
+    .image-icon {
+      height: 2rem;
+      width: 2rem;
+      svg {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+  }
 }
