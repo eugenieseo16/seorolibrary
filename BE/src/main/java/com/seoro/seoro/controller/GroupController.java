@@ -60,4 +60,29 @@ public class GroupController {
 	public GroupMemberReadResponseDto readGroupMembers(@RequestParam("groupId") Long groupId) {
 		return groupService.readGroupMembers(groupId);
 	}
+
+	@PostMapping("/schedule")
+	public ResultResponseDto createGroupSchedule(@ModelAttribute GroupScheduleCreateRequestDto requestDto) {
+		return groupService.createGroupSchedule(requestDto);
+	}
+
+	@PutMapping("/schedule")
+	public GroupScheduleUpdateResponseDto updateGroupSchedule(@ModelAttribute GroupScheduleUpdateRequestDto requestDto) {
+		return groupService.updateGroupSchedule(requestDto);
+	}
+
+	@GetMapping("/schedule/{scheduleid}")
+	public GroupScheduleDetailResponseDto readGroupSchedule(@PathVariable("scheduleid") Long scheduleId) {
+		return groupService.readGroupSchedule(scheduleId);
+	}
+
+	@GetMapping("/schedule")
+	public GroupScheduleListResponseDto readGroupScheduleList(@RequestParam("groupId") Long groupId) {
+		return groupService.readGroupScheduleList(groupId);
+	}
+
+	@DeleteMapping("/schedule/{scheduleid}")
+	public ResultResponseDto delGroupSchedule(@PathVariable("scheduleid") Long scheduleId, @RequestParam("userId") Long userId) {
+		return groupService.delGroupSchedule(scheduleId, userId);
+	}
 }
