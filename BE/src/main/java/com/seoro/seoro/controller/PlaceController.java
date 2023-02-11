@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
 import com.seoro.seoro.domain.dto.Place.PlaceDto;
+import com.seoro.seoro.domain.dto.Place.PlaceReviewAddRequestDto;
 import com.seoro.seoro.domain.dto.Place.PlaceShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Place.PlaceService;
@@ -25,8 +26,8 @@ public class PlaceController {
 	private final PlaceService placeService;
 
 	@GetMapping()
-	public List<PlaceShowDto> findAllPlaces(){
-		return placeService.findAllPlaces();
+	public List<PlaceShowDto> findAllPlaces(@ModelAttribute Long memberId){
+		return placeService.findAllPlaces(memberId);
 	}
 
 	@PostMapping()
@@ -35,8 +36,8 @@ public class PlaceController {
 	}
 
 	@GetMapping("/my")
-	public List<PlaceShowDto>[] findMyPlaces(){
-		return placeService.findMyPlaces();
+	public List<PlaceShowDto>[] findMyPlaces(@ModelAttribute Long memberId){
+		return placeService.findMyPlaces(memberId);
 	}
 
 	@GetMapping("/detail/{placeId}")
@@ -45,21 +46,8 @@ public class PlaceController {
 		return placeDto;
 	}
 
-	// @GetMapping("/detail/{isbn}")
-	// public BookDto findByIsbn(@PathVariable String isbn) throws IOException, ParseException {
-	// 	return bookService.findByIsbn(isbn);
-	// }
-	//
-	// @GetMapping("/review/{isbn}")
-	// public ReviewDto searchReviewsByIsbn(@PathVariable String isbn){
-	//
-	// 	ReviewDto review = bookService.findReviewByIsbnAndMemberId(isbn);
-	// 	return review;
-	// }
-
-	// @PostMapping("/review/{isbn}")
-	// public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
-	// 	return bookService.makeReview(isbn, requestDto);
-	// }
-
+	@PostMapping("/detail/{placeId}")
+	public ResultResponseDto makeReview(@PathVariable("placeId") Long placeId, @ModelAttribute PlaceReviewAddRequestDto requestDto){
+		return placeService.makeReview(placeId, requestDto);
+	}
 }

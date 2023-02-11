@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.service.Book.BookService;
 import com.seoro.seoro.service.Member.MemberService;
 
@@ -35,5 +34,10 @@ public class MainController {
 	@GetMapping("/best")
 	public List findBestSeller() throws IOException {
 		return bookService.findBestSeller();
+	}
+
+	@GetMapping("/nearbook/{memberId}")
+	public List findNearBook(@PathVariable Long memberId){
+		return bookService.findBookByDong(memberId);
 	}
 }

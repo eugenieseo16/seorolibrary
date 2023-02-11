@@ -5,9 +5,7 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import com.seoro.seoro.domain.dto.Book.BookDto;
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
@@ -17,7 +15,6 @@ import com.seoro.seoro.domain.dto.Group.GroupShowDto;
 import com.seoro.seoro.domain.dto.Library.LibraryDto;
 import com.seoro.seoro.domain.dto.Member.FriendDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
-import com.seoro.seoro.domain.entity.Book.Review;
 
 @Service
 public interface LibraryService {

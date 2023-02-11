@@ -1,13 +1,13 @@
 package com.seoro.seoro.service.Book;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.dto.Book.BookDto;
+import com.seoro.seoro.domain.dto.Book.BookDetailDto;
+import com.seoro.seoro.domain.dto.Book.ShowBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
@@ -21,9 +21,11 @@ public interface BookService {
 
 	List findBook(String input) throws IOException, ParseException;
 
-	BookDto viewBookDetail(String isbn) throws IOException, ParseException;
+	BookDetailDto viewBookDetail(String isbn) throws IOException, ParseException;
 
 	List findBestSeller() throws IOException;
 
 	ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
+
+	List findBookByDong(Long memberId);
 }

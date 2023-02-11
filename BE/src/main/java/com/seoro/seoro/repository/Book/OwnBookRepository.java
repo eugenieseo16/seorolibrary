@@ -9,7 +9,6 @@ import com.seoro.seoro.domain.entity.Member.Member;
 
 public interface OwnBookRepository extends JpaRepository<OwnBook, Integer> {
 	Long countByMember(Member member);
-
 	Optional<OwnBook> findByIsbn(String isbn);
 	// List findByBook_Isbn(@Param(value= "isbn") String isbn);
 }
