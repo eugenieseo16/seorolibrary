@@ -1,15 +1,11 @@
 package com.seoro.seoro.service.GroupPost;
 
-import com.seoro.seoro.domain.dto.GroupPost.GroupPostCreateRequestDto;
-import com.seoro.seoro.domain.dto.GroupPost.GroupPostDetailResponseDto;
-import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
-import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadRequestDto;
-import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
-import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
+import com.seoro.seoro.domain.dto.GroupPost.*;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Groups.*;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.repository.Group.GroupRepository;
+import com.seoro.seoro.repository.GroupPost.GroupPostPhotoRespository;
 import com.seoro.seoro.repository.GroupPost.GroupPostRepository;
 import com.seoro.seoro.repository.Member.MemberRepository;
 
@@ -34,6 +30,7 @@ public class GroupPostServiceImpl implements GroupPostService {
     private final MemberRepository memberRepository;
     private final GroupPostRepository groupPostRepository;
     private final GroupRepository groupRepository;
+    private final GroupPostPhotoRespository groupPostPhotoRespository;
 
     @Override
     public ResultResponseDto createGroupPost(GroupPostCreateRequestDto requestDto) {
@@ -59,15 +56,6 @@ public class GroupPostServiceImpl implements GroupPostService {
             resultResponseDto.setResult(false);
             return resultResponseDto;
         }
-//        //사진이 있을 때
-//        List<GroupPostPhoto> photos = new ArrayList<>();
-//        for(String p : requestDto.getPostImage()) {
-//            GroupPostPhoto photo = GroupPostPhoto.builder()
-//                    .groupPostPhoto(p)
-//                    .groupPost()
-//                    .build();
-//            photos.add()
-//        }
 
 
         GroupPost saveGroupPost = GroupPost.builder()
@@ -81,6 +69,16 @@ public class GroupPostServiceImpl implements GroupPostService {
 //                .photos()
                 .build();
         groupPostRepository.save(saveGroupPost);
+
+        //사진이 있을 때
+        List<GroupPostPhoto> photos = new ArrayList<>();
+        for(String p : requestDto.getPostImage()) {
+            GroupPostPhoto photo = GroupPostPhoto.builder()
+                    .groupPostPhoto(p)
+                    .groupPost(saveGroupPost)
+                    .build();
+            groupPostPhotoRespository.save(photo);
+        }
         resultResponseDto.setResult(true);
         return resultResponseDto;
     }
@@ -170,11 +168,28 @@ public class GroupPostServiceImpl implements GroupPostService {
         Groups group = post.getGroups();
         Member writer = post.getMember();
         LocalDateTime time = post.getGroupPostTime();
+        List<GroupPostPhoto> photos = post.getPhotos();
+        //지금 저장되어 있는 사진 지우기
+        for(GroupPostPhoto photo : photos) {
+            groupPostPhotoRespository.deleteById(photo.getGroupPostPhotoId());
+        }
+
+        List<GroupPostPhoto> updatePhoto = new ArrayList<>();
+        //수정한 사진 저장하기
+        for(int i=0; i<requestDto.getPostImage().length; i++) {
+            GroupPostPhoto p = GroupPostPhoto.builder()
+                    .groupPost(post)
+                    .groupPostPhoto(requestDto.getPostImage()[i])
+                    .build();
+            groupPostPhotoRespository.save(p);
+            updatePhoto.add(p);
+        }
 
         post = GroupPost.builder()
             .groupPostId(postId)
             .groupPostTitle(requestDto.getPostTitle())
             .groupPostContent(requestDto.getPostContent())
+            .photos(updatePhoto)
             .groupPostTime(time)
             .isUpdate(true)
             .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
@@ -193,7 +208,7 @@ public class GroupPostServiceImpl implements GroupPostService {
             .postContent(post.getGroupPostContent())
             .postTime(post.getGroupPostTime())
             .isUpdate(post.getIsUpdate())
-            // .postImage()
+            .postImage(requestDto.getPostImage())
             .build();
 
         return responseDto;
