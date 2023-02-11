@@ -10,6 +10,10 @@ function LoginToggle() {
   const navigate = useNavigate();
   const [selectedId, setSelectedId] = useState('login');
 
+  if (selectedId === 'signup') {
+    navigate('/signup');
+  }
+
   return (
     <div className="login-toggle-container">
       <ToggleNav
@@ -20,7 +24,7 @@ function LoginToggle() {
           { text: '회원가입', id: 'signup' },
         ]}
       />
-      {selectedId === 'login' ? <LoginBox /> : navigate(`/signup`)}
+      {selectedId === 'login' ? <LoginBox /> : <SignupBox />}
     </div>
   );
 }
