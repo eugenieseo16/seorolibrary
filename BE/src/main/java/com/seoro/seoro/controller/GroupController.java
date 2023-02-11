@@ -71,4 +71,9 @@ public class GroupController {
 		return groupService.updateGroupSchedule(requestDto);
 	}
 
+	@GetMapping("/schedule/{scheduleid}")
+	public GroupScheduleDetailResponseDto readGroupSchedule(@PathVariable("scheduleid") Long scheduleId) {
+		return groupService.readGroupSchedule(scheduleId);
+	}
+
 }
