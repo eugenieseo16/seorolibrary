@@ -15,5 +15,5 @@ public class PlaceShowDto {
 	private String placeName;
 	private String placeLatitude;
 	private String placeLongitude;
-	private Long score;
+	private Float score;
 }

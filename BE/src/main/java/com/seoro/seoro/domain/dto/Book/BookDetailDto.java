@@ -3,8 +3,6 @@ package com.seoro.seoro.domain.dto.Book;
 import java.util.Date;
 import java.util.List;
 
-import com.seoro.seoro.domain.entity.Member.Member;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookDto {
+public class BookDetailDto {
 	private boolean result;
 	private String isbn;
 	private String bookTitle;
@@ -22,9 +20,10 @@ public class BookDto {
 	private String bookPublisher;
 	private String bookImage;
 	private String bookDescrib;
-	private Date bookPubDate;
+	private String bookPubDate;
 	private Long countReader;
 	private Long countComment;
 	private Long countReview;
-	private List<Member> members;
+	private String ownComment;
+	private List<OwnBookDto> ownBooks;
 }

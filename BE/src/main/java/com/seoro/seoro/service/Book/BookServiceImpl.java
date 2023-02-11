@@ -17,17 +17,21 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.seoro.seoro.domain.dto.Book.BookDto;
+
+import com.seoro.seoro.domain.dto.Book.BookDetailDto;
+import com.seoro.seoro.domain.dto.Book.ShowBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 // import com.seoro.seoro.domain.entity.User.User;
 // import com.seoro.seoro.repository.Book.OwnBookRepository;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
+import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.Review;
 import com.seoro.seoro.domain.entity.Member.Member;
+import com.seoro.seoro.repository.Book.OwnBookRepository;
 import com.seoro.seoro.repository.Book.ReadBookRepository;
 import com.seoro.seoro.repository.Book.ReviewRepository;
+import com.seoro.seoro.repository.Member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,10 +41,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
-	// final BookRepository bookRepository;
 	final ReviewRepository reviewRepository;
 	final ReadBookRepository readBookRepository;
-	// final OwnBookRepository ownBookRepository;
+	final MemberRepository memberRepository;
+	final OwnBookRepository ownBookRepository;
 
 	@Override
 	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto) {
@@ -58,6 +62,29 @@ public class BookServiceImpl implements BookService {
 		resultResponseDto.setResult(true);
 
 		return resultResponseDto;
+	}
+
+	@Override
+	public List findBookByDong(Long memberId) {
+		Member findMember = memberRepository.findByMemberId(memberId);
+		String myDongCode = findMember.getMemberDongCode();
+
+		List<Member> members = memberRepository.findByMemberDongCode(myDongCode);
+		List<ShowBookDto> books = new ArrayList<>();
+		for(Member member : members){
+			if(member.getMemberId().equals(memberId)) continue;
+			List<OwnBook> ownBooks = member.getOwnBooks();
+			for(OwnBook ownBook : ownBooks){
+				books.add(ShowBookDto.builder()
+					.bookTitle(ownBook.getBookTitle())
+					.bookImage(ownBook.getBookImage())
+					.bookDescrib(ownBook.getOwnComment())
+					.isOwn(ownBook.getIsOwn())
+					.build());
+			}
+		}
+
+		return books;
 	}
 
 	@Override
@@ -106,8 +133,8 @@ public class BookServiceImpl implements BookService {
 	// }
 
 	@Override
-	public BookDto viewBookDetail(String isbn) throws IOException, ParseException {
-		BookDto output;
+	public BookDetailDto viewBookDetail(String isbn) throws IOException, ParseException {
+		BookDetailDto output;
 		URL url =new URL("http://data4library.kr/api/srchDtlList?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&isbn13="+isbn+"&format=json");
 		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
 		String result = br.readLine();
@@ -121,11 +148,13 @@ public class BookServiceImpl implements BookService {
 
 		long count_review = reviewRepository.countByReadBook_Isbn(isbn);
 		long count_readpeople = readBookRepository.countByIsbn(isbn);
-		//연도 형식 파악하고 추가하기
-		output = BookDto.builder()
+
+		output = BookDetailDto.builder()
 			.bookImage(outputlist.get("bookImageURL").toString())
 			.bookTitle(outputlist.get("bookname").toString())
 			.isbn(outputlist.get("isbn13").toString())
+			.bookPublisher(outputlist.get("publisher").toString())
+			.bookPubDate(outputlist.get("publication_date").toString())
 			.bookAuthor(outputlist.get("authors").toString())
 			.bookDescrib(outputlist.get("description").toString())
 			.result(true)
@@ -138,8 +167,8 @@ public class BookServiceImpl implements BookService {
 	//내 주변 보유사용자, 리뷰 출력 추가 필요
 
 	@Override
-	public List<BookDto> findBook(String input) throws IOException, ParseException {
-		List<BookDto> output = new ArrayList<>();
+	public List<ShowBookDto> findBook(String input) throws IOException, ParseException {
+		List<ShowBookDto> output = new ArrayList<>();
 		URL url =new URL("http://data4library.kr/api/srchBooks?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&keyword="+ URLEncoder.encode(input,"utf-8")+"&pageSize=100&format=json");
 		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
 		String result = br.readLine();
@@ -152,8 +181,8 @@ public class BookServiceImpl implements BookService {
 			Map outputlist = (Map)jsonlist.get("doc");
 			System.out.println(jsonlist);
 			System.out.println("!!");
-			BookDto bookDto = new BookDto();
-			output.add(BookDto.builder()
+			ShowBookDto showBookDto = new ShowBookDto();
+			output.add(ShowBookDto.builder()
 				.bookImage(outputlist.get("bookImageURL").toString())
 				.bookTitle(outputlist.get("bookname").toString())
 				.isbn(outputlist.get("isbn13").toString())
@@ -165,7 +194,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List findBestSeller() throws IOException {
-		List<BookDto> output = new ArrayList<>();
+		List<ShowBookDto> output = new ArrayList<>();
 		try {
 			Calendar today = new GregorianCalendar();
 			today.add(Calendar.DATE,-7);
@@ -183,8 +212,8 @@ public class BookServiceImpl implements BookService {
 			for(Object list: docs){
 				JSONObject jsonlist = (JSONObject)list;
 				Map outputlist = (Map)jsonlist.get("doc");
-				BookDto bookDto = new BookDto();
-				output.add(BookDto.builder()
+				ShowBookDto showBookDto = new ShowBookDto();
+				output.add(ShowBookDto.builder()
 						.bookImage(outputlist.get("bookImageURL").toString())
 						.bookTitle(outputlist.get("bookname").toString())
 						.isbn(outputlist.get("isbn13").toString())

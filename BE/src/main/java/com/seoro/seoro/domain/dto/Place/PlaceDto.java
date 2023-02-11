@@ -22,5 +22,5 @@ public class PlaceDto {
 	private String placeLongitude;
 	private List<PlacePhoto> placePhoto;
 	private List<PlaceReviewDto> placeReview;
-	private Long score;
+	private Float score;
 }
