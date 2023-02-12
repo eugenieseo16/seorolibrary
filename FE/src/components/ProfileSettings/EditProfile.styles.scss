@@ -16,14 +16,29 @@
       height: 3rem;
       border-radius: 50%;
     }
-    h2 {
-      font-weight: 900;
-      margin-left: 20px;
-      margin-bottom: 5px;
-    }
-    p {
-      margin-left: 20px;
-      font-size: 0.8rem;
+    .profile-item {
+      .user-info-item {
+        display: flex;
+        align-items: center;
+        h2 {
+          font-size: 1.1rem;
+          font-weight: 900;
+          margin-bottom: 5px;
+          margin-right: 5px;
+        }
+        p {
+          font-size: 0.8rem;
+        }
+      }
+      padding: 0px 20px;
+      .location-item {
+        padding: 5px 0px;
+        display: flex;
+
+        span {
+          font-size: 1rem;
+        }
+      }
     }
   }
   button {
