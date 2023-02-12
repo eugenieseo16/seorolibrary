@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import com.seoro.seoro.domain.dto.Book.BookDetailDto;
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
@@ -21,8 +22,7 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 public interface LibraryService {
 	public LibraryDto libraryMain(Long memberId, User user);
 	public List<GroupShowDto> viewMyGroup(Long memberId);
-	public OwnBookDto makeOwnBookWithIsbn(Long memberId, Long isbn);
-	public OwnBookDto makeOwnBookWithSearch(Long memberId, Long isbn);
+	public ResultResponseDto makeOwnBook(Long memberId, BookDetailDto bookDetailDto);
 	public ResultResponseDto removeOwnBook(Long memberId, String isbn);
 	public ResultResponseDto removeReadBook(Long memberId, String isbn);
 	public List<OwnCommentDto> viewMyComment(Long memberId);
