@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -169,26 +170,61 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<ShowBookDto> findBook(String input) throws IOException, ParseException {
 		List<ShowBookDto> output = new ArrayList<>();
-		URL url =new URL("http://data4library.kr/api/srchBooks?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&keyword="+ URLEncoder.encode(input,"utf-8")+"&pageSize=100&format=json");
+		URL url =new URL("https://books.googleapis.com/books/v1/volumes?q="+URLEncoder.encode(input,"utf-8")+"&maxResults=40&orderBy=relevance&startIndex=0&key=AIzaSyAq7aRYNNlA-r7JOh9GzJrP4ZIQ-3IKP5I");
 		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
-		String result = br.readLine();
+		StringBuilder sb = new StringBuilder();
+		String str = "";
+		while((str=br.readLine())!=null){
+			sb.append(str);
+		}
+		String result = sb.toString();
+		// System.out.println(result);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
-		JSONObject responseResult = (JSONObject)jsonObject.get("response");
-		ArrayList docs = new ArrayList((Collection)responseResult.get("docs"));
-		for(Object list: docs){
-			JSONObject jsonlist = (JSONObject)list;
-			Map outputlist = (Map)jsonlist.get("doc");
-			System.out.println(jsonlist);
-			System.out.println("!!");
+		JSONArray responseResult = (JSONArray)jsonObject.get("items");
+		System.out.println(responseResult.size());
+		for(Object json: responseResult){
+			JSONObject jsonlist = (JSONObject) json;
+			JSONObject volumeInfo = (JSONObject)jsonlist.get("volumeInfo");
+			if(!volumeInfo.containsKey("imageLinks")){
+				System.out.println("이미지없음 ");
+				continue;
+			}
+			System.out.println(volumeInfo);
+			System.out.println("!!!!!!!");
 			ShowBookDto showBookDto = new ShowBookDto();
+			String isbn = "";
+			JSONArray isbnArray = (JSONArray)volumeInfo.get("industryIdentifiers");
+			for(Object isbns : isbnArray){
+				JSONObject isbnObject = (JSONObject)isbns;
+				if(isbnObject.get("type").toString().equals("ISBN_13")){
+					isbn = isbnObject.get("identifier").toString();
+				}
+			}
+			JSONObject imageLinks = (JSONObject)volumeInfo.get("imageLinks");
+			System.out.println(imageLinks);
+			System.out.println(isbn);
 			output.add(ShowBookDto.builder()
-				.bookImage(outputlist.get("bookImageURL").toString())
-				.bookTitle(outputlist.get("bookname").toString())
-				.isbn(outputlist.get("isbn13").toString())
+				.bookTitle(volumeInfo.get("title").toString())
+				.bookImage(imageLinks.get("thumbnail").toString())
+				.isbn(isbn)
 				.result(true)
 				.build());
 		}
+		// ArrayList docs = new ArrayList((Collection)responseResult.get("volumeInfo"));
+		// for(Object list: docs){
+		// 	JSONObject jsonlist = (JSONObject)list;
+		// 	Map outputlist = (Map)jsonlist.get("doc");
+		// 	System.out.println(jsonlist);
+		// 	System.out.println("!!");
+		// 	ShowBookDto showBookDto = new ShowBookDto();
+		// 	output.add(ShowBookDto.builder()
+		// 		.bookImage(outputlist.get("bookImageURL").toString())
+		// 		.bookTitle(outputlist.get("bookname").toString())
+		// 		.isbn(outputlist.get("isbn13").toString())
+		// 		.result(true)
+		// 		.build());
+		// }
 		return output;
 	}
 
