@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 
 import Modal from './Modal';
 import { createRoot } from 'react-dom/client';
-
+import { BiMap } from 'react-icons/bi';
 import { RiEdit2Line } from 'react-icons/ri';
 
 import './EditProfile.styles.scss';
@@ -18,9 +18,17 @@ function EditProfile() {
       <div className="edit-profile-container">
         <div className="profile-container">
           <img src={profileImage} />
+
           <div className="profile-item">
-            <h2>{profileNickname}</h2>
-            <p>@username</p>
+            <div className="user-info-item">
+              <h2>{profileNickname}</h2>
+              <p>@username</p>
+            </div>
+
+            <div className="location-item">
+              <BiMap />
+              <span>역삼동</span>
+            </div>
           </div>
         </div>
         <Modal />
