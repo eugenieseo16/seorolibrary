@@ -19,17 +19,11 @@ interface IUserProfileData {
 }
 
 export default function UserProfile({ isMe }: UserProfileProps) {
-  const query = useMyQuery('/user.json');
-  const [userData, setUserData] = useState<IUserProfileData | null>(null);
+  const userData: IUserProfileData | undefined = useMyQuery('/user.json');
   const navigate = useNavigate();
   const onClickBookRegister = () => {
     navigate(`/profile/register`);
   };
-
-  useEffect(() => {
-    if (!query) return;
-    setUserData(query);
-  }, [query]);
 
   return (
     <div className="user-profile-container">
@@ -78,7 +72,7 @@ export default function UserProfile({ isMe }: UserProfileProps) {
                   <button onClick={onClickBookRegister}>도서 등록</button>
                   <button className="icon-button">
                     <RiChat3Line
-                      // onClick={}
+                      onClick={() => navigate('/chat-list')}
                       size={'1rem'}
                     />
                   </button>

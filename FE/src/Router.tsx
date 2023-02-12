@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Home from '@pages/Home';
-import Loading from '@pages/Loading';
 import BookDetail from '@pages/BookDetail/BookDetail';
 import HoldBookDetail from '@pages/BookDetail/BookDetail';
 import BookDetailLog from '@pages/BookDetail/BookDetailLog';
@@ -41,6 +40,7 @@ import PostGenerate from '@pages/PostGenerate/PostGenerate';
 import ClubBooks from '@pages/ClubBooks/ClubBooks';
 import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
 import ClubPlan from '@pages/ClubPlan/ClubPlan';
+import ChatsList from '@pages/Chats/ChatsList';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -85,6 +85,8 @@ function Router() {
         <Route path="*" element={'404'} />
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
+        <Route path="/chat-list" element={<ChatsList />} />
+        {/* <Route path="/chat/:id" element={<Chats />} /> */}
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
       </Route>
 
