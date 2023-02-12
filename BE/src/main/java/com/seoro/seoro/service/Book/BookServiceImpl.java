@@ -21,6 +21,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookDetailDto;
+import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
 import com.seoro.seoro.domain.dto.Book.ShowBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 // import com.seoro.seoro.domain.entity.User.User;
@@ -86,6 +87,11 @@ public class BookServiceImpl implements BookService {
 		}
 
 		return books;
+	}
+
+	@Override
+	public OwnBookDetailDto viewOwnBookDetail(String isbn) throws IOException, ParseException {
+		return null;
 	}
 
 	@Override
