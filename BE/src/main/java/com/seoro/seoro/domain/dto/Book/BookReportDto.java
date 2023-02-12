@@ -1,5 +1,7 @@
 package com.seoro.seoro.domain.dto.Book;
 
+import com.seoro.seoro.domain.entity.Book.BookReport;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +14,10 @@ public class BookReportDto {
 	private String bookReportTitle;
 	private String bookReportContent;
 	// private String photo;
+
+	public BookReportDto(BookReport bookReport) {
+		this.readBookId = bookReport.getBookReportId();
+		this.bookReportTitle = bookReport.getBookReportTitle();
+		this.bookReportContent = bookReport.getBookReportContent();
+	}
 }

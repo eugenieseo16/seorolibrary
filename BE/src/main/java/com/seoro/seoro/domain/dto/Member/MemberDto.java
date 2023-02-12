@@ -24,6 +24,7 @@ public class MemberDto {
 	private Long memberGenre;
 
 	public MemberDto(Member member) {
+		this.result = true;
 		this.memberEmail = member.getMemberEmail();
 		this.memberName = member.getMemberName();
 		this.memberProfile = member.getMemberProfile();
