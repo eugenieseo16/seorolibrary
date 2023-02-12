@@ -11,7 +11,7 @@ import com.seoro.seoro.domain.entity.Member.Member;
 public interface FriendRepository extends JpaRepository<Friend, Long> {
 	Optional<Friend> findByFollowerAndFollowing(Member follower, Long following);
 
-	Long countByFollowing(Member member);
+	Long countByFollowing(Long memberId);
 
 	Long countByFollower(Member member);
 }

@@ -39,4 +39,22 @@ public class BookController {
 	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
 		return bookService.makeReview(isbn, requestDto);
 	}
+
+	// 검색 결과 상세
+
+	// 사용자 도서 상세
+
+	// 읽은 도서 추가
+
+	// 보유 도서 추가
+
+	// 읽은 사용자
+
+	// 리뷰
+
+	// 한줄평
+
+	// 보유 도서 목록
+
+	// 근처 보유 사용자
 }

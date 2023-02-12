@@ -119,7 +119,7 @@ public class MemberServiceImpl implements MemberService {
 		Member member = new Member();
 		MemberDto responseDto = new MemberDto();
 
-		Member viewMember =  memberRepository.findByMemberName(memberName).get();
+		Member viewMember =  memberRepository.findByMemberName(memberName).orElseThrow(() -> new NoSuchElementException("회원이 없습니다"));
 		if(viewMember != null) {
 			responseDto = new MemberDto(viewMember);
 			responseDto.setResult(true);
