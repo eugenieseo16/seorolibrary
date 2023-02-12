@@ -1,17 +1,22 @@
 package com.seoro.seoro.service.Library;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import com.seoro.seoro.domain.dto.Book.BookDetailDto;
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
-import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
 import com.seoro.seoro.domain.dto.Book.ReadBookDto;
@@ -151,17 +156,23 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public OwnBookDto makeOwnBookWithIsbn(Long memberId, Long isbn) {
-		// 바코드로 등록
+	public ResultResponseDto makeOwnBook(Long memberId, BookDetailDto requestDto) {
+		// 책 검색은 BookController의 api를 쓰고 한줄평을 포함한 등록만 LibraryController api 사용
+		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 
-		return null;
-	}
+		OwnBook ownBook = OwnBook.builder()
+			.member(member)
+			.isbn(requestDto.getIsbn())
+			.bookTitle(requestDto.getBookTitle())
+			.bookImage(requestDto.getBookImage())
+			.ownComment(requestDto.getOwnComment())
+			.isOwn(true)
+			.build();
 
-	@Override
-	public OwnBookDto makeOwnBookWithSearch(Long memberId, Long isbn) {
-		// 검색으로 등록
+		ownBookRepository.save(ownBook);
+		ResultResponseDto responseDto = new ResultResponseDto(true);
 
-		return null;
+		return responseDto;
 	}
 
 	@Override
