@@ -9,10 +9,12 @@ import java.util.Optional;
 import com.seoro.seoro.domain.dto.Group.*;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
 import com.seoro.seoro.domain.dto.Member.RecommendMemberDto;
+import com.seoro.seoro.domain.entity.Groups.GroupBook;
 import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.domain.entity.Groups.GroupSchedule;
 import com.seoro.seoro.repository.ChatRoom.ChatRoomRepository;
 import com.seoro.seoro.repository.Group.GroupApplyRepository;
+import com.seoro.seoro.repository.Group.GroupBookRepository;
 import com.seoro.seoro.repository.Group.GroupJoinRepository;
 import com.seoro.seoro.repository.Group.GroupScheduleRepository;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
@@ -39,6 +41,7 @@ public class GroupServiceImpl implements GroupService{
 	private final MemberRepository memberRepository;
 	private final GroupPostService groupPostService;
 	private final GroupScheduleRepository groupScheduleRepository;
+	private final GroupBookRepository groupBookRepository;
 
 
 	@Override
@@ -636,6 +639,33 @@ public class GroupServiceImpl implements GroupService{
 		}
 
 		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	@Override
+	public GroupBookDto createGroupBook(GroupBookDto requestDto) {
+		GroupBook groupBook = GroupBook.builder()
+			.groups(requestDto.getGroups())
+			.isbn(requestDto.getIsbn())
+			.bookTitle(requestDto.getBookTitle())
+			.bookImage(requestDto.getBookImage())
+			.build();
+		groupBookRepository.save(groupBook);
+		GroupBookDto groupBookDto = new GroupBookDto(groupBook);
+
+		return groupBookDto;
+	}
+
+	@Override
+	public ResultResponseDto delGroupBook(GroupBookDto groupBookDto) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+
+		Optional<GroupBook> groupBook = groupBookRepository.findByGroups(groupBookDto.getGroups());
+		if(groupBook.isPresent()) {
+			groupBookRepository.delete(groupBook.get());
+			responseDto.setResult(true);
+		}
+
 		return responseDto;
 	}
 }
