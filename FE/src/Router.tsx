@@ -15,8 +15,10 @@ import UserLibrary from '@pages/UserLibrary/UserLibrary';
 import Follow from '@pages/UserLibrary/Follow';
 
 import ProfileLog from '@pages/ProfileLog/ProfileLog';
-import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
 import BookRegister from '@pages/BookRegister/BookRegister';
+
+import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
+import ChangePassword from '@pages/ProfileSettings/ChangePassword';
 
 import MyArchive from '@pages/MyArchive/MyArchive';
 import CreateReport from '@pages/MyArchive/CreateReport';
@@ -65,8 +67,10 @@ function Router() {
         <Route path="/profile/follow" element={<Follow />} />
 
         <Route path="/profile/log" element={<ProfileLog />} />
-        <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/register" element={<BookRegister />} />
+
+        <Route path="/profile/settings" element={<ProfileSettings />} />
+        <Route path="/profile/settings/password" element={<ChangePassword />} />
 
         <Route path="/profile/archive" element={<MyArchive />} />
         <Route path="/profile/createReport" element={<CreateReport />} />
