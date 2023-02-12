@@ -1,11 +1,46 @@
 @import '../../styles/variables';
-.modal-container{
-display:flex;
-flex-direction: column;
-align-items: center;
-  img {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .edit-profile-container {
+    border: none;
+    display: flex;
+    flex-direction: column;
+
+    input,
+    .ant-select-selector {
+      height: 2.5rem !important;
+    }
+    .ant-select-selection-item {
+      font-family: 'NEXON';
+    }
+    .ant-select-selection-item {
+      display: flex;
+      align-items: center;
+    }
+    .ant-upload-list-item-container {
+      width: 100% !important;
+    }
+  }
+  .button-item {
+    button {
+      font-family: 'NEXON';
+      font-size: 1rem;
+      color: $beige;
+      text-decoration: none;
+      align-content: center;
+
+      display: inilne-block;
+      width: 5rem;
+      height: 40px;
+      padding: 5px;
+
+      border: none;
+
+      background: $brown;
+      border-radius: 25px;
+    }
   }
 }
