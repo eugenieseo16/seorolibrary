@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -51,9 +52,15 @@ public class BookServiceImpl implements BookService {
 	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
 
-		Long memberId = 1L;
 		Member writer = new Member();
-
+		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
+		if(tmpUser.isPresent()){
+			writer = tmpUser.get();
+		}else{
+			writer = tmpUser.orElse(null);
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
 		Review review = Review.builder()
 			.member(writer)
 			.reviewContent(requestDto.getReviewContent())
@@ -86,6 +93,56 @@ public class BookServiceImpl implements BookService {
 		}
 
 		return books;
+	}
+
+	@Override
+	public ResultResponseDto changeReview(String isbn, ReviewDto requestDto) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
+		Member writer = new Member();
+		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
+		if(tmpUser.isPresent()){
+			writer = tmpUser.get();
+		}else{
+			writer = tmpUser.orElse(null);
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		Review saveReview = reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn, writer.getMemberId());
+
+		saveReview = Review.builder()
+			.member(writer)
+			.reviewId(saveReview.getReviewId())
+			.reviewContent(requestDto.getReviewContent())
+			.readBook(readBookRepository.findByIsbn(isbn).get())
+			.build();
+		reviewRepository.save(saveReview);
+		resultResponseDto.setResult(true);
+
+		return resultResponseDto;
+	}
+
+	@Override
+	public ResultResponseDto deleteReview(String isbn, ReviewDto requestDto) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
+		Member writer = new Member();
+		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
+		if(tmpUser.isPresent()){
+			writer = tmpUser.get();
+		}else{
+			writer = tmpUser.orElse(null);
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		Review saveReview = reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn, writer.getMemberId());
+		reviewRepository.deleteById(saveReview.getReviewId());
+
+		resultResponseDto.setResult(true);
+
+		return resultResponseDto;
 	}
 
 	@Override

@@ -28,4 +28,8 @@ public interface BookService {
 	ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 
 	List findBookByDong(Long memberId);
+
+	ResultResponseDto changeReview(String isbn, ReviewDto requestDto);
+
+	ResultResponseDto deleteReview(String isbn, ReviewDto requestDto);
 }
