@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookDetailDto;
+import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
 import com.seoro.seoro.domain.dto.Book.ShowBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -28,4 +29,6 @@ public interface BookService {
 	ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 
 	List findBookByDong(Long memberId);
+	// 도서 상세
+	public OwnBookDetailDto viewOwnBookDetail(String isbn) throws IOException, ParseException;
 }

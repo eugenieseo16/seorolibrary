@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
@@ -48,15 +49,14 @@ public class LibraryServiceImpl implements LibraryService {
 	private final FriendRepository friendRepository;
 
 	@Override
-	public LibraryDto libraryMain(Long memberId) {
+	public LibraryDto libraryMain(Long memberId, User user) {
 		LibraryDto responseDto = new LibraryDto();
 		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
+		Member me = memberRepository.findByMemberEmail(user.getUsername()).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 
-		// 본인 여부
-		// 토큰 정보 비교로 수정
+		// 토큰 값으로 본인 여부
 		boolean isOwn;
-		Member me = null;
-		if(memberId.equals(member.getMemberId())) {
+		if(user.getUsername().equals(member.getMemberEmail())) {
 			isOwn = true;
 		} else {
 			isOwn = false;
@@ -94,7 +94,7 @@ public class LibraryServiceImpl implements LibraryService {
 		// 채팅방 api 완성 후 추가
 
 		// 팔로워 명수
-		Long countFollower = friendRepository.countByFollowing(member);
+		Long countFollower = friendRepository.countByFollowing(member.getMemberId());
 		responseDto.setMyFollowers(countFollower);
 
 		// 팔로잉 명수
@@ -126,14 +126,6 @@ public class LibraryServiceImpl implements LibraryService {
 			ownBookDtoList.add(new OwnBookDto(ownBook));
 		}
 		return ownBookDtoList;
-	}
-
-	@Override
-	public OwnBookDetailDto viewOwnBookDetail(String isbn) throws IOException, ParseException {
-		// viewBookDetail
-		// set한줄평 다른보유도서
-
-		return null;
 	}
 
 	@Override
@@ -173,14 +165,14 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public ResultResponseDto deleteOwnBook(Long memberId, String isbn) {
+	public ResultResponseDto removeOwnBook(Long memberId, String isbn) {
 		OwnBook ownBook = ownBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
 		ownBookRepository.delete(ownBook);
 		return new ResultResponseDto(true);
 	}
 
 	@Override
-	public ResultResponseDto deleteReadBook(Long memberId, String isbn) {
+	public ResultResponseDto removeReadBook(Long memberId, String isbn) {
 		ReadBook readBook = readBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
 		readBookRepository.delete(readBook);
 		return new ResultResponseDto(true);
@@ -216,15 +208,13 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<BookReportDto> viewBookReportList(Long memberId) {
 		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 존재하지 않습니다."));
 
-		List<BookReportDto> bookReportList = new ArrayList<>();
-
-		List<ReadBook> readBooks = member.getReadBooks(); // 유저가 읽은 책 리스트
-		List<BookReport> bookReports = new ArrayList<>();
-		for(ReadBook readBook : readBooks) {
-			// 구현
+		List<BookReportDto> bookReportDtoList = new ArrayList<>();
+		List<BookReport> bookReports = member.getBookReports();
+		for(BookReport bookReport : bookReports) {
+			bookReportDtoList.add(new BookReportDto(bookReport));
 		}
 
-		return bookReportList;
+		return bookReportDtoList;
 	}
 
 	@Override
@@ -300,11 +290,10 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public LibraryDto makeFriend(Long memberId) {
-		LibraryDto responseDto = libraryMain(memberId);
+	public LibraryDto makeFriend(Long memberId, User user) {
+		LibraryDto responseDto = libraryMain(memberId, user);
 
-		// jwt 토큰 정보
-		String email = null;
+		String email = user.getUsername();
 		Member member = memberRepository.findByMemberEmail(email).get();
 
 		Friend friend = Friend.builder()
@@ -318,11 +307,10 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public LibraryDto deleteFriend(Long memberId) {
-		LibraryDto responseDto = libraryMain(memberId);
+	public LibraryDto removeFriend(Long memberId, User user) {
+		LibraryDto responseDto = libraryMain(memberId, user);
 
-		// jwt 토큰 정보
-		String email = null;
+		String email = user.getUsername();
 		Member member = memberRepository.findByMemberEmail(email).get();
 
 		Friend friend = friendRepository.findByFollowerAndFollowing(member, memberId).orElseThrow(() -> new NoSuchElementException("친구가 아닙니다"));

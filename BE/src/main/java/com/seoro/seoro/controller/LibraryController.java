@@ -2,6 +2,8 @@ package com.seoro.seoro.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,18 +32,19 @@ public class LibraryController {
 	private final LibraryService libraryService;
 
 	@GetMapping("/{memberId}")
-	public LibraryDto libraryMain(@PathVariable Long memberId) {
-		return libraryService.libraryMain(memberId);
+	public LibraryDto libraryMain(@PathVariable Long memberId, @AuthenticationPrincipal User user) {
+		// 로그인 안되어있으면 함수 호출 에러
+		return libraryService.libraryMain(memberId, user);
 	}
 
 	@DeleteMapping("/{memberId}/own/{isbn}")
-	public ResultResponseDto deleteOwnBook(@PathVariable Long memberId, @PathVariable String isbn) {
-		return libraryService.deleteOwnBook(memberId, isbn);
+	public ResultResponseDto removeOwnBook(@PathVariable Long memberId, @PathVariable String isbn) {
+		return libraryService.removeOwnBook(memberId, isbn);
 	}
 
 	@DeleteMapping("/{memberId}/read/{isbn}")
-	public ResultResponseDto deleteReadBook(@PathVariable Long memberId, @PathVariable String isbn) {
-		return libraryService.deleteReadBook(memberId, isbn);
+	public ResultResponseDto removeReadBook(@PathVariable Long memberId, @PathVariable String isbn) {
+		return libraryService.removeReadBook(memberId, isbn);
 	}
 
 	@GetMapping("/{memberId}/groups")
@@ -86,13 +89,13 @@ public class LibraryController {
 	}
 
 	@PostMapping("/{memberId}/friends")
-	public LibraryDto makeFriend(@PathVariable Long memberId) {
-		return libraryService.makeFriend(memberId);
+	public LibraryDto makeFriend(@PathVariable Long memberId, @AuthenticationPrincipal User user) {
+		return libraryService.makeFriend(memberId, user);
 	}
 
 	@DeleteMapping("/{memberId}/friends")
-	public LibraryDto deleteFriend(@PathVariable Long memberId) {
-		return libraryService.deleteFriend(memberId);
+	public LibraryDto removeFriend(@PathVariable Long memberId, @AuthenticationPrincipal User user) {
+		return libraryService.removeFriend(memberId, user);
 	}
 
 	@GetMapping("/{memberId}/friends")
