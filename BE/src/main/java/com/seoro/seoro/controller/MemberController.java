@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +42,10 @@ public class MemberController {
 
 	@PostMapping("/signup")
 	public ResultResponseDto signupMember(@RequestBody @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
+		log.info("email: " + requestDto.getMemberEmail());
+		log.info("name: " + requestDto.getMemberName());
+		log.info("password: " + requestDto.getMemberPassword());
+		log.info("dupchkPassword: " + requestDto.getDupchkPassword());
 		// 취향 선택
 		// 화면에 맞춰 수정
 		// Long genre = 0L;
@@ -72,6 +78,11 @@ public class MemberController {
 	@PostMapping("/login")
 	public TokenDto login(@RequestBody LoginDto requestDto) {
 		return memberService.login(requestDto);
+	}
+
+	@GetMapping("/")
+	private MemberDto viewMemberInfo(@AuthenticationPrincipal User user) {
+		return memberService.viewMemberInfo(user);
 	}
 
 	@PostMapping("/reissue")
