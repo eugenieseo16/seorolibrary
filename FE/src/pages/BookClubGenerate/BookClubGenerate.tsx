@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { UserOutlined, FileImageOutlined } from '@ant-design/icons';
 import { Form, Input, InputNumber, Select, Upload } from 'antd';
 import type { UploadProps } from 'antd';
+import Autocomplete from 'react-google-autocomplete';
 
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
@@ -13,12 +14,13 @@ function Label({ text }: { text: string }) {
 }
 
 function BookClubGenerate() {
+  const dongCode = useRef<any>();
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
     console.log('Success:', values);
+    console.log(dongCode.current);
   };
-  const dongCode = useMyQuery('/dongcode.json');
   const categoriesRes = useMyQuery('/categories.json');
 
   const props: UploadProps = {
@@ -46,7 +48,6 @@ function BookClubGenerate() {
           >
             <Input placeholder="모임이름을 입력해주세요" />
           </Form.Item>
-
           <Form.Item
             label={<Label text="모임소개" />}
             name="payload"
@@ -54,7 +55,6 @@ function BookClubGenerate() {
           >
             <Input.TextArea rows={4} />
           </Form.Item>
-
           <Form.Item
             label={<Label text="카테고리" />}
             rules={[{ required: true, message: '카테고리를 선택해주세요' }]}
@@ -67,7 +67,6 @@ function BookClubGenerate() {
               options={categoriesRes}
             />
           </Form.Item>
-
           <Form.Item
             label={<Label text="모임정원" />}
             name="num"
@@ -79,15 +78,29 @@ function BookClubGenerate() {
               style={{ width: '100%' }}
             />
           </Form.Item>
-
-          <Form.Item
-            label={<Label text="모임장소" />}
-            rules={[{ required: true, message: '모임장소를 선택해주세요' }]}
-            name="location"
-          >
-            <Select allowClear placeholder="Please select" options={dongCode} />
-          </Form.Item>
-
+          <div style={{ marginBottom: '1rem' }}>
+            <Label text="모임장소" />
+            <Autocomplete
+              style={{
+                width: '100%',
+                padding: '0 10px',
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+              }}
+              apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
+              options={{ types: ['geocode'] }}
+              onPlaceSelected={place => {
+                try {
+                  dongCode.current = {
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng(),
+                  };
+                } catch (error) {
+                  dongCode.current = 'eee';
+                }
+              }}
+            />
+          </div>
           <Form.Item
             label={<Label text="사진" />}
             name="image"

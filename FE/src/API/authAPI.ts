@@ -2,10 +2,13 @@ import { apiUrls } from './apiUrls';
 import axios from 'axios';
 
 export interface ILoginForm {
+  email: string;
+  password: string;
+}
+
+export interface ISignUpForm extends ILoginForm {
   memberEmail: string;
   memberPassword: string;
-}
-export interface ISignUpForm extends ILoginForm {
   memberName: string;
   dupchkPassword: string;
 }
