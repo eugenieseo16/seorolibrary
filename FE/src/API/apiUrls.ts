@@ -11,3 +11,5 @@ export const bookAPIUrls = {
   bookDetail: `${apiBaseUrl}/book/detail/`,
   nearBooks: `${apiBaseUrl}/main/nearbook/`,
 };
+
+export const searchAPIUrl = `${apiBaseUrl}/main/search/`;
