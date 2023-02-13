@@ -33,13 +33,10 @@ const Main = () => {
         <div className="scan-area">
           {play ? (
             <div>
-              <h1>카메라 켰어용</h1>
               <Scanner scannerRef={scannerRef} />
             </div>
           ) : (
-            <div>
-              <h1>카메라 껏어용</h1>
-            </div>
+            <span></span>
           )}
         </div>
       </section>
