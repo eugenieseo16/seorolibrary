@@ -1,0 +1,19 @@
+@import '../../styles/variables';
+.chats-list-container {
+  .message-preview {
+    @include overflow-text;
+    width: 100%;
+  }
+  .ant-spin-container {
+    .ant-list-item {
+      padding: 10px;
+      .ant-list-item-meta {
+        display: flex;
+        align-items: center;
+        a {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
