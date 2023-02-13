@@ -145,7 +145,6 @@ public class BookServiceImpl implements BookService {
 
 		return resultResponseDto;
 	}
-	
 	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn) {
 		List<OwnCommentDetailDto> commentDtoList = new ArrayList<>();
 		// List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
