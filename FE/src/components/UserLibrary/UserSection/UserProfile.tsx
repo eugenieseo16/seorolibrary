@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import './UserProfile.styles.scss';
 
@@ -19,6 +19,7 @@ interface IUserProfileData {
 }
 
 export default function UserProfile({ isMe }: UserProfileProps) {
+  const params = useParams();
   const userData: IUserProfileData | undefined = useMyQuery('/user.json');
   const navigate = useNavigate();
   const onClickBookRegister = () => {
@@ -62,7 +63,7 @@ export default function UserProfile({ isMe }: UserProfileProps) {
                   <button>팔로우</button>
                   <button className="icon-button">
                     <RiChat3Line
-                      // onClick={}
+                      onClick={() => navigate(`/chat/${params.userId}`)}
                       size={'1rem'}
                     />
                   </button>
