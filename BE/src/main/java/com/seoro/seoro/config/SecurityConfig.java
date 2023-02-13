@@ -13,6 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.seoro.seoro.auth.CustomUserDetailService;
 import com.seoro.seoro.auth.JwtAuthenticationFilter;
@@ -37,6 +40,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
+
+	// @Bean
+	// public CorsConfigurationSource corsConfigurationSource() {
+	// 	CorsConfiguration corsConfiguration = new CorsConfiguration();
+	//
+	// 	corsConfiguration.addAllowedOriginPattern("*");
+	// 	corsConfiguration.addAllowedHeader("*");
+	// 	corsConfiguration.addAllowedMethod("*");
+	// 	corsConfiguration.setAllowCredentials(true);
+	//
+	// 	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	// 	source.registerCorsConfiguration("/**", corsConfiguration);
+	// 	return source;
+	// }
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
