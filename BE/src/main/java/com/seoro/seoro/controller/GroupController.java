@@ -22,7 +22,7 @@ public class GroupController {
 	}
 
 	@PostMapping("/signup")
-	public ResultResponseDto makeGroup(@ModelAttribute GroupSignupRequestDto requestDto) {
+	public ResultResponseDto makeGroup(@RequestBody GroupSignupRequestDto requestDto) {
 		return groupService.makeGroup(requestDto);
 	}
 
@@ -62,12 +62,12 @@ public class GroupController {
 	}
 
 	@PostMapping("/schedule")
-	public ResultResponseDto createGroupSchedule(@ModelAttribute GroupScheduleCreateRequestDto requestDto) {
+	public ResultResponseDto createGroupSchedule(@RequestBody GroupScheduleCreateRequestDto requestDto) {
 		return groupService.createGroupSchedule(requestDto);
 	}
 
 	@PutMapping("/schedule")
-	public GroupScheduleUpdateResponseDto updateGroupSchedule(@ModelAttribute GroupScheduleUpdateRequestDto requestDto) {
+	public GroupScheduleUpdateResponseDto updateGroupSchedule(@RequestBody GroupScheduleUpdateRequestDto requestDto) {
 		return groupService.updateGroupSchedule(requestDto);
 	}
 
@@ -87,7 +87,7 @@ public class GroupController {
 	}
 
 	@PostMapping("/book")
-	public ResultResponseDto createGroupBook(@ModelAttribute GroupBookCreateRequestDto requestDto) {
+	public ResultResponseDto createGroupBook(@RequestBody GroupBookCreateRequestDto requestDto) {
 		return groupService.createGroupBook(requestDto);
 	}
 
