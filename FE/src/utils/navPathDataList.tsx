@@ -13,7 +13,7 @@ import {
 
 export const navPathDataList = [
   {
-    href: 'home',
+    href: '',
     title: '홈',
     icon: { default: <RiHome2Line />, selected: <RiHome2Fill /> },
   },
@@ -34,7 +34,7 @@ export const navPathDataList = [
   },
   {
     href: 'profile',
-    state: { is_me: true},
+    state: { is_me: true },
     title: '나의도서관',
     icon: { default: <RiUser3Line />, selected: <RiUser3Fill /> },
   },
