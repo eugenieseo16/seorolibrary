@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import LoginBox from '@components/Login/LoginBox';
-import SignupBox from '@components/Signup/SignupBox';
+import LoginBox from '@components/AuthForm/LoginBox';
+import SignupBox from '@components/AuthForm/SignupBox';
 import ToggleNav from '@components/ToggleNav/ToggleNav';
-import './LoginToggle.styles.scss';
+import './AuthFormToggle.styles.scss';
 
-function LoginToggle() {
-  const navigate = useNavigate();
+function AuthFormToggle() {
   const [selectedId, setSelectedId] = useState('login');
 
-  if (selectedId === 'signup') {
-    navigate('/signup');
-  }
-
   return (
-    <div className="login-toggle-container">
+    <div className="auth-form-toggle-container">
       <ToggleNav
         selectedId={selectedId}
         setSelectedId={setSelectedId}
@@ -29,4 +24,4 @@ function LoginToggle() {
   );
 }
 
-export default LoginToggle;
+export default AuthFormToggle;

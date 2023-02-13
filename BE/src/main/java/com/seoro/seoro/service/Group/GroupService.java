@@ -21,4 +21,7 @@ public interface GroupService {
 	public GroupScheduleDetailResponseDto readGroupSchedule(Long scheduleId);
 	public GroupScheduleListResponseDto readGroupScheduleList(Long groupId);
 	public ResultResponseDto delGroupSchedule(Long scheduleId, Long userId);
+	public ResultResponseDto createGroupBook(GroupBookCreateRequestDto groupBookDto);
+	public GroupBookReadResponseDto readGroupBook(Long groupId);
+	public ResultResponseDto deleteGroupBook(Long groupBookId);
 }

@@ -5,15 +5,16 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,11 +41,23 @@ public class MemberController {
 	private final JwtTokenUtil jwtTokenUtil;
 
 	@PostMapping("/signup")
-	public ResultResponseDto signupMember(@ModelAttribute @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
-		// 취향 카테고리 선택 작업 필요
-		// 이메일 인증 작업 필요
-		// 회원가입 유형(일반, sns) 처리
+	public ResultResponseDto signupMember(@RequestBody @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
+		log.info("email: " + requestDto.getMemberEmail());
+		log.info("name: " + requestDto.getMemberName());
+		log.info("password: " + requestDto.getMemberPassword());
+		log.info("dupchkPassword: " + requestDto.getDupchkPassword());
+		// 취향 선택
+		// 화면에 맞춰 수정
+		// Long genre = 0L;
+		// Long[] selectGenre = new Long[20];
+		// for(int i=0; i<20; i++) {
+		// 	genre = genre & selectGenre[i];
+		// }
+		// requestDto.setMemberGenre(genre);
 
+		// 이메일 인증 추가
+
+		// 에러 메세지
 		if(bindingResult.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<>();
 			for(FieldError error : bindingResult.getFieldErrors()) {
@@ -54,6 +67,8 @@ public class MemberController {
 
 			ResultResponseDto responseDto = new ResultResponseDto();
 			responseDto.setResult(false);
+			responseDto.setErrorMap(errorMap);
+
 			return responseDto;
 		}
 
@@ -61,11 +76,15 @@ public class MemberController {
 	}
 
 	@PostMapping("/login")
-	public TokenDto login(@ModelAttribute LoginDto requestDto) {
+	public TokenDto login(@RequestBody LoginDto requestDto) {
 		return memberService.login(requestDto);
 	}
 
-	// api 매핑 확인
+	@GetMapping("/")
+	private MemberDto viewMemberInfo(@AuthenticationPrincipal User user) {
+		return memberService.viewMemberInfo(user);
+	}
+
 	@PostMapping("/reissue")
 	public TokenDto reissue(@RequestHeader("RefreshToken") String refreshToken) {
 		return memberService.reissue(refreshToken);
@@ -95,14 +114,14 @@ public class MemberController {
 	}
 
 	@PutMapping("/{memberName}")
-	public MemberDto modifyProfile(@ModelAttribute MemberUpdateDto requestDto, @PathVariable String memberName) {
+	public MemberDto modifyProfile(@RequestBody MemberUpdateDto requestDto, @PathVariable String memberName) {
 		System.out.println("memberName: " + memberName);
 		// email 같은 값은 그대로 가는 처리 프론트와 연동
 		return memberService.modifyProfile(requestDto, memberName);
 	}
 
 	@PutMapping("/{memberName}/password")
-	public ResultResponseDto modifyPassword(@ModelAttribute MemberPasswordDto requestDto, @PathVariable String memberName) {
+	public ResultResponseDto modifyPassword(@RequestBody MemberPasswordDto requestDto, @PathVariable String memberName) {
 		return memberService.modifyPassword(requestDto, memberName);
 	}
 

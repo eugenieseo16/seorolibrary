@@ -7,11 +7,13 @@ import java.util.NoSuchElementException;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.auth.CacheKey;
+import com.seoro.seoro.auth.CustomUserDetailService;
 import com.seoro.seoro.auth.JwtExpirationEnums;
 import com.seoro.seoro.auth.LogoutAcessToken;
 import com.seoro.seoro.auth.RefreshToken;
@@ -42,6 +44,7 @@ public class MemberServiceImpl implements MemberService {
 	private final RefreshTokenRedisRepository refreshTokenRedisRepository;
 	private final LogoutAccessTokenRedisRepositoty logoutAccessTokenRedisRepositoty;
 	private final JwtTokenUtil jwtTokenUtil;
+	private final CustomUserDetailService customUserDetailService;
 
 	@Override
 	public ResultResponseDto signupMember(MemberSignupDto requestDto) {
@@ -119,7 +122,7 @@ public class MemberServiceImpl implements MemberService {
 		Member member = new Member();
 		MemberDto responseDto = new MemberDto();
 
-		Member viewMember =  memberRepository.findByMemberName(memberName).get();
+		Member viewMember =  memberRepository.findByMemberName(memberName).orElseThrow(() -> new NoSuchElementException("회원이 없습니다"));
 		if(viewMember != null) {
 			responseDto = new MemberDto(viewMember);
 			responseDto.setResult(true);
@@ -212,6 +215,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public TokenDto login(LoginDto requestDto) {
+		log.info("email " + requestDto.getEmail());
+		log.info("password " + requestDto.getPassword());
 		Member member = memberRepository.findByMemberEmail(requestDto.getEmail()).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 		checkPassword(requestDto.getPassword(), member.getMemberPassword());
 
@@ -257,6 +262,16 @@ public class MemberServiceImpl implements MemberService {
 			return reissueRefreshToken(refreshToken, username);
 		}
 		throw new IllegalArgumentException("토큰이 일치하지 않습니다");
+	}
+
+	@Override
+	public MemberDto viewMemberInfo(User user) {
+		log.info("email: " + user.getUsername());
+		log.info("password:" + user.getPassword());
+		String email = user.getUsername();
+		Member member = memberRepository.findByMemberEmail(email).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
+		MemberDto memberDto = new MemberDto(member);
+		return memberDto;
 	}
 
 	private String getCurrentUsername() {

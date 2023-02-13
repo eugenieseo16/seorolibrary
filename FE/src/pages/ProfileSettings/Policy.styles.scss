@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+.policy-container {
+  padding: 0 10px;
+  color: $brown;
+  .policy-detail-container {
+    padding: 0 16px;
+    .policy-detail-item {
+      margin-bottom: 20px;
+      h1 {
+        color: $deep-brown;
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+      h2 {
+        margin-bottom: 5px;
+      }
+      h3 {
+      }
+      p {
+        margin-bottom: 3px;
+      }
+    }
+    .policy-last-item {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

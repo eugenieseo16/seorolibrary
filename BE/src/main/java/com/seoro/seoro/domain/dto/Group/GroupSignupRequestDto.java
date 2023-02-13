@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupSignupRequestDto {
 	private String groupName;
-	private Long groupHost;
+	private Long groupHostId;
 	private String groupPassword;
 	private Integer groupCapacity;
 	private String groupDongCode;

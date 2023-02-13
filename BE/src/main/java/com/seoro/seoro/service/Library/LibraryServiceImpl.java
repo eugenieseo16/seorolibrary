@@ -1,16 +1,22 @@
 package com.seoro.seoro.service.Library;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import com.seoro.seoro.domain.dto.Book.BookDetailDto;
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
-import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
 import com.seoro.seoro.domain.dto.Book.ReadBookDto;
@@ -48,15 +54,14 @@ public class LibraryServiceImpl implements LibraryService {
 	private final FriendRepository friendRepository;
 
 	@Override
-	public LibraryDto libraryMain(Long memberId) {
+	public LibraryDto libraryMain(Long memberId, User user) {
 		LibraryDto responseDto = new LibraryDto();
 		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
+		Member me = memberRepository.findByMemberEmail(user.getUsername()).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 
-		// 본인 여부
-		// 토큰 정보 비교로 수정
+		// 토큰 값으로 본인 여부
 		boolean isOwn;
-		Member me = null;
-		if(memberId.equals(member.getMemberId())) {
+		if(user.getUsername().equals(member.getMemberEmail())) {
 			isOwn = true;
 		} else {
 			isOwn = false;
@@ -94,7 +99,7 @@ public class LibraryServiceImpl implements LibraryService {
 		// 채팅방 api 완성 후 추가
 
 		// 팔로워 명수
-		Long countFollower = friendRepository.countByFollowing(member);
+		Long countFollower = friendRepository.countByFollowing(member.getMemberId());
 		responseDto.setMyFollowers(countFollower);
 
 		// 팔로잉 명수
@@ -129,14 +134,6 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public OwnBookDetailDto viewOwnBookDetail(String isbn) throws IOException, ParseException {
-		// viewBookDetail
-		// set한줄평 다른보유도서
-
-		return null;
-	}
-
-	@Override
 	public List<GroupShowDto> viewMyGroup(Long memberId) {
 		return getMyGroups(memberId);
 	}
@@ -159,28 +156,34 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public OwnBookDto makeOwnBookWithIsbn(Long memberId, Long isbn) {
-		// 바코드로 등록
+	public ResultResponseDto makeOwnBook(Long memberId, BookDetailDto requestDto) {
+		// 책 검색은 BookController의 api를 쓰고 한줄평을 포함한 등록만 LibraryController api 사용
+		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 
-		return null;
+		OwnBook ownBook = OwnBook.builder()
+			.member(member)
+			.isbn(requestDto.getIsbn())
+			.bookTitle(requestDto.getBookTitle())
+			.bookImage(requestDto.getBookImage())
+			.ownComment(requestDto.getOwnComment())
+			.isOwn(true)
+			.build();
+
+		ownBookRepository.save(ownBook);
+		ResultResponseDto responseDto = new ResultResponseDto(true);
+
+		return responseDto;
 	}
 
 	@Override
-	public OwnBookDto makeOwnBookWithSearch(Long memberId, Long isbn) {
-		// 검색으로 등록
-
-		return null;
-	}
-
-	@Override
-	public ResultResponseDto deleteOwnBook(Long memberId, String isbn) {
+	public ResultResponseDto removeOwnBook(Long memberId, String isbn) {
 		OwnBook ownBook = ownBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
 		ownBookRepository.delete(ownBook);
 		return new ResultResponseDto(true);
 	}
 
 	@Override
-	public ResultResponseDto deleteReadBook(Long memberId, String isbn) {
+	public ResultResponseDto removeReadBook(Long memberId, String isbn) {
 		ReadBook readBook = readBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
 		readBookRepository.delete(readBook);
 		return new ResultResponseDto(true);
@@ -216,15 +219,13 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<BookReportDto> viewBookReportList(Long memberId) {
 		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 존재하지 않습니다."));
 
-		List<BookReportDto> bookReportList = new ArrayList<>();
-
-		List<ReadBook> readBooks = member.getReadBooks(); // 유저가 읽은 책 리스트
-		List<BookReport> bookReports = new ArrayList<>();
-		for(ReadBook readBook : readBooks) {
-			// 구현
+		List<BookReportDto> bookReportDtoList = new ArrayList<>();
+		List<BookReport> bookReports = member.getBookReports();
+		for(BookReport bookReport : bookReports) {
+			bookReportDtoList.add(new BookReportDto(bookReport));
 		}
 
-		return bookReportList;
+		return bookReportDtoList;
 	}
 
 	@Override
@@ -300,11 +301,10 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public LibraryDto makeFriend(Long memberId) {
-		LibraryDto responseDto = libraryMain(memberId);
+	public LibraryDto makeFriend(Long memberId, User user) {
+		LibraryDto responseDto = libraryMain(memberId, user);
 
-		// jwt 토큰 정보
-		String email = null;
+		String email = user.getUsername();
 		Member member = memberRepository.findByMemberEmail(email).get();
 
 		Friend friend = Friend.builder()
@@ -318,11 +318,10 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public LibraryDto deleteFriend(Long memberId) {
-		LibraryDto responseDto = libraryMain(memberId);
+	public LibraryDto removeFriend(Long memberId, User user) {
+		LibraryDto responseDto = libraryMain(memberId, user);
 
-		// jwt 토큰 정보
-		String email = null;
+		String email = user.getUsername();
 		Member member = memberRepository.findByMemberEmail(email).get();
 
 		Friend friend = friendRepository.findByFollowerAndFollowing(member, memberId).orElseThrow(() -> new NoSuchElementException("친구가 아닙니다"));

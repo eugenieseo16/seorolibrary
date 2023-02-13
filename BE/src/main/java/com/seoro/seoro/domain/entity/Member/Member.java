@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.seoro.seoro.domain.entity.Book.BookReport;
 import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
 import com.seoro.seoro.domain.entity.Book.Review;
@@ -68,4 +69,8 @@ public class Member implements Serializable {
     @OneToMany(mappedBy = "member")
     @Builder.Default
     private List<ReadBook> readBooks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    @Builder.Default
+    private List<BookReport> bookReports = new ArrayList<>();
 }

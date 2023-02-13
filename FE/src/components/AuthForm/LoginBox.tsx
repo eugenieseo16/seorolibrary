@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
-import logo from '@src/assets/logo/seoro_vertical.png';
+import logo from '@src/assets/logo/seoro.png';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 
 import './LoginBox.styles.scss';
+import { loginAPI } from '@src/API/authAPI';
+import { useDispatch } from 'react-redux';
+import { login } from '@src/store/slices/userSlice';
 
 function LoginBox() {
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+  const dispatch = useDispatch();
+  const onFinish = async (data: any) => {
+    const { data: response } = await loginAPI(data);
+    if (response) {
+      dispatch(login({ ...response, username: 'test' }));
+    }
   };
 
   return (
     <div className="login-box">
       {/* 로고 */}
-      <div>
+      <div className="logo-container">
         <img src={logo} alt="" />
+        <p>서로 도서관</p>
       </div>
       {/* input form */}
       <div className="login-input-container">
@@ -28,7 +34,16 @@ function LoginBox() {
         >
           <Form.Item
             name="email"
-            rules={[{ required: true, message: '이메일을 입력해주세요' }]}
+            rules={[
+              {
+                type: 'email',
+                message: '이메일 형식으로 입력해주세요',
+              },
+              {
+                required: true,
+                message: '이메일을 알려주세요',
+              },
+            ]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
@@ -45,16 +60,12 @@ function LoginBox() {
               placeholder="PASSWORD"
             />
           </Form.Item>
-        </Form>
-      </div>
-      {/* 로그인 버튼 */}
-      <div className="login-button-container">
-        <Form>
-          <Form.Item>
+          <Form.Item className="login-button-container">
             <Button htmlType="submit">로그인</Button>
           </Form.Item>
         </Form>
       </div>
+      {/* 로그인 버튼 */}
     </div>
   );
 }
