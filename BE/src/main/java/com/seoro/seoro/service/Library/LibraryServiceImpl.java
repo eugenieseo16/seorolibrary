@@ -184,8 +184,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public ResultResponseDto removeReadBook(Long memberId, String isbn) {
-		ReadBook readBook = readBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
-		readBookRepository.delete(readBook);
+//		ReadBook readBook = readBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
+//		readBookRepository.delete(readBook);
 		return new ResultResponseDto(true);
 	}
 
