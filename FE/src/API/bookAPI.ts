@@ -1,5 +1,16 @@
+import { useMyQuery } from '../hooks/useMyQuery';
+import { bookApiUrls, searchAPIUrl } from './apiUrls';
 import axios from 'axios';
-import { bookApiUrls } from './apiUrls';
+
+export const bestSellerAPI = () => {
+  const response = useMyQuery(bookApiUrls.bestSellers);
+  return response;
+};
+
+export const nearBooksAPI = (memberId: string) => {
+  const response = useMyQuery(nearBooksAPI + memberId);
+  return response;
+};
 
 export const bookSearchByTitle = async (title: string) => {
   if (title.length < 1) return;
@@ -13,6 +24,9 @@ export const bookSearchByTitle = async (title: string) => {
   });
   return documents;
 };
-export const registerBook = async () => {
-  
+export const registerBook = async () => {};
+
+export const searchAPI = (input: string) => {
+  const response = useMyQuery(searchAPIUrl + input);
+  return response;
 };

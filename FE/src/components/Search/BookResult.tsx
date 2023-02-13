@@ -3,9 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 
 import './BookResult.styles.scss';
-function BookResult() {
-  const data = useMyQuery('/books.json');
+import { searchAPI } from '@src/API/bookAPI';
+
+interface IBookResultProps {
+  input: string;
+}
+
+function BookResult({ input }: IBookResultProps) {
+  const data = searchAPI(input)[0];
   const navigate = useNavigate();
+
+  console.log(data);
 
   return (
     <div className="book-result-container">
@@ -13,17 +21,17 @@ function BookResult() {
         <div
           key={i}
           className="book-result-item"
-          onClick={() => navigate(`/book/1`)}
+          onClick={() => navigate(`/book/${book.isbn}`)}
         >
-          <img src={book.image_url} alt="" />
+          <img src={book.bookImage} alt="" />
 
           <div className="book-detail-container">
             <div className="book-detail-item">
-              <h1>{book.title}</h1>
-              <h2>{book.author}</h2>
+              <h1>{book.bookTitle}</h1>
+              <h2>{book.bookAuthor}</h2>
             </div>
 
-            <p>{book.description}</p>
+            <p>{book.bookDescrib}</p>
           </div>
         </div>
       ))}
