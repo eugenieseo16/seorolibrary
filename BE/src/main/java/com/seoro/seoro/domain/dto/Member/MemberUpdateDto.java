@@ -16,12 +16,12 @@ public class MemberUpdateDto {
 	private String memberName;
 	private String memberProfile;
 	private String memberDongCode;
-	private Long memberGenre;
+	private int[] memberGenre;
 
 	public MemberUpdateDto(Member member) {
 		this.memberName = member.getMemberName();
 		this.memberProfile = member.getMemberProfile();
 		this.memberDongCode = member.getMemberDongCode();
-		this.memberGenre = member.getMemberGenre();
+//		this.memberGenre = member.getMemberGenre();
 	}
 }
