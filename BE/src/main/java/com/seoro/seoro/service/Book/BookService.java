@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookDetailDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
+import com.seoro.seoro.domain.dto.Book.OwnBookDto;
+import com.seoro.seoro.domain.dto.Book.OwnCommentDetailDto;
 import com.seoro.seoro.domain.dto.Book.ShowBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
@@ -18,17 +21,18 @@ public interface BookService {
 	// List<BookDto> findAllBooks();
 	// List<BookDto> findByBookTitleLikeOrBookAuthorLike(String input1, String input2);
 
-	ReviewDto findReviewByIsbnAndMemberId(String isbn);
+	public ReviewDto findReviewByIsbnAndMemberId(String isbn);
 
-	List findBook(String input) throws IOException, ParseException;
+	public List findBook(String input) throws IOException, ParseException;
 
-	BookDetailDto viewBookDetail(String isbn) throws IOException, ParseException;
+	public BookDetailDto viewBookDetail(String isbn) throws IOException, ParseException;
+	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws IOException, ParseException;
 
-	List findBestSeller() throws IOException;
+	public List findBestSeller() throws IOException;
 
-	ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
+	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 
-	List findBookByDong(Long memberId);
-	// 도서 상세
-	public OwnBookDetailDto viewOwnBookDetail(String isbn) throws IOException, ParseException;
+	public List findBookByDong(Long memberId);
+	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn);
+	public OwnCommentDetailDto modifyownComment(String isbn, OwnCommentDetailDto ownCommentDetailDto);
 }

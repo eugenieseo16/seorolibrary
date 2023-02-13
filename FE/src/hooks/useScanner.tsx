@@ -79,18 +79,12 @@ const getConfig = (target?: string | Element): QuaggaJSConfigObject => {
       type: 'LiveStream',
       constraints: {
         width: {
-          min: 200,
-          ideal: 200,
-
-          // ideal: 1920,
-          // min: 640,
+          max: 200,
+          ideal: 1920,
         },
         height: {
-          ideal: 300,
-          min: 300,
-
-          // ideal: 1080,
-          // min: 480,
+          ideal: 1080,
+          max: 480,
         },
         facingMode: { ideal: 'environment' },
       },
