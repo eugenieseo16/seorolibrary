@@ -87,6 +87,8 @@ public class BookServiceImpl implements BookService {
 				books.add(ShowBookDto.builder()
 					.bookTitle(ownBook.getBookTitle())
 					.bookImage(ownBook.getBookImage())
+					.isbn(ownBook.getIsbn())
+					.memberId(member.getMemberId())
 					.bookDescrib(ownBook.getOwnComment())
 					.isOwn(ownBook.getIsOwn())
 					.build());
