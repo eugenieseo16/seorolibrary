@@ -202,6 +202,14 @@ public class GroupServiceImpl implements GroupService{
 			return groupDetailResponseDto;
 		}
 
+		Integer[] genres = new Integer[Long.bitCount(group.getGroupGenre())];
+		String p = Long.toBinaryString(group.getGroupGenre());
+		for(int i=p.length()-1, j=0; i>=0; i--) {
+			if(p.charAt(i)=='1') {
+				genres[j++] = p.length() -i -1;
+			}
+		}
+
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
 				.groupName(group.getGroupName())
@@ -210,6 +218,7 @@ public class GroupServiceImpl implements GroupService{
 				.groupDongCode(group.getGroupDongCode())
 				.groupCapacity(group.getGroupCapacity())
 				.groupDescrib(group.getGroupIntroduction())
+			    .groupGenre(genres)
 				.bookCount(group.getBooks().size())
 				.postCount(group.getPosts().size())
 				.meetingCount(group.getMeetings().size())
