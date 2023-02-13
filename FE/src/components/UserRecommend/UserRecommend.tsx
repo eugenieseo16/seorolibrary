@@ -16,8 +16,10 @@ function UserRecommend() {
       {data?.data?.map((recommend: any, i: number) => (
         <div
           className="user-item"
-          key={i}
-          onClick={() => navigate(`/profile/${i}`, { state: true })}
+          key={recommend.username}
+          onClick={() =>
+            navigate(`/profile/${recommend.username}`, { state: true })
+          }
         >
           <img src={recommend.image_url} alt="" />
           <h2>{recommend.nickname}</h2>
