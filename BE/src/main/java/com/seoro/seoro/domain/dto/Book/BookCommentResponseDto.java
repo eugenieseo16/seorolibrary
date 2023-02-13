@@ -5,13 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BookCommentDto {
-    private Long memberId;
-    private String memberName;
-    private String memberProfile;
-    private String comment;
+public class BookCommentResponseDto {
+    private boolean result;
+    private List<BookCommentDto> comments;
 }

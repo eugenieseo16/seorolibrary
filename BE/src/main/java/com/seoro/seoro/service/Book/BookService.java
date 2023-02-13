@@ -36,4 +36,6 @@ public interface BookService {
 	public OwnCommentDetailDto modifyownComment(String isbn, OwnCommentDetailDto ownCommentDetailDto);
 
     public BookReviewResponseDto viewBookReview(String isbn);
+
+	public BookCommentResponseDto viewBookComment(String isbn);
 }
