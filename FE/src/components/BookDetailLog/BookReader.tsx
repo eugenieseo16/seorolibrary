@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import './BookReader.styles.scss';
 
-function BookReader() {
+interface IBookReader {
+  isbn: string;
+}
+
+function BookReader({ isbn }: IBookReader) {
   const data = useMyQuery('/userFollower.json');
   const navigate = useNavigate();
 

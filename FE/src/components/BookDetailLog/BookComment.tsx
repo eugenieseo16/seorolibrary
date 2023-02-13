@@ -3,9 +3,17 @@ import { useMyQuery } from '@src/hooks/useMyQuery';
 import { FaQuoteRight } from 'react-icons/fa';
 
 import './BookComment.styles.scss';
+import { bookCommentAPI } from '@src/API/bookAPI';
 
-function BookReview() {
+interface IBookReview {
+  isbn: string;
+}
+
+function BookReview({ isbn }: IBookReview) {
   const data = useMyQuery('/bookComment.json');
+
+  const test = bookCommentAPI(isbn);
+  console.log(test);
 
   return (
     <div className="book-comment-container">

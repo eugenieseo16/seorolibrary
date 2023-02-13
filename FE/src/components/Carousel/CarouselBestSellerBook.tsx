@@ -26,7 +26,9 @@ export default function CarouselNearBook() {
           <div
             key={i}
             className="recommend-near-book-container"
-            onClick={() => navigate(`/book/${data.isbn}`)}
+            onClick={() =>
+              navigate(`/book/${data.isbn}`, { state: { isbn: data.isbn } })
+            }
           >
             <div>
               <img src={data.bookImage} alt="" />

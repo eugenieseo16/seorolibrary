@@ -1,22 +1,18 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 
 import ExchangeAvailable from '@components/NearBooks/ExchangeAvailable';
 
-import {
-  RiChatQuoteLine,
-  RiFileList3Line,
-  RiBookOpenLine,
-} from 'react-icons/ri';
 import './BookInfo.styles.scss';
 import { bookDetailAPI } from '@src/API/bookAPI';
 
-function BookInfo() {
+interface IBookInfo {
+  isbn: string;
+}
+function BookInfo({ isbn }: IBookInfo) {
   const location = useLocation();
   const isUser = location.pathname.includes('profile');
 
-  const isbn = location.pathname.replace('/book/', '');
   const data = bookDetailAPI(isbn);
 
   return (
