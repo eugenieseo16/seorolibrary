@@ -9,7 +9,7 @@ function ProfileSettings() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div style={{ padding: '0 10px' }}>
       <Header text="프로필 설정" />
       <EditProfile />
 
@@ -18,7 +18,9 @@ function ProfileSettings() {
       </span>
 
       <SettingItem text="공지사항" />
-      <SettingItem text="이용약관" />
+      <span onClick={() => navigate('policy')}>
+        <SettingItem text="이용약관" />
+      </span>
       <SettingItem text="로그아웃" />
     </div>
   );

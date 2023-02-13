@@ -18,6 +18,7 @@ import BookRegister from '@pages/BookRegister/BookRegister';
 
 import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
 import ChangePassword from '@pages/ProfileSettings/ChangePassword';
+import Policy from '@pages/ProfileSettings/Policy';
 
 import MyArchive from '@pages/MyArchive/MyArchive';
 import CreateReport from '@pages/MyArchive/CreateReport';
@@ -67,6 +68,7 @@ function Router() {
 
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/settings/password" element={<ChangePassword />} />
+        <Route path="/profile/settings/policy" element={<Policy />} />
 
         <Route path="/profile/archive" element={<MyArchive />} />
         <Route path="/profile/createReport" element={<CreateReport />} />
