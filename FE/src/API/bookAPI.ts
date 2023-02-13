@@ -1,5 +1,5 @@
 import { useMyQuery } from '../hooks/useMyQuery';
-import { bookApiUrls, searchAPIUrl } from './apiUrls';
+import { bookApiUrls, searchAPIUrl, bookAPIUrls } from './apiUrls';
 import axios from 'axios';
 
 export const bestSellerAPI = () => {
@@ -28,5 +28,10 @@ export const registerBook = async () => {};
 
 export const searchAPI = (input: string) => {
   const response = useMyQuery(searchAPIUrl + input);
+  return response;
+};
+
+export const bookDetailAPI = (isbn: string) => {
+  const response = useMyQuery(bookAPIUrls.bookDetail + isbn);
   return response;
 };
