@@ -130,9 +130,9 @@ public class BookServiceImpl implements BookService {
 
 		Member writer = new Member();
 		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
-		if(tmpUser.isPresent()){
+		if (tmpUser.isPresent()) {
 			writer = tmpUser.get();
-		}else{
+		} else {
 			writer = tmpUser.orElse(null);
 			resultResponseDto.setResult(false);
 			return resultResponseDto;
@@ -144,7 +144,8 @@ public class BookServiceImpl implements BookService {
 		resultResponseDto.setResult(true);
 
 		return resultResponseDto;
-
+	}
+	
 	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn) {
 		List<OwnCommentDetailDto> commentDtoList = new ArrayList<>();
 		// List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
