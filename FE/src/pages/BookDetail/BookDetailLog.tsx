@@ -1,16 +1,16 @@
 import React from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 import Header from '@components/Header/Header';
 import LogTab from '@components/BookDetailLog/LogTab';
 
-function BookDetailLog () {
-  const {state} = useLocation();
+function BookDetailLog() {
+  const { state } = useLocation();
 
   return (
-    <div>
-      <Header text="북 데이터 로그(임시 헤더)"/>
-      <LogTab tab={state}/>
+    <div style={{ padding: '0px 10px' }}>
+      <Header text="{책 제목}" />
+      <LogTab tab={state} />
     </div>
   );
 }
