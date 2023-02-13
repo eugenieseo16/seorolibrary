@@ -200,6 +200,26 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public BookCommentResponseDto viewBookComment(String isbn) {
+		BookCommentResponseDto responseDto = new BookCommentResponseDto();
+		List<OwnBook> findBook = ownBookRepository.findByIsbn(isbn);
+		List<BookCommentDto> comments = new ArrayList<>();
+		for(OwnBook ob : findBook) {
+			BookCommentDto dto = BookCommentDto.builder()
+					.memberId(ob.getMember().getMemberId())
+					.memberName(ob.getMember().getMemberName())
+					.memberProfile(ob.getMember().getMemberProfile())
+					.comment(ob.getOwnComment())
+					.build();
+			comments.add(dto);
+		}
+
+		responseDto.setResult(true);
+		responseDto.setComments(comments);
+		return responseDto;
+	}
+
+	@Override
 	public ReviewDto findReviewByIsbnAndMemberId(String isbn) {
 		Long member_id=1L;
 		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);

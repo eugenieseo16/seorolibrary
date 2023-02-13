@@ -71,11 +71,12 @@ public class BookController {
 	// 리뷰
 	@GetMapping("detail/review/{isbn}")
 	public BookReviewResponseDto viewBookReview(@PathVariable("isbn") String isbn) {
-		System.out.println("isbn = " + isbn);
 		return bookService.viewBookReview(isbn);
 	}
 
 	// 한줄평
-//	@GetMapping("detail/comment/{isbn}")
-//	public
+	@GetMapping("detail/comment/{isbn}")
+	public BookCommentResponseDto viewBookComment(@PathVariable("isbn") String isbn) {
+		return bookService.viewBookComment(isbn);
+	}
 }
