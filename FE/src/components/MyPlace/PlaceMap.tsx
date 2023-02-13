@@ -44,10 +44,6 @@ function PlaceMap() {
         }
       },
     );
-
-    return () => {
-      map.setMap(null);
-    };
   }, []);
 
   return (

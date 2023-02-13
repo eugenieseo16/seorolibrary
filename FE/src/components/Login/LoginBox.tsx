@@ -45,16 +45,12 @@ function LoginBox() {
               placeholder="PASSWORD"
             />
           </Form.Item>
-        </Form>
-      </div>
-      {/* 로그인 버튼 */}
-      <div className="login-button-container">
-        <Form>
-          <Form.Item>
+          <Form.Item className="login-button-container">
             <Button htmlType="submit">로그인</Button>
           </Form.Item>
         </Form>
       </div>
+      {/* 로그인 버튼 */}
     </div>
   );
 }
