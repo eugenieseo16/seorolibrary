@@ -93,13 +93,13 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn) {
 		List<OwnCommentDetailDto> commentDtoList = new ArrayList<>();
-		List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn).;
-		if(ownBooks == null || ownBooks.isEmpty()) {
-			throw new NoSuchElementException("결과 없음");
-		}
-		for (OwnBook ownBook : ownBooks) {
-			commentDtoList.add(new OwnCommentDetailDto(ownBook));
-		}
+		// List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
+		// if(ownBooks == null || ownBooks.isEmpty()) {
+		// 	throw new NoSuchElementException("결과 없음");
+		// }
+		// for (OwnBook ownBook : ownBooks) {
+		// 	commentDtoList.add(new OwnCommentDetailDto(ownBook));
+		// }
 
 		return commentDtoList;
 	}

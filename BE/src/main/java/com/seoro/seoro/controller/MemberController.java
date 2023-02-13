@@ -42,12 +42,12 @@ public class MemberController {
 	public ResultResponseDto signupMember(@RequestBody @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
 		// 취향 선택
 		// 화면에 맞춰 수정
-		Long genre = 0L;
-		Long[] selectGenre = new Long[20];
-		for(int i=0; i<20; i++) {
-			genre = genre & selectGenre[i];
-		}
-		requestDto.setMemberGenre(genre);
+		// Long genre = 0L;
+		// Long[] selectGenre = new Long[20];
+		// for(int i=0; i<20; i++) {
+		// 	genre = genre & selectGenre[i];
+		// }
+		// requestDto.setMemberGenre(genre);
 
 		// 이메일 인증 추가
 
