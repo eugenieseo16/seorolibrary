@@ -60,11 +60,6 @@ public class BookController {
 		return review;
 	}
 
-	@PostMapping("/review/{isbn}")
-	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
-		return bookService.makeReview(isbn, requestDto);
-	}
-
 	// 검색 결과 상세
 
 	// 사용자 도서 상세
