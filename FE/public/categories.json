@@ -1,62 +1,82 @@
 [
   {
-    "value": "경제"
+    "value": 0,
+    "label": "경제"
   },
   {
-    "value": "자기계발"
+    "value": 1,
+    "label": "자기계발"
   },
   {
-    "value": "시/에세이"
+    "value": 2,
+    "label": "시/에세이"
   },
   {
-    "value": "인문"
+    "value": 3,
+    "label": "인문"
   },
   {
-    "value": "종교"
+    "value": 4,
+    "label": "종교"
   },
   {
-    "value": "소설"
+    "value": 5,
+    "label": "소설"
   },
   {
-    "value": "국어/외국어"
+    "value": 6,
+    "label": "국어/외국어"
   },
   {
-    "value": "정치/사회"
+    "value": 7,
+    "label": "정치/사회"
   },
   {
-    "value": "역사/문화"
+    "value": 8,
+    "label": "역사/문화"
   },
   {
-    "value": "과학/공학"
+    "value": 9,
+    "label": "과학/공학"
   },
   {
-    "value": "IT/프로그래밍"
+    "value": 10,
+    "label": "IT/프로그래밍"
   },
   {
-    "value": "건강/의학"
+    "value": 11,
+    "label": "건강/의학"
   },
   {
-    "value": "가정/생활/요리"
+    "value": 12,
+    "label": "가정/생활/요리"
   },
   {
-    "value": "여행/취미"
+    "value": 13,
+    "label": "여행/취미"
   },
   {
-    "value": "예술/대중문화"
+    "value": 14,
+    "label": "예술/대중문화"
   },
   {
-    "value": "유아"
+    "value": 15,
+    "label": "유아"
   },
   {
-    "value": "아동"
+    "value": 16,
+    "label": "아동"
   },
   {
-    "value": "청소년"
+    "value": 17,
+    "label": "청소년"
   },
   {
-    "value": "교재/수험서"
+    "value": 18,
+    "label": "교재/수험서"
   },
   {
-    "value": "외국도서"
+    "value": 19,
+    "label": "외국도서"
   }
 ]
