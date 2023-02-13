@@ -6,6 +6,7 @@ import './Home.styles.scss';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import CarouselHome from '@components/Carousel/CarouselHome';
 import CarouselNearBook from '@components/Carousel/CarouselNearBook';
+import CarouselBestSellerBook from '@components/Carousel/CarouselBestSellerBook';
 import CarouselPlace from '@components/Carousel/CarouselPlace';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 
@@ -22,7 +23,7 @@ function Home() {
       </div>
       <div>
         <h1 className="home-text">베스트 셀러</h1>
-        <CarouselNearBook />
+        <CarouselBestSellerBook />
       </div>
       <div>
         <h1 className="home-text">장소 추천</h1>
