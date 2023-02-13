@@ -61,4 +61,10 @@ public class PlaceController {
 	public ResultResponseDto makeReview(@PathVariable("placeId") Long placeId, @ModelAttribute PlaceReviewAddRequestDto requestDto){
 		return placeService.makeReview(placeId, requestDto);
 	}
+
+	@GetMapping("/dong")
+	public String placeDetail(PlaceAddRequestDto requestDto) throws ParseException, URISyntaxException {
+		String dong = placeService.getDong(requestDto);
+		return dong;
+	}
 }
