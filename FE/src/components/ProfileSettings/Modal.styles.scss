@@ -3,7 +3,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .edit-profile-container {
+    .ant-upload {
+      display: flex;
+      justify-content: center;
+      height: 112px;
+    }
+    .image-item {
+      width: 40%;
+      img {
+        border-radius: 50%;
+        object-fit: cover;
+      }
 
+      .add-item {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+
+        position: relative;
+        bottom: 40px;
+        left: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .ant-select-show-arrow {
+    width: 290px;
+  }
   .edit-profile-container {
     border: none;
     display: flex;
@@ -11,7 +42,7 @@
 
     input,
     .ant-select-selector {
-      height: 2.5rem !important;
+      height: 2rem !important;
     }
     .ant-select-selection-item {
       font-family: 'NEXON';
@@ -19,9 +50,6 @@
     .ant-select-selection-item {
       display: flex;
       align-items: center;
-    }
-    .ant-upload-list-item-container {
-      width: 100% !important;
     }
   }
   .button-item {
