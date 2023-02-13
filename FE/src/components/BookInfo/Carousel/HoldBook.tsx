@@ -13,7 +13,11 @@ const settings = {
   swipeToSlide: true,
 };
 
-function HoldBook() {
+interface IHoldBookProps {
+  isbn: string;
+}
+
+function HoldBook({ isbn }: IHoldBookProps) {
   const booksData = useMyQuery('/books.json');
   const navigate = useNavigate();
 
@@ -24,9 +28,9 @@ function HoldBook() {
         <Slider {...settings} className="user-slider-hold-book">
           {booksData?.map((data: any, i: number) => (
             <div
-            key={i}
-            className="hold-book-container"
-            onClick={() => navigate(`/book/${i}`)}
+              key={i}
+              className="hold-book-container"
+              onClick={() => navigate(`/book/${i}`)}
             >
               <div>
                 <img src={data.image_url} alt="" />
