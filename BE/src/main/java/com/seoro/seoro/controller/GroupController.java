@@ -85,4 +85,19 @@ public class GroupController {
 	public ResultResponseDto delGroupSchedule(@PathVariable("scheduleid") Long scheduleId, @RequestParam("userId") Long userId) {
 		return groupService.delGroupSchedule(scheduleId, userId);
 	}
+
+	@PostMapping("/book")
+	public ResultResponseDto createGroupBook(@ModelAttribute GroupBookCreateRequestDto requestDto) {
+		return groupService.createGroupBook(requestDto);
+	}
+
+	@GetMapping("/book")
+	public GroupBookReadResponseDto readGroupBook(@RequestParam("groupId") Long groupId) {
+		return groupService.readGroupBook(groupId);
+	}
+
+	@DeleteMapping("/book")
+	public ResultResponseDto delGroupBook(@RequestParam("groupBookId") Long groupBookId) {
+		return groupService.deleteGroupBook(groupBookId);
+	}
 }
