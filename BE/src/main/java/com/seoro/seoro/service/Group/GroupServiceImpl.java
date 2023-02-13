@@ -156,6 +156,15 @@ public class GroupServiceImpl implements GroupService{
 			return resultResponseDto;
 		}
 
+		//그룹 장르 저장
+		Long genre = 0L;
+		if(requestDto.getGroupGenres().length > 0) {
+			for(int i=0; i<requestDto.getGroupGenres().length; i++) {
+				genre = genre | (1 << requestDto.getGroupGenres()[i]);
+			}
+			log.info("장르 = {}", genre);
+		}
+
 		saveGroup = Groups.builder()
 			.groupName(requestDto.getGroupName())
 			.host(host)
@@ -163,6 +172,7 @@ public class GroupServiceImpl implements GroupService{
 			.groupCapacity(requestDto.getGroupCapacity())
 			.groupDongCode(requestDto.getGroupDongCode())
 			.groupProfile(requestDto.getGroupProfile())
+			.groupGenre(genre)
 			.groupIntroduction(requestDto.getGroupIntroduction())
 			.groupStartDate(requestDto.getGroupStartDate())
 			.groupEndDate(requestDto.getGroupEndDate())
@@ -192,6 +202,14 @@ public class GroupServiceImpl implements GroupService{
 			return groupDetailResponseDto;
 		}
 
+		Integer[] genres = new Integer[Long.bitCount(group.getGroupGenre())];
+		String p = Long.toBinaryString(group.getGroupGenre());
+		for(int i=p.length()-1, j=0; i>=0; i--) {
+			if(p.charAt(i)=='1') {
+				genres[j++] = p.length() -i -1;
+			}
+		}
+
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
 				.groupName(group.getGroupName())
@@ -200,6 +218,7 @@ public class GroupServiceImpl implements GroupService{
 				.groupDongCode(group.getGroupDongCode())
 				.groupCapacity(group.getGroupCapacity())
 				.groupDescrib(group.getGroupIntroduction())
+			    .groupGenre(genres)
 				.bookCount(group.getBooks().size())
 				.postCount(group.getPosts().size())
 				.meetingCount(group.getMeetings().size())
