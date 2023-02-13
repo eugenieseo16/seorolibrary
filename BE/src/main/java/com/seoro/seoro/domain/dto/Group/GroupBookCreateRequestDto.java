@@ -1,16 +1,21 @@
 package com.seoro.seoro.domain.dto.Group;
 
+import com.seoro.seoro.domain.entity.Groups.Groups;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupBookDto {
-	private Long groupBookId;
+@Builder
+public class GroupBookCreateRequestDto {
+	private Long userId;
+	private Long groupId;
 	private String isbn;
 	private String bookTitle;
 	private String bookImage;
