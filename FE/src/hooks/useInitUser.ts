@@ -7,25 +7,17 @@ import { useDispatch } from 'react-redux';
  * 유저 위치정보 받고, 전역으로 설정 => redux
  */
 const testUser = {
-  username: 'user1',
-  email: 'user1@a.a',
-  _id: '1010',
+  username: 'testUser',
+  email: 'testUser@test.com',
+  _id: '1',
 };
 
 export default function useInitUser() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     const user = localStorage.getItem('ssafy-user');
-    if (!user) {
-      dispatch(login(testUser));
-    } else {
+    if (user) {
       dispatch(login(JSON.parse(user)));
     }
-    navigator.geolocation.getCurrentPosition(
-      ({ coords: { latitude, longitude } }) => {
-        dispatch(updateLocation({ latitude, longitude }));
-      },
-    );
   }, []);
 }
