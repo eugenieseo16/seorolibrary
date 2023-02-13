@@ -23,6 +23,7 @@ public class GroupDetailResponseDto {
 	private Date groupEndDate;
 	private String groupDongCode;
 	private Integer groupCapacity;
+	private Integer[] groupGenre;
 	private String groupDescrib;
 	private Integer bookCount;
 	private Integer postCount;
