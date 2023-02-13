@@ -48,28 +48,35 @@ public class MemberController {
 		log.info("name: " + requestDto.getMemberName());
 		log.info("password: " + requestDto.getMemberPassword());
 		log.info("dupchkPassword: " + requestDto.getDupchkPassword());
-		// 취향 선택
-		// 화면에 맞춰 수정
-		// Long genre = 0L;
-		// Long[] selectGenre = new Long[20];
-		// for(int i=0; i<20; i++) {
-		// 	genre = genre & selectGenre[i];
-		// }
-		// requestDto.setMemberGenre(genre);
 
 		// 이메일 인증 추가
 
-		// 에러 메세지
+		// 유효값 검사
+		ResultResponseDto responseDto = new ResultResponseDto();
+		Map<String, String> errorMap = new HashMap<>();
 		if(bindingResult.hasErrors()) {
-			Map<String, String> errorMap = new HashMap<>();
 			for(FieldError error : bindingResult.getFieldErrors()) {
 				errorMap.put("valid+" + error.getField(), error.getDefaultMessage());
 				log.info("error message : "+error.getDefaultMessage());
 			}
+		}
 
-			ResultResponseDto responseDto = new ResultResponseDto();
-			responseDto.setResult(false);
+		// 중복 검사
+		if(memberService.checkEmailDuplication(requestDto.getMemberEmail())) {
+			errorMap.put("valid+memberEmail", "이미 존재하는 이메일입니다.");
+		}
+
+		if(memberService.chechNameDuplication(requestDto.getMemberName())) {
+			errorMap.put("valid+memberName", "이미 존재하는 닉네임입니다.");
+		}
+
+		if(memberService.checkPasswordDuplication(requestDto.getMemberPassword(), requestDto.getDupchkPassword())) {
+			errorMap.put("valid+dupchkPassword", "비밀번호가 일치하지 않습니다.");
+		}
+
+		if(0 < errorMap.size()) {
 			responseDto.setErrorMap(errorMap);
+			responseDto.setResult(false);
 
 			return responseDto;
 		}
@@ -102,18 +109,6 @@ public class MemberController {
 	public void logout(@RequestHeader("Authorization") String accessToken, @RequestHeader("RefreshToken") String refreshToken) {
 		String username = jwtTokenUtil.getUsername(resolveToken(accessToken));
 		memberService.logout(TokenDto.of(accessToken, refreshToken), username);
-	}
-
-	@GetMapping("/memberName/dupchk/{memberName}")
-	public ResultResponseDto checkNameDuplicate(@PathVariable String memberName) {
-		// 중복이면 true
-		return memberService.chechNameDuplication(memberName);
-	}
-
-	@GetMapping("/memberEmail/dupchk/{memberEmail}")
-	public ResultResponseDto checkEmailDuplicate(@PathVariable String memberEmail) {
-		// 중복이면 true
-		return memberService.checkEmailDuplication(memberEmail);
 	}
 
 	@GetMapping("/{memberName}")
