@@ -16,16 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OwnBookDetailDto {
 	private boolean result;
-	private String isbn;
-	private String bookTitle;
-	private String bookAuthor;
-	private String bookPublisher;
-	private String bookImage;
-	private String bookDescrib;
-	private Date bookPubDate;
-	private Long countReader;
-	private Long countComment;
-	private Long countReview;
+	private BookDetailDto bookDetailDto;
 	private String ownComment;
 	private boolean isOwn;
 	private List<OwnBookDto> ownBooks;
