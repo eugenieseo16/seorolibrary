@@ -1,18 +1,39 @@
 import React, { useState } from 'react';
 import logo from '@src/assets/logo/seoro_vertical.png';
 import { LockOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, notification, Form, Input } from 'antd';
 
 import './SignupBox.styles.scss';
-import { ISignUpForm, signUpAPI } from '@src/API/authAPI';
+import { ISignUpForm, loginAPI, signUpAPI } from '@src/API/authAPI';
+import { useDispatch } from 'react-redux';
+import { login } from '@src/store/slices/userSlice';
 
 function SignupBox() {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [api, contextHolder] = notification.useNotification();
+
   const onSubmit = async (data: ISignUpForm) => {
+    if (loading) return;
+    setLoading(true);
     const { data: response } = await signUpAPI(data);
-    console.log(response);
+    if (response.result) {
+      const { data: loginResponse } = await loginAPI({
+        email: data.memberEmail,
+        password: data.memberPassword,
+      });
+      dispatch(login({ ...loginResponse, username: data.memberName }));
+    } else {
+      api.open({
+        message: <h2 style={{ color: 'tomato' }}>서버에러</h2>,
+        description: '이메일 중복!',
+      });
+    }
+    setLoading(false);
   };
   return (
     <div className="signup-box">
+      {contextHolder}
       {/* 로고 */}
       <div>
         <img src={logo} alt="" />
