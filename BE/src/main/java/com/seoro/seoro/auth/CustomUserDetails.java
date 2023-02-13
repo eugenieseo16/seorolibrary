@@ -26,7 +26,7 @@ public class CustomUserDetails implements UserDetails {
 
 	public static UserDetails of(Member member) {
 		return CustomUserDetails.builder()
-			.username(member.getMemberName())
+			.username(member.getMemberEmail())
 			.password(member.getMemberPassword())
 			.build();
 	}

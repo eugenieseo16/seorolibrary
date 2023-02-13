@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberDto {
 	private boolean result;
+	private Long memberId;
 	private String memberEmail;
 	private String memberName;
 	private String memberProfile;
@@ -25,6 +26,7 @@ public class MemberDto {
 
 	public MemberDto(Member member) {
 		this.result = true;
+		this.memberId = member.getMemberId();
 		this.memberEmail = member.getMemberEmail();
 		this.memberName = member.getMemberName();
 		this.memberProfile = member.getMemberProfile();
