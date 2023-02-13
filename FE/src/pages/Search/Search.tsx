@@ -7,6 +7,7 @@ import './Search.styles.scss';
 import ToggleNav from '@components/ToggleNav/ToggleNav';
 import BookResult from '@components/Search/BookResult';
 import UserResult from '@components/Search/UserResult';
+import CarouselBestSellerBook from '@components/Carousel/CarouselBestSellerBook';
 
 function SearchResultTab() {
   const [selectedId, setSelectedId] = useState('book');
@@ -57,8 +58,17 @@ function SearchResultTab() {
       ) : (
         <div>
           {/* 검색어가 없으면 */}
-          <h1>검색결과가 없으면 무엇을 보여줄까요옹?</h1>
-          <div></div>
+          <div className="before-search-container">
+            <div className="before-search-item">
+              <span>도서 제목</span>,⠀<span>작가</span>⠀또는⠀
+              <span>사용자</span>
+              <p>를 검색해보세요.</p>
+            </div>
+            <div className="best-seller-item">
+              <h1>베스트 셀러</h1>
+              <CarouselBestSellerBook />
+            </div>
+          </div>
         </div>
       )}
     </div>
