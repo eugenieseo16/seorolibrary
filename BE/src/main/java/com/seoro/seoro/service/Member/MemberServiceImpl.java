@@ -1,7 +1,9 @@
 package com.seoro.seoro.service.Member;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -46,7 +48,6 @@ public class MemberServiceImpl implements MemberService {
 	private final RefreshTokenRedisRepository refreshTokenRedisRepository;
 	private final LogoutAccessTokenRedisRepositoty logoutAccessTokenRedisRepositoty;
 	private final JwtTokenUtil jwtTokenUtil;
-	private final CustomUserDetailService customUserDetailService;
 
 	@Override
 	public ResultResponseDto signupMember(MemberSignupDto requestDto) {
@@ -109,11 +110,12 @@ public class MemberServiceImpl implements MemberService {
 		Member member = new Member();
 		MemberDto responseDto = new MemberDto();
 
-		Member viewMember =  memberRepository.findByMemberName(memberName).orElseThrow(() -> new NoSuchElementException("회원이 없습니다"));
+		Member viewMember =  memberRepository.findByMemberName(memberName).orElse(null);
 		if(viewMember != null) {
 			responseDto = new MemberDto(viewMember);
 			responseDto.setResult(true);
 		} else {
+			responseDto.setMessege("회원 정보가 없습니다");
 			responseDto.setResult(false);
 			return responseDto;
 		}
@@ -123,7 +125,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberDto modifyProfile(MemberUpdateDto requestDto, String memberName) {
-		Member member = memberRepository.findByMemberName(memberName).get();
+		Member member = memberRepository.findByMemberName(memberName).orElse(null);
 		MemberDto responseDto = new MemberDto(member);
 
 		if(member != null) {
@@ -143,6 +145,7 @@ public class MemberServiceImpl implements MemberService {
 			memberRepository.save(newMember);
 			responseDto.setResult(true);
 		} else {
+			responseDto.setMessege("회원 정보가 없습니다.");
 			responseDto.setResult(false);
 			return responseDto;
 		}
@@ -174,12 +177,12 @@ public class MemberServiceImpl implements MemberService {
 				memberRepository.save(newMember);
 				responseDto.setResult(true);
 			} else {
-				log.info("새 비밀번호가 일치하지 않습니다.");
+				responseDto.setMessege("새 비밀번호가 일치하지 않습니다.");
 				responseDto.setResult(false);
 				return responseDto;
 			}
 		} else {
-			log.info("현재 비밀번호와 일치하지 않습니다.");
+			responseDto.setMessege("현재 비밀번호와 일치하지 않습니다.");
 			responseDto.setResult(false);
 			return responseDto;
 		}
@@ -195,6 +198,10 @@ public class MemberServiceImpl implements MemberService {
 		if(member != null) {
 			memberRepository.delete(member);
 			responseDto.setResult(true);
+		} else {
+			responseDto.setMessege("회원 정보가 없습니다.");
+			responseDto.setResult(false);
+			return responseDto;
 		}
 
 		return responseDto;
@@ -204,12 +211,25 @@ public class MemberServiceImpl implements MemberService {
 	public TokenDto login(LoginDto requestDto) {
 		log.info("email " + requestDto.getEmail());
 		log.info("password " + requestDto.getPassword());
-		Member member = memberRepository.findByMemberEmail(requestDto.getEmail()).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
-		checkPassword(requestDto.getPassword(), member.getMemberPassword());
 
-		// String username = member.getMemberEmail();
+		Member member = memberRepository.findByMemberEmail(requestDto.getEmail()).orElse(null);
+		if(member == null) {
+			TokenDto tokenDto = new TokenDto();
+			tokenDto.setMessege("이메일 정보가 없습니다.");
+			return tokenDto;
+		}
+
+		// 비밀번호 불일치 핸들러
+		if(!passwordEncoder.matches(requestDto.getPassword(), member.getMemberPassword())) {
+			TokenDto tokenDto = new TokenDto();
+			tokenDto.setMessege("비밀번호가 일치하지 않습니다.");
+			return tokenDto;
+		}
+
 		String accessToken = jwtTokenUtil.generateAccessToken(requestDto.getEmail());
 		RefreshToken refreshToken = saveRefreshToken(requestDto.getEmail());
+
+		// 만료 토큰 핸들러
 
 		return TokenDto.of(accessToken, refreshToken.getRefreshToken());
 	}
@@ -220,12 +240,6 @@ public class MemberServiceImpl implements MemberService {
 		long remainMilliSeconds = jwtTokenUtil.getRemainMilliSeconds(accessToken);
 		refreshTokenRedisRepository.deleteById(username);
 		logoutAccessTokenRedisRepositoty.save(LogoutAcessToken.of(accessToken, username, remainMilliSeconds));
-	}
-
-	private void checkPassword(String rawPassword, String findMemberPassword) {
-		if(!passwordEncoder.matches(rawPassword, findMemberPassword)) {
-			throw new IllegalArgumentException("비밀번호가 맞지 않습니다.");
-		}
 	}
 
 	private RefreshToken saveRefreshToken(String username) {
@@ -247,15 +261,24 @@ public class MemberServiceImpl implements MemberService {
 
 		if(refreshToken.equals(redisRefreshToken.getRefreshToken())) {
 			return reissueRefreshToken(refreshToken, username);
+		} else {
+			TokenDto tokenDto = new TokenDto();
+			tokenDto.setMessege("토큰이 일치하지 않습니다.");
+			return tokenDto;
 		}
-		throw new IllegalArgumentException("토큰이 일치하지 않습니다");
 	}
 
-	// 하는 중
 	@Override
 	public MemberDto viewMemberInfo(String username) {
-		Member member = memberRepository.findByMemberEmail(username).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
-		MemberDto memberDto = new MemberDto(member);
+		Member member = memberRepository.findByMemberEmail(username).orElse(null);
+
+		MemberDto memberDto;
+		if(member == null) {
+			memberDto = new MemberDto();
+			memberDto.setMessege("회원이 없습니다.");
+			return memberDto;
+		}
+		memberDto = new MemberDto(member);
 
 		return memberDto;
 	}

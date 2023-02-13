@@ -1,14 +1,10 @@
 package com.seoro.seoro.controller;
 
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,8 +44,6 @@ public class MemberController {
 		log.info("name: " + requestDto.getMemberName());
 		log.info("password: " + requestDto.getMemberPassword());
 		log.info("dupchkPassword: " + requestDto.getDupchkPassword());
-
-		// 이메일 인증 추가
 
 		// 유효값 검사
 		ResultResponseDto responseDto = new ResultResponseDto();
@@ -92,10 +86,7 @@ public class MemberController {
 	@PostMapping("")
 	private MemberDto viewMemberInfo(@RequestHeader("Authorization") String accessToken) {
 		log.info("Authorization: " + accessToken);
-		// String payloadJWT = accessToken.split("\\.")[1];
 		String username = jwtTokenUtil.getUsername(resolveToken(accessToken));
-		// Base64.Decoder decoder = Base64.getUrlDecoder();
-		// String username = new String(decoder.decode(payloadJWT));
 		log.info("userName: " + username);
 		return memberService.viewMemberInfo(username);
 	}
@@ -119,7 +110,6 @@ public class MemberController {
 	@PutMapping("/{memberName}")
 	public MemberDto modifyProfile(@RequestBody MemberUpdateDto requestDto, @PathVariable String memberName) {
 		System.out.println("memberName: " + memberName);
-		// email 같은 값은 그대로 가는 처리 프론트와 연동
 		return memberService.modifyProfile(requestDto, memberName);
 	}
 
@@ -131,17 +121,6 @@ public class MemberController {
 	@DeleteMapping("{memberName}")
 	public ResultResponseDto removeMember(@PathVariable String memberName) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
-		// 이메일 재입력 주석 처리
-		// MemberDto memberDto = memberService.viewMember(memberName);
-		// if(memberDto.getResult() && memberDto.getMemberName().equals(memberEmail)) {
-		// 	if(memberService.removeMember(memberName).getResult()) {
-		// 		resultResponseDto.setResult(true);
-		// 	} else {
-		// 		resultResponseDto.setResult(false);
-		// 	}
-		// } else {
-		// 	resultResponseDto.setResult(false);
-		// }
 		return memberService.removeMember(memberName);
 	}
 

@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.seoro.seoro.util.JwtTokenUtil;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,10 +35,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		String accessToken = getToken(request);
 		if(accessToken != null) {
+			// 만료된 토큰인지 검사
+			
 			checkLogout(accessToken); // 로그아웃 토큰인지 검사
 			String username = jwtTokenUtil.getUsername(accessToken);
-			// log.info("doFilterInternal");
-			// log.info("username: " + username);
+
 			if(username != null) {
 				// 토큰의 username과 userDetailServiced의 username이 같은지 검사
 				UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
