@@ -26,5 +26,5 @@ public interface MemberService {
 	public TokenDto login(LoginDto requestDto);
 	public void logout(TokenDto tokenDto, String username);
 	public TokenDto reissue(String refreshToken);
-	public MemberDto viewMemberInfo(User user);
+	public MemberDto viewMemberInfo(String userName);
 }
