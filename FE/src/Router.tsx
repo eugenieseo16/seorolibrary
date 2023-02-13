@@ -22,8 +22,6 @@ import ChangePassword from '@pages/ProfileSettings/ChangePassword';
 import MyArchive from '@pages/MyArchive/MyArchive';
 import CreateReport from '@pages/MyArchive/CreateReport';
 
-import Login from '@pages/Login';
-import Signup from '@pages/Signup';
 import WithNavLayout from '@pages/layouts/WithNavLayout';
 
 import BookClub from '@pages/BookClub/BookClub';
@@ -46,13 +44,10 @@ import ChatsList from '@pages/Chats/ChatsList';
 import Chat from '@pages/Chats/Chat';
 
 function Router() {
-  const user = useSelector((state: any) => state.user);
   return (
     <Routes>
       <Route path="" element={<WithNavLayout />}>
         <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
 
         <Route path="/search" element={<Search />} />
 
