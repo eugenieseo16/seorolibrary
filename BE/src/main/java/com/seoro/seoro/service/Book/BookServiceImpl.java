@@ -16,18 +16,14 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.NoSuchElementException;
 
+import com.seoro.seoro.domain.dto.Book.*;
+import com.seoro.seoro.domain.entity.Book.ReadBook;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.seoro.seoro.domain.dto.Book.BookDetailDto;
-import com.seoro.seoro.domain.dto.Book.OwnBookDetailDto;
-import com.seoro.seoro.domain.dto.Book.OwnBookDto;
-import com.seoro.seoro.domain.dto.Book.OwnCommentDetailDto;
-import com.seoro.seoro.domain.dto.Book.ShowBookDto;
-import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.Review;
@@ -65,7 +61,7 @@ public class BookServiceImpl implements BookService {
 		Review review = Review.builder()
 			.member(writer)
 			.reviewContent(requestDto.getReviewContent())
-			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()).get())
+//			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()).get())
 			.build();
 		reviewRepository.save(review);
 		resultResponseDto.setResult(true);
@@ -118,7 +114,7 @@ public class BookServiceImpl implements BookService {
 			.member(writer)
 			.reviewId(saveReview.getReviewId())
 			.reviewContent(requestDto.getReviewContent())
-			.readBook(readBookRepository.findByIsbn(isbn).get())
+//			.readBook(readBookRepository.findByIsbn(isbn).get())
 			.build();
 		reviewRepository.save(saveReview);
 		resultResponseDto.setResult(true);
@@ -176,6 +172,51 @@ public class BookServiceImpl implements BookService {
 		ownBookRepository.save(ownBook);
 
 		return requestDto;
+	}
+
+	@Override
+	public BookReviewResponseDto viewBookReview(String isbn) {
+		BookReviewResponseDto responseDto = new BookReviewResponseDto();
+		List<ReadBook> findBooks = readBookRepository.findByIsbn(isbn);
+
+		List<BookReviewDto> reviews = new ArrayList<>();
+		for(ReadBook rb : findBooks) {
+			List<Review> getReviews = rb.getReviews();
+			for(Review r : getReviews) {
+				BookReviewDto dto = BookReviewDto.builder()
+						.memberId(r.getMember().getMemberId())
+						.memberName(r.getMember().getMemberName())
+						.memberProfile(r.getMember().getMemberProfile())
+						.reviewId(r.getReviewId())
+						.reviewContent(r.getReviewContent())
+						.build();
+				reviews.add(dto);
+			}
+		}
+
+		responseDto.setResult(true);
+		responseDto.setReviews(reviews);
+		return responseDto;
+	}
+
+	@Override
+	public BookCommentResponseDto viewBookComment(String isbn) {
+		BookCommentResponseDto responseDto = new BookCommentResponseDto();
+		List<OwnBook> findBook = ownBookRepository.findByIsbn(isbn);
+		List<BookCommentDto> comments = new ArrayList<>();
+		for(OwnBook ob : findBook) {
+			BookCommentDto dto = BookCommentDto.builder()
+					.memberId(ob.getMember().getMemberId())
+					.memberName(ob.getMember().getMemberName())
+					.memberProfile(ob.getMember().getMemberProfile())
+					.comment(ob.getOwnComment())
+					.build();
+			comments.add(dto);
+		}
+
+		responseDto.setResult(true);
+		responseDto.setComments(comments);
+		return responseDto;
 	}
 
 	@Override
