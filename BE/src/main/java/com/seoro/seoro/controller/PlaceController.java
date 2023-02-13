@@ -1,7 +1,10 @@
 package com.seoro.seoro.controller;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,27 +28,35 @@ public class PlaceController {
 
 	private final PlaceService placeService;
 
+	//내 주변 모든 장소 출력
 	@GetMapping()
 	public List<PlaceShowDto> findAllPlaces(@ModelAttribute Long memberId){
 		return placeService.findAllPlaces(memberId);
 	}
 
+	//장소 추가
 	@PostMapping()
-	public ResultResponseDto addPlace(@ModelAttribute PlaceAddRequestDto requestDto){
+	public ResultResponseDto addPlace(@ModelAttribute PlaceAddRequestDto requestDto) throws
+		IOException,
+		URISyntaxException,
+		ParseException {
 		return placeService.addPlace(requestDto);
 	}
 
+	//내가 추가한 장소, 내가 리뷰쓴 장소 출력
 	@GetMapping("/my")
 	public List<PlaceShowDto>[] findMyPlaces(@ModelAttribute Long memberId){
 		return placeService.findMyPlaces(memberId);
 	}
 
+	//장소 상세 정보
 	@GetMapping("/detail/{placeId}")
 	public PlaceDto placeDetail(@PathVariable("placeId") Long placeId){
 		PlaceDto placeDto = placeService.placeDetail(placeId);
 		return placeDto;
 	}
 
+	//장소 리뷰 등록
 	@PostMapping("/detail/{placeId}")
 	public ResultResponseDto makeReview(@PathVariable("placeId") Long placeId, @ModelAttribute PlaceReviewAddRequestDto requestDto){
 		return placeService.makeReview(placeId, requestDto);
