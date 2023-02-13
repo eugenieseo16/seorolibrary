@@ -147,7 +147,7 @@ public class GroupServiceImpl implements GroupService{
 		}
 
 		Member host = new Member();
-		Optional<Member> tmpUser = memberRepository.findById(requestDto.getGroupHost());
+		Optional<Member> tmpUser = memberRepository.findById(requestDto.getGroupHostId());
 		if(tmpUser.isPresent()) {
 			host = tmpUser.get();
 		}else {
@@ -432,17 +432,27 @@ public class GroupServiceImpl implements GroupService{
 			responseDto.setResult(false);
 			return responseDto;
 		}
-		if(group.getGroupPassword().equals(requestDto.getWritePassword())) {
-			//비밀번호 맞음
+
+		if(group.getGroupPassword().equals(null)) { //비밀번호 없으면
 			GroupJoin join = GroupJoin.builder()
+				.groups(group)
+				.member(applyMember)
+				.build();
+			groupJoinRepository.save(join);
+			responseDto.setResult(true);
+		} else {
+			if(group.getGroupPassword().equals(requestDto.getWritePassword())) {
+				//비밀번호 맞음
+				GroupJoin join = GroupJoin.builder()
 					.groups(group)
 					.member(applyMember)
 					.build();
-			groupJoinRepository.save(join);
-			responseDto.setResult(true);
-		}
-		else { //비밀번호 틀림
-			responseDto.setResult(false);
+				groupJoinRepository.save(join);
+				responseDto.setResult(true);
+			}
+			else { //비밀번호 틀림
+				responseDto.setResult(false);
+			}
 		}
 
 		return responseDto;
@@ -643,29 +653,100 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public GroupBookDto createGroupBook(GroupBookDto requestDto) {
-		GroupBook groupBook = GroupBook.builder()
-			.groups(requestDto.getGroups())
-			.isbn(requestDto.getIsbn())
-			.bookTitle(requestDto.getBookTitle())
-			.bookImage(requestDto.getBookImage())
-			.build();
-		groupBookRepository.save(groupBook);
-		GroupBookDto groupBookDto = new GroupBookDto(groupBook);
+	public ResultResponseDto createGroupBook(GroupBookCreateRequestDto requestDto) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		//Host 정보 가져오기
+		Member member = new Member();
+		Optional<Member> tmpMember = memberRepository.findById(requestDto.getUserId());
+		if (tmpMember.isPresent()) {
+			member = tmpMember.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
 
-		return groupBookDto;
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(requestDto.getGroupId());
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		if(group.getHost().equals(member)) { //방장일 경우
+			GroupBook groupBook = GroupBook.builder()
+				.groups(group)
+				.isbn(requestDto.getIsbn())
+				.bookTitle(requestDto.getBookTitle())
+				.bookImage(requestDto.getBookImage())
+				.build();
+
+			groupBookRepository.save(groupBook);
+		}
+
+		responseDto.setResult(true);
+		return responseDto;
 	}
 
 	@Override
-	public ResultResponseDto delGroupBook(GroupBookDto groupBookDto) {
-		ResultResponseDto responseDto = new ResultResponseDto();
-
-		Optional<GroupBook> groupBook = groupBookRepository.findByGroups(groupBookDto.getGroups());
-		if(groupBook.isPresent()) {
-			groupBookRepository.delete(groupBook.get());
-			responseDto.setResult(true);
+	public GroupBookReadResponseDto readGroupBook(Long groupId) {
+		GroupBookReadResponseDto responseDto = new GroupBookReadResponseDto();
+		//독서 모임 정보 가져오기
+		Optional<Groups> tmpGroup = groupRepository.findById(groupId);
+		Groups group = new Groups();
+		if (tmpGroup.isPresent()) {
+			group = tmpGroup.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
 		}
 
+		List<GroupBookDto> books = new ArrayList<>();
+		List<GroupBook> groupBooks = group.getBooks();
+		for(GroupBook groupBook : groupBooks) {
+			GroupBookDto dto = GroupBookDto.builder()
+				.groupBookId(groupBook.getGroupBookId())
+				.isbn(groupBook.getIsbn())
+				.bookTitle(groupBook.getBookTitle())
+				.bookImage(groupBook.getBookImage())
+				.build();
+			books.add(dto);
+		}
+
+		responseDto.setResult(true);
+		responseDto.setBooks(books);
 		return responseDto;
 	}
+
+	@Override
+	public ResultResponseDto deleteGroupBook(Long groupBookId) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+		Optional<GroupBook> findBook = groupBookRepository.findById(groupBookId);
+		GroupBook book = new GroupBook();
+		if(findBook.isPresent()) {
+			book = findBook.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		groupBookRepository.deleteById(groupBookId);
+		responseDto.setResult(true);
+		return responseDto;
+	}
+
+	// @Override
+	// public ResultResponseDto delGroupBook(GroupBookCreateRequestDto groupBookDto) {
+	// 	ResultResponseDto responseDto = new ResultResponseDto();
+	//
+	// 	Optional<GroupBook> groupBook = groupBookRepository.findByGroups(groupBookDto.getGroups());
+	// 	if(groupBook.isPresent()) {
+	// 		groupBookRepository.delete(groupBook.get());
+	// 		responseDto.setResult(true);
+	// 	}
+	//
+	// 	return responseDto;
+	// }
 }
