@@ -3,6 +3,8 @@ package com.seoro.seoro.service.Book;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -22,7 +24,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.OwnBook;
@@ -72,10 +80,13 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List findBookByDong(Long memberId) {
 		Member findMember = memberRepository.findByMemberId(memberId);
+		List<ShowBookDto> books = new ArrayList<>();
+		if(findMember==null){
+			return null;
+		}
 		String myDongCode = findMember.getMemberDongCode();
 
 		List<Member> members = memberRepository.findByMemberDongCode(myDongCode);
-		List<ShowBookDto> books = new ArrayList<>();
 		for(Member member : members){
 			if(member.getMemberId().equals(memberId)) continue;
 			List<OwnBook> ownBooks = member.getOwnBooks();
@@ -322,46 +333,32 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<ShowBookDto> findBook(String input) throws IOException, ParseException {
+	public List<ShowBookDto> findBook(String input) throws IOException, ParseException, URISyntaxException {
+		RestTemplate rest = new RestTemplate();
+		HttpHeaders headers= new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		String appkey = "KakaoAK aa8ebbcbc5acc532a0a4d5b0712afc48";
+		headers.set("Authorization", appkey);
+		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
+
 		List<ShowBookDto> output = new ArrayList<>();
-		URL url =new URL("https://books.googleapis.com/books/v1/volumes?q="+URLEncoder.encode(input,"utf-8")+"&maxResults=40&orderBy=relevance&startIndex=0&key=AIzaSyAq7aRYNNlA-r7JOh9GzJrP4ZIQ-3IKP5I");
-		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
-		StringBuilder sb = new StringBuilder();
-		String str = "";
-		while((str=br.readLine())!=null){
-			sb.append(str);
-		}
-		String result = sb.toString();
-		// System.out.println(result);
+		//"https://dapi.kakao.com/v3/search/book?size=50&query="+URLEncoder.encode(input,"utf-8")
+		URI uri =new URI("https://dapi.kakao.com/v3/search/book?size=50&query="+URLEncoder.encode(input,"utf-8"));
+		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
 		JSONParser jsonParser = new JSONParser();
-		JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
-		JSONArray responseResult = (JSONArray)jsonObject.get("items");
-		System.out.println(responseResult.size());
-		for(Object json: responseResult){
-			JSONObject jsonlist = (JSONObject) json;
-			JSONObject volumeInfo = (JSONObject)jsonlist.get("volumeInfo");
-			if(!volumeInfo.containsKey("imageLinks")){
-				System.out.println("이미지없음 ");
-				continue;
-			}
-			System.out.println(volumeInfo);
-			System.out.println("!!!!!!!");
-			ShowBookDto showBookDto = new ShowBookDto();
-			String isbn = "";
-			JSONArray isbnArray = (JSONArray)volumeInfo.get("industryIdentifiers");
-			for(Object isbns : isbnArray){
-				JSONObject isbnObject = (JSONObject)isbns;
-				if(isbnObject.get("type").toString().equals("ISBN_13")){
-					isbn = isbnObject.get("identifier").toString();
-				}
-			}
-			JSONObject imageLinks = (JSONObject)volumeInfo.get("imageLinks");
-			System.out.println(imageLinks);
-			System.out.println(isbn);
+		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
+		JSONArray docu = (JSONArray) body.get("documents");
+
+		for(Object json: docu){
+			JSONObject bookObject = (JSONObject) json;
+
 			output.add(ShowBookDto.builder()
-				.bookTitle(volumeInfo.get("title").toString())
-				.bookImage(imageLinks.get("thumbnail").toString())
-				.isbn(isbn)
+				.bookTitle(bookObject.get("title").toString())
+				.bookImage(bookObject.get("thumbnail").toString())
+				.isbn(bookObject.get("isbn").toString())
+				.bookAuthor(bookObject.get("authors").toString())
+				.bookDescrib(bookObject.get("contents").toString())
 				.result(true)
 				.build());
 		}

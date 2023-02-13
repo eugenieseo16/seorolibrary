@@ -1,6 +1,7 @@
 package com.seoro.seoro.service.Book;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import com.seoro.seoro.domain.dto.Book.*;
@@ -18,7 +19,7 @@ public interface BookService {
 
 	public ReviewDto findReviewByIsbnAndMemberId(String isbn);
 
-	public List findBook(String input) throws IOException, ParseException;
+	public List findBook(String input) throws IOException, ParseException, URISyntaxException;
 
 	public BookDetailDto viewBookDetail(String isbn) throws IOException, ParseException;
 	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws IOException, ParseException;
