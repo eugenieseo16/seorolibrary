@@ -8,18 +8,26 @@ import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
+import { clubGenerateAPI } from '@src/API/clubAPI';
+import { useSelector } from 'react-redux';
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
 }
 
 function BookClubGenerate() {
+  const user = useSelector((state: any) => state.user);
   const dongCode = useRef<any>();
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-    console.log(dongCode.current);
+  const onFinish = async (values: any) => {
+    const { data: response } = await clubGenerateAPI({
+      ...values,
+      groupDongCode: '비밀',
+      groupHostId: 1,
+      groupPassword: '1234',
+    });
+    console.log(response);
   };
   const categoriesRes = useMyQuery('/categories.json');
 
@@ -43,14 +51,14 @@ function BookClubGenerate() {
         <Form form={form} onFinish={onFinish}>
           <Form.Item
             label={<Label text="모임이름" />}
-            name="title"
+            name="groupName"
             rules={[{ required: true, message: '모임이름을 알려주세요' }]}
           >
             <Input placeholder="모임이름을 입력해주세요" />
           </Form.Item>
           <Form.Item
             label={<Label text="모임소개" />}
-            name="payload"
+            name="groupIntroduction"
             rules={[{ required: true, message: '모임소개를 해주세요' }]}
           >
             <Input.TextArea rows={4} />
@@ -58,7 +66,7 @@ function BookClubGenerate() {
           <Form.Item
             label={<Label text="카테고리" />}
             rules={[{ required: true, message: '카테고리를 선택해주세요' }]}
-            name="category"
+            name="groupGenres"
           >
             <Select
               mode="multiple"
@@ -69,7 +77,7 @@ function BookClubGenerate() {
           </Form.Item>
           <Form.Item
             label={<Label text="모임정원" />}
-            name="num"
+            name="groupCapacity"
             initialValue={1}
           >
             <InputNumber
@@ -103,7 +111,7 @@ function BookClubGenerate() {
           </div>
           <Form.Item
             label={<Label text="사진" />}
-            name="image"
+            name="groupProfile"
             valuePropName="any"
           >
             <Upload.Dragger {...props}>
