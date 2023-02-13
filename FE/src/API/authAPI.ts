@@ -1,4 +1,4 @@
-import { apiUrls } from './apiUrls';
+import { authApiUrls } from './apiUrls';
 import axios from 'axios';
 
 export interface ILoginForm {
@@ -14,11 +14,11 @@ export interface ISignUpForm extends ILoginForm {
 }
 
 export const signUpAPI = async (data: ISignUpForm) => {
-  const response = await axios.post(apiUrls.signUpAPIUrl, data);
+  const response = await axios.post(authApiUrls.signUpAPIUrl, data);
   return response;
 };
 
 export const loginAPI = async (data: ILoginForm) => {
-  const response = await axios.post(apiUrls.loginAPIUrl, data);
+  const response = await axios.post(authApiUrls.loginAPIUrl, data);
   return response;
 };
