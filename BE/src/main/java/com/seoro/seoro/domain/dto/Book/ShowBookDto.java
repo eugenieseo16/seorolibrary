@@ -23,4 +23,5 @@ public class ShowBookDto {
 	private String bookDescrib;
 	private Date bookPubDate;
 	private Boolean isOwn;
+	private Long memberId;
 }
