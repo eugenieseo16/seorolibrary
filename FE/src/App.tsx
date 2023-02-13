@@ -25,7 +25,7 @@ function App() {
   }, [pathname]);
 
   return (
-    <div className="App" style={{ fontFamily: 'NEXON' }}>
+    <div className="App" style={{ fontFamily: 'NEXON', background: '$beige' }}>
       {fontLoading ? <Loading /> : user ? <Router /> : <AuthForm />}
     </div>
   );
