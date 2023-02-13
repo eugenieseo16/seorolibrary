@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.seoro.seoro.auth.CacheKey;
 import com.seoro.seoro.auth.CustomUserDetailService;
@@ -25,6 +26,7 @@ import com.seoro.seoro.domain.dto.Member.MemberSignupDto;
 import com.seoro.seoro.domain.dto.Member.MemberUpdateDto;
 import com.seoro.seoro.domain.dto.Member.TokenDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
+import com.seoro.seoro.domain.entity.Member.LoginType;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.auth.LogoutAccessTokenRedisRepositoty;
 import com.seoro.seoro.repository.Member.MemberRepository;
@@ -49,29 +51,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ResultResponseDto signupMember(MemberSignupDto requestDto) {
 		ResultResponseDto responseDto = new ResultResponseDto();
-		Member member = new Member();
 
-		if(memberRepository.findByMemberEmail(requestDto.getMemberEmail()).isPresent()) {
-			new RuntimeException("이미 가업된 이메일입니다.");
-			responseDto.setResult(false);
-			return responseDto;
-		}
-		// 비밀번호 재확인 주석 처리
-		// String password = requestDto.getMemberPassword();
-		// String checkPassword = requestDto.getDupchkPassword();
-		// log.info("password: " + password + " dupchk: " + checkPassword);
-		// if(!password.equals(checkPassword)) {
-		// 	log.info("비밀번호 불일치");
-		// 	new RuntimeException("비밀번호가 일치하지 않습니다.");
-		// 	responseDto.setResult(false);
-		// 	return responseDto;
-		// }
-
-		member = Member.builder()
+		Member member = Member.builder()
 			.memberEmail(requestDto.getMemberEmail())
 			.memberName(requestDto.getMemberName())
 			.memberPassword(passwordEncoder.encode(requestDto.getMemberPassword()))
-			.memberGenre(requestDto.getMemberGenre())
+			.memberGenre(0L)
+			.loginType(LoginType.BASIC)
+			.memberDongCode("0")
 			.build();
 
 		memberRepository.save(member);
@@ -81,23 +68,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ResultResponseDto chechNameDuplication(String memberName) {
-		ResultResponseDto responseDto = new ResultResponseDto();
-		boolean nameDuplicate = memberRepository.existsByMemberName(memberName);
-
-		responseDto.setResult(nameDuplicate);
-
-		return responseDto;
+	public boolean chechNameDuplication(String memberName) {
+		return memberRepository.existsByMemberName(memberName);
 	}
 
 	@Override
-	public ResultResponseDto checkEmailDuplication(String memberEmail) {
-		ResultResponseDto responseDto = new ResultResponseDto();
-		boolean emailDuplicate = memberRepository.existsByMemberEmail(memberEmail);
+	public boolean checkEmailDuplication(String memberEmail) {
+		return memberRepository.existsByMemberEmail(memberEmail);
+	}
 
-		responseDto.setResult(emailDuplicate);
-
-		return responseDto;
+	@Override
+	public boolean checkPasswordDuplication(String password, String dupchkPassword) {
+		log.info("password: " + password + " dupchk: " + dupchkPassword);
+		if(!password.equals(dupchkPassword)) {
+			log.info("비밀번호 불일치");
+			return true;
+		}
+		return false;
 	}
 
 	@Override
