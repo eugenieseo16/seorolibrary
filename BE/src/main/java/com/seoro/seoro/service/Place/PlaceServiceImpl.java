@@ -222,4 +222,26 @@ public class PlaceServiceImpl implements PlaceService {
 		return resultResponseDto;
 	}
 
+	@Override
+	public String getDong(PlaceAddRequestDto requestDto) throws ParseException, URISyntaxException {
+		RestTemplate rest = new RestTemplate();
+		HttpHeaders headers= new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		String appkey = "KakaoAK aa8ebbcbc5acc532a0a4d5b0712afc48";
+		headers.set("Authorization", appkey);
+		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
+
+		URI uri = new URI("https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x="+requestDto.getLongitude() +"&y="+requestDto.getLatitude() +"&input_coord=WGS84");
+
+		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
+		JSONParser jsonParser = new JSONParser();
+		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
+		JSONArray docu = (JSONArray) body.get("documents");
+
+		JSONObject addr = (JSONObject)docu.get(1);
+		String placeDong = addr.get("address_name").toString();
+		return placeDong;
+	}
+
 }
