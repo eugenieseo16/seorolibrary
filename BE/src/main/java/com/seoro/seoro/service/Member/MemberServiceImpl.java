@@ -220,9 +220,9 @@ public class MemberServiceImpl implements MemberService {
 		Member member = memberRepository.findByMemberEmail(requestDto.getEmail()).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 		checkPassword(requestDto.getPassword(), member.getMemberPassword());
 
-		String username = member.getMemberName();
-		String accessToken = jwtTokenUtil.generateAccessToken(username);
-		RefreshToken refreshToken = saveRefreshToken(username);
+		// String username = member.getMemberEmail();
+		String accessToken = jwtTokenUtil.generateAccessToken(requestDto.getEmail());
+		RefreshToken refreshToken = saveRefreshToken(requestDto.getEmail());
 
 		return TokenDto.of(accessToken, refreshToken.getRefreshToken());
 	}
@@ -264,13 +264,12 @@ public class MemberServiceImpl implements MemberService {
 		throw new IllegalArgumentException("토큰이 일치하지 않습니다");
 	}
 
+	// 하는 중
 	@Override
-	public MemberDto viewMemberInfo(User user) {
-		log.info("email: " + user.getUsername());
-		log.info("password:" + user.getPassword());
-		String email = user.getUsername();
-		Member member = memberRepository.findByMemberEmail(email).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
+	public MemberDto viewMemberInfo(String username) {
+		Member member = memberRepository.findByMemberEmail(username).orElseThrow(() -> new NoSuchElementException("회원이 없습니다."));
 		MemberDto memberDto = new MemberDto(member);
+
 		return memberDto;
 	}
 

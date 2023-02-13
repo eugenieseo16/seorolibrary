@@ -23,6 +23,8 @@ public class JwtTokenUtil {
 	private String SECRET_KEY;
 
 	public Claims extractAllClaims(String token) {
+		// log.info("extractAllClaims");
+		// log.info("token: " + token);
 		// 토큰 추출 메서드
 		return Jwts.parserBuilder()
 			.setSigningKey(getSigningKey(SECRET_KEY)) // secretkey로 서명
@@ -32,7 +34,8 @@ public class JwtTokenUtil {
 	}
 
 	public String getUsername(String accessToken) {
-		return extractAllClaims(accessToken).get("username", String.class);
+		// return extractAllClaims(accessToken).get("usermame", String.class);
+		return extractAllClaims(accessToken).get("useremail", String.class); // 여기 문제
 	}
 
 	private Key getSigningKey(String secretKey) {
@@ -53,10 +56,14 @@ public class JwtTokenUtil {
 		return doGenerateToken(username, REFRESH_TOKEN_EXPIRATION_TIME.getValue());
 	}
 
-	private String doGenerateToken(String username, long expireTime) {
+	private String doGenerateToken(String useremail, long expireTime) {
+		// log.info("doGenerateToken");
+		// log.info("username: " + useremail);
+
 		// 토큰 생성 메서드
 		Claims claims = Jwts.claims();
-		claims.put("username", username);
+		claims.put("useremail", useremail);
+		log.info(claims.toString());
 
 		return Jwts.builder()
 			.setClaims(claims)

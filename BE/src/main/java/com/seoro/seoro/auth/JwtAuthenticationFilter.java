@@ -36,6 +36,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		if(accessToken != null) {
 			checkLogout(accessToken); // 로그아웃 토큰인지 검사
 			String username = jwtTokenUtil.getUsername(accessToken);
+			// log.info("doFilterInternal");
+			// log.info("username: " + username);
 			if(username != null) {
 				// 토큰의 username과 userDetailServiced의 username이 같은지 검사
 				UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
@@ -61,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private void equalsUsernameFromTokenAndUserDetails(String userDetailsUsername, String tokenUsername) {
 		if (!userDetailsUsername.equals(tokenUsername)) {
-			throw new IllegalArgumentException("username이 토큰과 맞지 않습니다.");
+			throw new IllegalArgumentException("email이 토큰과 맞지 않습니다.");
 		}
 	}
 

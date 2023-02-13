@@ -1,11 +1,13 @@
 package com.seoro.seoro.controller;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -80,9 +82,15 @@ public class MemberController {
 		return memberService.login(requestDto);
 	}
 
-	@GetMapping("/")
-	private MemberDto viewMemberInfo(@AuthenticationPrincipal User user) {
-		return memberService.viewMemberInfo(user);
+	@PostMapping("")
+	private MemberDto viewMemberInfo(@RequestHeader("Authorization") String accessToken) {
+		log.info("Authorization: " + accessToken);
+		// String payloadJWT = accessToken.split("\\.")[1];
+		String username = jwtTokenUtil.getUsername(resolveToken(accessToken));
+		// Base64.Decoder decoder = Base64.getUrlDecoder();
+		// String username = new String(decoder.decode(payloadJWT));
+		log.info("userName: " + username);
+		return memberService.viewMemberInfo(username);
 	}
 
 	@PostMapping("/reissue")
