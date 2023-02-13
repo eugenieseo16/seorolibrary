@@ -8,6 +8,7 @@ import ToggleNav from '@components/ToggleNav/ToggleNav';
 import BookResult from '@components/Search/BookResult';
 import UserResult from '@components/Search/UserResult';
 import CarouselBestSellerBook from '@components/Carousel/CarouselBestSellerBook';
+import { searchAPI } from '@src/API/BookAPI';
 
 function SearchResultTab() {
   const [selectedId, setSelectedId] = useState('book');
@@ -53,7 +54,11 @@ function SearchResultTab() {
               { text: '사용자', id: 'user' },
             ]}
           />
-          {selectedId === 'book' ? <BookResult /> : <UserResult />}
+          {selectedId === 'book' ? (
+            <BookResult input={query} />
+          ) : (
+            <UserResult input={query} />
+          )}
         </div>
       ) : (
         <div>
