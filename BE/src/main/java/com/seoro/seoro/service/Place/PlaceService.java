@@ -1,7 +1,10 @@
 package com.seoro.seoro.service.Place;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
@@ -17,7 +20,7 @@ public interface PlaceService {
 
 	List<PlaceShowDto>[] findMyPlaces(Long memberId);
 
-	ResultResponseDto addPlace(PlaceAddRequestDto requestDto);
+	ResultResponseDto addPlace(PlaceAddRequestDto requestDto) throws IOException, URISyntaxException, ParseException;
 
 	PlaceDto placeDetail(Long placeId);
 

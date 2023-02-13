@@ -23,6 +23,7 @@ public class MainController {
 	private final BookService bookService;
 	private final MemberService memberService;
 
+	//사용자 및 도서 검색
 	@GetMapping("/search/{input}")
 	public List<List> searchByInput(@PathVariable String input) throws IOException, ParseException {
 		List<List> result = new ArrayList<>();
@@ -31,11 +32,13 @@ public class MainController {
 		return result;
 	}
 
+	//베스트셀러 출력
 	@GetMapping("/best")
 	public List findBestSeller() throws IOException {
 		return bookService.findBestSeller();
 	}
 
+	//근처 사용자의 보유 도서 조회
 	@GetMapping("/nearbook/{memberId}")
 	public List findNearBook(@PathVariable Long memberId){
 		return bookService.findBookByDong(memberId);
