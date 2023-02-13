@@ -43,6 +43,7 @@ import ClubBooks from '@pages/ClubBooks/ClubBooks';
 import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
 import ClubPlan from '@pages/ClubPlan/ClubPlan';
 import ChatsList from '@pages/Chats/ChatsList';
+import Chat from '@pages/Chats/Chat';
 
 function Router() {
   const user = useSelector((state: any) => state.user);
@@ -90,7 +91,7 @@ function Router() {
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
         <Route path="/chat-list" element={<ChatsList />} />
-        {/* <Route path="/chat/:id" element={<Chats />} /> */}
+        <Route path="/chat/:id" element={<Chat />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
       </Route>
 
