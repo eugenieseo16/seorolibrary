@@ -1,9 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 import Modal from './Modal';
-import { createRoot } from 'react-dom/client';
 import { BiMap } from 'react-icons/bi';
-import { RiEdit2Line } from 'react-icons/ri';
 
 import './EditProfile.styles.scss';
 function EditProfile() {
