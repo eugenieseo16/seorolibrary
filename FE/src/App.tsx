@@ -5,6 +5,7 @@ import Loading from '@pages/Loading';
 import Router from './Router';
 import useLoadFonts from './hooks/useLoadFonts';
 import useInitUser from './hooks/useInitUser';
+import './utils/fireBase';
 
 function App() {
   const fontLoading = useLoadFonts(['BM-Pro', 'NEXON']);
