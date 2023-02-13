@@ -1,7 +1,10 @@
 package com.seoro.seoro.controller;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +36,10 @@ public class PlaceController {
 
 	//장소 추가
 	@PostMapping()
-	public ResultResponseDto addPlace(@ModelAttribute PlaceAddRequestDto requestDto){
+	public ResultResponseDto addPlace(@ModelAttribute PlaceAddRequestDto requestDto) throws
+		IOException,
+		URISyntaxException,
+		ParseException {
 		return placeService.addPlace(requestDto);
 	}
 

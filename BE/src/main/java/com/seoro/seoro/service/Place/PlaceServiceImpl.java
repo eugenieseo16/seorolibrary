@@ -1,11 +1,23 @@
 package com.seoro.seoro.service.Place;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
@@ -21,6 +33,8 @@ import com.seoro.seoro.repository.Member.MemberRepository;
 import com.seoro.seoro.repository.Place.PlacePhotoRepository;
 import com.seoro.seoro.repository.Place.PlaceRepository;
 import com.seoro.seoro.repository.Place.PlaceReviewRepository;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -93,11 +107,31 @@ public class PlaceServiceImpl implements PlaceService {
 	}
 
 	@Override
-	public ResultResponseDto addPlace(PlaceAddRequestDto requestDto) {
+	public ResultResponseDto addPlace(PlaceAddRequestDto requestDto) throws
+		IOException,
+		URISyntaxException,
+		ParseException {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
 		Place savePlace = new Place();
-		//동코드, 좌표 받음
-		String placeDongCode = "";
+		RestTemplate rest = new RestTemplate();
+		HttpHeaders headers= new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		String appkey = "KakaoAK aa8ebbcbc5acc532a0a4d5b0712afc48";
+		headers.set("Authorization", appkey);
+		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
+
+		URI uri = new URI("https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x="+requestDto.getLongitude() +"&y="+requestDto.getLatitude() +"&input_coord=WGS84");
+
+		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
+		JSONParser jsonParser = new JSONParser();
+		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
+		JSONArray docu = (JSONArray) body.get("documents");
+
+		JSONObject addr = (JSONObject)docu.get(1);
+		String placeDong = addr.get("address_name").toString();
+
 		Member maker = new Member();
 		Optional<Member> tmpUser = memberRepository.findById(requestDto.getPlaceMaker());
 		if(tmpUser.isPresent()) {
@@ -113,7 +147,7 @@ public class PlaceServiceImpl implements PlaceService {
 			.placeName(requestDto.getPlaceName())
 			.placeLatitude(requestDto.getLatitude())
 			.placeLongitude(requestDto.getLongitude())
-			.dongCode(placeDongCode)
+			.dongCode(placeDong)
 			.score(0f)
 			.describ(requestDto.getPlacedescrib())
 			.build();
