@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '@src/assets/logo/seoro_vertical.png';
+import logo from '@src/assets/logo/seoro.png';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 
@@ -20,8 +20,9 @@ function LoginBox() {
   return (
     <div className="login-box">
       {/* 로고 */}
-      <div>
+      <div className="logo-container">
         <img src={logo} alt="" />
+        <p>서로 도서관</p>
       </div>
       {/* input form */}
       <div className="login-input-container">
