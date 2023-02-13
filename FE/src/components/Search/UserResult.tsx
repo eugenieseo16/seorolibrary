@@ -3,9 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 
 import './UserResult.styles.scss';
+import { searchAPI } from '@src/API/BookAPI';
 
-function UserResult() {
-  const data = useMyQuery('/userFollowing.json');
+interface IUserResultProps {
+  input: string;
+}
+
+function UserResult({ input }: IUserResultProps) {
+  const data = searchAPI(input)[1];
   const navigate = useNavigate();
 
   return (
@@ -14,10 +19,10 @@ function UserResult() {
         <div
           key={i}
           className="user-follow-item"
-          onClick={() => navigate('/profile/1')}
+          onClick={() => navigate(`/profile/${user.memberName}`)}
         >
-          <img src={user.avatar} alt="" />
-          <p>{user.nickname}</p>
+          <img src={user.memberProfile} alt="" />
+          <p>{user.memberName}</p>
         </div>
       ))}
     </div>
