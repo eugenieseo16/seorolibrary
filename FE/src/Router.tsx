@@ -18,12 +18,11 @@ import BookRegister from '@pages/BookRegister/BookRegister';
 
 import ProfileSettings from '@pages/ProfileSettings/ProfileSettings';
 import ChangePassword from '@pages/ProfileSettings/ChangePassword';
+import Policy from '@pages/ProfileSettings/Policy';
 
 import MyArchive from '@pages/MyArchive/MyArchive';
 import CreateReport from '@pages/MyArchive/CreateReport';
 
-import Login from '@pages/Login';
-import Signup from '@pages/Signup';
 import WithNavLayout from '@pages/layouts/WithNavLayout';
 
 import BookClub from '@pages/BookClub/BookClub';
@@ -43,15 +42,13 @@ import ClubBooks from '@pages/ClubBooks/ClubBooks';
 import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
 import ClubPlan from '@pages/ClubPlan/ClubPlan';
 import ChatsList from '@pages/Chats/ChatsList';
+import Chat from '@pages/Chats/Chat';
 
 function Router() {
-  const user = useSelector((state: any) => state.user);
   return (
     <Routes>
       <Route path="" element={<WithNavLayout />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
 
         <Route path="/search" element={<Search />} />
 
@@ -71,6 +68,7 @@ function Router() {
 
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/settings/password" element={<ChangePassword />} />
+        <Route path="/profile/settings/policy" element={<Policy />} />
 
         <Route path="/profile/archive" element={<MyArchive />} />
         <Route path="/profile/createReport" element={<CreateReport />} />
@@ -90,7 +88,7 @@ function Router() {
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
         <Route path="/chat-list" element={<ChatsList />} />
-        {/* <Route path="/chat/:id" element={<Chats />} /> */}
+        <Route path="/chat/:id" element={<Chat />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
       </Route>
 

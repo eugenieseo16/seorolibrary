@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
-import logo from '@src/assets/logo/seoro_vertical.png';
+import logo from '@src/assets/logo/seoro.png';
 import { LockOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 
 import './SignupBox.styles.scss';
+import { ISignUpForm, signUpAPI } from '@src/API/authAPI';
 
 function SignupBox() {
-  // const [form] = Form.useForm();
-
-  // const onFinish = (values: any) => {
-  //   console.log('Received values of form: ', values);
-  // };
+  const onSubmit = async (data: ISignUpForm) => {
+    const { data: response } = await signUpAPI(data);
+    console.log(response);
+  };
   return (
     <div className="signup-box">
       {/* 로고 */}
-      <div>
+      <div className="logo-container">
         <img src={logo} alt="" />
+        <p>서로 도서관</p>
       </div>
       {/* input form */}
       <div className="signup-input-container">
-        <Form>
+        <Form onFinish={onSubmit}>
           <Form.Item
-            name="email"
+            name="memberEmail"
             // label="E-mail"
             rules={[
               {
@@ -30,7 +31,7 @@ function SignupBox() {
               },
               {
                 required: true,
-                message: '이메일을 입력해주세요',
+                message: '이메일을 알려주세요',
               },
             ]}
           >
@@ -40,14 +41,16 @@ function SignupBox() {
             />
           </Form.Item>
           <Form.Item
-            name="nickname"
-            // label="Nickname"
-            // tooltip="What do you want others to call you?"
+            name="memberName"
             rules={[
               {
                 required: true,
-                message: '닉네임을 입력해주세요',
+                message: '닉네임을 알려주세요',
                 whitespace: true,
+              },
+              {
+                min: 3,
+                message: '닉네임을 3글자 보다 길게 해주세요',
               },
             ]}
           >
@@ -57,12 +60,16 @@ function SignupBox() {
             />
           </Form.Item>
           <Form.Item
-            name="password"
+            name="memberPassword"
             // label="Password"
             rules={[
               {
                 required: true,
-                message: '비밀번호를 입력해주세요',
+                message: '비밀번호를 알려주세요',
+              },
+              {
+                min: 7,
+                message: '비밀번호가 너무 짧아요(7글자 이상)',
               },
             ]}
             hasFeedback
@@ -74,7 +81,7 @@ function SignupBox() {
           </Form.Item>
 
           <Form.Item
-            name="confirm"
+            name="dupchkPassword"
             // label="Confirm Password"
             dependencies={['password']}
             hasFeedback
@@ -85,7 +92,7 @@ function SignupBox() {
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue('password') === value) {
+                  if (getFieldValue('memberPassword') === value) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
@@ -100,12 +107,7 @@ function SignupBox() {
               placeholder="CONFIRM PASSWORD"
             />
           </Form.Item>
-        </Form>
-      </div>
-      {/* 버튼 */}
-      <div className="signup-button-container">
-        <Form>
-          <Form.Item>
+          <Form.Item className="signup-button-container">
             <Button htmlType="submit">회원가입</Button>
           </Form.Item>
         </Form>
