@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class TokenDto {
+	private String messege;
 	private String grantType;
 	private String accessToken;
 	private String refreshToken;

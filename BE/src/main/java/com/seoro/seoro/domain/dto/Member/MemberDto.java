@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberDto {
 	private boolean result;
+	private String messege;
 	private Long memberId;
 	private String memberEmail;
 	private String memberName;
