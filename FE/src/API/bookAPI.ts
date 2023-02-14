@@ -11,8 +11,13 @@ interface ICreateBookReview {
 }
 
 export const bestSellerAPI = () => {
-  const response = useMyQuery(bookApiUrls.bestSellers);
-  return response;
+  const response = useMyQuery('/bestSeller.json');
+
+  return response?.map((data: any) => ({
+    isbn: data.isbn.split(' ')[1],
+    bookImage: data.thumbnail,
+    bookTitle: data.title,
+  }));
 };
 
 export const nearBooksAPI = (memberId: string) => {
