@@ -1,3 +1,4 @@
+import { useMyQuery } from './../hooks/useMyQuery';
 import { authApiUrls } from './apiUrls';
 import axios from 'axios';
 
@@ -35,9 +36,7 @@ export const jwtLoginAPI = async (token: string) => {
   return response;
 };
 
-export const getMyProfileAPI = async (username: string) => {
-  const { data: response } = await axios.get(
-    `${authApiUrls.userProfileAPIUrl}/${username}`,
-  );
-  return response;
+export const getUserProfileAPI = (username: string) => {
+  const data = useMyQuery(`${authApiUrls.userProfileAPIUrl}/${username}`);
+  return data;
 };

@@ -12,6 +12,8 @@ import {
 } from '@src/API/authAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
+import { firebaseDB } from '@src/utils/fireBase';
+import { doc, setDoc } from 'firebase/firestore';
 
 function SignupBox() {
   const [loading, setLoading] = useState(false);
@@ -30,7 +32,11 @@ function SignupBox() {
       const jwtResponse = await jwtLoginAPI(loginResponse.accessToken);
       localStorage.setItem('ssafy-token', loginResponse.accessToken);
       dispatch(login(jwtResponse));
+      setDoc(doc(firebaseDB, jwtResponse?.memberId + '', 'chats-list'), {
+        chatIds: [],
+      });
     } else {
+      console.log(response);
       api.open({
         message: <h2 style={{ color: 'tomato' }}>서버에러</h2>,
         description: '이메일 중복!',

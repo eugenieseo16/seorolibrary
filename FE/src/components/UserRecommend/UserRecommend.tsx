@@ -8,6 +8,7 @@ import { useUser } from '@src/hooks/useUser';
 function UserRecommend() {
   const user = useUser();
   const clubData = useClubMainAPI(user?.memberName);
+  console.log(clubData?.recommendMembers);
   const navigate = useNavigate();
 
   return (
@@ -17,7 +18,7 @@ function UserRecommend() {
           className="user-item"
           key={member.memberId}
           onClick={() =>
-            navigate(`/profile/${member.memberId}`, { state: true })
+            navigate(`/profile/${member.memberName}`, { state: true })
           }
         >
           <img src={member.memberProfile} alt="" />
