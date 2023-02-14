@@ -22,6 +22,8 @@ function Label({ text }: { text: string }) {
 }
 
 const App: React.FC = () => {
+  const categoriesRes = useMyQuery('/categories.json');
+
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
@@ -152,10 +154,23 @@ const App: React.FC = () => {
                 name="location"
               >
                 <Select
-                  // defaultValue="864 Grand Avenue, Ivanhoe, Guam"
                   allowClear
                   placeholder="Please select"
                   options={dongCode}
+                />
+              </Form.Item>
+
+              <Form.Item
+                label={<Label text="카테고리" />}
+                rules={[{ required: true, message: '카테고리를 선택해주세요' }]}
+                name="groupGenres"
+              >
+                <Select
+                  mode="multiple"
+                  allowClear
+                  placeholder="카테고리를 선택해주세요."
+                  options={categoriesRes}
+                  className="selector"
                 />
               </Form.Item>
             </Form>
