@@ -10,6 +10,8 @@ export const authApiUrls = {
 export const clubAPIUrls = {
   clubGenerateAPIUrl: `${apiBaseUrl}/groups/signup`,
   clubMainAPIUrl: `${apiBaseUrl}/groups`,
+  clubMembersAPIUrl: `${apiBaseUrl}/groups/members`,
+  clubEnterAPIUrl: `${apiBaseUrl}/groups/enter`,
 };
 export const bookApiUrls = {
   bestSellers: `${apiBaseUrl}/main/best`,

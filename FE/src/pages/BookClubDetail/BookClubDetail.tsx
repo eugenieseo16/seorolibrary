@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BiMap } from 'react-icons/bi';
@@ -16,9 +16,12 @@ import ClubRecommendCarousel from '@components/Carousel/ClubRecommendCarousel';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import CarouselPlace from '@components/Carousel/CarouselPlace';
 import { useMyQuery } from '@src/hooks/useMyQuery';
+import { useUser } from '@src/hooks/useUser';
+import { clubEnterAPI } from '@src/API/clubAPI';
 
 function BookClubDetail() {
   const { id } = useParams();
+  const user = useUser();
   const usersData: any = useMyQuery(`/userRecommend.json`);
   const detailData: any = useMyQuery(`/clubDetail.json`);
 
@@ -46,6 +49,16 @@ function BookClubDetail() {
     image_url: user.image_url,
     title: user.nickname,
   }));
+
+  const enterClub = async () => {
+    if (!id || !user) return;
+    const response = await clubEnterAPI({
+      groupId: +id,
+      userId: user?.memberId,
+      writePassword: '1234',
+    });
+    console.log(response);
+  };
 
   return (
     <>
@@ -109,13 +122,10 @@ function BookClubDetail() {
         </div>
         <div className="recommend-container">
           <h2>독서모임 추천</h2>
-          <ClubRecommendCarousel />
+          <ClubRecommendCarousel listView={false} />
         </div>
       </div>
-      <FixedBottomButton
-        text={'모임 가입하기'}
-        onClick={() => console.log('hello')}
-      />
+      <FixedBottomButton text={'모임 가입하기'} onClick={enterClub} />
     </>
   );
 }
