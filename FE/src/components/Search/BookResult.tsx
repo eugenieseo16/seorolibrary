@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMyQuery } from '@src/hooks/useMyQuery';
 
 import './BookResult.styles.scss';
 import { searchAPI } from '@src/API/bookAPI';
@@ -10,14 +9,12 @@ interface IBookResultProps {
 }
 
 function BookResult({ input }: IBookResultProps) {
-  const data = searchAPI(input)[0];
   const navigate = useNavigate();
-
-  console.log(data);
+  const data = searchAPI(input);
 
   return (
     <div className="book-result-container">
-      {data?.map((book: any, i: number) => (
+      {data?.books?.map((book: any, i: number) => (
         <div
           key={i}
           className="book-result-item"
