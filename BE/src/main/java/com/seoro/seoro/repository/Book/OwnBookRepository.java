@@ -17,5 +17,7 @@ public interface OwnBookRepository extends JpaRepository<OwnBook, Long> {
 
 	Optional<OwnBook> findByMemberAndIsbn(Member member, String isbn);
 
+	long countByIsbn(String isbn);
+
 	// List findByBook_Isbn(@Param(value= "isbn") String isbn);
 }

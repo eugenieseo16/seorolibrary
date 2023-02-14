@@ -1,6 +1,7 @@
 package com.seoro.seoro.controller;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import com.seoro.seoro.domain.dto.Book.*;
@@ -28,8 +29,10 @@ public class BookController {
 
 	//검색 -> 도서상세정보
 	@GetMapping("/detail/{isbn}")
-	public BookDetailDto viewBookDetail(@PathVariable String isbn) throws IOException, ParseException {
-		return bookService.viewBookDetail(isbn);
+	public BookDetailDto viewBookDetail(@PathVariable String isbn, @ModelAttribute BookRequestDto requestDto) throws
+		ParseException,
+		URISyntaxException {
+		return bookService.viewBookDetail(isbn,requestDto.getMemberId());
 	}
 
 	//도서 리뷰 작성
@@ -63,7 +66,7 @@ public class BookController {
 	@GetMapping("/detail/{memberId}/{isbn}")
 	public OwnBookDetailDto viewOwnBookDetail(
 		@PathVariable("isbn") String isbn, @PathVariable("memberId") Long memberId, List<OwnBookDto> myOwnBooks)
-		throws IOException, ParseException {
+		throws IOException, ParseException, URISyntaxException {
 
 		return bookService.viewOwnBookDetail(isbn, memberId, myOwnBooks);
 	}
