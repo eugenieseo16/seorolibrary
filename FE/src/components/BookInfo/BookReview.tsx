@@ -30,12 +30,12 @@ function BookReview({ isbn }: IBookReviewProps) {
   const bookTitle = bookData?.bookTitle;
   const bookImage = bookData?.bookImage;
   const memberName = user?.memberName;
-  const { mutate } = useMutation(
-    `${bookApiUrls.editBookReview}/${isbn}`,
-    () => {
-      axios;
-    },
-  );
+  // const { mutate } = useMutation(
+  //   `${bookApiUrls.editBookReview}/${isbn}`,
+  //   () => {
+  //     axios;
+  //   },
+  // );
 
   const [toReview, setToReview] = useState(true);
 
