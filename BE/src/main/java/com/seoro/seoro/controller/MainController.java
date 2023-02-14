@@ -40,7 +40,7 @@ public class MainController {
 		}else{
 			result.put("result", false);
 		}
-		result.put("member",memberService.findByMemberNameLike("%"+input+"%"));
+		result.put("member",memberService.findByMemberNameLike(input));
 		return result;
 	}
 

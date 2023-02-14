@@ -10,7 +10,6 @@ import com.seoro.seoro.domain.entity.Member.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-	List<Member> findByMemberNameLike(String memberName);
 	List<Member> findByMemberDongCode(String myDongCode);
 	Optional<Member> findByMemberName(String memberName);
 	Optional<Member> findByMemberEmail(String memberEmail);
@@ -19,4 +18,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 	boolean existsByMemberEmail(String memberEmail);
 
 	Member findByMemberId(Long memberId);
+
+	List<Member> findByMemberNameContaining(String input);
 }
