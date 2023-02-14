@@ -24,3 +24,8 @@ export const geoAPIUrls = {
   dongcodeAPIUrl: `${apiBaseUrl}/place/dong`,
 };
 export const searchAPIUrl = `${apiBaseUrl}/main/search/`;
+
+export const memberAPIUrls = {
+  memberDetail: `${apiBaseUrl}/librarys`,
+  editProfile: `${apiBaseUrl}/members`,
+};
