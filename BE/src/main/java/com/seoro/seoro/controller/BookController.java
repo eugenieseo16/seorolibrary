@@ -55,13 +55,6 @@ public class BookController {
 		return bookService.deleteReview(isbn, reviewId);
 	}
 
-	//도서 리뷰 작성 잘되었는지 확인하려고 만듬.. 삭제해야됨
-	@GetMapping("/review/{isbn}")
-	public ReviewDto searchReviewsByIsbn(@PathVariable String isbn){
-		ReviewDto review = bookService.findReviewByIsbnAndMemberId(isbn);
-		return review;
-	}
-
 	// 검색 결과 상세
 
 	// 사용자 도서 상세
