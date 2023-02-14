@@ -237,8 +237,6 @@ public class MemberServiceImpl implements MemberService {
 		String accessToken = jwtTokenUtil.generateAccessToken(requestDto.getEmail());
 		RefreshToken refreshToken = saveRefreshToken(requestDto.getEmail());
 
-		// 만료 토큰 핸들러
-
 		return TokenDto.of(accessToken, refreshToken.getRefreshToken());
 	}
 
@@ -260,11 +258,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	public TokenDto reissue(String refreshToken) {
-		log.info("refreshToken: " + refreshToken);
 		refreshToken = resolveToken(refreshToken);
-		log.info("refreshToken: " + refreshToken);
 		String username = getCurrentUsername();
-		log.info("username: " + username);
 		RefreshToken redisRefreshToken = refreshTokenRedisRepository.findById(username).orElseThrow(NoSuchElementException::new);
 
 		if(refreshToken.equals(redisRefreshToken.getRefreshToken())) {
