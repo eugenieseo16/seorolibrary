@@ -14,6 +14,7 @@ import { placeRecomendAPI } from '@src/API/placeAPI';
 
 function Home() {
   const user = useUser();
+  console.log(user);
 
   // body -> params로 바뀌면 reverse comment
   const placeData = useMyQuery('/books.json');
