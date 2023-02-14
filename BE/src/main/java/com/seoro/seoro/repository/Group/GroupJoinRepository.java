@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface GroupJoinRepository extends JpaRepository<GroupJoin, Long> {
 
 	List<GroupJoin> findByGroups(Groups group);
+
+	boolean existsByIdAndMemberId(Long groupId, Long memberId);
 }
