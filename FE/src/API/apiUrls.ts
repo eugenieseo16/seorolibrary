@@ -15,6 +15,9 @@ export const bookApiUrls = {
   nearBooks: `${apiBaseUrl}/main/nearbook/`,
   bookSearchUrl: 'https://dapi.kakao.com/v3/search/book?target=title',
   registerBookUrl: `${apiBaseUrl}/librarys`,
+
+  bookReview: `${apiBaseUrl}/book/detail/review/`,
+  bookComment: `${apiBaseUrl}/book/detail/comment/`,
 };
 
 export const searchAPIUrl = `${apiBaseUrl}/main/search/`;

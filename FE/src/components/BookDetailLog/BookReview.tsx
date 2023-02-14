@@ -2,9 +2,16 @@ import React from 'react';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 
 import './BookContent.styles.scss';
+import { bookReviewAPI } from '@src/API/bookAPI';
 
-function BookReview() {
+interface IBookReview {
+  isbn: string;
+}
+function BookReview({ isbn }: IBookReview) {
   const data = useMyQuery('/bookReview.json');
+
+  const test = bookReviewAPI(isbn);
+  console.log(test);
 
   return (
     <div className="book-content-container">

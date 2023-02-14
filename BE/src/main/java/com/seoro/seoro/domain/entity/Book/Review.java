@@ -26,7 +26,7 @@ public class Review implements Serializable {
     private Member member;
     @NotNull
     @ManyToOne(targetEntity = ReadBook.class)
-    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "readBookId", referencedColumnName = "readBookId")
     private ReadBook readBook;
     private String reviewContent;
 }

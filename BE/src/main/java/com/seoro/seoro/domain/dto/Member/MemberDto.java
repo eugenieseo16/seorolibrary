@@ -22,7 +22,7 @@ public class MemberDto {
 	private String memberProfile;
 	private String memberDongCode;
 	private Integer memberScore;
-	private Long memberGenre;
+	private int[] memberGenre;
 
 	public MemberDto(Member member) {
 		this.result = true;
@@ -32,7 +32,7 @@ public class MemberDto {
 		this.memberProfile = member.getMemberProfile();
 		this.memberDongCode = member.getMemberDongCode();
 		this.memberScore = member.getMemberScore();
-		this.memberGenre = member.getMemberGenre();
+//		this.memberGenre = member.getMemberGenre();
 	}
 
 	public boolean getResult() {
