@@ -9,6 +9,8 @@ import './NearBooks.styles.scss';
 import ExchangeAvailable from './ExchangeAvailable';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { IBook, IUser } from '@src/types/types';
+import { nearBooksAPI } from '@src/API/bookAPI';
+import { useUser } from '@src/hooks/useUser';
 
 interface INearBook extends IBook {
   is_available: boolean;
@@ -16,7 +18,8 @@ interface INearBook extends IBook {
 }
 
 function Nearbooks() {
-  const books: INearBook[] = useMyQuery('/books.json');
+  const user = useUser();
+  const books = nearBooksAPI(user?.memberId);
 
   const navigate = useNavigate();
   return (
@@ -28,12 +31,12 @@ function Nearbooks() {
       loader=""
     >
       <Suspense fallback={'Loading...'}>
-        {books?.map((book, i: number) => (
+        {books?.books?.map((book: any, i: number) => (
           <Row key={i} className="book-container">
             <Col span={8}>
               {/* 책 사진 */}
               <img
-                src={book.image_url}
+                src={book.bookImage}
                 alt=""
                 onClick={() => navigate(`/near/bookdetail/${i}`)}
               />
@@ -42,20 +45,20 @@ function Nearbooks() {
             <Col span={15} className="book-description-container">
               <div onClick={() => navigate(`/near/bookdetail/${i}`)}>
                 {/* 책 제목 */}
-                <h2>{book.title}</h2>
+                <h2>{book.bookTitle}</h2>
                 {/* 책 저자 */}
-                <h6>{book.author}</h6>
+                <h6>{book.bookAuthor}</h6>
                 {/* 책 설명 */}
-                <h6>{book.description}</h6>
+                <h6>{book.bookDescrib}</h6>
                 <br />
               </div>
               <div>
                 {/* 이용자 & 거리*/}
                 <h2>
-                  {book.user?.nickname}
-                  {book.user.location}
+                  {book.memberId}
+                  {/* {book.user.location} */}
                 </h2>
-                <ExchangeAvailable />
+                <ExchangeAvailable is_available={book.isOwn} />
               </div>
             </Col>
           </Row>
