@@ -18,6 +18,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
@@ -28,10 +29,13 @@ import com.seoro.seoro.domain.dto.Place.PlaceShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.domain.entity.Place.Place;
+import com.seoro.seoro.domain.entity.Place.PlacePhoto;
 import com.seoro.seoro.domain.entity.Place.PlaceReview;
+import com.seoro.seoro.domain.entity.Place.PlaceReviewPhoto;
 import com.seoro.seoro.repository.Member.MemberRepository;
 import com.seoro.seoro.repository.Place.PlacePhotoRepository;
 import com.seoro.seoro.repository.Place.PlaceRepository;
+import com.seoro.seoro.repository.Place.PlaceReviewPhotoRepository;
 import com.seoro.seoro.repository.Place.PlaceReviewRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
@@ -48,6 +52,7 @@ public class PlaceServiceImpl implements PlaceService {
 	final PlaceReviewRepository placeReviewRepository;
 	final PlacePhotoRepository placePhotoRepository;
 	final MemberRepository memberRepository;
+	final PlaceReviewPhotoRepository placeReviewPhotoRepository;
 
 	@Override
 	public List<PlaceShowDto> findAllPlaces(Long memberId) {
@@ -148,75 +153,173 @@ public class PlaceServiceImpl implements PlaceService {
 			.placeLatitude(requestDto.getLatitude())
 			.placeLongitude(requestDto.getLongitude())
 			.dongCode(placeDong)
-			.score(0f)
+			.total(0d)
+			.score(0d)
 			.describ(requestDto.getPlacedescrib())
 			.build();
 
 		placeRepository.save(savePlace);
+
+		//독서 장소 사진 저장
+		if(requestDto.getPlacePhoto().length > 0) {
+			for(int i=0; i<requestDto.getPlacePhoto().length; i++) {
+				PlacePhoto photo = PlacePhoto.builder()
+					.place(savePlace)
+					.photo(requestDto.getPlacePhoto()[i])
+					.build();
+
+				placePhotoRepository.save(photo);
+			}
+		}
+
 		resultResponseDto.setResult(true);
 		return resultResponseDto;
 	}
 
 	@Override
 	public PlaceDto placeDetail(Long placeId) {
-		Place place=placeRepository.findByPlaceId(placeId);
-		List<PlaceReviewDto> reviews = new ArrayList<PlaceReviewDto>();
-		for(PlaceReview review: place.getReviews()){
-			reviews.add(PlaceReviewDto.builder()
-					.placeReviewPhotos(review.getPhotos())
-					.reviewContent(review.getReviewContent())
-					.memberName(review.getMember().getMemberName())
-					.score(review.getScore())
-				.build());
+		PlaceDto responseDto = new PlaceDto();
+		Place place = new Place();
+		Optional<Place> findPlace = placeRepository.findById(placeId);
+		if(findPlace.isPresent()) {
+			place = findPlace.get();
+		} else {
+			responseDto.setResult(false);
+			return responseDto;
 		}
-		PlaceDto outputDto = PlaceDto.builder()
-			.placeReview(reviews)
-			.placePhoto(place.getPhotos())
+
+		String[] placePhotoDto = new String[place.getPhotos().size()];
+		for(int i=0; i< place.getPhotos().size(); i++) {
+			placePhotoDto[i] = place.getPhotos().get(i).getPhoto();
+		}
+
+		List<PlaceReviewDto> reviews = new ArrayList<>();
+		for(PlaceReview r : place.getReviews()) {
+			List<PlaceReviewPhoto> photos = r.getPhotos();
+			String[] dtoPhotos = new String[photos.size()];
+			for(int i=0; i< photos.size(); i++) {
+				dtoPhotos[i] = photos.get(i).getPhoto();
+			}
+			PlaceReviewDto dto = PlaceReviewDto.builder()
+				.placeReviewId(r.getPlaceReviewId())
+				.score(r.getScore())
+				.memberName(r.getMember().getMemberName())
+				.reviewContent(r.getReviewContent())
+				.placeReviewPhotos(dtoPhotos)
+				.build();
+			reviews.add(dto);
+		}
+
+		responseDto = PlaceDto.builder()
+			.result(true)
+			.placeId(place.getPlaceId())
 			.placeName(place.getPlaceName())
 			.placeLongitude(place.getPlaceLongitude())
 			.placeLatitude(place.getPlaceLatitude())
-			.result(true)
+			.score(place.getScore())
+			.placePhoto(placePhotoDto)
+			.placeReview(reviews)
 			.build();
-		return outputDto;
+
+		return responseDto;
 	}
 
 	@Override
 	public ResultResponseDto makeReview(Long placeId, PlaceReviewAddRequestDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
-		PlaceReview savePlaceReview = new PlaceReview();
-		Place savePlace = placeRepository.findByPlaceId(placeId);
-		Member maker = new Member();
-		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
-		if(tmpUser.isPresent()) {
-			maker = tmpUser.get();
-		}else {
-			System.out.println("멤버 찾기 실패");
-			maker = tmpUser.orElse(null);
+		// PlaceReview savePlaceReview = new PlaceReview();
+		// Place savePlace = placeRepository.findByPlaceId(placeId);
+		// Member maker = new Member();
+		// Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
+		// if(tmpUser.isPresent()) {
+		// 	maker = tmpUser.get();
+		// }else {
+		// 	System.out.println("멤버 찾기 실패");
+		// 	maker = tmpUser.orElse(null);
+		// 	resultResponseDto.setResult(false);
+		// 	return resultResponseDto;
+		// }
+		// int tempReviewSize = savePlace.getReviews().size();
+		// Float tmpScore = savePlace.getScore()*tempReviewSize;
+		// savePlaceReview = PlaceReview.builder()
+		// 	.member(maker)
+		// 	.place(savePlace)
+		// 	.score(requestDto.getScore())
+		// 	.reviewContent(requestDto.getPlacereview())
+		// 	.photos(requestDto.getPlaceReviewPhotos())
+		// 	.build();
+		// placeReviewRepository.save(savePlaceReview);
+		//
+		// savePlace = Place.builder()
+		// 	.placeId(savePlace.getPlaceId())
+		// 	.member(maker)
+		// 	.placeName(savePlace.getPlaceName())
+		// 	.placeLatitude(savePlace.getPlaceLatitude())
+		// 	.placeLongitude(savePlace.getPlaceLongitude())
+		// 	.dongCode(savePlace.getDongCode())
+		// 	.score((tmpScore+requestDto.getScore())/(tempReviewSize+1))
+		// 	.describ(savePlace.getDescrib())
+		// 	.build();
+		// placeRepository.save(savePlace);
+		//
+		// resultResponseDto.setResult(true);
+
+		Optional<Place> findPlace = placeRepository.findById(placeId);
+		Place place = new Place();
+		if(findPlace.isPresent()) {
+			place = findPlace.get();
+		} else {
 			resultResponseDto.setResult(false);
 			return resultResponseDto;
 		}
-		int tempReviewSize = savePlace.getReviews().size();
-		Float tmpScore = savePlace.getScore()*tempReviewSize;
-		savePlaceReview = PlaceReview.builder()
-			.member(maker)
-			.place(savePlace)
-			.score(requestDto.getScore())
-			.reviewContent(requestDto.getPlacereview())
-			.photos(requestDto.getPlaceReviewPhotos())
-			.build();
-		placeReviewRepository.save(savePlaceReview);
 
-		savePlace = Place.builder()
-			.placeId(savePlace.getPlaceId())
-			.member(maker)
-			.placeName(savePlace.getPlaceName())
-			.placeLatitude(savePlace.getPlaceLatitude())
-			.placeLongitude(savePlace.getPlaceLongitude())
-			.dongCode(savePlace.getDongCode())
-			.score((tmpScore+requestDto.getScore())/(tempReviewSize+1))
-			.describ(savePlace.getDescrib())
+		Member member = new Member();
+		Optional<Member> findMember = memberRepository.findByMemberName(requestDto.getMemberName());
+		if(findMember.isPresent()) {
+			member = findMember.get();
+			System.out.println("member = " + member.getMemberName());
+		} else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		//리뷰 저장
+		PlaceReview placeReview = PlaceReview.builder()
+			.score(requestDto.getScore())
+			.member(member)
+			.reviewContent(requestDto.getPlaceReview())
+			.place(place)
 			.build();
-		placeRepository.save(savePlace);
+		placeReviewRepository.save(placeReview);
+
+		//리뷰 사진 저장
+		if(requestDto.getPlaceReviewPhotos().length > 0) {
+			for(int i=0; i<requestDto.getPlaceReviewPhotos().length; i++) {
+				PlaceReviewPhoto photo = PlaceReviewPhoto.builder()
+					.placeReview(placeReview)
+					.photo(requestDto.getPlaceReviewPhotos()[i])
+					.build();
+				placeReviewPhotoRepository.save(photo);
+			}
+		}
+		
+		//장소 총 score 갱신
+		Long countPlaceReview = placeReviewRepository.countByPlace(place);
+		Double newTotal = place.getTotal() + placeReview.getScore();
+		Double newScore = newTotal/countPlaceReview;
+
+		Place updatePlace = Place.builder()
+			.placeId(place.getPlaceId())
+			.placeLatitude(place.getPlaceLatitude())
+			.placeLongitude(place.getPlaceLongitude())
+			.describ(place.getDescrib())
+			.placeName(place.getPlaceName())
+			.total(newTotal)
+			.score(newScore)
+			.member(place.getMember())
+			.build();
+
+		placeRepository.save(updatePlace);
 
 		resultResponseDto.setResult(true);
 		return resultResponseDto;

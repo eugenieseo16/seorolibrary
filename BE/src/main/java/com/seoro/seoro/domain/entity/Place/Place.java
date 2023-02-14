@@ -31,7 +31,8 @@ public class Place implements Serializable {
     private String placeLatitude;
     private String placeLongitude;
 	private String dongCode;
-    private Float score;
+    private Double total;
+    private Double score;
     private String describ;
 
     @Builder.Default

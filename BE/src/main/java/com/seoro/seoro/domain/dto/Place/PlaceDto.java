@@ -20,7 +20,7 @@ public class PlaceDto {
 	private String placeName;
 	private String placeLatitude;
 	private String placeLongitude;
-	private List<PlacePhoto> placePhoto;
+	private String[] placePhoto;
 	private List<PlaceReviewDto> placeReview;
-	private Float score;
+	private Double score;
 }
