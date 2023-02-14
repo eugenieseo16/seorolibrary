@@ -1,80 +1,105 @@
 @import '../../styles/variables';
 
 .book-review-container {
-  .review-header-container{
-    display:flex;
+  .review-header-container {
+    display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .create-review-form{
+  .create-review-form {
     padding: 0px 16px;
     margin-bottom: 20px;
-    
+
     display: flex;
     flex-direction: column;
-    
-    .create-review-header{
+
+    .create-review-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 5px;
 
-      .user-detail-section{
+      .user-detail-section {
         display: flex;
         align-items: center;
-        img{
+        img {
           width: 3rem;
           margin-right: 10px;
+        }
+      }
+
+      .button-section {
+        display: flex;
+        justify-content: end;
+        button {
+          display: flex;
+          align-items: center;
+          padding: 0.5rem 1rem;
+          width: auto;
+          height: 30px;
+          justify-content: center;
+          border: none;
+          border-radius: 25px;
+          background: $brown;
+          color: $beige;
+        }
       }
     }
 
-    .button-section{
-      display: flex;
-      justify-content: end;
-      button {
-        display: flex;
-        align-items: center;
-        padding: 0.5rem 1rem;
-        width: auto;
-        height: 30px;
-        justify-content: center;
-        border: none;
-        border-radius: 25px;
-        background: $brown;
-        color: $beige;
-      }
-    } 
+    textarea {
+      width: 100%;
+      height: 60px;
+      font-size: 15px;
+      font-family: 'NEXON';
+      border-radius: 8px;
+      padding-left: 10px;
+      padding-top: 10px;
+    }
   }
-
-  textarea {
-    width: 100%;
-    height: 60px;
-    font-size: 15px;
-    font-family: 'NEXON';
-    border-radius: 8px;
-    padding-left: 10px;
-    padding-top: 10px;
-  }
-}
 
   .review-item {
     padding: 0.5rem 0rem;
-    .review-user-info {
+    .review-user-info-self {
       display: flex;
-      flex-direction: row;
+      justify-content: space-between;
+      .review-user-info {
+        align-items: center;
+        display: flex;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        img {
+          width: 2.5rem;
+          height: auto;
+        }
+        p {
+          padding: 0px 10px;
+          font-size: rem;
+        }
+      }
+      .review-user-self-item {
+        display: flex;
+        .edit {
+          padding: 0px 10px;
+        }
+        .delete {
+          padding: 0px 5px;
+        }
+      }
+    }
+    .review-user-info {
       align-items: center;
+      display: flex;
       margin-left: 1rem;
       margin-right: 1rem;
-    img{
-      width: 2.5rem;
-      height: auto;
+      img {
+        width: 2.5rem;
+        height: auto;
+      }
+      p {
+        padding: 0px 10px;
+        font-size: rem;
+      }
     }
-    p{
-      padding: 0px 10px;
-      font-size: rem;
-    }
-    }
-
     .review-detail {
       padding: 0.5rem;
       p {
@@ -85,7 +110,7 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;  
+        text-overflow: ellipsis;
       }
     }
   }
