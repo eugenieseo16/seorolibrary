@@ -21,9 +21,7 @@ export const bestSellerAPI = () => {
 };
 
 export const nearBooksAPI = (memberId: any) => {
-  const response = axios.get(`${bookApiUrls.bookDetail}`, {
-    params: { memberId: memberId },
-  });
+  const response = axios.get(`${bookApiUrls.bookDetail}/${memberId}`);
   return response;
 };
 
