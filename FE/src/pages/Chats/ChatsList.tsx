@@ -17,45 +17,7 @@ import { firebaseDB } from '@src/utils/fireBase';
 import { useSelector } from 'react-redux';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useChatList } from '@src/hooks/useChat';
-const fakeChatList = [
-  {
-    user: {
-      image_url:
-        'https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png',
-      username: 'kim-ssafy',
-      nickname: '김싸피',
-    },
-    lastMessage: '안녕~ 머하고있어?',
-  },
-  {
-    user: {
-      image_url:
-        'https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png',
-      username: 'kim-ssafasdy',
-      nickname: '김싸피',
-    },
-    lastMessage: '안녕~ 머하고있어?',
-  },
-  {
-    user: {
-      image_url:
-        'https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png',
-      username: 'kim-ssadacfy',
-      nickname: '김싸피',
-    },
-    lastMessage: '안녕~ 머하고있어?',
-  },
-  {
-    user: {
-      image_url:
-        'https://blog.kakaocdn.net/dn/bdlmLj/btrFzNz1jd6/y61uXut0qnIPmSuQymgFK1/img.png',
-      username: 'kim-ssb12afy',
-      nickname: '김싸피',
-    },
-    lastMessage:
-      '안녕~ 머하고있어?안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어안녕~ 머하고있어',
-  },
-];
+
 function ChatItem({ data }: any) {
   const user = useSelector((state: any) => state.user);
   // const userData = useMyQuery(
@@ -134,7 +96,6 @@ function ChatsList() {
     <>
       <SearchHeader text="채팅" />
       <div className="chats-list-container">
-        {loading ? 'LOADING' : ''}
         <List>
           {chatList.map((chatData, i) => {
             return <ChatItem key={i} data={chatData} />;

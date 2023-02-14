@@ -1,29 +1,26 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useLocation } from 'react-router-dom';
 
 import ExchangeAvailable from '@components/NearBooks/ExchangeAvailable';
 
-import {
-  RiChatQuoteLine,
-  RiFileList3Line,
-  RiBookOpenLine,
-} from 'react-icons/ri';
 import './BookInfo.styles.scss';
+import { bookDetailAPI } from '@src/API/bookAPI';
 
-function BookInfo() {
-  const getBookInfo = async () => await (await fetch('/bookInfo.json')).json();
-  const { data } = useQuery('book-info', getBookInfo);
-
+interface IBookInfo {
+  isbn: string;
+}
+function BookInfo({ isbn }: IBookInfo) {
   const location = useLocation();
   const isUser = location.pathname.includes('profile');
+
+  const data = bookDetailAPI(isbn);
 
   return (
     <div className="book-info-container">
       {isUser ? (
         <div>
           <div className="book-cover">
-            <img src={data?.image_url} alt="" />
+            <img src={data?.bookImage} alt="" />
           </div>
           <div className="exchange-available">
             <ExchangeAvailable />
@@ -32,21 +29,22 @@ function BookInfo() {
       ) : (
         <div>
           <div className="book-cover">
-            <img src={data?.image_url} alt="" />
+            <img src={data?.bookImage} alt="" />
           </div>
         </div>
       )}
 
       <div className="book-primary-info">
-        <h1>{data?.title}</h1>
+        <h1>{data?.bookTitle}</h1>
         <p>
-          {data?.author} 지음 · {data?.publisher} · {data?.date} 출간
+          {data?.bookAuthor} 지음 · {data?.bookPublisher} · {data?.bookPubDate}{' '}
+          출간
         </p>
       </div>
 
       <h1>책 소개</h1>
       <div className="book-description">
-        <p>{data?.description}</p>
+        <p>{data?.bookDescrib}</p>
       </div>
       <div></div>
     </div>

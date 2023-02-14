@@ -25,4 +25,6 @@ public interface PlaceService {
 	PlaceDto placeDetail(Long placeId);
 
 	ResultResponseDto makeReview(Long placeId, PlaceReviewAddRequestDto requestDto);
+
+	String getDong(PlaceAddRequestDto requestDto) throws ParseException, URISyntaxException;
 }

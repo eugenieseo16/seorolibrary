@@ -12,7 +12,8 @@ import io.lettuce.core.dynamic.annotation.Param;
 
 public interface OwnBookRepository extends JpaRepository<OwnBook, Long> {
 	Long countByMember(Member member);
-	Optional<OwnBook> findByIsbn(String isbn);
+//	Optional<OwnBook> findByIsbn(String isbn);
+	List<OwnBook> findByIsbn(String isbn);
 
 	Optional<OwnBook> findByMemberAndIsbn(Member member, String isbn);
 

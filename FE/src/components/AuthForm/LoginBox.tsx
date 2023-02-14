@@ -16,10 +16,11 @@ function LoginBox() {
   const onFinish = async (data: any) => {
     if (loading) return;
     setLoading(true);
-    const { data: response } = await loginAPI(data);
-    if (response) {
-      dispatch(login({ ...response, username: 'test' }));
-    } else {
+    try {
+      const { data: response } = await loginAPI(data);
+      console.log(response);
+      // dispatch(login({ ...response }));
+    } catch {
       api.open({
         message: <h2 style={{ color: 'tomato' }}>서버에러</h2>,
         description: '이메일 또는 비밀번호를 확인해 주세요',

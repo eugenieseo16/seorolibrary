@@ -110,6 +110,7 @@ public class MemberController {
 	@PutMapping("/{memberName}")
 	public MemberDto modifyProfile(@RequestBody MemberUpdateDto requestDto, @PathVariable String memberName) {
 		System.out.println("memberName: " + memberName);
+		// email 같은 값은 그대로 가는 처리 프론트와 연동
 		return memberService.modifyProfile(requestDto, memberName);
 	}
 
