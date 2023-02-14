@@ -112,7 +112,6 @@ public class LibraryServiceImpl implements LibraryService {
 		responseDto.setMyFollowings(countFollowing);
 
 		// 팔로잉 여부
-		// 확인 필요
 		boolean isFollowing;
 		if(!isOwn) {
 			// 팔로잉에 유저 아이디 팔로워에 내 아이디면 팔로잉한 유저
@@ -218,9 +217,31 @@ public class LibraryServiceImpl implements LibraryService {
 	// 수정
 	@Override
 	public ResultResponseDto removeReadBook(Long memberId, String isbn) {
-//		ReadBook readBook = readBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
-//		readBookRepository.delete(readBook);
-		return new ResultResponseDto(true);
+		log.info("memberId: " + memberId);
+		log.info("isbn: " + isbn);
+
+		ResultResponseDto responseDto = new ResultResponseDto();
+
+		Member member = memberRepository.findByMemberId(memberId);
+		if(member == null) {
+			responseDto.setMessege("없는 회원입니다.");
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		ReadBook readBook = readBookRepository.findByIsbnAndMember(isbn, member).orElse(null);
+		if(readBook == null) {
+			responseDto.setMessege("등록되지 않은 도서입니다.");
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		// 읽은 책과 연결된 리뷰와 독서기록이 모두 삭제 되어야지 삭제 가능
+
+		readBookRepository.delete(readBook);
+		responseDto.setResult(true);
+
+		return responseDto;
 	}
 
 	@Override
@@ -315,7 +336,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return null;
 	}
 
-	// 수정 필요
+	// 수정
 	@Override
 	public ResultResponseDto modifyBookReport(BookReportDto requestDto) {
 		ResultResponseDto responseDto = new ResultResponseDto();
@@ -345,7 +366,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 수정 필요
+	// 수정
 	@Override
 	public ResultResponseDto removeBookReport(Long bookReportId) {
 		ResultResponseDto responseDto = new ResultResponseDto();
@@ -362,7 +383,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 수정 필요
+	// 수정
 	@Override
 	public LibraryDto makeFriend(Long memberId, Long meId) {
 		LibraryDto responseDto = libraryMain(memberId, meId);
@@ -378,7 +399,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 수정 필요
+	// 수정
 	@Override
 	public LibraryDto removeFriend(Long memberId, Long meId) {
 		LibraryDto responseDto = libraryMain(memberId, meId);
