@@ -1,9 +1,8 @@
 package com.seoro.seoro.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Book.BookDetailDto;
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
+import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Group.GroupShowDto;
@@ -31,10 +32,9 @@ import lombok.RequiredArgsConstructor;
 public class LibraryController {
 	private final LibraryService libraryService;
 
-	@GetMapping("/{memberId}")
-	public LibraryDto libraryMain(@PathVariable Long memberId, @AuthenticationPrincipal User user) {
-		// 로그인 안되어있으면 함수 호출 에러
-		return libraryService.libraryMain(memberId, user);
+	@GetMapping ("/{memberId}")
+	public LibraryDto libraryMain(@PathVariable Long memberId, @RequestParam("memberId") Long meId) {
+		return libraryService.libraryMain(memberId, meId);
 	}
 
 	@DeleteMapping("/{memberId}/own/{isbn}")
@@ -53,7 +53,7 @@ public class LibraryController {
 	}
 
 	@PostMapping("/{memberId}")
-	public ResultResponseDto makeOwnBook(@PathVariable Long memberId, @RequestBody BookDetailDto requestDto) {
+	public ResultResponseDto makeOwnBook(@PathVariable Long memberId, @RequestBody OwnBookDto requestDto) {
 		return libraryService.makeOwnBook(memberId, requestDto);
 	}
 
@@ -67,9 +67,10 @@ public class LibraryController {
 		return libraryService.viewMyReview(memberId);
 	}
 
+	// 확인
 	@GetMapping("{memberId}/report")
-	public List<BookReportDto> viewBookReportList(@PathVariable Long userId) {
-		return libraryService.viewBookReportList(userId);
+	public List<BookReportDto> viewBookReportList(@PathVariable Long memberId) {
+		return libraryService.viewBookReportList(memberId);
 	}
 
 	@PostMapping("{memberId}/report")
@@ -77,31 +78,30 @@ public class LibraryController {
 		return libraryService.makeBookReport(requestDto, memberId);
 	}
 
-	@GetMapping("{memberId}/report/{bookReportId}")
-	public BookReportDto viewBookReport(@PathVariable Long bookReportId) {
-		return libraryService.viewBookReport(bookReportId);
+	// @GetMapping("{memberId}/report/{bookReportId}")
+	// public BookReportDto viewBookReport(@PathVariable Long bookReportId) {
+	// 	return libraryService.viewBookReport(bookReportId);
+	// }
+
+	@PutMapping("{memberId}/report")
+	public ResultResponseDto modifyBookReport(@RequestBody BookReportDto requestDto) {
+		return libraryService.modifyBookReport(requestDto);
 	}
 
-	@PutMapping("{memberId}/report/{bookReportId}")
-	public ResultResponseDto modifyBookReport(@RequestBody BookReportDto reportDto, @PathVariable Long bookReportId) {
-		System.out.println("bookReportId: " + bookReportId);
-		return libraryService.modifyBookReport(reportDto, bookReportId);
-	}
-
-	@DeleteMapping("{memberId}/report/{bookReportId}")
+	@DeleteMapping("{bookReportId}/report")
 	public ResultResponseDto removeBookReport(@PathVariable Long bookReportId) {
 		return libraryService.removeBookReport(bookReportId);
 	}
 
 	@PostMapping("/{memberId}/friends")
-	public LibraryDto makeFriend(@PathVariable Long memberId, @AuthenticationPrincipal User user) {
-		return libraryService.makeFriend(memberId, user);
+	public LibraryDto makeFriend(@PathVariable Long memberId, @RequestBody Map<String, Long> json) {
+		return libraryService.makeFriend(memberId, json.get("memberId"));
 	}
 
-	@DeleteMapping("/{memberId}/friends")
-	public LibraryDto removeFriend(@PathVariable Long memberId, @AuthenticationPrincipal User user) {
-		return libraryService.removeFriend(memberId, user);
-	}
+	// @DeleteMapping("/{memberId}/friends")
+	// public LibraryDto removeFriend(@PathVariable Long memberId, @RequestParam("memberId") Long meId) {
+	// 	return libraryService.removeFriend(memberId, meId);
+	// }
 
 	@GetMapping("/{memberId}/friends")
 	public List<FriendDto> viewFriendList(@PathVariable Long memberId) {
