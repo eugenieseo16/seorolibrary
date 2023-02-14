@@ -1,5 +1,10 @@
 package com.seoro.seoro.service.Group;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -420,6 +425,7 @@ public class GroupServiceImpl implements GroupService{
 		//방장 맨 처음에 넣기
 		GroupMemberDto hostDto = GroupMemberDto.builder()
 			.userId(group.getHost().getMemberId())
+			.userProfile(group.getHost().getMemberProfile())
 			.userName(group.getHost().getMemberName())
 			.build();
 		members.add(hostDto);
@@ -427,6 +433,7 @@ public class GroupServiceImpl implements GroupService{
 			if(!join.getMember().equals(group.getHost())) {
 				GroupMemberDto memberDto = GroupMemberDto.builder()
 					.userId(join.getMember().getMemberId())
+					.userProfile(join.getMember().getMemberProfile())
 					.userName(join.getMember().getMemberName())
 					.build();
 				members.add(memberDto);
@@ -508,9 +515,20 @@ public class GroupServiceImpl implements GroupService{
 			return responseDto;
 		}
 
+		//날짜 포맷터
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+				.appendPattern("[yyyy-MM-dd]")
+				.parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+				.toFormatter();
+//			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		//문자열 -> Date
+		LocalDateTime date = LocalDateTime.parse(requestDto.getDate(), formatter);
+//		LocalDateTime date = LocalDateTime.parse(requestDto.getDate(),)
+
 		if(member.equals(group.getHost())) { //방장만 작성 가능
 			GroupSchedule schedule = GroupSchedule.builder()
 					.groups(group)
+					.date(date)
 					.scheduleTitle(requestDto.getGroupScheduleTitle())
 					.scheduleContent(requestDto.getGroupScheduleContent())
 				.build();
