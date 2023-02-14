@@ -21,7 +21,7 @@ export const bestSellerAPI = () => {
 };
 
 export const nearBooksAPI = (memberId: any) => {
-  const response = axios.get(`${bookApiUrls.bookDetail}/${memberId}`);
+  const response = useMyQuery(`${bookApiUrls.nearBooks}/${memberId}`);
   return response;
 };
 
