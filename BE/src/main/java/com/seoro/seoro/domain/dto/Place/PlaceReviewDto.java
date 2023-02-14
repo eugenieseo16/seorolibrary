@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlaceReviewDto {
-	private List<PlaceReviewPhoto> placeReviewPhotos;
+	private Long placeReviewId;
+	private String[] placeReviewPhotos;
 	private Long score;
 	private String memberName;
 	private String reviewContent;
