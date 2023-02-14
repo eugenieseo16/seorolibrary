@@ -1,4 +1,4 @@
-export const apiBaseUrl = 'http://70.12.246.229:8080';
+export const apiBaseUrl = 'http://70.12.246.236:8080';
 // export const apiBaseUrl = 'http://localhost:8080';
 
 export const authApiUrls = {
@@ -7,8 +7,9 @@ export const authApiUrls = {
   jwtLoginAPIUrl: `${apiBaseUrl}/members`,
   userProfileAPIUrl: `${apiBaseUrl}/members`,
 };
-export const clubApiUrls = {
+export const clubAPIUrls = {
   clubGenerateAPIUrl: `${apiBaseUrl}/groups/signup`,
+  clubMainAPIUrl: `${apiBaseUrl}/groups`,
 };
 export const bookApiUrls = {
   bestSellers: `${apiBaseUrl}/main/best`,
@@ -23,4 +24,5 @@ export const bookApiUrls = {
 export const geoAPIUrls = {
   dongcodeAPIUrl: `${apiBaseUrl}/place/dong`,
 };
+
 export const searchAPIUrl = `${apiBaseUrl}/main/search/`;
