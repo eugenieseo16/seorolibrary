@@ -20,6 +20,9 @@ export const bookApiUrls = {
   bookSearchUrl: 'https://dapi.kakao.com/v3/search/book?target=title',
   registerBookUrl: `${apiBaseUrl}/librarys`,
 
+  editBookReview: `${apiBaseUrl}/book/review`,
+  editBookComment: `${apiBaseUrl}/book/comment`,
+
   bookReview: `${apiBaseUrl}/book/detail/review/`,
   bookComment: `${apiBaseUrl}/book/detail/comment/`,
 };

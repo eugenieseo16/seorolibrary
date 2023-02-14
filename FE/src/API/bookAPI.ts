@@ -2,6 +2,14 @@ import { useMyQuery } from '../hooks/useMyQuery';
 import { bookApiUrls, searchAPIUrl } from './apiUrls';
 import axios from 'axios';
 
+interface ICreateBookReview {
+  isbn: string;
+  bookTitle: string;
+  bookImage: string;
+  memberName: string;
+  reviewContent: string;
+}
+
 export const bestSellerAPI = () => {
   const response = useMyQuery(bookApiUrls.bestSellers);
   return response;
@@ -52,6 +60,26 @@ export const bookDetailAPI = (isbn: string) => {
 export const bookReviewAPI = (isbn: string) => {
   const response = useMyQuery(bookApiUrls.bookReview + isbn);
   return response;
+};
+
+// 도서 리뷰 작성
+export const bookReviewCreateAPI = (createValues: any) => {
+  const response = axios.post(
+    `${bookApiUrls.editBookReview}/${createValues.isbn}`,
+    createValues,
+  );
+  return response;
+};
+
+// 도서 리뷰 수정
+export const bookReviewEditAPI = '';
+
+// 도서 리뷰 삭제
+export const bookReviewDeleteAPI = (deleteValues: any, isbn: string) => {
+  const response = axios.delete(
+    `${bookApiUrls.editBookReview}/${isbn}`,
+    deleteValues,
+  );
 };
 
 export const bookCommentAPI = (isbn: string) => {
