@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResultResponseDto {
 	private Map<String, String> errorMap;
+	private String messege;
 	private Boolean result;
 
 	public ResultResponseDto(boolean result) {
