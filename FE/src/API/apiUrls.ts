@@ -22,3 +22,8 @@ export const bookApiUrls = {
 };
 
 export const searchAPIUrl = `${apiBaseUrl}/main/search/`;
+
+export const memberAPIUrls = {
+  memberDetail: `${apiBaseUrl}/librarys`,
+  editProfile: `${apiBaseUrl}/members`,
+};
