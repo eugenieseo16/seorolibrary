@@ -10,12 +10,12 @@ interface IUserResultProps {
 }
 
 function UserResult({ input }: IUserResultProps) {
-  const data = searchAPI(input)[1];
   const navigate = useNavigate();
+  const data = searchAPI(input);
 
   return (
     <div className="user-follow-container">
-      {data?.map((user: any, i: number) => (
+      {data?.member?.map((user: any, i: number) => (
         <div
           key={i}
           className="user-follow-item"
