@@ -5,7 +5,7 @@ export const authApiUrls = {
   signUpAPIUrl: `${apiBaseUrl}/members/signup`,
   loginAPIUrl: `${apiBaseUrl}/members/login`,
   jwtLoginAPIUrl: `${apiBaseUrl}/members`,
-  userProfileUrl: `${apiBaseUrl}/members`,
+  userProfileAPIUrl: `${apiBaseUrl}/members`,
 };
 export const clubApiUrls = {
   clubGenerateAPIUrl: `${apiBaseUrl}/groups/signup`,
@@ -20,5 +20,7 @@ export const bookApiUrls = {
   bookReview: `${apiBaseUrl}/book/detail/review/`,
   bookComment: `${apiBaseUrl}/book/detail/comment/`,
 };
-
+export const geoAPIUrls = {
+  dongcodeAPIUrl: `${apiBaseUrl}/place/dong`,
+};
 export const searchAPIUrl = `${apiBaseUrl}/main/search/`;

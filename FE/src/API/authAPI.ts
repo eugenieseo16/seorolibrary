@@ -38,7 +38,7 @@ export const jwtLoginAPI = async (token: string) => {
 
 export const getMyProfileAPI = async (username: string) => {
   const { data: response } = await axios.get(
-    `${authApiUrls.userProfileUrl}/${username}`,
+    `${authApiUrls.userProfileAPIUrl}/${username}`,
   );
   return response;
 };
