@@ -10,5 +10,5 @@ import com.seoro.seoro.domain.entity.Place.Place;
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 	List<Place> findByMember_MemberId(@Param(value="memberId") Long memberId);
 
-	Place findByPlaceId(Long placeId);
+	// Place findByPlaceId(Long placeId);
 }

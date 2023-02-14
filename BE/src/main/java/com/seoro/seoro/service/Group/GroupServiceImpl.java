@@ -92,7 +92,7 @@ public class GroupServiceImpl implements GroupService{
 			});
 			List<GroupShowDto> recommendGroups = new ArrayList<>();
 			for(Groups group : dongGroups){
-				// if(groupJoinRepository.countByGroupIdAndMemberId(group.getGroupId(),findMember.getMemberId())!=0) continue;
+				// if(groupJoinRepository.existsByGroupIdAndMemberId(group.getGroupId(),findMember.getMemberId())) continue;
 				if((group.getGroupGenre()&myGenre)==0){
 					break;
 				}
@@ -219,6 +219,8 @@ public class GroupServiceImpl implements GroupService{
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
 				.groupName(group.getGroupName())
+			    .groupProfile(group.getGroupProfile())
+			    .groupPassword(group.getGroupPassword())
 				.groupStartDate(group.getGroupStartDate())
 				.groupEndDate(group.getGroupEndDate())
 				.groupDongCode(group.getGroupDongCode())
