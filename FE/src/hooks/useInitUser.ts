@@ -1,3 +1,4 @@
+import { jwtLoginAPI } from '@src/API/authAPI';
 import { login, updateLocation } from '@src/store/slices/userSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -15,9 +16,15 @@ const testUser = {
 export default function useInitUser() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const user = localStorage.getItem('ssafy-user');
-    if (user) {
-      dispatch(login(JSON.parse(user)));
-    }
+    (async function () {
+      const jwtToken = localStorage.getItem('ssafy-token');
+      if (!jwtToken) return;
+      try {
+        const jwtResponse = await jwtLoginAPI(jwtToken);
+        dispatch(login(jwtResponse));
+      } catch {
+        localStorage.removeItem('ssafy-token');
+      }
+    })();
   }, []);
 }
