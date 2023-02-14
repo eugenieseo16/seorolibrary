@@ -56,6 +56,26 @@ public class GroupServiceImpl implements GroupService{
 		String myDongCode = findMember.getMemberDongCode();
 		Long myGenre = findMember.getMemberGenre();
 
+		//내가 참여하고 있는 독서모임 반환
+		List<GroupJoin> findGroupJoin = findMember.getGroupJoins();
+		System.out.println("findGroupJoin = " + findGroupJoin.size());
+		// for (int i=0; i<findGroupJoin.size(); i++) {
+		// 	System.out.println(findGroupJoin.get(i));
+		// }
+		List<GroupShowDto> myGroups = new ArrayList<>();
+		for (GroupJoin groupJoin : findGroupJoin) {
+			Groups groups = groupJoin.getGroups();
+			myGroups.add(GroupShowDto.builder()
+				.groupProfile(groups.getGroupProfile())
+				.groupDescrib(groups.getGroupIntroduction())
+				.groupName(groups.getGroupName())
+				.groupId(groups.getGroupId())
+				.build());
+		}
+		if(myGroups.size() > 0) {
+			groupMainResponseDto.setMyGroups(myGroups);
+		}
+
 		//같은 동코드를 가진 독서모임 추천순으로 반환
 		List<Groups> dongGroups = groupRepository.findGroupsByGroupDongCode(myDongCode);
 		if(dongGroups.size() > 0) {
@@ -72,6 +92,7 @@ public class GroupServiceImpl implements GroupService{
 			});
 			List<GroupShowDto> recommendGroups = new ArrayList<>();
 			for(Groups group : dongGroups){
+				// if(groupJoinRepository.countByGroupIdAndMemberId(group.getGroupId(),findMember.getMemberId())!=0) continue;
 				if((group.getGroupGenre()&myGenre)==0){
 					break;
 				}
@@ -115,26 +136,6 @@ public class GroupServiceImpl implements GroupService{
 					.build());
 			}
 			groupMainResponseDto.setRecommendMembers(recommendMembers);
-		}
-
-		//내가 참여하고 있는 독서모임 반환
-		List<GroupJoin> findGroupJoin = findMember.getGroupJoins();
-		System.out.println("findGroupJoin = " + findGroupJoin.size());
-		// for (int i=0; i<findGroupJoin.size(); i++) {
-		// 	System.out.println(findGroupJoin.get(i));
-		// }
-		List<GroupShowDto> myGroups = new ArrayList<>();
-		for (GroupJoin groupJoin : findGroupJoin) {
-			Groups groups = groupJoin.getGroups();
-			myGroups.add(GroupShowDto.builder()
-					.groupProfile(groups.getGroupProfile())
-					.groupDescrib(groups.getGroupIntroduction())
-					.groupName(groups.getGroupName())
-					.groupId(groups.getGroupId())
-				.build());
-		}
-		if(myGroups.size() > 0) {
-			groupMainResponseDto.setMyGroups(myGroups);
 		}
 
 		groupMainResponseDto.setResult(true);
