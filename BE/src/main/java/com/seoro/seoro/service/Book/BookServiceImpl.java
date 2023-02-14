@@ -262,6 +262,38 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public ResultResponseDto addReadBook(String isbn, Map<String,String> request) {
+		ResultResponseDto resultResponseDto = new ResultResponseDto();
+
+		Member member = new Member();
+		Optional<Member> findMember = memberRepository.findByMemberName(request.get("memberName"));
+		if(findMember.isPresent()) {
+			member = findMember.get();
+		} else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		ReadBook readBook = new ReadBook();
+		Optional<ReadBook> findReadBook = readBookRepository.findByIsbnAndMember(isbn,member);
+		if(findReadBook.isPresent()){
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+		readBook = ReadBook.builder()
+			.bookImage(request.get("bookImage"))
+			.bookTitle(request.get("bookTitle"))
+			.isbn(isbn)
+			.member(member)
+			.build();
+		readBookRepository.save(readBook);
+
+		System.out.println("readBook.getIsbn() = " + readBook.getIsbn());
+		resultResponseDto.setResult(true);
+		return resultResponseDto;
+	}
+
+	@Override
 	public ReviewDto findReviewByIsbnAndMemberId(String isbn) {
 		Long member_id=1L;
 		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);
