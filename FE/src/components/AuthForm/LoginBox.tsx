@@ -4,7 +4,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, notification } from 'antd';
 
 import './LoginBox.styles.scss';
-import { loginAPI } from '@src/API/authAPI';
+import { jwtLoginAPI, loginAPI } from '@src/API/authAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
 
@@ -17,9 +17,10 @@ function LoginBox() {
     if (loading) return;
     setLoading(true);
     try {
-      const { data: response } = await loginAPI(data);
-      console.log(response);
-      // dispatch(login({ ...response }));
+      const { data: response }: any = await loginAPI(data);
+      const jwtResponse = await jwtLoginAPI(response.accessToken);
+      localStorage.setItem('ssafy-token', response.accessToken);
+      dispatch(login(jwtResponse));
     } catch {
       api.open({
         message: <h2 style={{ color: 'tomato' }}>서버에러</h2>,

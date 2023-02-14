@@ -24,7 +24,7 @@ export const loginAPI = async (data: ILoginForm) => {
 };
 export const jwtLoginAPI = async (token: string) => {
   const { data: response } = await axios.post(
-    authApiUrls.loginAPIUrl,
+    authApiUrls.jwtLoginAPIUrl,
     {},
     {
       headers: {
@@ -33,5 +33,12 @@ export const jwtLoginAPI = async (token: string) => {
     },
   );
   console.log('JWT!!!', response);
+  return response;
+};
+
+export const getMyProfileAPI = async (username: string) => {
+  const { data: response } = await axios.get(
+    `${authApiUrls.userProfileUrl}/${username}`,
+  );
   return response;
 };
