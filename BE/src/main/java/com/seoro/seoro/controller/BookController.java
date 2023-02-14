@@ -30,7 +30,7 @@ public class BookController {
 
 	//검색 -> 도서상세정보
 	@GetMapping("/detail/{isbn}")
-	public BookDetailDto viewBookDetail(@PathVariable String isbn, @ModelAttribute BookRequestDto requestDto) throws
+	public BookDetailDto viewBookDetail(@PathVariable String isbn, @RequestBody BookRequestDto requestDto) throws
 		ParseException,
 		URISyntaxException {
 		return bookService.viewBookDetail(isbn,requestDto.getMemberId());
