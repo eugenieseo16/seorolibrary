@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BiMap } from 'react-icons/bi';
 import { BsCalendarDate } from 'react-icons/bs';
@@ -21,7 +21,9 @@ import { clubEnterAPI } from '@src/API/clubAPI';
 
 function BookClubDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const user = useUser();
+  const [loading, setLoading] = useState(false);
   const usersData: any = useMyQuery(`/userRecommend.json`);
   const detailData: any = useMyQuery(`/clubDetail.json`);
 
@@ -51,13 +53,16 @@ function BookClubDetail() {
   }));
 
   const enterClub = async () => {
-    if (!id || !user) return;
+    if (!id || !user || loading) return;
+    setLoading(true);
     const response = await clubEnterAPI({
       groupId: +id,
       userId: user?.memberId,
       writePassword: '1234',
     });
-    console.log(response);
+    navigate('/book-club');
+
+    setLoading(false);
   };
 
   return (

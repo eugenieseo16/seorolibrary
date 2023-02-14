@@ -17,7 +17,7 @@ import {
   arrayUnion,
 } from 'firebase/firestore';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 // Add a new document in collection "cities"
@@ -30,17 +30,18 @@ function Chat() {
 
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<any>([]);
-  const [chatId, setChatId] = useState(
-    `${user?.memberId + ''}-${targetUser.memberId + ''}`,
-  );
+  const [chatId, setChatId] = useState();
+
+  const chatRoom = useRef(``);
 
   useEffect(() => {
     if (!user || !targetUser) return;
+    chatRoom.current = `${user?.memberId + ''}-${targetUser.memberId + ''}`;
     (async function () {
-      const q = await query(collection(firebaseDB, chatId));
+      const q = await query(collection(firebaseDB, chatRoom.current));
       const empty = await (await getDocs(q)).empty;
       if (empty) {
-        setChatId(`${targetUser.memberId + ''}-${user?.memberId + ''}`);
+        chatRoom.current = `${targetUser.memberId + ''}-${user?.memberId + ''}`;
         const q = await query(
           collection(
             firebaseDB,
@@ -83,7 +84,7 @@ function Chat() {
   useEffect(() => {
     if (loading) return;
     const q = query(
-      collection(firebaseDB, chatId),
+      collection(firebaseDB, chatRoom.current),
       orderBy('createdAt'),
       limit(15),
     );
@@ -91,7 +92,7 @@ function Chat() {
     const unSubscribe = onSnapshot(q, snapshot => {
       const messagesList = snapshot.docs.map(snap => {
         if (snap.data().username != user?.memberId + '') {
-          updateDoc(doc(firebaseDB, chatId, snap.id), {
+          updateDoc(doc(firebaseDB, chatRoom.current, snap.id), {
             isRead: true,
           });
         }
@@ -103,9 +104,8 @@ function Chat() {
     return () => unSubscribe();
   }, [loading]);
 
-  console.log(user, targetUser);
   const sendMessage = async (data: any) => {
-    addDoc(collection(firebaseDB, chatId), {
+    addDoc(collection(firebaseDB, chatRoom.current), {
       username: user?.memberId + '',
       memberName: user?.memberName,
       message: data.message,
