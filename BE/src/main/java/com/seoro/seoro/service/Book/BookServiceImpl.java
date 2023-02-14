@@ -353,12 +353,14 @@ public class BookServiceImpl implements BookService {
 
 		for(Object json: docu){
 			JSONObject bookObject = (JSONObject) json;
-
+			JSONArray authors = (JSONArray)bookObject.get("authors");
+			String isbns = bookObject.get("isbn").toString();
+			String isbn = isbns.substring(isbns.length()-13,isbns.length()-1);
 			output.add(ShowBookDto.builder()
 				.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
 				.bookImage(bookObject.get("thumbnail").toString())
-				.isbn(HtmlUtils.htmlUnescape(bookObject.get("isbn").toString()))
-				.bookAuthor(HtmlUtils.htmlUnescape(bookObject.get("authors").toString()))
+				.isbn(isbn)
+				.bookAuthor(HtmlUtils.htmlUnescape(authors.get(0).toString()))
 				.bookDescrib(HtmlUtils.htmlUnescape(bookObject.get("contents").toString()))
 				.result(true)
 				.build());
