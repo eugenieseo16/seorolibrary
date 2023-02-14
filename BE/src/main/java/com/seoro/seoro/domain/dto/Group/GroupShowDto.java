@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class GroupShowDto {
-	private Boolean result;
 	private String groupName;
 	private String groupDescrib;
 	private String groupProfile;
+	private Long groupId;
 }
