@@ -5,6 +5,11 @@
   .ant-select-selector {
     height: 3rem !important;
   }
+  .ant-select {
+    .ant-select-selector {
+      height: auto !important;
+    }
+  }
   .ant-select-selection-item {
     font-family: 'NEXON';
   }

@@ -59,7 +59,7 @@ public class MemberServiceImpl implements MemberService {
 			.memberEmail(requestDto.getMemberEmail())
 			.memberName(requestDto.getMemberName())
 			.memberPassword(passwordEncoder.encode(requestDto.getMemberPassword()))
-			.memberGenre(0L)
+			.memberGenre(65535L)
 			.loginType(LoginType.BASIC)
 			.memberDongCode("0")
 			.build();
