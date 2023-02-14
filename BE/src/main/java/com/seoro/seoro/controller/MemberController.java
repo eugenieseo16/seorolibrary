@@ -1,7 +1,5 @@
 package com.seoro.seoro.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.LoginDto;
@@ -39,9 +38,9 @@ public class MemberController {
 	private final MemberService memberService;
 	private final JwtTokenUtil jwtTokenUtil;
 
-	@PostMapping("/search")
-	public MemberDto findMemberByMemberId(@RequestBody Map<String, Long> json){
-		return memberService.findMemberByMemberId(json.get("memberId"));
+	@GetMapping("/search")
+	public MemberDto findMemberByMemberId(@RequestParam("memberId") Long memberId){
+		return memberService.findMemberByMemberId(memberId);
 	}
 
 	@PostMapping("/signup")
@@ -115,7 +114,6 @@ public class MemberController {
 	@PutMapping("/{memberName}")
 	public ResultResponseDto modifyProfile(@RequestBody MemberUpdateDto requestDto, @PathVariable String memberName) {
 		System.out.println("memberName: " + memberName);
-		// email 같은 값은 그대로 가는 처리 프론트와 연동
 		return memberService.modifyProfile(requestDto, memberName);
 	}
 

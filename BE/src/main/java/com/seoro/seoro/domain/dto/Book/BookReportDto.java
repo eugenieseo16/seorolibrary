@@ -10,12 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookReportDto {
+	private Long bookReportId;
 	private Long readBookId;
 	private String bookReportTitle;
 	private String bookReportContent;
 	// private String photo;
 
 	public BookReportDto(BookReport bookReport) {
+		this.bookReportId = bookReport.getBookReportId();
 		this.readBookId = bookReport.getBookReportId();
 		this.bookReportTitle = bookReport.getBookReportTitle();
 		this.bookReportContent = bookReport.getBookReportContent();
