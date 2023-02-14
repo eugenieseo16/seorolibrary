@@ -47,7 +47,7 @@ public class BookController {
 
 	//도서 리뷰 삭제
 	@DeleteMapping("/review/{isbn}")
-	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
+	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDelDto requestDto){
 		return bookService.deleteReview(isbn, requestDto);
 	}
 

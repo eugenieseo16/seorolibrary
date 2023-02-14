@@ -157,7 +157,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ResultResponseDto deleteReview(String isbn, ReviewDto requestDto) {
+	public ResultResponseDto deleteReview(String isbn, ReviewDelDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
 
 		Member writer = new Member();
@@ -170,11 +170,23 @@ public class BookServiceImpl implements BookService {
 			return resultResponseDto;
 		}
 
-		Review saveReview = reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn, writer.getMemberId());
-		reviewRepository.deleteById(saveReview.getReviewId());
+		Optional<Review> findReview = reviewRepository.findById(requestDto.getReviewId());
+		Review review = null;
+		if(findReview.isPresent()) {
+			review = findReview.get();
+		} else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		if(review.getMember().equals(writer)) {
+			reviewRepository.deleteById(requestDto.getReviewId());
+		}else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
 
 		resultResponseDto.setResult(true);
-
 		return resultResponseDto;
 	}
 	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn) {
