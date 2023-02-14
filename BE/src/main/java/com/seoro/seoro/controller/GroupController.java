@@ -31,13 +31,13 @@ public class GroupController {
 		return groupService.groupDetail(groupId);
 	}
 
-	@DeleteMapping("/{groupid}")
-	public ResultResponseDto deleteGroup(@PathVariable("groupid") Long groupId, @RequestParam("userId") Long userId) {
+	@DeleteMapping("/{groupid}/{userid}")
+	public ResultResponseDto deleteGroup(@PathVariable("groupid") Long groupId, @PathVariable("userid") Long userId) {
 		return groupService.deleteGroup(groupId, userId);
 	}
 
 	@PostMapping("/enter/{groupid}")
-	public ResultResponseDto enterGroup(@PathVariable("groupid") Long groupId, GroupEnterRequestDto requestDto) {
+	public ResultResponseDto enterGroup(@PathVariable("groupid") Long groupId, @RequestBody GroupEnterRequestDto requestDto) {
 		return groupService.enterGroup(groupId, requestDto);
 	}
 
@@ -81,8 +81,8 @@ public class GroupController {
 		return groupService.readGroupScheduleList(groupId);
 	}
 
-	@DeleteMapping("/schedule/{scheduleid}")
-	public ResultResponseDto delGroupSchedule(@PathVariable("scheduleid") Long scheduleId, @RequestParam("userId") Long userId) {
+	@DeleteMapping("/schedule/{scheduleid}/{userid}")
+	public ResultResponseDto delGroupSchedule(@PathVariable("scheduleid") Long scheduleId, @PathVariable("userid") Long userId) {
 		return groupService.delGroupSchedule(scheduleId, userId);
 	}
 
@@ -96,8 +96,8 @@ public class GroupController {
 		return groupService.readGroupBook(groupId);
 	}
 
-	@DeleteMapping("/book")
-	public ResultResponseDto delGroupBook(@RequestParam("groupBookId") Long groupBookId) {
+	@DeleteMapping("/book/{groupBookid}")
+	public ResultResponseDto delGroupBook(@PathVariable("groupBookid") Long groupBookId) {
 		return groupService.deleteGroupBook(groupBookId);
 	}
 }

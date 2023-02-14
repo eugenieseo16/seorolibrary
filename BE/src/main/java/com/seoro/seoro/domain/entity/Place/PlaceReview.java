@@ -27,7 +27,7 @@ public class PlaceReview implements Serializable {
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "memberId")
     private Member member;
-    private Long score;
+    private Double score;
     private String reviewContent;
     @OneToMany(mappedBy = "placeReview")
     private List<PlaceReviewPhoto> photos = new ArrayList<>();

@@ -19,6 +19,8 @@ import lombok.NoArgsConstructor;
 public class GroupDetailResponseDto {
 	private Boolean result;
 	private String groupName;
+	private String groupProfile;
+	private String groupPassword;
 	private Date groupStartDate;
 	private Date groupEndDate;
 	private String groupDongCode;

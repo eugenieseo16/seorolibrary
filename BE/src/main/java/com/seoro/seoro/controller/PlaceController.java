@@ -59,7 +59,7 @@ public class PlaceController {
 
 	//장소 리뷰 등록
 	@PostMapping("/detail/{placeId}")
-	public ResultResponseDto makeReview(@PathVariable("placeId") Long placeId, @ModelAttribute PlaceReviewAddRequestDto requestDto){
+	public ResultResponseDto makeReview(@PathVariable("placeId") Long placeId, @RequestBody PlaceReviewAddRequestDto requestDto){
 		return placeService.makeReview(placeId, requestDto);
 	}
 

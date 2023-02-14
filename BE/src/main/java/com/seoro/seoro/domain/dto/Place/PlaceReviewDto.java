@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class PlaceReviewDto {
 	private Long placeReviewId;
 	private String[] placeReviewPhotos;
-	private Long score;
+	private Double score;
 	private String memberName;
 	private String reviewContent;
 }

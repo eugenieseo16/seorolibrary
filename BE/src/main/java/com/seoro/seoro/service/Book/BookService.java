@@ -30,7 +30,7 @@ public interface BookService {
 
 	ResultResponseDto changeReview(String isbn, ReviewUpdateDto requestDto);
 
-	ResultResponseDto deleteReview(String isbn, ReviewDelDto requestDto);
+	ResultResponseDto deleteReview(String isbn, Long reviewId);
 
 	public List findBookByDong(Long memberId);
 	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn);

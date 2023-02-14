@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlaceReviewAddRequestDto {
-	private String placereview;
-	private List<PlaceReviewPhoto> placeReviewPhotos;
-	private Long score;
+	private String placeReview;
+	private String[] placeReviewPhotos;
+	private Double score;
 	private String memberName;
 }

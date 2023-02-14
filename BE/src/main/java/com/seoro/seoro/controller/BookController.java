@@ -46,9 +46,10 @@ public class BookController {
 	}
 
 	//도서 리뷰 삭제
-	@DeleteMapping("/review/{isbn}")
-	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDelDto requestDto){
-		return bookService.deleteReview(isbn, requestDto);
+	@DeleteMapping("/review/{isbn}/{reviewid}")
+	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn,
+		@PathVariable("reviewid") Long reviewId){
+		return bookService.deleteReview(isbn, reviewId);
 	}
 
 	//도서 리뷰 작성 잘되었는지 확인하려고 만듬.. 삭제해야됨

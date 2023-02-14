@@ -213,6 +213,8 @@ public class GroupServiceImpl implements GroupService{
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
 				.groupName(group.getGroupName())
+			    .groupProfile(group.getGroupProfile())
+			    .groupPassword(group.getGroupPassword())
 				.groupStartDate(group.getGroupStartDate())
 				.groupEndDate(group.getGroupEndDate())
 				.groupDongCode(group.getGroupDongCode())
