@@ -1,4 +1,4 @@
-export const apiBaseUrl = 'http://70.12.246.221:8080';
+export const apiBaseUrl = 'http://localhost:8080';
 // export const apiBaseUrl = 'http://localhost:8080';
 
 export const authApiUrls = {

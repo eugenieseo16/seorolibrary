@@ -57,7 +57,7 @@ interface IClubEnter {
   writePassword: string;
 }
 export const clubEnterAPI = async (data: IClubEnter) => {
-  const response = await axios.post(
+  const { data: response } = await axios.post(
     `${clubAPIUrls.clubEnterAPIUrl}/${data.groupId}`,
     data,
   );
