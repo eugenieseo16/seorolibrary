@@ -420,6 +420,7 @@ public class GroupServiceImpl implements GroupService{
 		//방장 맨 처음에 넣기
 		GroupMemberDto hostDto = GroupMemberDto.builder()
 			.userId(group.getHost().getMemberId())
+			.userProfile(group.getHost().getMemberProfile())
 			.userName(group.getHost().getMemberName())
 			.build();
 		members.add(hostDto);
@@ -427,6 +428,7 @@ public class GroupServiceImpl implements GroupService{
 			if(!join.getMember().equals(group.getHost())) {
 				GroupMemberDto memberDto = GroupMemberDto.builder()
 					.userId(join.getMember().getMemberId())
+					.userProfile(join.getMember().getMemberProfile())
 					.userName(join.getMember().getMemberName())
 					.build();
 				members.add(memberDto);
