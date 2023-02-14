@@ -26,7 +26,7 @@ export const bookSearchByTitle = async (title: string) => {
 };
 
 export interface IRegisterBook {
-  memberId: string;
+  memberId: number;
   isbn: string;
   bookTitle: string;
   ownComment: string;

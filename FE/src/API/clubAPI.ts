@@ -42,3 +42,24 @@ export const useClubMainAPI = (username?: string) => {
   );
   return response;
 };
+
+export const clubMembersAPI = (groupId?: number) => {
+  if (!groupId) return;
+  const response = useMyQuery(
+    `${clubAPIUrls.clubMembersAPIUrl}?groupId=${groupId}`,
+  );
+  return response;
+};
+
+interface IClubEnter {
+  groupId: number;
+  userId: number;
+  writePassword: string;
+}
+export const clubEnterAPI = async (data: IClubEnter) => {
+  const response = await axios.post(
+    `${clubAPIUrls.clubEnterAPIUrl}/${data.groupId}`,
+    data,
+  );
+  return response;
+};

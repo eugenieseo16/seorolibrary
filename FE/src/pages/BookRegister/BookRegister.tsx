@@ -6,7 +6,11 @@ import Header from '@components/Header/Header';
 import RegisterDetail from '@components/BookRegister/RegisterDetail';
 
 import './BookRegister.styles.scss';
-import { bookSearchByTitle, IRegisterBook } from '@src/API/bookAPI';
+import {
+  bookSearchByTitle,
+  IRegisterBook,
+  registerBookAPI,
+} from '@src/API/bookAPI';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import { useUser } from '@src/hooks/useUser';
 
@@ -16,7 +20,6 @@ function BookRegister() {
   const [bookResults, setBookResults] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useUser();
-  const location = useLocation();
 
   const onSearch = async (value: string, open: boolean) => {
     if (loading) return;
@@ -31,15 +34,16 @@ function BookRegister() {
     if (loading || !selectedBook) return;
     console.log('HHH');
     setLoading(true);
-    console.log(selectedBook);
+    console.log(selectedBook.isbn.split(' ')[1]);
     console.log(user);
-    // const obj: IRegisterBook = {
-    //   bookTitle: selectedBook.title,
-    //   isbn: selectedBook.isbn,
-    //   memberId: '',
-    //   ownComment: '',
-    // };
-    // const response = await registerBookAPI;
+    const obj: IRegisterBook = {
+      bookTitle: selectedBook.title,
+      isbn: selectedBook.isbn.split(' ')[1],
+      memberId: user!.memberId,
+      ownComment: 'ㅎㅇㅎㅇ',
+    };
+    const response = await registerBookAPI(obj);
+    console.log(response);
     setLoading(false);
   };
 
