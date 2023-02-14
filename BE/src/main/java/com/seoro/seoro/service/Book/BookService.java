@@ -28,7 +28,7 @@ public interface BookService {
 
 	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 
-	ResultResponseDto changeReview(String isbn, ReviewDto requestDto);
+	ResultResponseDto changeReview(String isbn, ReviewUpdateDto requestDto);
 
 	ResultResponseDto deleteReview(String isbn, ReviewDto requestDto);
 
