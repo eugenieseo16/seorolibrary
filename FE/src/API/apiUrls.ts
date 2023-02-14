@@ -26,6 +26,6 @@ export const geoAPIUrls = {
 export const searchAPIUrl = `${apiBaseUrl}/main/search/`;
 
 export const memberAPIUrls = {
+  myProfile: `${apiBaseUrl}/members`,
   memberDetail: `${apiBaseUrl}/librarys`,
-  editProfile: `${apiBaseUrl}/members`,
 };

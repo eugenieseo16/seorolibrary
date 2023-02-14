@@ -9,10 +9,12 @@ import CarouselNearBook from '@components/Carousel/CarouselNearBook';
 import CarouselBestSellerBook from '@components/Carousel/CarouselBestSellerBook';
 import CarouselPlace from '@components/Carousel/CarouselPlace';
 import { useMyQuery } from '@src/hooks/useMyQuery';
+import { useUser } from '@src/hooks/useUser';
 
 function Home() {
+  const user = useUser();
   const placeData = useMyQuery('/books.json');
-  const greeting = faker.name.firstName() + '님 안녕하세요';
+  const greeting = user?.memberName + '님 안녕하세요';
   return (
     <div className="home-container">
       <SearchHeader text={greeting} />
