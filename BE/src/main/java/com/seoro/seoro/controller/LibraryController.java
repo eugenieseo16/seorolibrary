@@ -67,7 +67,6 @@ public class LibraryController {
 		return libraryService.viewMyReview(memberId);
 	}
 
-	// 확인
 	@GetMapping("{memberId}/report")
 	public List<BookReportDto> viewBookReportList(@PathVariable Long memberId) {
 		return libraryService.viewBookReportList(memberId);
@@ -104,7 +103,7 @@ public class LibraryController {
 	// }
 
 	@GetMapping("/{memberId}/friends")
-	public List<FriendDto> viewFriendList(@PathVariable Long memberId) {
-		return libraryService.viewFriendList(memberId);
+	public List<FriendDto> viewFollowingList(@PathVariable Long memberId) {
+		return libraryService.viewFollowingList(memberId);
 	}
 }
