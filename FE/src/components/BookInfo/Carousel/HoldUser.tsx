@@ -13,7 +13,11 @@ const settings = {
   swipeToSlide: true,
 };
 
-function HoldUser() {
+interface IHoldUserProps {
+  isbn: string;
+}
+
+function HoldUser({ isbn }: IHoldUserProps) {
   const userData = useMyQuery('/userFollower.json');
   const navigate = useNavigate();
 

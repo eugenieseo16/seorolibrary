@@ -10,11 +10,13 @@ import {
 
 import './BookStat.styles.scss';
 import { bookDetailAPI } from '@src/API/bookAPI';
-function BookStat() {
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  const isbn = location.pathname.replace('/book/', '');
+interface IBookStatProps {
+  isbn: string;
+}
+function BookStat({ isbn }: IBookStatProps) {
+  const navigate = useNavigate();
+
   const data = bookDetailAPI(isbn);
 
   return (
@@ -22,7 +24,11 @@ function BookStat() {
       {/* navigate parameter에 book id 부분 바꿔줘야함 */}
       <div
         className="community"
-        onClick={() => navigate(`/book/${isbn}/log`, { state: 'reader' })}
+        onClick={() =>
+          navigate(`/book/${isbn}/log`, {
+            state: { isbn: isbn, selectedTab: 'reader' },
+          })
+        }
       >
         <h2>읽은 유저 수</h2>
         <RiBookOpenLine size={'1.5rem'} />
@@ -33,7 +39,11 @@ function BookStat() {
       {/* navigate parameter에 book id 부분 바꿔줘야함 */}
       <div
         className="comment"
-        onClick={() => navigate(`/book/0/log`, { state: 'comment' })}
+        onClick={() =>
+          navigate(`/book/0/log`, {
+            state: { isbn: isbn, selectedTab: 'comment' },
+          })
+        }
       >
         <h2>한줄평</h2>
         <RiChatQuoteLine size={'1.5rem'} />
@@ -44,7 +54,11 @@ function BookStat() {
       {/* navigate parameter에 book id 부분 바꿔줘야함 */}
       <div
         className="review"
-        onClick={() => navigate(`/book/0/log`, { state: 'review' })}
+        onClick={() =>
+          navigate(`/book/0/log`, {
+            state: { isbn: isbn, selectedTab: 'review' },
+          })
+        }
       >
         <h2>독서 리뷰</h2>
         <RiFileList3Line size={'1.5rem'} />

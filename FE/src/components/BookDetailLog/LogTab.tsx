@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import ToggleNav from '@components/ToggleNav/ToggleNav';
 import BookReader from '@components/BookDetailLog/BookReader';
 import BookComment from '@components/BookDetailLog/BookComment';
 import BookReview from '@components/BookDetailLog/BookReview';
 
-interface LogTabProps {
-  tab: string;
-}
+function LogTab() {
+  const { state } = useLocation();
 
-function LogTab({ tab }: LogTabProps) {
-  const [selectedId, setSelectedId] = useState(tab);
+  const [selectedId, setSelectedId] = useState(state['selectedTab']);
 
   return (
     <div className="log-tab-container">
@@ -25,11 +24,11 @@ function LogTab({ tab }: LogTabProps) {
       />
 
       {selectedId === 'reader' ? (
-        <BookReader />
+        <BookReader isbn={state['isbn']} />
       ) : selectedId === 'comment' ? (
-        <BookComment />
+        <BookComment isbn={state['isbn']} />
       ) : (
-        <BookReview />
+        <BookReview isbn={state['isbn']} />
       )}
     </div>
   );

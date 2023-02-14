@@ -48,3 +48,13 @@ export const bookDetailAPI = (isbn: string) => {
   const response = useMyQuery(bookApiUrls.bookDetail + isbn);
   return response;
 };
+
+export const bookReviewAPI = (isbn: string) => {
+  const response = useMyQuery(bookApiUrls.bookReview + isbn);
+  return response;
+};
+
+export const bookCommentAPI = (isbn: string) => {
+  const response = useMyQuery(bookApiUrls.bookComment + isbn);
+  return response;
+};
