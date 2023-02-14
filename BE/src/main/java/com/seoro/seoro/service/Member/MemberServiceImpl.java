@@ -128,6 +128,14 @@ public class MemberServiceImpl implements MemberService {
 		Member member = memberRepository.findByMemberName(memberName).orElse(null);
 		MemberDto responseDto = new MemberDto(member);
 
+		Long genre = 0L;
+		if(requestDto.getMemberGenre().length > 0) {
+			for(int i=0; i<requestDto.getMemberGenre().length; i++) {
+				genre = genre | (1 << requestDto.getMemberGenre()[i]);
+			}
+			log.info("장르 = {}", genre);
+		}
+
 		if(member != null) {
 			Member newMember = Member.builder()
 				.memberId(member.getMemberId())
@@ -139,7 +147,7 @@ public class MemberServiceImpl implements MemberService {
 				.loginType(member.getLoginType())
 				.withdrawalDate(member.getWithdrawalDate())
 				.memberScore(member.getMemberScore())
-				.memberGenre(requestDto.getMemberGenre()) // 수정
+				.memberGenre(genre) // 수정
 				.build();
 
 			memberRepository.save(newMember);

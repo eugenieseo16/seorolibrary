@@ -15,12 +15,14 @@ function UserLibrary() {
   const location = useLocation();
   const path = location.pathname;
 
+  const memberName = location.pathname.replace('/profile/', '');
+
   return (
     <div className="user-library-container">
       {path === '/profile' ? (
         <UserHeader />
       ) : (
-        <Header text="훈나무님의 도서관" />
+        <Header text={memberName + '님의 도서관'} />
       )}
 
       <UserProfile isMe={state} />

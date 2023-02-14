@@ -64,7 +64,6 @@ function Router() {
         <Route path="/profile/follow" element={<Follow />} />
 
         <Route path="/profile/log" element={<ProfileLog />} />
-        <Route path="/profile/register" element={<BookRegister />} />
 
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/settings/password" element={<ChangePassword />} />
@@ -90,6 +89,7 @@ function Router() {
         <Route path="/chat-list" element={<ChatsList />} />
         <Route path="/chat/:id" element={<Chat />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
+        <Route path="/profile/register" element={<BookRegister />} />
       </Route>
 
       <Route path="" element={<BookClubNavLayout />}>

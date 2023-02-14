@@ -1,5 +1,37 @@
 @import '../../styles/variables';
 
+.ant-modal-close {
+  display: none;
+}
+.ant-modal-content {
+  padding-bottom: 4rem !important;
+}
+
+.book-item-container {
+  display: flex;
+  margin-bottom: 1rem;
+  img {
+    width: 5rem;
+    height: 7rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-right: 8px;
+  }
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'NEXON';
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    p {
+      font-size: 0.8rem;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
 .book-register-container {
   padding: 10px;
   .book-detail-register-container {

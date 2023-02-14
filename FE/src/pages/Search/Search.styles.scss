@@ -21,4 +21,30 @@
       opacity: 0.6;
     }
   }
+
+  .before-search-container {
+    color: $deep-brown;
+    .before-search-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      span {
+        background-color: $deep-brown;
+        color: $beige;
+        font-size: 1rem;
+        border: $deep-brown solid 1px;
+        padding: 5px;
+        border-radius: 10px;
+      }
+    }
+    .best-seller-item {
+      padding: 30px 20px;
+      // background-color: pink;
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+    }
+  }
 }
