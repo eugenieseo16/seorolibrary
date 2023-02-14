@@ -4,7 +4,12 @@ import { LockOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons';
 import { Button, notification, Form, Input } from 'antd';
 
 import './SignupBox.styles.scss';
-import { ISignUpForm, loginAPI, signUpAPI } from '@src/API/authAPI';
+import {
+  ISignUpForm,
+  jwtLoginAPI,
+  loginAPI,
+  signUpAPI,
+} from '@src/API/authAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
 
@@ -22,8 +27,9 @@ function SignupBox() {
         email: data.memberEmail,
         password: data.memberPassword,
       });
-      console.log(loginResponse);
-      // dispatch(login({ ...loginResponse, username: data.memberName }));
+      const jwtResponse = await jwtLoginAPI(loginResponse.accessToken);
+      localStorage.setItem('ssafy-token', loginResponse.accessToken);
+      dispatch(login(jwtResponse));
     } else {
       api.open({
         message: <h2 style={{ color: 'tomato' }}>서버에러</h2>,
