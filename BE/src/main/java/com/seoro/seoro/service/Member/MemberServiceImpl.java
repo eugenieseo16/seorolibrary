@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<MemberDto> findByMemberNameLike(String input) {
-		List<Member> list = memberRepository.findByMemberNameLike(input);
+		List<Member> list = memberRepository.findByMemberNameContaining(input);
 		System.out.println(list.size());
 		List<MemberDto> dtoList = new ArrayList<>();
 		for(Member member : list){
