@@ -21,6 +21,7 @@ export default function CarouselNearBook() {
   const user = useUser();
 
   // body => params로 바뀌면 reverse comment 처리
+  // 아래 데이터 세부 값도 변경 필요. 예) image_url -> bookImage
   // const booksData = nearBooksAPI(user?.memberId);
   const booksData = useMyQuery('/books.json');
 
@@ -33,7 +34,7 @@ export default function CarouselNearBook() {
           <div
             key={i}
             className="recommend-near-book-container"
-            onClick={() => navigate(`/book/${i}`)}
+            onClick={() => navigate(`/book/${data.isbn}`)}
           >
             <div>
               <img src={data.image_url} alt="" />
