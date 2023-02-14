@@ -35,16 +35,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		String accessToken = getToken(request);
 		if(accessToken != null) {
-			// 만료된 토큰인지 검사
-			
 			checkLogout(accessToken); // 로그아웃 토큰인지 검사
 			String username = jwtTokenUtil.getUsername(accessToken);
 
 			if(username != null) {
-				// 토큰의 username과 userDetailServiced의 username이 같은지 검사
 				UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
 				equalsUsernameFromTokenAndUserDetails(userDetails.getUsername(), username);
-				validateAccessToken(accessToken, userDetails);
+				validateAccessToken(accessToken, userDetails); // 토큰의 정보와 request 정보가 일치하는지 검사 // 만료된 토큰인지 검사
 				processSecurity(request, userDetails); // 유저 정보 SecurityContext 추가
 			}
 		}
