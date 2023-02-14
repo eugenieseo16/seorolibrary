@@ -56,25 +56,41 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto) {
+		//리뷰 작성하면 readBook에 추가하도록
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
-
-		Member writer = new Member();
-		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
-		if(tmpUser.isPresent()){
-			writer = tmpUser.get();
-		}else{
-			writer = tmpUser.orElse(null);
+		//사용자 정보 가져오기
+		Member member = new Member();
+		Optional<Member> findMember = memberRepository.findByMemberName(requestDto.getMemberName());
+		if(findMember.isPresent()) {
+			member = findMember.get();
+		} else {
 			resultResponseDto.setResult(false);
 			return resultResponseDto;
 		}
+
+		ReadBook readBook = new ReadBook();
+		Optional<ReadBook> findReadBook = readBookRepository.findByIsbnAndMember(isbn, member);
+		if(findReadBook.isPresent()) { //읽은 도서에 추가
+			readBook = findReadBook.get();
+		} else {
+			readBook = ReadBook.builder()
+				.bookImage(requestDto.getBookImage())
+				.bookTitle(requestDto.getBookTitle())
+				.isbn(isbn)
+				.member(member)
+				.build();
+			readBookRepository.save(readBook);
+		}
+
+		System.out.println("readBook.getIsbn() = " + readBook.getIsbn());
 		Review review = Review.builder()
-			.member(writer)
 			.reviewContent(requestDto.getReviewContent())
-//			.readBook(readBookRepository.findByIsbn(requestDto.getIsbn()).get())
+			.member(member)
+			.readBook(readBook)
 			.build();
 		reviewRepository.save(review);
-		resultResponseDto.setResult(true);
 
+		resultResponseDto.setResult(true);
 		return resultResponseDto;
 	}
 
@@ -107,35 +123,41 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ResultResponseDto changeReview(String isbn, ReviewDto requestDto) {
+	public ResultResponseDto changeReview(String isbn, ReviewUpdateDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
 
-		Member writer = new Member();
-		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
-		if(tmpUser.isPresent()){
-			writer = tmpUser.get();
-		}else{
-			writer = tmpUser.orElse(null);
+		//사용자 정보 가져오기
+		Member member = new Member();
+		Optional<Member> findMember = memberRepository.findByMemberName(requestDto.getMemberName());
+		if(findMember.isPresent()) {
+			member = findMember.get();
+		} else {
 			resultResponseDto.setResult(false);
 			return resultResponseDto;
 		}
 
-		Review saveReview = reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn, writer.getMemberId());
+		ReadBook readBook = new ReadBook();
+		Optional<ReadBook> findReadBook = readBookRepository.findByIsbnAndMember(isbn, member);
+		if(findReadBook.isPresent()) { //읽은 도서에 추가
+			readBook = findReadBook.get();
+		} else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
 
-		saveReview = Review.builder()
-			.member(writer)
-			.reviewId(saveReview.getReviewId())
+		Review review = Review.builder()
+			.reviewId(requestDto.getReviewId())
 			.reviewContent(requestDto.getReviewContent())
-//			.readBook(readBookRepository.findByIsbn(isbn).get())
+			.member(member)
+			.readBook(readBook)
 			.build();
-		reviewRepository.save(saveReview);
+		reviewRepository.save(review);
 		resultResponseDto.setResult(true);
-
 		return resultResponseDto;
 	}
 
 	@Override
-	public ResultResponseDto deleteReview(String isbn, ReviewDto requestDto) {
+	public ResultResponseDto deleteReview(String isbn, ReviewDelDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
 
 		Member writer = new Member();
@@ -148,11 +170,23 @@ public class BookServiceImpl implements BookService {
 			return resultResponseDto;
 		}
 
-		Review saveReview = reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn, writer.getMemberId());
-		reviewRepository.deleteById(saveReview.getReviewId());
+		Optional<Review> findReview = reviewRepository.findById(requestDto.getReviewId());
+		Review review = null;
+		if(findReview.isPresent()) {
+			review = findReview.get();
+		} else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		if(review.getMember().equals(writer)) {
+			reviewRepository.deleteById(requestDto.getReviewId());
+		}else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
 
 		resultResponseDto.setResult(true);
-
 		return resultResponseDto;
 	}
 	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn) {

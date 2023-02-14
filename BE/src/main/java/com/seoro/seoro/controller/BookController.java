@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,19 +35,19 @@ public class BookController {
 
 	//도서 리뷰 작성
 	@PostMapping("/review/{isbn}")
-	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
+	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDto requestDto){
 		return bookService.makeReview(isbn, requestDto);
 	}
 
 	//도서 리뷰 수정
 	@PutMapping("/review/{isbn}")
-	public ResultResponseDto changeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
+	public ResultResponseDto changeReview(@PathVariable("isbn") String isbn, @RequestBody ReviewUpdateDto requestDto){
 		return bookService.changeReview(isbn, requestDto);
 	}
 
 	//도서 리뷰 삭제
 	@DeleteMapping("/review/{isbn}")
-	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
+	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDelDto requestDto){
 		return bookService.deleteReview(isbn, requestDto);
 	}
 

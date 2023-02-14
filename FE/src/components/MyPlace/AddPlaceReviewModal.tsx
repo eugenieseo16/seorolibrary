@@ -6,7 +6,7 @@ import './AddPlaceReviewModal.styles.scss';
 
 function AddPlaceReviewModal() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(5);
+  const [value, setValue] = useState(0);
   const normFile = (e: any) => {
     console.log('Upload event:', e);
     if (Array.isArray(e)) {
@@ -21,7 +21,7 @@ function AddPlaceReviewModal() {
   return (
     <div>
       <div onClick={() => setOpen(true)}>
-        <Rate defaultValue={5} />
+        <Rate defaultValue={0} />
       </div>
 
       <Modal
@@ -37,7 +37,7 @@ function AddPlaceReviewModal() {
       >
         <div className="line"></div>
         <div className="ant-modal-items">
-          <Rate defaultValue={5} onChange={setValue} value={value} />
+          <Rate defaultValue={0} onChange={setValue} value={value} />
           <div> {value} / 5</div>
         </div>
         <Form.Item

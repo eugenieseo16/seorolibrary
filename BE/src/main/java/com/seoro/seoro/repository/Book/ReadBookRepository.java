@@ -14,5 +14,8 @@ public interface ReadBookRepository extends JpaRepository<ReadBook, Long> {
 	Optional<ReadBook> findByReadBookId(Long readBookId);
 	Long countByMember(Member member);
 	List<ReadBook> findByIsbn(String isbn);
+	Optional<ReadBook> findByIsbnAndMember(String isbn, Member member);
+
+
 
 }
