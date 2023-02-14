@@ -1,6 +1,7 @@
 package com.seoro.seoro.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -37,6 +38,11 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	private final MemberService memberService;
 	private final JwtTokenUtil jwtTokenUtil;
+
+	@PostMapping("/search")
+	public MemberDto findMemberByMemberId(@RequestBody Map<String, Long> json){
+		return memberService.findMemberByMemberId(json.get("memberId"));
+	}
 
 	@PostMapping("/signup")
 	public ResultResponseDto signupMember(@RequestBody @Valid MemberSignupDto requestDto, BindingResult bindingResult) {
