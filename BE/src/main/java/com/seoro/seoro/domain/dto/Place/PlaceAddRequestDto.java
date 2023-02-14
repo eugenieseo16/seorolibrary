@@ -11,7 +11,7 @@ public class PlaceAddRequestDto {
 	private String placeName;
 	private Long placeMaker;
 	private String placedescrib;
-	private String placePhoto;
+	private String[] placePhoto;
 	private String latitude;
 	private String longitude;
 }
