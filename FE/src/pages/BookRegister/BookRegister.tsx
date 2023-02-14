@@ -1,29 +1,22 @@
 import React, { useState } from 'react';
-import { Button, Input, Modal } from 'antd';
+import { Input, Modal } from 'antd';
 import { useLocation } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 
 import Header from '@components/Header/Header';
 import RegisterDetail from '@components/BookRegister/RegisterDetail';
 
 import './BookRegister.styles.scss';
-import {
-  bookSearchByTitle,
-  IRegisterBook,
-  registerBookAPI,
-} from '@src/API/bookAPI';
+import { bookSearchByTitle, IRegisterBook } from '@src/API/bookAPI';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
-import axios from 'axios';
+import { useUser } from '@src/hooks/useUser';
 
 function BookRegister() {
   const [loading, setLoading] = useState(false);
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [bookResults, setBookResults] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useUser();
   const location = useLocation();
-
-  const title = location.state?.title;
-  const author = location.state?.author;
 
   const onSearch = async (value: string, open: boolean) => {
     if (loading) return;
@@ -33,16 +26,19 @@ function BookRegister() {
     setBookResults(data);
     setLoading(false);
   };
+
   const submitBook = async () => {
-    if (loading) return;
+    if (loading || !selectedBook) return;
+    console.log('HHH');
     setLoading(true);
     console.log(selectedBook);
-    const obj: IRegisterBook = {
-      bookTitle: selectedBook.title,
-      isbn: selectedBook.isbn,
-      memberId: '',
-      ownComment: '',
-    };
+    console.log(user);
+    // const obj: IRegisterBook = {
+    //   bookTitle: selectedBook.title,
+    //   isbn: selectedBook.isbn,
+    //   memberId: '',
+    //   ownComment: '',
+    // };
     // const response = await registerBookAPI;
     setLoading(false);
   };

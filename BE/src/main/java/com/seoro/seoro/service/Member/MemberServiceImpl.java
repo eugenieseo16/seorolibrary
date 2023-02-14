@@ -21,6 +21,7 @@ import com.seoro.seoro.auth.JwtExpirationEnums;
 import com.seoro.seoro.auth.LogoutAcessToken;
 import com.seoro.seoro.auth.RefreshToken;
 import com.seoro.seoro.auth.RefreshTokenRedisRepository;
+import com.seoro.seoro.domain.dto.GenreResponseDto;
 import com.seoro.seoro.domain.dto.Member.LoginDto;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.Member.MemberPasswordDto;
@@ -29,6 +30,7 @@ import com.seoro.seoro.domain.dto.Member.MemberUpdateDto;
 import com.seoro.seoro.domain.dto.Member.TokenDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Member.LoginType;
+import com.seoro.seoro.domain.entity.Genre;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.auth.LogoutAccessTokenRedisRepositoty;
 import com.seoro.seoro.repository.Member.MemberRepository;
@@ -284,6 +286,22 @@ public class MemberServiceImpl implements MemberService {
 		memberDto = new MemberDto(member);
 
 		return memberDto;
+	}
+
+	@Override
+	public GenreResponseDto getGenres(int[] genres) {
+		GenreResponseDto responseDto = new GenreResponseDto();
+		String[] resGenre = new String[genres.length];
+		for(int i=0; i<genres.length; i++) {
+			resGenre[i] = Genre.values()[genres[i]].getSymbol();
+		}
+		for(int i=0; i<resGenre.length; i++) {
+			System.out.println("resGenre = " + resGenre[i]);
+		}
+
+		responseDto.setResult(true);
+		responseDto.setGenres(resGenre);
+		return responseDto;
 	}
 
 	private String getCurrentUsername() {
