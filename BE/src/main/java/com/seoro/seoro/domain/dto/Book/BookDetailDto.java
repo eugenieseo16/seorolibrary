@@ -3,6 +3,8 @@ package com.seoro.seoro.domain.dto.Book;
 import java.util.Date;
 import java.util.List;
 
+import com.seoro.seoro.domain.dto.Member.MemberDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,4 +28,5 @@ public class BookDetailDto {
 	private Long countReview;
 	private String ownComment;
 	private List<OwnBookDto> ownBooks;
+	private List<MemberDto> ownMembers;
 }

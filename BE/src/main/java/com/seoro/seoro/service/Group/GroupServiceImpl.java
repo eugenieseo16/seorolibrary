@@ -79,9 +79,12 @@ public class GroupServiceImpl implements GroupService{
 						.groupName(group.getGroupName())
 						.groupDescrib(group.getGroupIntroduction())
 						.groupProfile(group.getGroupProfile())
+						.groupId(group.getGroupId())
 						.build());
 			}
 			groupMainResponseDto.setRecommendGroups(recommendGroups);
+		}else{
+			groupMainResponseDto.setRecommendGroups(new ArrayList<>());
 		}
 
 
@@ -108,6 +111,7 @@ public class GroupServiceImpl implements GroupService{
 				recommendMembers.add(RecommendMemberDto.builder()
 					.memberProfile(member.getMemberProfile())
 					.memberName(member.getMemberName())
+					.memberId(member.getMemberId())
 					.build());
 			}
 			groupMainResponseDto.setRecommendMembers(recommendMembers);
@@ -126,6 +130,7 @@ public class GroupServiceImpl implements GroupService{
 					.groupProfile(groups.getGroupProfile())
 					.groupDescrib(groups.getGroupIntroduction())
 					.groupName(groups.getGroupName())
+					.groupId(groups.getGroupId())
 				.build());
 		}
 		if(myGroups.size() > 0) {
