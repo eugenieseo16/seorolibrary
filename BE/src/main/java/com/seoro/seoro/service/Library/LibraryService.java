@@ -20,9 +20,9 @@ import com.seoro.seoro.domain.dto.ResultResponseDto;
 
 @Service
 public interface LibraryService {
-	public LibraryDto libraryMain(Long memberId, User user);
+	public LibraryDto libraryMain(Long memberId, Long meId);
 	public List<GroupShowDto> viewMyGroup(Long memberId);
-	public ResultResponseDto makeOwnBook(Long memberId, BookDetailDto bookDetailDto);
+	public ResultResponseDto makeOwnBook(Long memberId, OwnBookDto ownBookDto);
 	public ResultResponseDto removeOwnBook(Long memberId, String isbn);
 	public ResultResponseDto removeReadBook(Long memberId, String isbn);
 	public List<OwnCommentDto> viewMyComment(Long memberId);
@@ -30,9 +30,9 @@ public interface LibraryService {
 	public List<BookReportDto> viewBookReportList(Long memberId);
 	public ResultResponseDto makeBookReport(BookReportDto requestDto, Long memberId);
 	public BookReportDto viewBookReport(Long bookReportId);
-	public ResultResponseDto modifyBookReport(BookReportDto requestDto, Long bookReportId);
+	public ResultResponseDto modifyBookReport(BookReportDto requestDto);
 	public ResultResponseDto removeBookReport(Long bookReportId);
-	public LibraryDto makeFriend(Long memberId, User user);
-	public LibraryDto removeFriend(Long memberId, User user);
+	public LibraryDto makeFriend(Long memberId, Long meId);
+	public LibraryDto removeFriend(Long memberId, Long meId);
 	public List<FriendDto> viewFriendList(Long memberId);
 }

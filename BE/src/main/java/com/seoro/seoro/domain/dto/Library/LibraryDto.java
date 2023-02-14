@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LibraryDto {
+	private String messege;
 	private boolean isOwn;
 	private MemberDto memberInfo;
 	private List<GroupShowDto> myGroups;

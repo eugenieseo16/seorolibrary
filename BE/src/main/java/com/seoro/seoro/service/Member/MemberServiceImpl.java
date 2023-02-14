@@ -109,6 +109,17 @@ public class MemberServiceImpl implements MemberService {
 		Member viewMember =  memberRepository.findByMemberName(memberName).orElse(null);
 		if(viewMember != null) {
 			responseDto = new MemberDto(viewMember);
+
+			// 장르 디코딩
+			int[] genres = new int[Long.bitCount(viewMember.getMemberGenre())];
+			String p = Long.toBinaryString(viewMember.getMemberGenre());
+			for(int i=p.length()-1, j=0; i>=0; i--) {
+				if(p.charAt(i)=='1') {
+					genres[j++] = p.length() -i -1;
+				}
+			}
+			responseDto.setMemberGenre(genres);
+
 			responseDto.setResult(true);
 		} else {
 			responseDto.setMessege("회원 정보가 없습니다");
