@@ -387,9 +387,10 @@ public class BookServiceImpl implements BookService {
 		JSONParser jsonParser = new JSONParser();
 		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
 		JSONArray docu = (JSONArray) body.get("documents");
-
+		System.out.println(docu.size());
 		for(Object json: docu){
 			JSONObject bookObject = (JSONObject) json;
+			System.out.println(bookObject);
 			JSONArray authors = (JSONArray)bookObject.get("authors");
 			String isbns = bookObject.get("isbn").toString();
 			String isbn = isbns.substring(isbns.length()-13,isbns.length()-1);
@@ -397,7 +398,7 @@ public class BookServiceImpl implements BookService {
 				.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
 				.bookImage(bookObject.get("thumbnail").toString())
 				.isbn(isbn)
-				.bookAuthor(HtmlUtils.htmlUnescape(authors.get(0).toString()))
+				.bookAuthor(HtmlUtils.htmlUnescape(authors.size() !=0? authors.get(0).toString():""))
 				.bookDescrib(HtmlUtils.htmlUnescape(bookObject.get("contents").toString()))
 				.result(true)
 				.build());
