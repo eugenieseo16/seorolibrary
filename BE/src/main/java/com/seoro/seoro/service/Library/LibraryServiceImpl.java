@@ -143,9 +143,19 @@ public class LibraryServiceImpl implements LibraryService {
 	public ResultResponseDto makeOwnBook(Long memberId, OwnBookDto requestDto) {
 		// 책 검색은 BookController의 api를 쓰고 한줄평을 포함한 등록만 LibraryController api 사용
 		Member member = memberRepository.findById(memberId).orElse(null);
+		ResultResponseDto responseDto = new ResultResponseDto();
 
 		if(member == null) {
-			return new ResultResponseDto(false);
+			responseDto.setResult(false);
+			responseDto.setMessege("없는 회원입니다.");
+			return responseDto;
+		}
+
+		OwnBook checkBook = ownBookRepository.findByMemberAndIsbn(member, requestDto.getIsbn()).orElse(null);
+		if(checkBook != null) {
+			responseDto.setResult(false);
+			responseDto.setMessege("이미 등록된 도서입니다.");
+			return responseDto;
 		}
 
 		OwnBook ownBook = OwnBook.builder()
@@ -158,17 +168,33 @@ public class LibraryServiceImpl implements LibraryService {
 			.build();
 
 		ownBookRepository.save(ownBook);
-		ResultResponseDto responseDto = new ResultResponseDto(true);
+		responseDto.setResult(true);
 
 		return responseDto;
 	}
 
-	// 수정
 	@Override
 	public ResultResponseDto removeOwnBook(Long memberId, String isbn) {
-//		OwnBook ownBook = ownBookRepository.findByIsbn(isbn).orElseThrow(() -> new NoSuchElementException("해당 isbn의 책이 없습니다."));
-//		ownBookRepository.delete(ownBook);
-		return new ResultResponseDto(true);
+		ResultResponseDto responseDto = new ResultResponseDto();
+
+		Member member = memberRepository.findByMemberId(memberId);
+		if(member == null) {
+			responseDto.setMessege("없는 회원입니다.");
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElse(null);
+		if(ownBook == null) {
+			responseDto.setMessege("등록되지 않은 도서입니다.");
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		ownBookRepository.delete(ownBook);
+		responseDto.setResult(true);
+
+		return responseDto;
 	}
 
 	// 수정
@@ -262,6 +288,7 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public BookReportDto viewBookReport(Long bookReportId) {
+		// 안 쓰는 코드
 		// Optional<BookReport> bookReport = bookReportRepository.findById(bookReportId);
 		// BookReport responseBookReport = bookReport.get();
 		//
@@ -348,8 +375,11 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public List<FriendDto> viewFriendList(Long memberId) {
-		Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException("회원이 존재하지 않습니다."));
+	public List<FriendDto> viewFollowingList(Long memberId) {
+		Member member = memberRepository.findById(memberId).orElse(null);
+		if(member == null) {
+			return new ArrayList<>();
+		}
 
 		List<FriendDto> friendDtoList = new ArrayList<>();
 		List<Friend> friends = member.getFriends();
