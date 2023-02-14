@@ -32,18 +32,20 @@ function Nearbooks() {
     >
       <Suspense fallback={'Loading...'}>
         {books?.books?.map((book: any, i: number) => (
-          <Row key={i} className="book-container">
+          <Row
+            key={i}
+            className="book-container"
+            onClick={() =>
+              navigate(`/profile/${book.memberId}/book/${book.isbn}`)
+            }
+          >
             <Col span={8}>
               {/* 책 사진 */}
-              <img
-                src={book.bookImage}
-                alt=""
-                onClick={() => navigate(`/near/bookdetail/${i}`)}
-              />
+              <img src={book.bookImage} alt="" />
             </Col>
             {/* 책 설명 */}
             <Col span={15} className="book-description-container">
-              <div onClick={() => navigate(`/near/bookdetail/${i}`)}>
+              <div>
                 {/* 책 제목 */}
                 <h2>{book.bookTitle}</h2>
                 {/* 책 저자 */}
