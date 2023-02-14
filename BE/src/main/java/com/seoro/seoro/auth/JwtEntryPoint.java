@@ -19,6 +19,7 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 		AuthenticationException authException) throws IOException, ServletException {
 		log.error("Unauthorized error: {}", authException.getMessage());
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
+		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰이 잘못되었거나 만료되었습니다.");
+
 	}
 }

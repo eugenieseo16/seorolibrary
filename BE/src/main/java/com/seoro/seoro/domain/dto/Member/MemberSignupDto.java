@@ -20,7 +20,7 @@ public class MemberSignupDto {
 	@Email(message = "이메일 형식이 올바르지 않습니다.")
 	private String memberEmail;
 	@NotBlank(message = "닉네임을 입력해주세요")
-	// @Pattern(regexp = "^(?=.*[a-z0-9])[a-z0-9]{3,16}$", message = "3자 이상 16자 이하, 영어 또는 숫자만 사용 가능합니다.")
+	// @Pattern(regexp = "^(?=.*[a-z0-9])[a-z0-9][ㄱ-ㅎ가-힣]{3,16}$", message = "길이는 3자 이상 16자 이하여야 합니다.")
 	private String memberName;
 	@NotBlank(message = "비밀번호를 입력해주세요")
 	// @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{5,20}$",
@@ -30,4 +30,5 @@ public class MemberSignupDto {
 	private String dupchkPassword;
 	private Long memberGenre;
 	private String loginType;
+	private String memberDongCode;
 }
