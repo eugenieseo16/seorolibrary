@@ -47,31 +47,30 @@ public class MemberController {
 
 		// 유효값 검사
 		ResultResponseDto responseDto = new ResultResponseDto();
-		Map<String, String> errorMap = new HashMap<>();
 		if(bindingResult.hasErrors()) {
 			for(FieldError error : bindingResult.getFieldErrors()) {
-				errorMap.put("valid+" + error.getField(), error.getDefaultMessage());
-				log.info("error message : "+error.getDefaultMessage());
+				responseDto.setMessege(error.getDefaultMessage());
+				responseDto.setResult(false);
+				return responseDto;
 			}
 		}
 
 		// 중복 검사
 		if(memberService.checkEmailDuplication(requestDto.getMemberEmail())) {
-			errorMap.put("valid+memberEmail", "이미 존재하는 이메일입니다.");
+			responseDto.setMessege("이미 존재하는 이메일입니다.");
+			responseDto.setResult(false);
+			return responseDto;
 		}
 
 		if(memberService.chechNameDuplication(requestDto.getMemberName())) {
-			errorMap.put("valid+memberName", "이미 존재하는 닉네임입니다.");
+			responseDto.setMessege("이미 존재하는 닉네임입니다.");
+			responseDto.setResult(false);
+			return responseDto;
 		}
 
 		if(memberService.checkPasswordDuplication(requestDto.getMemberPassword(), requestDto.getDupchkPassword())) {
-			errorMap.put("valid+dupchkPassword", "비밀번호가 일치하지 않습니다.");
-		}
-
-		if(0 < errorMap.size()) {
-			responseDto.setErrorMap(errorMap);
+			responseDto.setMessege("비밀번호가 일치하지 않습니다.");
 			responseDto.setResult(false);
-
 			return responseDto;
 		}
 
@@ -108,7 +107,7 @@ public class MemberController {
 	}
 
 	@PutMapping("/{memberName}")
-	public MemberDto modifyProfile(@RequestBody MemberUpdateDto requestDto, @PathVariable String memberName) {
+	public ResultResponseDto modifyProfile(@RequestBody MemberUpdateDto requestDto, @PathVariable String memberName) {
 		System.out.println("memberName: " + memberName);
 		// email 같은 값은 그대로 가는 처리 프론트와 연동
 		return memberService.modifyProfile(requestDto, memberName);
