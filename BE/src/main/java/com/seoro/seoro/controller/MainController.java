@@ -12,8 +12,10 @@ import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seoro.seoro.domain.dto.GenreResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 import com.seoro.seoro.service.Member.MemberService;
 
@@ -60,5 +62,10 @@ public class MainController {
 			result.put("books",books);
 		}
 		return result;
+	}
+
+	@GetMapping("/genres")
+	public GenreResponseDto getGenres(@RequestParam("genres") int[] genres) {
+		return memberService.getGenres(genres);
 	}
 }
