@@ -41,7 +41,7 @@ public class BookController {
 
 	//도서 리뷰 수정
 	@PutMapping("/review/{isbn}")
-	public ResultResponseDto changeReview(@PathVariable("isbn") String isbn, @ModelAttribute ReviewDto requestDto){
+	public ResultResponseDto changeReview(@PathVariable("isbn") String isbn, @RequestBody ReviewUpdateDto requestDto){
 		return bookService.changeReview(isbn, requestDto);
 	}
 
