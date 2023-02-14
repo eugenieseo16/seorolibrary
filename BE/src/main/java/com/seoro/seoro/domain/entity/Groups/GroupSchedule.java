@@ -23,7 +23,6 @@ public class GroupSchedule implements Serializable {
     @ManyToOne(targetEntity = Groups.class)
     @JoinColumn(name = "groupId")
     private Groups groups;
-    @CreationTimestamp
     private LocalDateTime date;
     private String scheduleTitle;
     private String scheduleContent;
