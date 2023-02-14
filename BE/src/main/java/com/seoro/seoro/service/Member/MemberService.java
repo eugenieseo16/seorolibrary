@@ -31,4 +31,6 @@ public interface MemberService {
 	public MemberDto viewMemberInfo(String userName);
 
 	public GenreResponseDto getGenres(int[] genres);
+
+	MemberDto findMemberByMemberId(Long memberId);
 }

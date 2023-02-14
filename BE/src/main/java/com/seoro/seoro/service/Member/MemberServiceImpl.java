@@ -304,6 +304,13 @@ public class MemberServiceImpl implements MemberService {
 		return responseDto;
 	}
 
+	@Override
+	public MemberDto findMemberByMemberId(Long memberId) {
+		Member member= memberRepository.findByMemberId(memberId);
+		MemberDto memberDto= new MemberDto(member);
+		return memberDto;
+	}
+
 	private String getCurrentUsername() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		// UserDetails principal = (UserDetails) authentication.getPrincipal();
