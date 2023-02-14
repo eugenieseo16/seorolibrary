@@ -1,4 +1,7 @@
-package com.seoro.seoro.domain.dto.Member;
+package com.seoro.seoro.domain.dto.Book;
+
+
+import com.seoro.seoro.domain.entity.Book.Review;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecommendMemberDto {
-	private String memberProfile;
-	private String memberName;
+public class BookRequestDto {
 	private Long memberId;
 }

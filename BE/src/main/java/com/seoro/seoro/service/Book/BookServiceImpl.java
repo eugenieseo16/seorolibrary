@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.NoSuchElementException;
 
 import com.seoro.seoro.domain.dto.Book.*;
+import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -290,65 +291,67 @@ public class BookServiceImpl implements BookService {
 	// 	}
 	// 	return dtoList;
 
-	// }
-	// @Override
-	// public List<BookDto> findAllBooks() {
-	// 	List<Book> list = bookRepository.findAll();
-	// 	List<BookDto> dtoList = new ArrayList<>();
-	// 	for(Book book: list){
-	// 		dtoList.add(BookDto.builder()
-	// 				.isbn(book.getIsbn())
-	// 				.bookTitle(book.getBookTitle())
-	// 				.bookAuthor(book.getBookAuthor())
-	// 				.bookPublisher(book.getBookPublisher())
-	// 				.bookImage(book.getBookImage())
-	// 				.bookDescrib(book.getBookDescrib())
-	// 				.bookPubDate(book.getBookPubDate())
-	// 				.build());
-	// 	}
-	// 	return dtoList;
-
-	// }
-
 	// 일반 상세
 	@Override
-	public BookDetailDto viewBookDetail(String isbn) throws IOException, ParseException {
-		BookDetailDto output;
-		URL url =new URL("http://data4library.kr/api/srchDtlList?authKey=5131ae002fe7c43930587697cae1f2fe3b9495c7df43cc23b8ee69e3ccb017f7&isbn13="+isbn+"&format=json");
-		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "utf-8"));
-		String result = br.readLine();
-		System.out.println(result);
-		JSONParser jsonParser = new JSONParser();
-		JSONObject jsonObject = (JSONObject)jsonParser.parse(result);
-		JSONObject responseResult = (JSONObject)jsonObject.get("response");
-		ArrayList info = new ArrayList((Collection)responseResult.get("detail"));
-		JSONObject jsonlist = (JSONObject)info.get(0);
-		Map outputlist = (Map)jsonlist.get("book");
-
+	public BookDetailDto viewBookDetail(String isbn, Long memberId) throws ParseException, URISyntaxException {
+		RestTemplate rest = new RestTemplate();
+		HttpHeaders headers= new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		String appkey = "KakaoAK aa8ebbcbc5acc532a0a4d5b0712afc48";
+		headers.set("Authorization", appkey);
+		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
 		long count_review = reviewRepository.countByReadBook_Isbn(isbn);
 		long count_readpeople = readBookRepository.countByIsbn(isbn);
+		List<MemberDto> own_members = new ArrayList<>();
+		List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
+		for(OwnBook book : ownBooks){
+			Member member = memberRepository.findByMemberId(book.getOwnBookId());
+			if(!member.getMemberDongCode().equals(memberRepository.findByMemberId(memberId).getMemberDongCode())) continue;
+			own_members.add(MemberDto.builder()
+					.memberId(member.getMemberId())
+					.memberProfile(member.getMemberProfile())
+					.memberName(member.getMemberName())
+					.build());
 
-		output = BookDetailDto.builder()
-			.bookImage(outputlist.get("bookImageURL").toString())
-			.bookTitle(outputlist.get("bookname").toString())
-			.isbn(outputlist.get("isbn13").toString())
-			.bookPublisher(outputlist.get("publisher").toString())
-			.bookPubDate(outputlist.get("publication_date").toString())
-			.bookAuthor(outputlist.get("authors").toString())
-			.bookDescrib(outputlist.get("description").toString())
-			.result(true)
-			.countReview(count_review)
+		}
+		long count_comment = ownBooks.size();
+
+		BookDetailDto output;
+		URI uri =new URI("https://dapi.kakao.com/v3/search/book?size=50&target=isbn&query="+isbn);
+		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
+		JSONParser jsonParser = new JSONParser();
+		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
+		JSONArray docu = (JSONArray) body.get("documents");
+		JSONObject bookObject = (JSONObject)docu.get(0);
+
+		JSONArray authors = (JSONArray)bookObject.get("authors");
+
+		output=BookDetailDto.builder()
+			.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
+			.bookImage(bookObject.get("thumbnail").toString())
+			.isbn(isbn)
+			.bookAuthor(HtmlUtils.htmlUnescape(authors.get(0).toString()))
+			.bookDescrib(HtmlUtils.htmlUnescape(bookObject.get("contents").toString()))
+			.bookPublisher(bookObject.get("publisher").toString())
+			.countComment(count_comment)
+			.bookPubDate(bookObject.get("datetime").toString().substring(0,10))
 			.countReader(count_readpeople)
+			.countReview(count_review)
+			.ownMembers(own_members)
+			.result(true)
 			.build();
+
 		return output;
 	}
 
 	//내 주변 보유사용자, 리뷰 출력 추가 필요
 
 	@Override
-	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws IOException, ParseException {
+	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws
+		IOException,
+		ParseException,
+		URISyntaxException {
 		OwnBookDetailDto responseDto = new OwnBookDetailDto();
-
 		Member member = memberRepository.findByMemberId(memberId);
 		if(member == null) {
 			responseDto.setResult(false);
@@ -359,7 +362,7 @@ public class BookServiceImpl implements BookService {
 		responseDto.setOwnComment(ownBook.getOwnComment());
 		responseDto.setOwn(ownBook.getIsOwn());
 
-		BookDetailDto bookDetailDto = viewBookDetail(isbn);
+		BookDetailDto bookDetailDto = viewBookDetail(isbn, memberId);
 		responseDto.setBookDetailDto(bookDetailDto);
 		responseDto.setOwnBooks(myOwnBooks);
 
@@ -399,20 +402,6 @@ public class BookServiceImpl implements BookService {
 				.result(true)
 				.build());
 		}
-		// ArrayList docs = new ArrayList((Collection)responseResult.get("volumeInfo"));
-		// for(Object list: docs){
-		// 	JSONObject jsonlist = (JSONObject)list;
-		// 	Map outputlist = (Map)jsonlist.get("doc");
-		// 	System.out.println(jsonlist);
-		// 	System.out.println("!!");
-		// 	ShowBookDto showBookDto = new ShowBookDto();
-		// 	output.add(ShowBookDto.builder()
-		// 		.bookImage(outputlist.get("bookImageURL").toString())
-		// 		.bookTitle(outputlist.get("bookname").toString())
-		// 		.isbn(outputlist.get("isbn13").toString())
-		// 		.result(true)
-		// 		.build());
-		// }
 		return output;
 	}
 
