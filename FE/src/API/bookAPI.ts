@@ -1,5 +1,5 @@
 import { useMyQuery } from '../hooks/useMyQuery';
-import { bookApiUrls, searchAPIUrl, bookAPIUrls } from './apiUrls';
+import { bookApiUrls, searchAPIUrl } from './apiUrls';
 import axios from 'axios';
 
 export const bestSellerAPI = () => {
@@ -24,7 +24,20 @@ export const bookSearchByTitle = async (title: string) => {
   });
   return documents;
 };
-export const registerBook = async () => {};
+
+export interface IRegisterBook {
+  memberId: string;
+  isbn: string;
+  bookTitle: string;
+  ownComment: string;
+}
+export const registerBookAPI = async (data: IRegisterBook) => {
+  const { data: response } = await axios.post(
+    `${bookApiUrls.registerBookUrl}/${data.memberId}`,
+    data,
+  );
+  return response;
+};
 
 export const searchAPI = (input: string) => {
   const response = useMyQuery(searchAPIUrl + input);
@@ -32,6 +45,6 @@ export const searchAPI = (input: string) => {
 };
 
 export const bookDetailAPI = (isbn: string) => {
-  const response = useMyQuery(bookAPIUrls.bookDetail + isbn);
+  const response = useMyQuery(bookApiUrls.bookDetail + isbn);
   return response;
 };

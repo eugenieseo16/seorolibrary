@@ -7,7 +7,11 @@ import Header from '@components/Header/Header';
 import RegisterDetail from '@components/BookRegister/RegisterDetail';
 
 import './BookRegister.styles.scss';
-import { bookSearchByTitle } from '@src/API/bookAPI';
+import {
+  bookSearchByTitle,
+  IRegisterBook,
+  registerBookAPI,
+} from '@src/API/bookAPI';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import axios from 'axios';
 
@@ -32,7 +36,14 @@ function BookRegister() {
   const submitBook = async () => {
     if (loading) return;
     setLoading(true);
-    // axios.post()
+    console.log(selectedBook);
+    const obj: IRegisterBook = {
+      bookTitle: selectedBook.title,
+      isbn: selectedBook.isbn,
+      memberId: '',
+      ownComment: '',
+    };
+    // const response = await registerBookAPI;
     setLoading(false);
   };
 
@@ -84,8 +95,9 @@ function BookRegister() {
           onCancel={() => setIsModalOpen(false)}
         >
           <div style={{ padding: '3rem 0' }}>
-            {bookResults?.map(bookInfo => (
+            {bookResults?.map((bookInfo, i) => (
               <div
+                key={i}
                 className="book-item-container"
                 onClick={() => {
                   setIsModalOpen(false);
