@@ -10,6 +10,7 @@ import './BookClubGenerate.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { clubGenerateAPI } from '@src/API/clubAPI';
 import { useUser } from '@src/hooks/useUser';
+import { dongcodeAPI } from '@src/API/geoAPI';
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
@@ -19,15 +20,17 @@ function BookClubGenerate() {
   const user = useUser();
   const dongCode = useRef<any>();
   const [form] = Form.useForm();
-
+  const [loading, setLoading] = useState(false);
   const onFinish = async (values: any) => {
-    console.log(dongCode.current);
-    // const { data: response } = await clubGenerateAPI({
-    //   ...values,
-    //   groupDongCode: '비밀',
-    //   groupHostId: user?.memberId,
-    // });
-    // console.log(response);
+    if (loading) return;
+    setLoading(true);
+    const dongData = await dongcodeAPI(dongCode.current);
+    const { data: response } = await clubGenerateAPI({
+      ...values,
+      groupDongCode: dongData,
+      groupHostId: user?.memberId,
+    });
+    setLoading(false);
   };
   const categoriesRes = useMyQuery('/categories.json');
 
@@ -100,8 +103,8 @@ function BookClubGenerate() {
               onPlaceSelected={place => {
                 try {
                   dongCode.current = {
-                    lat: place.geometry.location.lat(),
-                    lng: place.geometry.location.lng(),
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng(),
                   };
                 } catch (error) {
                   dongCode.current = 'eee';
