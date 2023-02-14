@@ -1,22 +1,16 @@
 package com.seoro.seoro.service.Member;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.seoro.seoro.auth.CacheKey;
-import com.seoro.seoro.auth.CustomUserDetailService;
 import com.seoro.seoro.auth.JwtExpirationEnums;
 import com.seoro.seoro.auth.LogoutAcessToken;
 import com.seoro.seoro.auth.RefreshToken;
@@ -126,9 +120,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDto modifyProfile(MemberUpdateDto requestDto, String memberName) {
+	public ResultResponseDto modifyProfile(MemberUpdateDto requestDto, String memberName) {
 		Member member = memberRepository.findByMemberName(memberName).orElse(null);
-		MemberDto responseDto = new MemberDto(member);
+
+		ResultResponseDto responseDto = new ResultResponseDto();
+		if(member == null) {
+			responseDto.setMessege("없는 회원입니다.");
+			responseDto.setResult(false);
+			return responseDto;
+		}
+
+		Member checkMember = memberRepository.findByMemberName(requestDto.getMemberName()).orElse(null);
+		if(checkMember != null) {
+			responseDto.setMessege("이미 사용 중인 닉네임입니다.");
+			responseDto.setResult(false);
+			return responseDto;
+		}
 
 		Long genre = 0L;
 		if(requestDto.getMemberGenre().length > 0) {
@@ -138,27 +145,21 @@ public class MemberServiceImpl implements MemberService {
 			log.info("장르 = {}", genre);
 		}
 
-		if(member != null) {
-			Member newMember = Member.builder()
-				.memberId(member.getMemberId())
-				.memberEmail(member.getMemberEmail())
-				.memberName(requestDto.getMemberName()) // 수정
-				.memberPassword(member.getMemberPassword())
-				.memberProfile(requestDto.getMemberProfile()) // 수정
-				.memberDongCode(requestDto.getMemberDongCode()) // 수정
-				.loginType(member.getLoginType())
-				.withdrawalDate(member.getWithdrawalDate())
-				.memberScore(member.getMemberScore())
-				.memberGenre(genre) // 수정
-				.build();
+		Member newMember = Member.builder()
+			.memberId(member.getMemberId())
+			.memberEmail(member.getMemberEmail())
+			.memberName(requestDto.getMemberName()) // 수정
+			.memberPassword(member.getMemberPassword())
+			.memberProfile(requestDto.getMemberProfile()) // 수정
+			.memberDongCode(requestDto.getMemberDongCode()) // 수정
+			.loginType(member.getLoginType())
+			.withdrawalDate(member.getWithdrawalDate())
+			.memberScore(member.getMemberScore())
+			.memberGenre(genre) // 수정
+			.build();
 
-			memberRepository.save(newMember);
-			responseDto.setResult(true);
-		} else {
-			responseDto.setMessege("회원 정보가 없습니다.");
-			responseDto.setResult(false);
-			return responseDto;
-		}
+		memberRepository.save(newMember);
+		responseDto.setResult(true);
 
 		return responseDto;
 	}
