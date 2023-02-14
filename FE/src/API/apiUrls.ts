@@ -4,6 +4,7 @@ export const apiBaseUrl = 'http://localhost:8080';
 export const authApiUrls = {
   signUpAPIUrl: `${apiBaseUrl}/members/signup`,
   loginAPIUrl: `${apiBaseUrl}/members/login`,
+  jwtLoginAPIUrl: `${apiBaseUrl}/members`,
 };
 export const clubApiUrls = {
   clubGenerateAPIUrl: `${apiBaseUrl}/groups/signup`,

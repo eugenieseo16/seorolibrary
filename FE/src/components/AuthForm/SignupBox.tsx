@@ -22,7 +22,8 @@ function SignupBox() {
         email: data.memberEmail,
         password: data.memberPassword,
       });
-      dispatch(login({ ...loginResponse, username: data.memberName }));
+      console.log(loginResponse);
+      // dispatch(login({ ...loginResponse, username: data.memberName }));
     } else {
       api.open({
         message: <h2 style={{ color: 'tomato' }}>서버에러</h2>,
