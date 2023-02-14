@@ -12,6 +12,8 @@ export const clubAPIUrls = {
   clubMainAPIUrl: `${apiBaseUrl}/groups`,
   clubMembersAPIUrl: `${apiBaseUrl}/groups/members`,
   clubEnterAPIUrl: `${apiBaseUrl}/groups/enter`,
+  clubDetailAPIUrl: `${apiBaseUrl}/groups/detail`,
+  clubPostAPIUrl: `${apiBaseUrl}/groups/post`,
 };
 export const bookApiUrls = {
   bestSellers: `${apiBaseUrl}/main/best`,
