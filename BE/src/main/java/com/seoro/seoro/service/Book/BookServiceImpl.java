@@ -31,6 +31,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.HtmlUtils;
 
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.OwnBook;
@@ -352,13 +353,15 @@ public class BookServiceImpl implements BookService {
 
 		for(Object json: docu){
 			JSONObject bookObject = (JSONObject) json;
-
+			JSONArray authors = (JSONArray)bookObject.get("authors");
+			String isbns = bookObject.get("isbn").toString();
+			String isbn = isbns.substring(isbns.length()-13,isbns.length()-1);
 			output.add(ShowBookDto.builder()
-				.bookTitle(bookObject.get("title").toString())
+				.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
 				.bookImage(bookObject.get("thumbnail").toString())
-				.isbn(bookObject.get("isbn").toString())
-				.bookAuthor(bookObject.get("authors").toString())
-				.bookDescrib(bookObject.get("contents").toString())
+				.isbn(isbn)
+				.bookAuthor(HtmlUtils.htmlUnescape(authors.get(0).toString()))
+				.bookDescrib(HtmlUtils.htmlUnescape(bookObject.get("contents").toString()))
 				.result(true)
 				.build());
 		}
