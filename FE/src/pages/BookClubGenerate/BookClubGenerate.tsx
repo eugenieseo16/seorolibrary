@@ -9,25 +9,25 @@ import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './BookClubGenerate.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { clubGenerateAPI } from '@src/API/clubAPI';
-import { useSelector } from 'react-redux';
+import { useUser } from '@src/hooks/useUser';
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
 }
 
 function BookClubGenerate() {
-  const user = useSelector((state: any) => state.user);
+  const user = useUser();
   const dongCode = useRef<any>();
   const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
-    const { data: response } = await clubGenerateAPI({
-      ...values,
-      groupDongCode: '비밀',
-      groupHostId: 1,
-      groupPassword: '1234',
-    });
-    console.log(response);
+    console.log(dongCode.current);
+    // const { data: response } = await clubGenerateAPI({
+    //   ...values,
+    //   groupDongCode: '비밀',
+    //   groupHostId: user?.memberId,
+    // });
+    // console.log(response);
   };
   const categoriesRes = useMyQuery('/categories.json');
 

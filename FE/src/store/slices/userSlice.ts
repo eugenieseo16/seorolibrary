@@ -5,8 +5,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: null as IUser | null,
   reducers: {
-    login(state, action: { payload: IUser }) {
-      localStorage.setItem('ssafy-user', JSON.stringify(action.payload));
+    login(state, action: { payload: any }) {
       return action.payload;
     },
     logout() {

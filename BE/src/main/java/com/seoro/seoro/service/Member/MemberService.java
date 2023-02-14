@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import com.seoro.seoro.domain.dto.GenreResponseDto;
 import com.seoro.seoro.domain.dto.Member.LoginDto;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.Member.MemberPasswordDto;
@@ -28,4 +29,6 @@ public interface MemberService {
 	public void logout(TokenDto tokenDto, String username);
 	public TokenDto reissue(String refreshToken);
 	public MemberDto viewMemberInfo(String userName);
+
+	public GenreResponseDto getGenres(int[] genres);
 }

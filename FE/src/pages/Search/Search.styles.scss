@@ -26,10 +26,16 @@
     color: $deep-brown;
     .before-search-item {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 20px;
+      > div {
+        padding: 5px;
+      }
       span {
+        width: auto;
+        white-space: nowrap;
         background-color: $deep-brown;
         color: $beige;
         font-size: 1rem;
