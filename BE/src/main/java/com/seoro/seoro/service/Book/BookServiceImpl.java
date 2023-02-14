@@ -158,20 +158,20 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ResultResponseDto deleteReview(String isbn, ReviewDelDto requestDto) {
+	public ResultResponseDto deleteReview(String isbn, Long reviewId) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
 
-		Member writer = new Member();
-		Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
-		if (tmpUser.isPresent()) {
-			writer = tmpUser.get();
-		} else {
-			writer = tmpUser.orElse(null);
-			resultResponseDto.setResult(false);
-			return resultResponseDto;
-		}
+		// Member writer = new Member();
+		// Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
+		// if (tmpUser.isPresent()) {
+		// 	writer = tmpUser.get();
+		// } else {
+		// 	writer = tmpUser.orElse(null);
+		// 	resultResponseDto.setResult(false);
+		// 	return resultResponseDto;
+		// }
 
-		Optional<Review> findReview = reviewRepository.findById(requestDto.getReviewId());
+		Optional<Review> findReview = reviewRepository.findById(reviewId);
 		Review review = null;
 		if(findReview.isPresent()) {
 			review = findReview.get();
@@ -180,12 +180,7 @@ public class BookServiceImpl implements BookService {
 			return resultResponseDto;
 		}
 
-		if(review.getMember().equals(writer)) {
-			reviewRepository.deleteById(requestDto.getReviewId());
-		}else {
-			resultResponseDto.setResult(false);
-			return resultResponseDto;
-		}
+		reviewRepository.deleteById(reviewId);
 
 		resultResponseDto.setResult(true);
 		return resultResponseDto;

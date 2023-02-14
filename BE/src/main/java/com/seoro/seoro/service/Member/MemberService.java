@@ -22,7 +22,7 @@ public interface MemberService {
 	public boolean checkPasswordDuplication(String password, String dupchkPassword);
 	public List<MemberDto> findByMemberNameLike(String memberName);
 	public MemberDto viewMember(String memberName);
-	public MemberDto modifyProfile(MemberUpdateDto requestDto, String memberName);
+	public ResultResponseDto modifyProfile(MemberUpdateDto requestDto, String memberName);
 	public ResultResponseDto modifyPassword(MemberPasswordDto requestDto, String memberName);
 	public ResultResponseDto removeMember(String memberName);
 	public TokenDto login(LoginDto requestDto);
@@ -31,4 +31,6 @@ public interface MemberService {
 	public MemberDto viewMemberInfo(String userName);
 
 	public GenreResponseDto getGenres(int[] genres);
+
+	MemberDto findMemberByMemberId(Long memberId);
 }
