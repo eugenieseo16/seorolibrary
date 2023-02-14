@@ -6,6 +6,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './CarouselNearBook.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
+import { nearBooksAPI } from '@src/API/bookAPI';
+import { useUser } from '@src/hooks/useUser';
 
 const settings = {
   dots: false,
@@ -16,6 +18,10 @@ const settings = {
 };
 
 export default function CarouselNearBook() {
+  const user = useUser();
+
+  // body => params로 바뀌면 reverse comment 처리
+  // const booksData = nearBooksAPI(user?.memberId);
   const booksData = useMyQuery('/books.json');
 
   const navigate = useNavigate();

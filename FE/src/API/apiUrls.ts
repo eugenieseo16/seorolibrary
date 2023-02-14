@@ -17,7 +17,7 @@ export const clubAPIUrls = {
 };
 export const bookApiUrls = {
   bestSellers: `${apiBaseUrl}/main/best`,
-  bookDetail: `${apiBaseUrl}/book/detail/`,
+  bookDetail: `${apiBaseUrl}/book/detail`,
   nearBooks: `${apiBaseUrl}/main/nearbook/`,
   bookSearchUrl: 'https://dapi.kakao.com/v3/search/book?target=title',
   registerBookUrl: `${apiBaseUrl}/librarys`,
@@ -37,4 +37,8 @@ export const searchAPIUrl = `${apiBaseUrl}/main/search/`;
 export const memberAPIUrls = {
   myProfile: `${apiBaseUrl}/members`,
   memberDetail: `${apiBaseUrl}/librarys`,
+};
+
+export const placeAPIUrls = {
+  main: `${apiBaseUrl}/place`,
 };
