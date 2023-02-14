@@ -32,7 +32,6 @@ export const jwtLoginAPI = async (token: string) => {
       },
     },
   );
-  console.log('JWT!!!', response);
   return response;
 };
 

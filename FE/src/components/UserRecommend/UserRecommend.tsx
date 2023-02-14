@@ -1,28 +1,27 @@
 import React from 'react';
-import { useQuery } from 'react-query';
-import { faker } from '@faker-js/faker';
+import { useNavigate } from 'react-router-dom';
 
 import './UserRecommend.styles.scss';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useClubMainAPI } from '@src/API/clubAPI';
+import { useUser } from '@src/hooks/useUser';
 
 function UserRecommend() {
-  const getRecommendData = async () =>
-    await (await fetch('/userRecommend.json')).json();
-  const { data } = useQuery('user-recommend', getRecommendData);
+  const user = useUser();
+  const clubData = useClubMainAPI(user?.memberName);
   const navigate = useNavigate();
 
   return (
     <div className="user-recommend-container">
-      {data?.data?.map((recommend: any, i: number) => (
+      {clubData?.recommendMembers?.map(member => (
         <div
           className="user-item"
-          key={recommend.username}
+          key={member.memberId}
           onClick={() =>
-            navigate(`/profile/${recommend.username}`, { state: true })
+            navigate(`/profile/${member.memberId}`, { state: true })
           }
         >
-          <img src={recommend.image_url} alt="" />
-          <h2>{recommend.nickname}</h2>
+          <img src={member.memberProfile} alt="" />
+          <h2>{member.memberName}</h2>
         </div>
       ))}
     </div>
