@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { Col, Row } from 'antd';
+import { Image, Space } from 'antd';
 
 import './PlaceReview.styles.scss';
 import AddPlaceReviewModal from './AddPlaceReviewModal';
 
 function PlaceReview() {
   const navigate = useNavigate();
-  const getBookReview = async () =>
-    await (await fetch('/bookReview.json')).json();
-  const { data } = useQuery('book-review', getBookReview);
+  const getPlaceReview = async () =>
+    await (await fetch('/placeReview.json')).json();
+  const { data } = useQuery('place-review', getPlaceReview);
 
   const [showFullContent, setShowFullContent] = useState<{
-    [key: string]: boolean;
+    [key: number]: boolean;
   }>({});
 
   return (
@@ -36,28 +38,75 @@ function PlaceReview() {
                 alt=""
                 onClick={() => navigate(`/profile/${i}`)}
               />
-              <p onClick={() => navigate(`/profile/${i}`)}>{review.nickname}</p>
+              <p
+                className="place-review-user-name"
+                onClick={() => navigate(`/profile/${i}`)}
+              >
+                {review.nickname}
+              </p>
             </div>
             <div className="place-review-detail">
-              <a>
-                {showFullContent[review.id]
-                  ? review.content
-                  : review.content.substring(
-                      0,
-                      Math.min(review.content.length, 70),
-                    ) + '...'}
-              </a>
-              <a
-                onClick={() =>
-                  setShowFullContent({
-                    ...showFullContent,
-                    [review.id]: !showFullContent[review.id],
-                  })
-                }
-                className="place-review-more"
-              >
-                {showFullContent[review.id] ? '[닫기]' : '[더보기]'}
-              </a>
+              {review.placeReviewPhotos ? (
+                <Row gutter={[4, 4]}>
+                  {/* Left column with full content */}
+                  <Col span={18}>
+                    {showFullContent[i] ? (
+                      <p>{review.content}</p>
+                    ) : (
+                      <p>
+                        {review.content.substring(
+                          0,
+                          Math.min(review.content.length, 70),
+                        )}
+                        ...
+                      </p>
+                    )}
+                    <p
+                      onClick={() =>
+                        setShowFullContent({
+                          ...showFullContent,
+                          [i]: !showFullContent[i],
+                        })
+                      }
+                      className="place-review-more"
+                    >
+                      {showFullContent[i] ? '[닫기]' : '[더보기]'}
+                    </p>
+                  </Col>
+                  {/* Right column with image */}
+                  <Image.PreviewGroup>
+                    <Col span={6}>
+                      <Image src={review.placeReviewPhotos} alt="" />
+                    </Col>
+                  </Image.PreviewGroup>
+                </Row>
+              ) : (
+                /* Content without image */
+                <>
+                  {showFullContent[i] ? (
+                    <p>{review.content}</p>
+                  ) : (
+                    <p>
+                      {review.content.substring(
+                        0,
+                        Math.min(review.content.length, 70),
+                      )}
+                      ...
+                    </p>
+                  )}
+                  <p
+                    onClick={() =>
+                      setShowFullContent({
+                        ...showFullContent,
+                        [i]: !showFullContent[i],
+                      })
+                    }
+                    className="place-review-more"
+                  >
+                    {showFullContent[i] ? '[닫기]' : '[더보기]'}
+                  </p>
+                </>
+              )}
             </div>
           </div>
         ))}

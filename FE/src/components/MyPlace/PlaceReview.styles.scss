@@ -37,31 +37,47 @@
       align-items: center;
       margin-left: 1rem;
       margin-right: 1rem;
+      .place-review-user-name {
+        padding: 1rem;
+      }
+      img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        border: 1px solid $deep-brown;
+      }
     }
     .place-review-detail {
       padding: 1.3rem;
       line-height: 1.3rem;
-    }
-    .place-review-more {
-      color: $deep-brown;
+      .ant-col {
+        font-size: 1rem;
+      }
+      .css-dev-only-do-not-override-ixblex {
+        color: black;
+        font-family: 'NEXON';
+      }
+      .ant-image {
+        width: 100%;
+        object-fit: cover;
+        aspect-ratio: 1 / 1;
+      }
     }
   }
-  img {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    border: 1px solid $deep-brown;
-  }
-  h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    padding-left: 1rem;
+  .place-review-more {
     color: $deep-brown;
   }
-  p {
-    padding: 1rem;
-  }
-  .ant-btn-primary {
-    background-color: $deep-brown;
-  }
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-left: 1rem;
+  color: $deep-brown;
+}
+p {
+  display: inline;
+}
+.ant-btn-primary {
+  background-color: $deep-brown;
 }

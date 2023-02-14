@@ -13,5 +13,6 @@ public interface GroupJoinRepository extends JpaRepository<GroupJoin, Long> {
 
 	List<GroupJoin> findByGroups(Groups group);
 
-	// boolean existsByGroupIdAndMemberId(Long groupId, Long memberId);
+	// Long countByGroupIdAndMemberId(Long groupId, Long memberId);
+
 }
