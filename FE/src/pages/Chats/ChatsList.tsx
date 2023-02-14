@@ -17,16 +17,17 @@ import { firebaseDB } from '@src/utils/fireBase';
 import { useSelector } from 'react-redux';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useChatList } from '@src/hooks/useChat';
+import { useUser } from '@src/hooks/useUser';
 
 function ChatItem({ data }: any) {
-  const user = useSelector((state: any) => state.user);
+  const user = useUser();
   // const userData = useMyQuery(
   //   `http://i8a209.p.ssafy.io:8080/members/${data.username}`,
   // );
   const navigate = useNavigate();
   const opponent = data.chatId
     .split('-')
-    .filter((id: string) => id !== user.username)[0];
+    .filter((id: string) => id !== user?.memberId + '')[0];
 
   return (
     <List.Item
@@ -35,7 +36,7 @@ function ChatItem({ data }: any) {
     >
       <List.Item.Meta
         avatar={<Avatar src={''} />}
-        title={<a>{opponent}</a>}
+        title={<a>{data.memberName}</a>}
         description={<p className="message-preview">{data.preview}</p>}
       />
       {opponent == data.username && data.unreadSize > 0 && (
@@ -47,7 +48,7 @@ function ChatItem({ data }: any) {
   );
 }
 function ChatsList() {
-  const user = useSelector((state: any) => state.user);
+  const user = useUser();
   const [loading, setLoading] = useState(true);
   const [chatList, setChatList] = useState<any[]>([]);
   const chats = useRef<any>([]);
@@ -55,7 +56,7 @@ function ChatsList() {
     if (!user) return;
 
     (async function () {
-      const docRef = doc(firebaseDB, user.username, 'chats-list');
+      const docRef = doc(firebaseDB, user.memberId + '', 'chats-list');
       const docSnap: any = await getDoc(docRef);
       if (!docSnap.data()) return;
       docSnap.data().chatIds.forEach(async (id: string) => {
@@ -79,6 +80,7 @@ function ChatsList() {
             preview: await doc.data().message,
             createdAt: await doc.data().createdAt,
             username: await doc.data().username,
+            memberName: await doc.data().memberName,
             unreadSize,
           };
           chats.current.push(chatData);

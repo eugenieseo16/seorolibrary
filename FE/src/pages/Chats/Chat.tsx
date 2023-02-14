@@ -1,3 +1,5 @@
+import { getUserProfileAPI } from '@src/API/authAPI';
+import { useUser } from '@src/hooks/useUser';
 import { firebaseDB } from '@src/utils/fireBase';
 import {
   collection,
@@ -17,47 +19,66 @@ import {
 
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 // Add a new document in collection "cities"
 
 function Chat() {
   const params = useParams();
-  const user = useSelector((state: any) => state.user);
+  const user = useUser();
+  const targetUser = getUserProfileAPI(params.id ? params.id : '');
   const { register, handleSubmit, reset } = useForm({ mode: 'onChange' });
 
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<any>([]);
-  const [chatId, setChatId] = useState(`${user.username}-${params.id}`);
+  const [chatId, setChatId] = useState(
+    `${user?.memberId + ''}-${targetUser.memberId + ''}`,
+  );
 
   useEffect(() => {
+    if (!user || !targetUser) return;
     (async function () {
       const q = await query(collection(firebaseDB, chatId));
       const empty = await (await getDocs(q)).empty;
       if (empty) {
-        setChatId(`${params.id}-${user.username}`);
+        setChatId(`${targetUser.memberId + ''}-${user?.memberId + ''}`);
         const q = await query(
-          collection(firebaseDB, `${params.id}-${user.username}`),
+          collection(
+            firebaseDB,
+            `${targetUser.memberId + ''}-${user?.memberId + ''}`,
+          ),
         );
         const empty = await (await getDocs(q)).empty;
         if (empty) {
           // 첫대화일때
           console.log('첫대화!');
 
-          updateDoc(doc(firebaseDB, user.username, 'chats-list'), {
-            chatIds: arrayUnion(`${params.id}-${user.username}`),
+          updateDoc(doc(firebaseDB, user?.memberId + '', 'chats-list'), {
+            chatIds: arrayUnion(
+              `${targetUser.memberId + ''}-${user?.memberId + ''}`,
+            ),
           });
 
-          updateDoc(doc(firebaseDB, `${params.id}`, 'chats-list'), {
-            chatIds: arrayUnion(`${params.id}-${user.username}`),
-          });
+          updateDoc(
+            doc(firebaseDB, `${targetUser.memberId + ''}`, 'chats-list'),
+            {
+              chatIds: arrayUnion(
+                `${targetUser.memberId + ''}-${user?.memberId + ''}`,
+              ),
+            },
+          );
 
-          addDoc(collection(firebaseDB, `${params.id}-${user.username}`), {});
+          addDoc(
+            collection(
+              firebaseDB,
+              `${targetUser.memberId + ''}-${user?.memberId + ''}`,
+            ),
+            {},
+          );
         }
       }
       setLoading(false);
     })();
-  }, []);
+  }, [user, targetUser]);
 
   useEffect(() => {
     if (loading) return;
@@ -69,7 +90,7 @@ function Chat() {
 
     const unSubscribe = onSnapshot(q, snapshot => {
       const messagesList = snapshot.docs.map(snap => {
-        if (snap.data().username != user.username) {
+        if (snap.data().username != user?.memberId + '') {
           updateDoc(doc(firebaseDB, chatId, snap.id), {
             isRead: true,
           });
@@ -82,9 +103,11 @@ function Chat() {
     return () => unSubscribe();
   }, [loading]);
 
+  console.log(user, targetUser);
   const sendMessage = async (data: any) => {
     addDoc(collection(firebaseDB, chatId), {
-      username: user.username,
+      username: user?.memberId + '',
+      memberName: user?.memberName,
       message: data.message,
       isRead: false,
       createdAt: Date.now(),
@@ -114,7 +137,7 @@ function Chat() {
                     message.username == true ? 'row-reverse' : 'row',
                 }}
               >
-                {message.username}
+                {message.memberName}
               </h1>
               <p>{message.message}</p>
             </div>

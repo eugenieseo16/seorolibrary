@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import Header from '@components/Header/Header';
 import UserHeader from '@components/UserLibrary/UserHeader';
@@ -8,21 +8,22 @@ import UserStat from '@components/UserLibrary/UserStat';
 import BookTab from '@components/UserLibrary/BookTab';
 
 import './UserLibrary.styles.scss';
+import { getUserProfileAPI } from '@src/API/authAPI';
 
 function UserLibrary() {
   const { state } = useLocation();
 
   const location = useLocation();
   const path = location.pathname;
-
-  const memberName = location.pathname.replace('/profile/', '');
-
+  const params = useParams();
+  console.log(params);
+  const userProfile = params.userId ? getUserProfileAPI(params.userId) : '';
   return (
     <div className="user-library-container">
       {path === '/profile' ? (
         <UserHeader />
       ) : (
-        <Header text={memberName + '님의 도서관'} />
+        <Header text={userProfile?.memberName + '님의 도서관'} />
       )}
 
       <UserProfile isMe={state} />
