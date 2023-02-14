@@ -18,6 +18,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Place.PlaceAddRequestDto;
@@ -34,6 +35,7 @@ import com.seoro.seoro.domain.entity.Place.PlaceReviewPhoto;
 import com.seoro.seoro.repository.Member.MemberRepository;
 import com.seoro.seoro.repository.Place.PlacePhotoRepository;
 import com.seoro.seoro.repository.Place.PlaceRepository;
+import com.seoro.seoro.repository.Place.PlaceReviewPhotoRepository;
 import com.seoro.seoro.repository.Place.PlaceReviewRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
@@ -50,6 +52,7 @@ public class PlaceServiceImpl implements PlaceService {
 	final PlaceReviewRepository placeReviewRepository;
 	final PlacePhotoRepository placePhotoRepository;
 	final MemberRepository memberRepository;
+	final PlaceReviewPhotoRepository placeReviewPhotoRepository;
 
 	@Override
 	public List<PlaceShowDto> findAllPlaces(Long memberId) {
@@ -150,7 +153,8 @@ public class PlaceServiceImpl implements PlaceService {
 			.placeLatitude(requestDto.getLatitude())
 			.placeLongitude(requestDto.getLongitude())
 			.dongCode(placeDong)
-			.score(0f)
+			.total(0d)
+			.score(0d)
 			.describ(requestDto.getPlacedescrib())
 			.build();
 
@@ -174,24 +178,6 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public PlaceDto placeDetail(Long placeId) {
-		// Place place=placeRepository.findByPlaceId(placeId);
-		// List<PlaceReviewDto> reviews = new ArrayList<PlaceReviewDto>();
-		// for(PlaceReview review: place.getReviews()){
-		// 	reviews.add(PlaceReviewDto.builder()
-		// 			.placeReviewPhotos(review.getPhotos())
-		// 			.reviewContent(review.getReviewContent())
-		// 			.memberName(review.getMember().getMemberName())
-		// 			.score(review.getScore())
-		// 		.build());
-		// }
-		// PlaceDto outputDto = PlaceDto.builder()
-		// 	.placeReview(reviews)
-		// 	.placePhoto(place.getPhotos())
-		// 	.placeName(place.getPlaceName())
-		// 	.placeLongitude(place.getPlaceLongitude())
-		// 	.placeLatitude(place.getPlaceLatitude())
-		// 	.result(true)
-		// 	.build();
 		PlaceDto responseDto = new PlaceDto();
 		Place place = new Place();
 		Optional<Place> findPlace = placeRepository.findById(placeId);
@@ -277,7 +263,66 @@ public class PlaceServiceImpl implements PlaceService {
 		// placeRepository.save(savePlace);
 		//
 		// resultResponseDto.setResult(true);
-		 return resultResponseDto;
+
+		Optional<Place> findPlace = placeRepository.findById(placeId);
+		Place place = new Place();
+		if(findPlace.isPresent()) {
+			place = findPlace.get();
+		} else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		Member member = new Member();
+		Optional<Member> findMember = memberRepository.findByMemberName(requestDto.getMemberName());
+		if(findMember.isPresent()) {
+			member = findMember.get();
+			System.out.println("member = " + member.getMemberName());
+		} else {
+			resultResponseDto.setResult(false);
+			return resultResponseDto;
+		}
+
+		//리뷰 저장
+		PlaceReview placeReview = PlaceReview.builder()
+			.score(requestDto.getScore())
+			.member(member)
+			.reviewContent(requestDto.getPlaceReview())
+			.place(place)
+			.build();
+		placeReviewRepository.save(placeReview);
+
+		//리뷰 사진 저장
+		if(requestDto.getPlaceReviewPhotos().length > 0) {
+			for(int i=0; i<requestDto.getPlaceReviewPhotos().length; i++) {
+				PlaceReviewPhoto photo = PlaceReviewPhoto.builder()
+					.placeReview(placeReview)
+					.photo(requestDto.getPlaceReviewPhotos()[i])
+					.build();
+				placeReviewPhotoRepository.save(photo);
+			}
+		}
+		
+		//장소 총 score 갱신
+		Long countPlaceReview = placeReviewRepository.countByPlace(place);
+		Double newTotal = place.getTotal() + placeReview.getScore();
+		Double newScore = newTotal/countPlaceReview;
+
+		Place updatePlace = Place.builder()
+			.placeId(place.getPlaceId())
+			.placeLatitude(place.getPlaceLatitude())
+			.placeLongitude(place.getPlaceLongitude())
+			.describ(place.getDescrib())
+			.placeName(place.getPlaceName())
+			.total(newTotal)
+			.score(newScore)
+			.member(place.getMember())
+			.build();
+
+		placeRepository.save(updatePlace);
+
+		resultResponseDto.setResult(true);
+		return resultResponseDto;
 	}
 
 	@Override
