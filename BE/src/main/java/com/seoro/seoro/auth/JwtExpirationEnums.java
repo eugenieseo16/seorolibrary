@@ -12,4 +12,5 @@ public enum JwtExpirationEnums {
 
 	private String description;
 	private Long value;
+
 }
