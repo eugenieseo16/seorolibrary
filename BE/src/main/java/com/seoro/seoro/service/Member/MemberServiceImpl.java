@@ -54,8 +54,9 @@ public class MemberServiceImpl implements MemberService {
 			.memberName(requestDto.getMemberName())
 			.memberPassword(passwordEncoder.encode(requestDto.getMemberPassword()))
 			.memberGenre(65535L)
+			.memberProfile("https://i.stack.imgur.com/dr5qp.jpg")
+			.memberDongCode("역삼동")
 			.loginType(LoginType.BASIC)
-			.memberDongCode("0")
 			.build();
 
 		memberRepository.save(member);
