@@ -88,11 +88,7 @@ public class LibraryServiceImpl implements LibraryService {
 		responseDto.setMyOwnBooks(ownBookDtoList);
 
 		// 읽은 도서
-		List<ReadBook> readBooks = member.getReadBooks();
-		List<ReadBookDto> readBookDtoList = new ArrayList<>();
-		for(ReadBook readBook : readBooks) {
-			readBookDtoList.add(new ReadBookDto(readBook));
-		}
+		List<ReadBookDto> readBookDtoList = getReadBookList(member);
 		responseDto.setMyReadBooks(readBookDtoList);
 
 		// 한줄평 카운트
@@ -132,6 +128,28 @@ public class LibraryServiceImpl implements LibraryService {
 		responseDto.setFollowing(isFollowing);
 
 		return responseDto;
+	}
+
+	@Override
+	public List<OwnBookDto> viewMyOwnBook(Long memberId) {
+		Member member = memberRepository.findByMemberId(memberId);
+		if(member == null) {
+			return new ArrayList<>();
+		}
+
+		List<OwnBookDto> ownBookDtoList = getOwnBookList(member);
+		return ownBookDtoList;
+	}
+
+	@Override
+	public List<ReadBookDto> viewMyReadBook(Long memberId) {
+		Member member = memberRepository.findByMemberId(memberId);
+		if(member == null) {
+			return new ArrayList<>();
+		}
+
+		List<ReadBookDto> readBookDtoList = getReadBookList(member);
+		return readBookDtoList;
 	}
 
 	@Override
@@ -397,6 +415,17 @@ public class LibraryServiceImpl implements LibraryService {
 			ownBookDtoList.add(new OwnBookDto(ownBook));
 		}
 		return ownBookDtoList;
+	}
+
+	private List<ReadBookDto> getReadBookList(Member member) {
+		List<ReadBook> readBooks = member.getReadBooks();
+
+		List<ReadBookDto> readBookDtoList = new ArrayList<>();
+		for(ReadBook readBook : readBooks) {
+			readBookDtoList.add(new ReadBookDto(readBook));
+		}
+
+		return readBookDtoList;
 	}
 
 	private List<GroupShowDto> getMyGroups(Long memberId) {

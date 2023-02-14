@@ -3,6 +3,7 @@ package com.seoro.seoro.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.seoro.seoro.domain.dto.Book.BookDetailDto;
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
+import com.seoro.seoro.domain.dto.Book.ReadBookDto;
 import com.seoro.seoro.domain.dto.Book.ReviewDto;
 import com.seoro.seoro.domain.dto.Group.GroupShowDto;
 import com.seoro.seoro.domain.dto.Library.LibraryDto;
@@ -37,24 +39,19 @@ public class LibraryController {
 		return libraryService.libraryMain(memberId, meId);
 	}
 
-	@DeleteMapping("/{memberId}/own/{isbn}")
-	public ResultResponseDto removeOwnBook(@PathVariable Long memberId, @PathVariable String isbn) {
-		return libraryService.removeOwnBook(memberId, isbn);
+	@GetMapping("/own")
+	public List<OwnBookDto> viewMyOwnBook(@RequestParam("memberId") Long memberId) {
+		return libraryService.viewMyOwnBook(memberId);
 	}
 
-	@DeleteMapping("/{memberId}/read/{isbn}")
-	public ResultResponseDto removeReadBook(@PathVariable Long memberId, @PathVariable String isbn) {
-		return libraryService.removeReadBook(memberId, isbn);
+	@GetMapping("/read")
+	public List<ReadBookDto> viewMyReadBook(@RequestParam("memberId") Long memberId) {
+		return libraryService.viewMyReadBook(memberId);
 	}
 
 	@GetMapping("/{memberId}/groups")
 	public List<GroupShowDto> viewMyGroup(@PathVariable Long memberId) {
 		return libraryService.viewMyGroup(memberId);
-	}
-
-	@PostMapping("/{memberId}")
-	public ResultResponseDto makeOwnBook(@PathVariable Long memberId, @RequestBody OwnBookDto requestDto) {
-		return libraryService.makeOwnBook(memberId, requestDto);
 	}
 
 	@GetMapping("/{memberId}/comments")
@@ -67,9 +64,19 @@ public class LibraryController {
 		return libraryService.viewMyReview(memberId);
 	}
 
-	@GetMapping("{memberId}/report")
-	public List<BookReportDto> viewBookReportList(@PathVariable Long memberId) {
-		return libraryService.viewBookReportList(memberId);
+	@PostMapping("/{memberId}")
+	public ResultResponseDto makeOwnBook(@PathVariable Long memberId, @RequestBody OwnBookDto requestDto) {
+		return libraryService.makeOwnBook(memberId, requestDto);
+	}
+
+	@DeleteMapping("/{memberId}/own/{isbn}")
+	public ResultResponseDto removeOwnBook(@PathVariable Long memberId, @PathVariable String isbn) {
+		return libraryService.removeOwnBook(memberId, isbn);
+	}
+
+	@DeleteMapping("/{memberId}/read/{isbn}")
+	public ResultResponseDto removeReadBook(@PathVariable Long memberId, @PathVariable String isbn) {
+		return libraryService.removeReadBook(memberId, isbn);
 	}
 
 	@PostMapping("{memberId}/report")
@@ -77,10 +84,10 @@ public class LibraryController {
 		return libraryService.makeBookReport(requestDto, memberId);
 	}
 
-	// @GetMapping("{memberId}/report/{bookReportId}")
-	// public BookReportDto viewBookReport(@PathVariable Long bookReportId) {
-	// 	return libraryService.viewBookReport(bookReportId);
-	// }
+	@GetMapping("{memberId}/report")
+	public List<BookReportDto> viewBookReportList(@PathVariable Long memberId) {
+		return libraryService.viewBookReportList(memberId);
+	}
 
 	@PutMapping("{memberId}/report")
 	public ResultResponseDto modifyBookReport(@RequestBody BookReportDto requestDto) {
@@ -91,6 +98,11 @@ public class LibraryController {
 	public ResultResponseDto removeBookReport(@PathVariable Long bookReportId) {
 		return libraryService.removeBookReport(bookReportId);
 	}
+
+	// @GetMapping("{memberId}/report/{bookReportId}")
+	// public BookReportDto viewBookReport(@PathVariable Long bookReportId) {
+	// 	return libraryService.viewBookReport(bookReportId);
+	// }
 
 	@PostMapping("/{memberId}/friends")
 	public LibraryDto makeFriend(@PathVariable Long memberId, @RequestBody Map<String, Long> json) {
