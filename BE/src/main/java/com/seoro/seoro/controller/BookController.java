@@ -3,6 +3,7 @@ package com.seoro.seoro.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import org.json.simple.parser.ParseException;
@@ -34,6 +35,12 @@ public class BookController {
 		ParseException,
 		URISyntaxException {
 		return bookService.viewBookDetail(isbn,requestDto.getMemberId());
+	}
+
+	//읽은 도서 추가
+	@PostMapping("/detail/{isbn}")
+	public ResultResponseDto addReadBook(@PathVariable("isbn") String isbn, @RequestBody Map<String, String> request){
+		return bookService.addReadBook(isbn,request);
 	}
 
 	//도서 리뷰 작성
