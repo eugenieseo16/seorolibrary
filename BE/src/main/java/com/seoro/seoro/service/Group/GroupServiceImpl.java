@@ -92,7 +92,7 @@ public class GroupServiceImpl implements GroupService{
 			});
 			List<GroupShowDto> recommendGroups = new ArrayList<>();
 			for(Groups group : dongGroups){
-				if(groupJoinRepository.existsByIdAndMemberId(group.getGroupId(),findMember.getMemberId())) continue;
+				// if(groupJoinRepository.countByGroupIdAndMemberId(group.getGroupId(),findMember.getMemberId())!=0) continue;
 				if((group.getGroupGenre()&myGenre)==0){
 					break;
 				}
