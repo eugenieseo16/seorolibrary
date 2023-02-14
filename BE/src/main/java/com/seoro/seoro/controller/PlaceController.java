@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,13 +31,13 @@ public class PlaceController {
 
 	//내 주변 모든 장소 출력
 	@GetMapping()
-	public List<PlaceShowDto> findAllPlaces(@ModelAttribute Long memberId){
+	public List<PlaceShowDto> findAllPlaces(@RequestBody Long memberId){
 		return placeService.findAllPlaces(memberId);
 	}
 
 	//장소 추가
 	@PostMapping()
-	public ResultResponseDto addPlace(@ModelAttribute PlaceAddRequestDto requestDto) throws
+	public ResultResponseDto addPlace(@RequestBody PlaceAddRequestDto requestDto) throws
 		IOException,
 		URISyntaxException,
 		ParseException {
@@ -45,7 +46,7 @@ public class PlaceController {
 
 	//내가 추가한 장소, 내가 리뷰쓴 장소 출력
 	@GetMapping("/my")
-	public List<PlaceShowDto>[] findMyPlaces(@ModelAttribute Long memberId){
+	public List<PlaceShowDto>[] findMyPlaces(@RequestBody Long memberId){
 		return placeService.findMyPlaces(memberId);
 	}
 

@@ -28,6 +28,7 @@ import com.seoro.seoro.domain.dto.Place.PlaceShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Member.Member;
 import com.seoro.seoro.domain.entity.Place.Place;
+import com.seoro.seoro.domain.entity.Place.PlacePhoto;
 import com.seoro.seoro.domain.entity.Place.PlaceReview;
 import com.seoro.seoro.repository.Member.MemberRepository;
 import com.seoro.seoro.repository.Place.PlacePhotoRepository;
@@ -153,31 +154,46 @@ public class PlaceServiceImpl implements PlaceService {
 			.build();
 
 		placeRepository.save(savePlace);
+
+		//독서 장소 사진 저장
+		if(requestDto.getPlacePhoto().length > 0) {
+			for(int i=0; i<requestDto.getPlacePhoto().length; i++) {
+				PlacePhoto photo = PlacePhoto.builder()
+					.place(savePlace)
+					.photo(requestDto.getPlacePhoto()[i])
+					.build();
+
+				placePhotoRepository.save(photo);
+			}
+		}
+
 		resultResponseDto.setResult(true);
 		return resultResponseDto;
 	}
 
 	@Override
 	public PlaceDto placeDetail(Long placeId) {
-		Place place=placeRepository.findByPlaceId(placeId);
-		List<PlaceReviewDto> reviews = new ArrayList<PlaceReviewDto>();
-		for(PlaceReview review: place.getReviews()){
-			reviews.add(PlaceReviewDto.builder()
-					.placeReviewPhotos(review.getPhotos())
-					.reviewContent(review.getReviewContent())
-					.memberName(review.getMember().getMemberName())
-					.score(review.getScore())
-				.build());
-		}
-		PlaceDto outputDto = PlaceDto.builder()
-			.placeReview(reviews)
-			.placePhoto(place.getPhotos())
-			.placeName(place.getPlaceName())
-			.placeLongitude(place.getPlaceLongitude())
-			.placeLatitude(place.getPlaceLatitude())
-			.result(true)
-			.build();
-		return outputDto;
+		// Place place=placeRepository.findByPlaceId(placeId);
+		// List<PlaceReviewDto> reviews = new ArrayList<PlaceReviewDto>();
+		// for(PlaceReview review: place.getReviews()){
+		// 	reviews.add(PlaceReviewDto.builder()
+		// 			.placeReviewPhotos(review.getPhotos())
+		// 			.reviewContent(review.getReviewContent())
+		// 			.memberName(review.getMember().getMemberName())
+		// 			.score(review.getScore())
+		// 		.build());
+		// }
+		// PlaceDto outputDto = PlaceDto.builder()
+		// 	.placeReview(reviews)
+		// 	.placePhoto(place.getPhotos())
+		// 	.placeName(place.getPlaceName())
+		// 	.placeLongitude(place.getPlaceLongitude())
+		// 	.placeLatitude(place.getPlaceLatitude())
+		// 	.result(true)
+		// 	.build();
+		PlaceDto responseDto = new PlaceDto();
+
+		return responseDto;
 	}
 
 	@Override
