@@ -16,6 +16,7 @@ import { Button, Modal } from 'antd';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 
 import './Modal.styles.scss';
+import { editProfileAPI } from '@src/API/memberAPI';
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
@@ -27,7 +28,12 @@ const App: React.FC = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
+    if (!loading) {
+      setLoading(true);
+      const { data: response }: any = editProfileAPI(values);
+      setLoading(false);
+    }
   };
 
   const dongCode = useMyQuery('/dongcode.json');
@@ -101,8 +107,8 @@ const App: React.FC = () => {
               form={form}
               onFinish={onFinish}
               initialValues={{
-                nickname: '나미리선생님',
-                location: '864 Grand Avenue, Ivanhoe, Guam',
+                memberName: '나미리선생님',
+                memberDongcode: '864 Grand Avenue, Ivanhoe, Guam',
               }}
             >
               <Form.Item
@@ -114,12 +120,9 @@ const App: React.FC = () => {
                 ]}
               >
                 <Upload
-                  name="avatar"
-                  // listType="picture-circle"
+                  name="memberProfile"
                   className="avatar-uploader"
                   showUploadList={false}
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  // beforeUpload={beforeUpload}
                   onChange={handleChange}
                 >
                   {imageUrl ? (
@@ -142,7 +145,7 @@ const App: React.FC = () => {
 
               <Form.Item
                 label={<Label text="닉네임" />}
-                name="nickname"
+                name="memberName"
                 rules={[{ required: true, message: '닉네임을 입력해주세요' }]}
               >
                 <Input placeholder="닉네임을 입력해주세요" />
@@ -151,7 +154,7 @@ const App: React.FC = () => {
               <Form.Item
                 label={<Label text="위치" />}
                 rules={[{ required: true, message: '위치를 선택해주세요' }]}
-                name="location"
+                name="memberDongcode"
               >
                 <Select
                   allowClear
@@ -163,7 +166,7 @@ const App: React.FC = () => {
               <Form.Item
                 label={<Label text="카테고리" />}
                 rules={[{ required: true, message: '카테고리를 선택해주세요' }]}
-                name="groupGenres"
+                name="memberGenre"
               >
                 <Select
                   mode="multiple"
