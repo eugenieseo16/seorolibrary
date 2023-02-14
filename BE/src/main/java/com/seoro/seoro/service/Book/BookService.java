@@ -28,9 +28,9 @@ public interface BookService {
 
 	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto);
 
-	ResultResponseDto changeReview(String isbn, ReviewDto requestDto);
+	ResultResponseDto changeReview(String isbn, ReviewUpdateDto requestDto);
 
-	ResultResponseDto deleteReview(String isbn, ReviewDto requestDto);
+	ResultResponseDto deleteReview(String isbn, ReviewDelDto requestDto);
 
 	public List findBookByDong(Long memberId);
 	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn);
