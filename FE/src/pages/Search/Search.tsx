@@ -65,9 +65,13 @@ function SearchResultTab() {
           {/* 검색어가 없으면 */}
           <div className="before-search-container">
             <div className="before-search-item">
-              <span>도서 제목</span>,⠀<span>작가</span>⠀또는⠀
-              <span>사용자</span>
-              <p>를 검색해보세요.</p>
+              <div>
+                <span>도서 제목</span>,⠀<span>작가</span>⠀또는⠀
+                <span>사용자</span>를
+              </div>
+              <div>
+                <p>검색해보세요!</p>
+              </div>
             </div>
             <div className="best-seller-item">
               <h1>베스트 셀러</h1>
