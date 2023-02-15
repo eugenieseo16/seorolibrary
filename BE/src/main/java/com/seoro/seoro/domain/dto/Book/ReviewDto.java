@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDto {
+	private Long reviewId;
 	private String isbn;
 	private String bookTitle;
 	private String bookImage;
@@ -20,6 +21,7 @@ public class ReviewDto {
 	private String reviewContent;
 
 	public ReviewDto(Review review) {
+		this.reviewId = review.getReviewId();
 		this.isbn = review.getReadBook().getIsbn();
 		this.bookTitle = review.getReadBook().getBookTitle();
 		this.bookImage = review.getReadBook().getBookImage();

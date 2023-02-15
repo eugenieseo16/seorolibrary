@@ -10,7 +10,7 @@ import { clubMembersAPI } from '@src/API/clubAPI';
 function ClubDetailNavigator() {
   const { id } = useParams();
   const user = useUser();
-  const data = clubMembersAPI(id ? +id : undefined);
+  const data = clubMembersAPI(id);
   const [attended, setAttended] = useState(false);
   useEffect(() => {
     setAttended(

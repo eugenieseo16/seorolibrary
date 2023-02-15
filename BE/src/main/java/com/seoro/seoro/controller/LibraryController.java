@@ -3,7 +3,6 @@ package com.seoro.seoro.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.seoro.seoro.domain.dto.Book.BookDetailDto;
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
