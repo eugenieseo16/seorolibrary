@@ -45,4 +45,5 @@ public class OwnBookDetailDto {
 		this.countComment = bookDetailDto.getCountComment();
 		this.countReview = bookDetailDto.getCountReview();
 	}
+
 }

@@ -417,6 +417,48 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public OwnBookDetailDto viewOwnBookDetail(String memberName, String isbn) throws ParseException, URISyntaxException {
+		OwnBookDetailDto responseDto;
+
+		Member member = memberRepository.findByMemberName(memberName).orElse(null);
+		if(member == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("찾는 회원이 없습니다.");
+		}
+
+		BookDetailDto bookDetailDto = viewBookDetail(isbn, member.getMemberId());
+		if(bookDetailDto == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("찾는 책 정보가 없습니다.");
+		}
+
+		responseDto = new OwnBookDetailDto(bookDetailDto);
+
+		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElse(null);
+		if(ownBook == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("보유하지 않은 책입니다.");
+		}
+
+		responseDto.setOwn(ownBook.getIsOwn());
+		responseDto.setOwnComment(ownBook.getOwnComment());
+
+		// 보유 도서
+		List<OwnBook> ownBooks = member.getOwnBooks();
+		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
+		for(OwnBook ownBookList : ownBooks) {
+			ownBookDtoList.add(new OwnBookDto(ownBookList));
+		}
+		responseDto.setOwnBookList(ownBookDtoList);
+
+		return responseDto;
+	}
+
+
+	@Override
 	public List<ShowBookDto> findBook(String input) throws IOException, ParseException, URISyntaxException {
 		RestTemplate rest = new RestTemplate();
 		HttpHeaders headers= new HttpHeaders();
