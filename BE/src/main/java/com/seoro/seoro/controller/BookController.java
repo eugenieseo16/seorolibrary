@@ -48,7 +48,6 @@ public class BookController {
 		return bookService.viewOwnBookDetail(memberName, isbn);
 	}
 
-
 	//읽은 도서 추가
 	@PostMapping("/detail/{isbn}")
 	public ResultResponseDto addReadBook(@PathVariable("isbn") String isbn, @RequestBody Map<String, String> request){
