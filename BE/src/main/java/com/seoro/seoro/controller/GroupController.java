@@ -86,11 +86,6 @@ public class GroupController {
 		return groupService.delGroupSchedule(scheduleId, userId);
 	}
 
-	@PostMapping("/book")
-	public ResultResponseDto createGroupBook(@RequestBody GroupBookCreateRequestDto requestDto) {
-		return groupService.createGroupBook(requestDto);
-	}
-
 	@GetMapping("/book")
 	public GroupBookReadResponseDto readGroupBook(@RequestParam("groupId") Long groupId) {
 		return groupService.readGroupBook(groupId);

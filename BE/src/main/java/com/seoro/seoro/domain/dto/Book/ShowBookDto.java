@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShowBookDto {
-	private boolean result;
 	private String isbn;
 	private String bookTitle;
 	private String bookAuthor;
@@ -23,5 +22,5 @@ public class ShowBookDto {
 	private String bookDescrib;
 	private Date bookPubDate;
 	private Boolean isOwn;
-	private Long memberId;
+	private String memberName;
 }
