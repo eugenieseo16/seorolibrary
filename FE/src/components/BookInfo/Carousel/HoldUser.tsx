@@ -12,6 +12,7 @@ const settings = {
   slidesToShow: 5,
   slidesToScroll: 1,
   swipeToSlide: true,
+  infinite: false,
 };
 
 interface IHoldUserProps {
@@ -28,7 +29,7 @@ function HoldUser({ isbn }: IHoldUserProps) {
   return (
     <div className="hold-user-container">
       <h1>이 책을 보유 중인 사용자</h1>
-      {userData.length > 0 ? (
+      {userData ? (
         <div>
           <Suspense fallback={<span>Loading...</span>}>
             <Slider {...settings} className="user-slider-hold-user">
