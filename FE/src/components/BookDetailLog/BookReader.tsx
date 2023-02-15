@@ -4,7 +4,7 @@ import { useMyQuery } from '@src/hooks/useMyQuery';
 import './BookReader.styles.scss';
 
 interface IBookReader {
-  isbn: string;
+  isbn: any;
 }
 
 function BookReader({ isbn }: IBookReader) {
