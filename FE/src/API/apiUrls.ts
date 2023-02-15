@@ -45,4 +45,5 @@ export const memberAPIUrls = {
 
 export const placeAPIUrls = {
   main: `${apiBaseUrl}/place`,
+  placeDetail: `${apiBaseUrl}/place/detail`,
 };
