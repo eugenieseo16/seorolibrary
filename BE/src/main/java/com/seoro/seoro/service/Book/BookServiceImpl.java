@@ -334,8 +334,10 @@ public class BookServiceImpl implements BookService {
 		long count_readpeople = readBookRepository.countByIsbn(isbn);
 		List<MemberDto> own_members = new ArrayList<>();
 		List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
+		long count_comment = 0;
 		for(OwnBook book : ownBooks){
 			Member member = memberRepository.findByMemberId(book.getOwnBookId());
+			if(book.getOwnComment().length()>0) count_comment++;
 			if(!member.getMemberDongCode().equals(memberRepository.findByMemberId(memberId).getMemberDongCode())) continue;
 			own_members.add(MemberDto.builder()
 					.memberId(member.getMemberId())
@@ -344,7 +346,6 @@ public class BookServiceImpl implements BookService {
 					.build());
 
 		}
-		long count_comment = ownBooks.size();//고치자
 
 		BookDetailDto output;
 		URI uri =new URI("https://dapi.kakao.com/v3/search/book?size=50&target=isbn&query="+isbn);
@@ -411,7 +412,7 @@ public class BookServiceImpl implements BookService {
 		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
 
 		List<ShowBookDto> output = new ArrayList<>();
-		//"https://dapi.kakao.com/v3/search/book?size=50&query="+URLEncoder.encode(input,"utf-8")
+
 		URI uri =new URI("https://dapi.kakao.com/v3/search/book?size=50&query="+URLEncoder.encode(input,"utf-8"));
 		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
 		JSONParser jsonParser = new JSONParser();
