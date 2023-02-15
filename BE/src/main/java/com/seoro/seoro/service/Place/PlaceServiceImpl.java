@@ -73,12 +73,19 @@ public class PlaceServiceImpl implements PlaceService {
 		});
 		List<PlaceShowDto> dtoList = new ArrayList<>();
 		for(Place place: list){
+			List<String> photos = new ArrayList<>();
+
+			for(PlacePhoto photo : place.getPhotos()){
+				photos.add(photo.getPhoto());
+			}
+
 			dtoList.add(PlaceShowDto.builder()
 					.placeLongitude(place.getPlaceLongitude())
 					.placeLatitude(place.getPlaceLatitude())
 					.placeId(place.getPlaceId())
 					.placeName(place.getPlaceName())
 					.score(place.getScore())
+					.placePhotoList(photos)
 					.build());
 		}
 		return dtoList;
@@ -91,12 +98,18 @@ public class PlaceServiceImpl implements PlaceService {
 		dtoList[0] = new ArrayList<>();
 		dtoList[1] = new ArrayList<>();
 		for(Place place: list1){
+			List<String> photos = new ArrayList<>();
+
+			for(PlacePhoto photo : place.getPhotos()){
+				photos.add(photo.getPhoto());
+			}
 			dtoList[0].add(PlaceShowDto.builder()
 				.placeLongitude(place.getPlaceLongitude())
 				.placeLatitude(place.getPlaceLatitude())
 				.placeId(place.getPlaceId())
 				.placeName(place.getPlaceName())
 				.score(place.getScore())
+				.placePhotoList(photos)
 				.build());
 		}
 		List<PlaceReview> list2 = placeReviewRepository.findByMember_MemberId(memberId);

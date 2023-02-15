@@ -1,5 +1,9 @@
 package com.seoro.seoro.domain.dto.Place;
 
+import java.util.List;
+
+import com.seoro.seoro.domain.entity.Place.PlacePhoto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +20,5 @@ public class PlaceShowDto {
 	private String placeLatitude;
 	private String placeLongitude;
 	private Double score;
+	private List<String> placePhotoList;
 }

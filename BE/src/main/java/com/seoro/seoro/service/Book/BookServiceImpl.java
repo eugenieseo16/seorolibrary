@@ -115,7 +115,7 @@ public class BookServiceImpl implements BookService {
 					.isbn(ownBook.getIsbn())
 					.bookAuthor(ownBook.getAuthor())
 					.memberName(member.getMemberName())
-					.bookDescrib(ownBook.getOwnComment())
+					.bookDescrib(ownBook.getBookdescrib())
 					.isOwn(ownBook.getIsOwn())
 					.build());
 			}
