@@ -14,13 +14,13 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class RedisConfiguration {
-	@Value("i8A209.p.ssafy.io")
+	@Value("${spring.redis.port}")
 	private String redisHost;
 
-	@Value("6379")
+	@Value("${spring.redis.port}")
 	private int redisPort;
 
-	@Value("ssafy")
+	@Value("${spring.redis.password}")
 	private String password;
 
 	@Bean
