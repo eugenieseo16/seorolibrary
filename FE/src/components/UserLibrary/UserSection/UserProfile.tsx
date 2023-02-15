@@ -6,6 +6,8 @@ import './UserProfile.styles.scss';
 import { FaRegChartBar } from 'react-icons/fa';
 import { RiChat3Line } from 'react-icons/ri';
 import { useMyQuery } from '@src/hooks/useMyQuery';
+import { apiBaseUrl } from '@src/API/apiUrls';
+import { useUser } from '@src/hooks/useUser';
 
 interface UserProfileProps {
   isMe: boolean;
@@ -19,12 +21,17 @@ interface IUserProfileData {
 }
 
 export default function UserProfile({ isMe }: UserProfileProps) {
-  const params = useParams();
-  const userData: IUserProfileData | undefined = useMyQuery('/user.json');
   const navigate = useNavigate();
-  const onClickBookRegister = () => {
-    navigate(`/profile/register`);
-  };
+  const { username } = useParams();
+  console.log(isMe);
+
+  const targetUser = isMe
+    ? useUser()
+    : useMyQuery(`${apiBaseUrl}/members/${username}`);
+
+  console.log('TARGET', targetUser);
+
+  const userData: IUserProfileData | undefined = useMyQuery('/user.json');
 
   return (
     <div className="user-profile-container">
@@ -60,20 +67,22 @@ export default function UserProfile({ isMe }: UserProfileProps) {
             <div>
               {isMe ? (
                 <div className="profile-button">
-                  <button>팔로우</button>
+                  <button onClick={() => navigate(`/profile/register`)}>
+                    도서 등록
+                  </button>
                   <button className="icon-button">
                     <RiChat3Line
-                      onClick={() => navigate(`/chat/${params.userId}`)}
+                      onClick={() => navigate('/chat-list')}
                       size={'1rem'}
                     />
                   </button>
                 </div>
               ) : (
                 <div className="profile-button">
-                  <button onClick={onClickBookRegister}>도서 등록</button>
+                  <button>팔로우</button>
                   <button className="icon-button">
                     <RiChat3Line
-                      onClick={() => navigate('/chat-list')}
+                      onClick={() => navigate(`/chat/${username}`)}
                       size={'1rem'}
                     />
                   </button>
