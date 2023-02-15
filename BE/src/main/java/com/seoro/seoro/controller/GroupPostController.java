@@ -21,7 +21,7 @@ public class GroupPostController {
     private final GroupPostService groupPostService;
 
     @PostMapping
-    public ResultResponseDto createGroupPost(@ModelAttribute("groupPostCreateRequestDto") GroupPostCreateRequestDto requestDto) {
+    public ResultResponseDto createGroupPost(@RequestBody GroupPostCreateRequestDto requestDto) {
         System.out.println("여기로 들어오는건 맞니");
         System.out.println(requestDto.toString());
 
@@ -29,7 +29,7 @@ public class GroupPostController {
     }
 
     @GetMapping
-    public GroupPostReadResponseDto readGroupPost(@ModelAttribute GroupPostReadRequestDto requestDto) {
+    public GroupPostReadResponseDto readGroupPost(@RequestBody GroupPostReadRequestDto requestDto) {
         return groupPostService.readGroupPost(requestDto);
     }
 
