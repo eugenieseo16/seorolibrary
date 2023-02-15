@@ -43,6 +43,8 @@ import ClubPlan from '@pages/ClubPlan/ClubPlan';
 import ChatsList from '@pages/Chats/ChatsList';
 import Chat from '@pages/Chats/Chat';
 import PlanGenerate from '@pages/PlanGenerate/PlanGenerate';
+import MyProfile from '@components/UserLibrary/UserSection/MyProfile';
+import MyLibrary from '@pages/UserLibrary/MyLibrary';
 
 function Router() {
   return (
@@ -60,7 +62,7 @@ function Router() {
         <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
         <Route path="/book/:id/log" element={<BookDetailLog />} />
 
-        <Route path="/profile" element={<UserLibrary />} />
+        <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:username" element={<UserLibrary />} />
 
         {/* /profile/userId/follow- 로 변경 필요 */}
