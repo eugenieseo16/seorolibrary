@@ -31,7 +31,8 @@ public class GroupPostController {
 
     @GetMapping
     public GroupPostReadResponseDto readGroupPost(@RequestParam("groupId") Long groupId,
-        @RequestParam("postCategory") PostCategory postCategory, @RequestParam("startIdx") int startIdx,
+        @RequestParam("postCategory") PostCategory postCategory,
+        @RequestParam("startIdx") int startIdx,
         @RequestParam("limit") int limit) {
         return groupPostService.readGroupPost(groupId, postCategory, startIdx, limit);
     }
