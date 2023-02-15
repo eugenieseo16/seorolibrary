@@ -17,6 +17,8 @@ public class OwnBookDto {
 	private String bookTitle;
 	private String bookImage;
 	private String ownComment;
+	private String author;
+	private String bookDescrib;
 	private Boolean isOwn;
 
 	public OwnBookDto(OwnBook ownBook) {
@@ -26,5 +28,7 @@ public class OwnBookDto {
 		this.bookImage = ownBook.getBookImage();
 		this.ownComment = ownBook.getOwnComment();
 		this.isOwn = ownBook.getIsOwn();
+		this.author = ownBook.getAuthor();
+		this.bookDescrib = ownBook.getBookdescrib();
 	}
 }
