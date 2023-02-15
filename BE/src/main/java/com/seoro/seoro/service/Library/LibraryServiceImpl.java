@@ -494,6 +494,20 @@ public class LibraryServiceImpl implements LibraryService {
 		return friendDtoList;
 	}
 
+	@Override
+	public List<FriendDto> viewFollowerList(Long memberId) {
+		Member member = memberRepository.findById(memberId).orElse(null);
+		if(member==null){
+			return new ArrayList<>();
+		}
+		List<FriendDto> followerDtoList = new ArrayList<>();
+		List<Friend> friends = friendRepository.findByFollowing(member.getMemberId());
+		for(Friend friend : friends){
+			followerDtoList.add(new FriendDto(friend));
+		}
+		return followerDtoList;
+	}
+
 	private List<OwnBookDto> getOwnBookList(Member member) {
 		List<OwnBook> ownBooks = member.getOwnBooks();
 		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
