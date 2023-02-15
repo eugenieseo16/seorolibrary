@@ -43,6 +43,7 @@ import BookClubNavLayout from '@pages/layouts/BookClubNavLayout';
 import ClubPlan from '@pages/ClubPlan/ClubPlan';
 import ChatsList from '@pages/Chats/ChatsList';
 import Chat from '@pages/Chats/Chat';
+import PlanGenerate from '@pages/PlanGenerate/PlanGenerate';
 
 function Router() {
   return (
@@ -90,6 +91,7 @@ function Router() {
         <Route path="/chat/:id" element={<Chat />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
         <Route path="/profile/register" element={<BookRegister />} />
+        <Route path="/book-club/:id/plan/generate" element={<PlanGenerate />} />
       </Route>
 
       <Route path="" element={<BookClubNavLayout />}>

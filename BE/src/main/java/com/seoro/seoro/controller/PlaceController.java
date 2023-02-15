@@ -2,6 +2,7 @@ package com.seoro.seoro.controller;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -31,8 +32,8 @@ public class PlaceController {
 
 	//내 주변 모든 장소 출력
 	@GetMapping()
-	public List<PlaceShowDto> findAllPlaces(@RequestBody Long memberId){
-		return placeService.findAllPlaces(memberId);
+	public List<PlaceShowDto> findAllPlaces(@RequestBody HashMap<String, Long> requestJSON){
+		return placeService.findAllPlaces(requestJSON.get("memberId"));
 	}
 
 	//장소 추가
@@ -46,8 +47,8 @@ public class PlaceController {
 
 	//내가 추가한 장소, 내가 리뷰쓴 장소 출력
 	@GetMapping("/my")
-	public List<PlaceShowDto>[] findMyPlaces(@RequestBody Long memberId){
-		return placeService.findMyPlaces(memberId);
+	public List<PlaceShowDto>[] findMyPlaces(@RequestBody HashMap<String, Long> requestJSON){
+		return placeService.findMyPlaces(requestJSON.get("memberId"));
 	}
 
 	//장소 상세 정보

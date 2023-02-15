@@ -13,6 +13,7 @@ import { useMyQuery } from '@src/hooks/useMyQuery';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import useScroll from '@src/hooks/useScroll';
 import { useSpring, animated } from '@react-spring/web';
+import { useNavigate } from 'react-router-dom';
 
 interface IPlan {
   title: string;
@@ -23,6 +24,7 @@ interface IPlan {
 
 const ClubPlan: React.FC = () => {
   const direction = useScroll();
+  const navigate = useNavigate();
   const [dayObj, setDayObj] = useState(dayjs());
   const [visiblePlan, setVisiblePlan] = useState<IPlan[]>([]);
   const onChange = (value: Dayjs) => setDayObj(value);
@@ -138,7 +140,7 @@ const ClubPlan: React.FC = () => {
         </div>
       ))}
       <animated.div
-        onClick={() => {}}
+        onClick={() => navigate('./generate')}
         className="float-button"
         style={{ opacity, transform }}
       >

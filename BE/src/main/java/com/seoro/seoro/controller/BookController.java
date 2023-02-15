@@ -3,6 +3,7 @@ package com.seoro.seoro.controller;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import org.json.simple.parser.ParseException;
@@ -30,10 +31,16 @@ public class BookController {
 
 	//검색 -> 도서상세정보
 	@GetMapping("/detail/{isbn}")
-	public BookDetailDto viewBookDetail(@PathVariable String isbn, @ModelAttribute BookRequestDto requestDto) throws
+	public BookDetailDto viewBookDetail(@PathVariable String isbn, @RequestBody BookRequestDto requestDto) throws
 		ParseException,
 		URISyntaxException {
 		return bookService.viewBookDetail(isbn,requestDto.getMemberId());
+	}
+
+	//읽은 도서 추가
+	@PostMapping("/detail/{isbn}")
+	public ResultResponseDto addReadBook(@PathVariable("isbn") String isbn, @RequestBody Map<String, String> request){
+		return bookService.addReadBook(isbn,request);
 	}
 
 	//도서 리뷰 작성
@@ -53,13 +60,6 @@ public class BookController {
 	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn,
 		@PathVariable("reviewid") Long reviewId){
 		return bookService.deleteReview(isbn, reviewId);
-	}
-
-	//도서 리뷰 작성 잘되었는지 확인하려고 만듬.. 삭제해야됨
-	@GetMapping("/review/{isbn}")
-	public ReviewDto searchReviewsByIsbn(@PathVariable String isbn){
-		ReviewDto review = bookService.findReviewByIsbnAndMemberId(isbn);
-		return review;
 	}
 
 	// 검색 결과 상세

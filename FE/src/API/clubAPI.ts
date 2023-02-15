@@ -43,7 +43,7 @@ export const useClubMainAPI = (username?: string) => {
   return response;
 };
 
-export const clubMembersAPI = (groupId?: number) => {
+export const clubMembersAPI = (groupId?: string) => {
   if (!groupId) return;
   const response = useMyQuery(
     `${clubAPIUrls.clubMembersAPIUrl}?groupId=${groupId}`,
@@ -57,9 +57,49 @@ interface IClubEnter {
   writePassword: string;
 }
 export const clubEnterAPI = async (data: IClubEnter) => {
-  const response = await axios.post(
+  const { data: response } = await axios.post(
     `${clubAPIUrls.clubEnterAPIUrl}/${data.groupId}`,
     data,
   );
   return response;
+};
+
+interface IGroupDetail {
+  groupName: string;
+  groupProfile?: string;
+  groupPassword?: string;
+  groupStartDate?: string;
+  groupDongCode: string;
+  groupCapacity: number;
+  groupGenre: number[];
+  groupDescrib: string;
+  bookCount: number;
+  postCount: number;
+  meetingCount: number;
+}
+export const clubDetailAPI = (groupId?: string) => {
+  if (!groupId) return;
+  const data: IGroupDetail | undefined = useMyQuery(
+    `${clubAPIUrls.clubDetailAPIUrl}/${groupId}`,
+  );
+  return data;
+};
+
+interface IClubPost {
+  groupId?: string;
+  postCategory: string;
+  startIdx: number;
+  limit: number;
+}
+export const clubPostAPI = ({
+  groupId,
+  postCategory,
+  startIdx,
+  limit,
+}: IClubPost) => {
+  if (!groupId) return;
+  const data = useMyQuery(
+    `${clubAPIUrls.clubPostAPIUrl}?groupId=${groupId}&postCategory=${postCategory}&startIdx=${startIdx}&limit=${limit}`,
+  );
+  return data;
 };

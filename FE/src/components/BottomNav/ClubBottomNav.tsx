@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './ClubBottomNav.styles.scss';
 import { useSpring, animated } from '@react-spring/web';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useLastPathname } from '@src/hooks/usePathname';
 import useScroll from '@src/hooks/useScroll';
 
@@ -9,6 +9,7 @@ function Button({ text, value, selected }: any) {
   const navigate = useNavigate();
   const url = value == 'main' ? '' : value;
   const path = useLastPathname();
+  const params = useParams();
 
   const { color } = useSpring({
     color: selected ? '#fffbf1' : '#583f31',
@@ -17,7 +18,9 @@ function Button({ text, value, selected }: any) {
 
   return (
     <animated.button
-      onClick={() => navigate(`/book-club/${1}/${url}`, { replace: true })}
+      onClick={() =>
+        navigate(`/book-club/${params.id}/${url}`, { replace: true })
+      }
       className={path == url ? 'selected' : ''}
       value={value}
       style={{ color, zIndex: 1 }}

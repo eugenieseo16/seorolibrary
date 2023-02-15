@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class GroupScheduleCreateRequestDto {
     private Long groupId;
     private Long writerId;
+    private String date;
     private String groupScheduleTitle;
     private String groupScheduleContent;
 }

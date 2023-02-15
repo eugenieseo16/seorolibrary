@@ -3,6 +3,7 @@ package com.seoro.seoro.service.Book;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import org.json.simple.parser.ParseException;
@@ -42,4 +43,6 @@ public interface BookService {
     public BookReviewResponseDto viewBookReview(String isbn);
 
 	public BookCommentResponseDto viewBookComment(String isbn);
+
+	ResultResponseDto addReadBook(String isbn, Map<String,String> request);
 }
