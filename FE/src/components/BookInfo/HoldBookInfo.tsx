@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import ExchangeAvailable from '@components/NearBooks/ExchangeAvailable';
 
 import './BookInfo.styles.scss';
-import { bookDetailAPI } from '@src/API/bookAPI';
+import { holdBookDetailAPI } from '@src/API/bookAPI';
 import { useUser } from '@src/hooks/useUser';
 
 interface IBookInfo {
@@ -15,9 +15,9 @@ function BookInfo({ isbn }: IBookInfo) {
   const isUser = location.pathname.includes('profile');
   const user = useUser();
 
-  const memberName = user?.memberName;
-  const data = bookDetailAPI(isbn, user?.memberId);
-  console.log(data?.bookTitle);
+  const data = holdBookDetailAPI(isbn, user?.memberName);
+  console.log(data);
+  // 보유하지 않은 책입니다
 
   return (
     <div className="book-info-container">

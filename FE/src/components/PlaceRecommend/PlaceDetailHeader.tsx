@@ -1,8 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RiArchiveDrawerLine, RiAddLine } from 'react-icons/ri';
 import { MdLocalCafe } from 'react-icons/md';
 import './PlaceDetailHeader.styles.scss';
+import { placeDetailAPI } from '@src/API/placeAPI';
 
 function PlaceDetailHeader() {
   const navigate = useNavigate();
@@ -13,7 +14,11 @@ function PlaceDetailHeader() {
   const onClickMyPlaceArchive = () => {
     navigate(`/places/my-place-archive`);
   };
-  const title = '가게 이름';
+
+  const param = useParams();
+  const placeId = param?.id;
+  const data = placeDetailAPI(placeId);
+  const title = data?.placeName;
 
   return (
     <div className="place-header-container">

@@ -57,6 +57,16 @@ export const searchAPI = (input: string) => {
   return response;
 };
 
+export const bookTitleAPI = (isbn: any, memberId: any) => {
+  const response = useMyQuery(
+    `${bookApiUrls.bookDetail}/${isbn}?memberId=${memberId}`,
+  );
+
+  const bookTitle = response.bookTitle;
+  return bookTitle;
+};
+
+// 표준 도서 상세
 export const bookDetailAPI = (isbn: string, memberId: number) => {
   const response = useMyQuery(
     `${bookApiUrls.bookDetail}/${isbn}?memberId=${memberId}`,
@@ -64,19 +74,32 @@ export const bookDetailAPI = (isbn: string, memberId: number) => {
   return response;
 };
 
-export const bookTitleAPI = (isbn: any, memberId: number) => {
+// 사용자 도서 상세
+export const holdBookDetailAPI = (isbn: any, memberName: any) => {
   const response = useMyQuery(
-    `${bookApiUrls.bookDetail}/${isbn}?memberId=${memberId}`,
+    `${bookApiUrls.holdBookDetail}?memberName=${memberName}&isbn=${isbn}`,
   );
-  return response.bookTitle;
-};
-
-export const bookReviewAPI = (isbn: string) => {
-  const response = useMyQuery(bookApiUrls.bookReview + isbn);
   return response;
 };
 
-// 도서 리뷰 작성
+// 도서 통계
+export const bookReaderAPI = (isbn: string) => {
+  const response = useMyQuery(`${bookApiUrls.bookReader}/${isbn}`);
+  return response;
+};
+
+export const bookReviewAPI = (isbn: string) => {
+  const response = useMyQuery(`${bookApiUrls.bookReview}/${isbn}`);
+  return response;
+};
+
+export const bookCommentAPI = (isbn: string) => {
+  const response = useMyQuery(`${bookApiUrls.bookComment}/${isbn}`);
+  return response;
+};
+
+// 도서 리뷰
+// 작성
 export const bookReviewCreateAPI = (createValues: any) => {
   const response = axios.post(
     `${bookApiUrls.editBookReview}/${createValues.isbn}`,
@@ -85,18 +108,13 @@ export const bookReviewCreateAPI = (createValues: any) => {
   return response;
 };
 
-// 도서 리뷰 수정
+// 수정
 export const bookReviewEditAPI = '';
 
-// 도서 리뷰 삭제
+// 삭제
 export const bookReviewDeleteAPI = (deleteValues: any, isbn: string) => {
   const response = axios.delete(
     `${bookApiUrls.editBookReview}/${isbn}`,
     deleteValues,
   );
-};
-
-export const bookCommentAPI = (isbn: string) => {
-  const response = useMyQuery(bookApiUrls.bookComment + isbn);
-  return response;
 };
