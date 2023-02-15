@@ -393,30 +393,6 @@ public class BookServiceImpl implements BookService {
 	//내 주변 보유사용자, 리뷰 출력 추가 필요
 
 	@Override
-	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws
-		IOException,
-		ParseException,
-		URISyntaxException {
-		OwnBookDetailDto responseDto = new OwnBookDetailDto();
-		Member member = memberRepository.findByMemberId(memberId);
-		if(member == null) {
-			responseDto.setResult(false);
-			return responseDto;
-		}
-
-		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElseThrow(() -> new NoSuchElementException("책이 없습니다."));
-		responseDto.setOwnComment(ownBook.getOwnComment());
-		responseDto.setOwn(ownBook.getIsOwn());
-
-		BookDetailDto bookDetailDto = viewBookDetail(isbn, memberId);
-		responseDto.setBookDetailDto(bookDetailDto);
-		responseDto.setOwnBooks(myOwnBooks);
-
-		responseDto.setResult(true);
-		return responseDto;
-	}
-
-	@Override
 	public OwnBookDetailDto viewOwnBookDetail(String memberName, String isbn) throws ParseException, URISyntaxException {
 		OwnBookDetailDto responseDto;
 
