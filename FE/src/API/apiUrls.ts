@@ -1,4 +1,4 @@
-export const apiBaseUrl = 'http://localhost:8080';
+export const apiBaseUrl = 'http://70.12.246.229:8080';
 // export const apiBaseUrl = 'http://localhost:8080';
 
 export const authApiUrls = {
@@ -14,7 +14,11 @@ export const clubAPIUrls = {
   clubEnterAPIUrl: `${apiBaseUrl}/groups/enter`,
   clubDetailAPIUrl: `${apiBaseUrl}/groups/detail`,
   clubPostAPIUrl: `${apiBaseUrl}/groups/post`,
+  clubCreatePostAPIUrl: `${apiBaseUrl}/groups/post`,
+  clubPlanListAPIUrl: `${apiBaseUrl}/groups/schedule`,
+  clubPlanGenerateAPIUrl: `${apiBaseUrl}/groups/schedule`,
 };
+
 export const bookApiUrls = {
   bestSellers: `${apiBaseUrl}/main/best`,
   bookDetail: `${apiBaseUrl}/book/detail`,

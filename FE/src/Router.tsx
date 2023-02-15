@@ -54,8 +54,11 @@ function Router() {
         <Route path="/search" element={<Search />} />
 
         <Route path="/book/:id" element={<BookDetail />} />
-        <Route path="/profile/:userId/book/:id" element={<HoldBookDetail />} />
-        <Route path="/profile/book/:id" element={<HoldBookDetail />} />
+        <Route
+          path="/profile/:userId/book/:isbn"
+          element={<HoldBookDetail />}
+        />
+        <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
         <Route path="/book/:id/log" element={<BookDetailLog />} />
 
         <Route path="/profile" element={<MyLibrary />} />

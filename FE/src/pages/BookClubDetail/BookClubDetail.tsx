@@ -69,8 +69,6 @@ function BookClubDetail() {
     setLoading(false);
   };
 
-  console.log(clubDetail);
-  console.log(clubMembers?.groupMembers);
   return (
     <>
       <div className="book-club-detail-container">

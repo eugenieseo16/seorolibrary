@@ -6,6 +6,9 @@ import type { UploadProps } from 'antd';
 import './PostGenerate.styles.scss';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useUser } from '@src/hooks/useUser';
+import { clubCreatePostAPI } from '@src/API/clubAPI';
 
 const props: UploadProps = {
   name: 'file',
@@ -49,29 +52,35 @@ function Label({ text }: { text: string }) {
 
 function PostGenerate() {
   const [form] = Form.useForm();
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+  const { id: groupId } = useParams();
+  const user = useUser();
+  const navigate = useNavigate();
+  const onFinish = async (values: any) => {
+    if (!groupId || !user) return;
+    await clubCreatePostAPI({
+      ...values,
+      groupId: +groupId,
+      writer: user?.memberId,
+      postImage: undefined,
+    });
+    navigate(`/book-club/${groupId}`);
   };
 
   return (
     <>
       <SearchHeader text="게시글 작성하기" search={false} />
       <div className="post-generate-container">
-        <Form form={form} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+        <Form form={form} onFinish={onFinish}>
           <Form.Item
             label={<Label text="제목" />}
-            name="title"
+            name="postTitle"
             rules={[{ required: true, message: '제목을 알려주세요' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label={<Label text="내용" />}
-            name="payload"
+            name="postContent"
             rules={[{ required: true, message: '내용을 알려주세요' }]}
           >
             <Input.TextArea rows={4} />
@@ -79,19 +88,19 @@ function PostGenerate() {
           <Form.Item
             label={<Label text="게시글 유형" />}
             rules={[{ required: true, message: '게시판을 선택해주세요' }]}
-            initialValue={'free'}
-            name="category"
+            initialValue={'FREE'}
+            name="postCategory"
           >
             <Select style={{ fontFamily: 'NEXON' }}>
-              <Select.Option value="free">자유글</Select.Option>
-              <Select.Option value="notice">공지사항</Select.Option>
-              <Select.Option value="recommend">책 추천</Select.Option>
-              <Select.Option value="greeting">가입인사</Select.Option>
+              <Select.Option value="FREE">자유글</Select.Option>
+              <Select.Option value="NOTICE">공지사항</Select.Option>
+              <Select.Option value="RECOMMEND">책 추천</Select.Option>
+              <Select.Option value="GREET">가입인사</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item
             label={<Label text="사진" />}
-            name="images"
+            name="postImage"
             valuePropName="any"
           >
             <Upload.Dragger {...props}>
