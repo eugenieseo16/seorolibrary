@@ -1,3 +1,4 @@
+import { useMutation } from 'react-query';
 import { useMyQuery } from './../hooks/useMyQuery';
 import axios from 'axios';
 import { clubAPIUrls } from './apiUrls';
@@ -101,5 +102,34 @@ export const clubPostAPI = ({
   const data = useMyQuery(
     `${clubAPIUrls.clubPostAPIUrl}?groupId=${groupId}&postCategory=${postCategory}&startIdx=${startIdx}&limit=${limit}`,
   );
-  return data;
+  return data ? data.groupPost : data;
+};
+
+interface ICreatePostForm {
+  groupId: number;
+  writer: number;
+  postCategory: string;
+  postContent: string;
+  postImage?: string[];
+}
+export const clubCreatePostAPI = async (data: ICreatePostForm) => {
+  const { data: response } = await axios.post(
+    `${clubAPIUrls.clubPostAPIUrl}`,
+    data,
+  );
+  return response;
+};
+export const clubPlanListAPI = (groupId?: number) => {
+  if (!groupId) return;
+  const data = useMyQuery(
+    `${clubAPIUrls.clubPlanListAPIUrl}?groupId=${groupId}`,
+  );
+  return data ? data.schedules : data;
+};
+export const clubPlanGenerateAPI = async (data: any) => {
+  const response = await axios.post(
+    `${clubAPIUrls.clubPlanGenerateAPIUrl}`,
+    data,
+  );
+  return response;
 };

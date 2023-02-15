@@ -8,10 +8,10 @@ export const placeRecomendAPI = (memberId: any) => {
 };
 
 interface IPlaceGenerateForm {
-  placeMaker: Long;
-  longitude: String;
-  latitude: String;
-  placePhoto: String[];
+  placeMaker: number;
+  longitude: string;
+  latitude: string;
+  placePhoto: string[];
 }
 export const placeGenerateAPI = async (data: IPlaceGenerateForm) => {
   const response = await axios.post(placeAPIUrls.main, data);
