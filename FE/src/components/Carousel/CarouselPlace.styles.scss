@@ -33,6 +33,8 @@
     color: $beige;
     width: 75%;
     h2 {
+      color: $beige;
+      margin-left: 5px;
       font-size: 1rem;
       font-weight: 400;
       @include overflow-multi-lines;

@@ -7,18 +7,16 @@ import SearchHeader from '@components/SearchHeader/SearchHeader';
 import CarouselHome from '@components/Carousel/CarouselHome';
 import CarouselNearBook from '@components/Carousel/CarouselNearBook';
 import CarouselBestSellerBook from '@components/Carousel/CarouselBestSellerBook';
-import CarouselPlace from '@components/Carousel/CarouselPlace';
+import CarouselHomePlace from '@components/Carousel/CarouselPlace';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useUser } from '@src/hooks/useUser';
 import { placeRecomendAPI } from '@src/API/placeAPI';
 
 function Home() {
   const user = useUser();
-  console.log(user);
 
-  // body -> params로 바뀌면 reverse comment
-  const placeData = useMyQuery('/books.json');
-  // const placeData = placeRecomendAPI(user?.memberId);
+  const placeData = placeRecomendAPI(user?.memberId);
+  console.log(placeData);
 
   const greeting = user?.memberName + '님 안녕하세요';
   return (
@@ -36,7 +34,7 @@ function Home() {
       <div>
         <h1 className="home-text">장소 추천</h1>
         <div style={{ width: '120%' }}>
-          {placeData && <CarouselPlace items={placeData} />}
+          {placeData && <CarouselHomePlace items={placeData} />}
         </div>
       </div>
     </div>

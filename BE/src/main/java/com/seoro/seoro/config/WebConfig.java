@@ -12,6 +12,6 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addMapping("/**")
 			.exposedHeaders("X-AUTH-TOKEN")
 			// .allowCredentials(true);
-			.allowedOrigins("http://i8A209.p.ssafy.io:80", "https://i8A209.p.ssafy.io:443");
+			.allowedOrigins("http://i8A209.p.ssafy.io:8080", "https://i8A209.p.ssafy.io:443");
 	}
 }
