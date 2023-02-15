@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.seoro.seoro.domain.dto.Group.*;
+import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.entity.Groups.GroupApply;
 import com.seoro.seoro.domain.dto.Member.RecommendMemberDto;
 import com.seoro.seoro.domain.entity.Groups.GroupBook;
@@ -220,6 +221,13 @@ public class GroupServiceImpl implements GroupService{
 				genres[j++] = p.length() -i -1;
 			}
 		}
+		Member host = group.getHost();
+		GroupMemberDto hostDto = GroupMemberDto.builder()
+			.userProfile(host.getMemberProfile())
+			.userId(host.getMemberId())
+			.userName(host.getMemberName())
+			.build();
+
 
 		groupDetailResponseDto = GroupDetailResponseDto.builder()
 				.result(true)
@@ -235,6 +243,7 @@ public class GroupServiceImpl implements GroupService{
 				.bookCount(group.getBooks().size())
 				.postCount(group.getPosts().size())
 				.meetingCount(group.getMeetings().size())
+				.host(hostDto)
 				.build();
 
 		return groupDetailResponseDto;
