@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -262,6 +263,20 @@ public class BookServiceImpl implements BookService {
 		System.out.println("readBook.getIsbn() = " + readBook.getIsbn());
 		resultResponseDto.setResult(true);
 		return resultResponseDto;
+	}
+
+	@Override
+	public List<MemberShowDto> showReader(String isbn) {
+		List<MemberShowDto> memberShowDto = new ArrayList<>();
+		List<ReadBook> books = readBookRepository.findByIsbn(isbn);
+		for(ReadBook readBook : books){
+			memberShowDto.add(MemberShowDto.builder()
+				.memberName(readBook.getMember().getMemberName())
+				.memberProfile(readBook.getMember().getMemberProfile())
+				.build()) ;
+		}
+
+		return memberShowDto;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
 @Service
@@ -40,4 +41,6 @@ public interface BookService {
 	public BookCommentResponseDto viewBookComment(String isbn);
 
 	ResultResponseDto addReadBook(String isbn, Map<String,String> request);
+
+	List<MemberShowDto> showReader(String isbn);
 }
