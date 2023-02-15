@@ -14,10 +14,9 @@ import { FaQuoteLeft } from 'react-icons/fa';
 import './BookDetail.styles.scss';
 
 function BookDetail() {
-  const isUser = true;
-
-  const test = useParams();
-  const isbn = test.isbn;
+  const param = useParams();
+  const isUser = 'memberName' in param;
+  const isbn = param.isbn;
 
   return (
     <div className="book-detail-container">
