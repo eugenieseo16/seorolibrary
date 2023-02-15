@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 
