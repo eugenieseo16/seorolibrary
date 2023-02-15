@@ -172,6 +172,8 @@ public class LibraryServiceImpl implements LibraryService {
 			.bookTitle(requestDto.getBookTitle())
 			.bookImage(requestDto.getBookImage())
 			.ownComment(requestDto.getOwnComment())
+			.author(requestDto.getAuthor())
+			.bookdescrib(requestDto.getBookDescrib())
 			.isOwn(true)
 			.build();
 
