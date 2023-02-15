@@ -11,10 +11,12 @@ import com.seoro.seoro.domain.entity.Member.LoginType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class MemberSignupDto {
 	@NotBlank(message = "아이디를 입력해주세요")
 	@Email(message = "이메일 형식이 올바르지 않습니다.")
