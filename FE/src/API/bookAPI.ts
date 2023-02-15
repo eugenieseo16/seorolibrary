@@ -57,8 +57,10 @@ export const searchAPI = (input: string) => {
   return response;
 };
 
-export const bookDetailAPI = (isbn: string) => {
-  const response = useMyQuery(bookApiUrls.bookDetail + isbn);
+export const bookDetailAPI = (isbn: string, memberId: number) => {
+  const response = useMyQuery(
+    `${bookApiUrls.bookDetail}/${isbn}?memberId=${memberId}`,
+  );
   return response;
 };
 
