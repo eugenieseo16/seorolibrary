@@ -18,7 +18,7 @@ interface Item {
   placeId: string;
 }
 
-function CarouselPlace({
+function CarouselHomePlace({
   items,
   slidesToShow = 4,
   infinite = true,
@@ -39,7 +39,7 @@ function CarouselPlace({
           <img src={data.placeImage} alt="" />
           <div className="shadow-wrapper-place" />
           <div className="content-place">
-            {data.placeName && <p>{data.placeName}</p>}
+            {/* {data.placeName && <p>{data.placeName}</p>} */}
             <h2>{data.placeName}</h2>
           </div>
         </div>
@@ -48,4 +48,4 @@ function CarouselPlace({
   );
 }
 
-export default CarouselPlace;
+export default CarouselHomePlace;
