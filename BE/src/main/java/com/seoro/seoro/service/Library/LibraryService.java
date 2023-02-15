@@ -36,7 +36,7 @@ public interface LibraryService {
 	public BookReportDto viewBookReport(Long bookReportId);
 	public ResultResponseDto modifyBookReport(BookReportDto requestDto);
 	public ResultResponseDto removeBookReport(Long bookReportId);
-	public LibraryDto makeFriend(Long memberId, Long meId);
-	public LibraryDto removeFriend(Long memberId, Long meId);
+	public ResultResponseDto makeFriend(Long memberId, Long meId);
+	public ResultResponseDto removeFriend(Long memberId, Long meId);
 	public List<FriendDto> viewFollowingList(Long memberId);
 }

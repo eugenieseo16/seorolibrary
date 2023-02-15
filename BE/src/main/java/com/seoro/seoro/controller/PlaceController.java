@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,9 @@ public class PlaceController {
 
 	//내 주변 모든 장소 출력
 	@GetMapping()
-	public List<PlaceShowDto> findAllPlaces(@RequestBody HashMap<String, Long> requestJSON){
-		return placeService.findAllPlaces(requestJSON.get("memberId"));
+	public List<PlaceShowDto> findAllPlaces(@ModelAttribute("memberId") Long memberId){
+		System.out.println(memberId);
+		return placeService.findAllPlaces(memberId);
 	}
 
 	//장소 추가

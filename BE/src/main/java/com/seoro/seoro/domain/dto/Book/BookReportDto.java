@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookReportDto {
+	private boolean result;
 	private Long bookReportId;
 	private Long readBookId;
 	private String bookReportTitle;
@@ -17,6 +18,7 @@ public class BookReportDto {
 	// private String photo;
 
 	public BookReportDto(BookReport bookReport) {
+		this.result = true;
 		this.bookReportId = bookReport.getBookReportId();
 		this.readBookId = bookReport.getBookReportId();
 		this.bookReportTitle = bookReport.getBookReportTitle();

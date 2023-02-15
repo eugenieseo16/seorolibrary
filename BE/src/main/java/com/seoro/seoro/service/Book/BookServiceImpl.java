@@ -113,7 +113,8 @@ public class BookServiceImpl implements BookService {
 					.bookTitle(ownBook.getBookTitle())
 					.bookImage(ownBook.getBookImage())
 					.isbn(ownBook.getIsbn())
-					.memberId(member.getMemberId())
+					.bookAuthor(ownBook.getAuthor())
+					.memberName(member.getMemberName())
 					.bookDescrib(ownBook.getOwnComment())
 					.isOwn(ownBook.getIsOwn())
 					.build());
@@ -208,6 +209,7 @@ public class BookServiceImpl implements BookService {
 			.isbn(ownBook.getIsbn())
 			.bookTitle(ownBook.getBookTitle())
 			.bookImage(ownBook.getBookImage())
+			.author(ownBook.getAuthor())
 			.ownComment(requestDto.getOwnComment())
 			.isOwn(ownBook.getIsOwn())
 			.build();
@@ -318,6 +320,7 @@ public class BookServiceImpl implements BookService {
 	// 	}
 	// 	return dtoList;
 
+
 	// 일반 상세
 	@Override
 	public BookDetailDto viewBookDetail(String isbn, Long memberId) throws ParseException, URISyntaxException {
@@ -331,8 +334,10 @@ public class BookServiceImpl implements BookService {
 		long count_readpeople = readBookRepository.countByIsbn(isbn);
 		List<MemberDto> own_members = new ArrayList<>();
 		List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
+		long count_comment = 0;
 		for(OwnBook book : ownBooks){
 			Member member = memberRepository.findByMemberId(book.getOwnBookId());
+			if(book.getOwnComment().length()>0) count_comment++;
 			if(!member.getMemberDongCode().equals(memberRepository.findByMemberId(memberId).getMemberDongCode())) continue;
 			own_members.add(MemberDto.builder()
 					.memberId(member.getMemberId())
@@ -341,7 +346,6 @@ public class BookServiceImpl implements BookService {
 					.build());
 
 		}
-		long count_comment = ownBooks.size();
 
 		BookDetailDto output;
 		URI uri =new URI("https://dapi.kakao.com/v3/search/book?size=50&target=isbn&query="+isbn);
@@ -408,7 +412,7 @@ public class BookServiceImpl implements BookService {
 		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
 
 		List<ShowBookDto> output = new ArrayList<>();
-		//"https://dapi.kakao.com/v3/search/book?size=50&query="+URLEncoder.encode(input,"utf-8")
+
 		URI uri =new URI("https://dapi.kakao.com/v3/search/book?size=50&query="+URLEncoder.encode(input,"utf-8"));
 		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
 		JSONParser jsonParser = new JSONParser();
@@ -427,7 +431,6 @@ public class BookServiceImpl implements BookService {
 				.isbn(isbn)
 				.bookAuthor(HtmlUtils.htmlUnescape(authors.size() !=0? authors.get(0).toString():""))
 				.bookDescrib(HtmlUtils.htmlUnescape(bookObject.get("contents").toString()))
-				.result(true)
 				.build());
 		}
 		return output;
@@ -458,7 +461,6 @@ public class BookServiceImpl implements BookService {
 						.bookImage(outputlist.get("bookImageURL").toString())
 						.bookTitle(outputlist.get("bookname").toString())
 						.isbn(outputlist.get("isbn13").toString())
-						.result(true)
 					.build());
 			}
 		}catch (Exception e) {

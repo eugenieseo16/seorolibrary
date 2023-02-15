@@ -62,7 +62,6 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .groupPostTitle(requestDto.getPostTitle())
                 .groupPostContent(requestDto.getPostContent())
                 .groups(group)
-                .groupPostTime(requestDto.getPostTime())
                 .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
                 .member(writer)
                 .isUpdate(false)
@@ -72,23 +71,25 @@ public class GroupPostServiceImpl implements GroupPostService {
 
         //사진이 있을 때
         List<GroupPostPhoto> photos = new ArrayList<>();
-        for(String p : requestDto.getPostImage()) {
-            GroupPostPhoto photo = GroupPostPhoto.builder()
+        if(requestDto.getPostImage() != null && requestDto.getPostImage().length > 0) {
+            for(String p : requestDto.getPostImage()) {
+                GroupPostPhoto photo = GroupPostPhoto.builder()
                     .groupPostPhoto(p)
                     .groupPost(saveGroupPost)
                     .build();
-            groupPostPhotoRespository.save(photo);
+                groupPostPhotoRespository.save(photo);
+            }
         }
         resultResponseDto.setResult(true);
         return resultResponseDto;
     }
 
     @Override
-    public GroupPostReadResponseDto readGroupPost(GroupPostReadRequestDto requestDto) {
+    public GroupPostReadResponseDto readGroupPost(Long groupId, PostCategory postCategory, int startIdx, int limit) {
         GroupPostReadResponseDto responseDto = new GroupPostReadResponseDto();
         //그룹 정보 가져오기
         Groups group = new Groups();
-        Optional<Groups> findGroup = groupRepository.findById(requestDto.getGroupId());
+        Optional<Groups> findGroup = groupRepository.findById(groupId);
         if(findGroup.isPresent()) {
             group = findGroup.get();
         } else {
@@ -98,16 +99,16 @@ public class GroupPostServiceImpl implements GroupPostService {
 
         //그룹의 게시글 가져오기 - 최근 작성한 게시글부터 정렬 && pagenation
         List<GroupPost> posts = new ArrayList<>();
-        if(PostCategory.valueOf(requestDto.getPostCategory()).equals(PostCategory.ALL)) {
+        if(PostCategory.valueOf(postCategory.name()).equals(PostCategory.ALL)) {
             //모든 게시물 출력
             posts = groupPostRepository.findAllByGroupsOrderByGroupPostTimeDesc(group);
         }
         else {
-            posts = groupPostRepository.findGroupPostsByGroupsAndPostCategoryOrderByGroupPostTimeDesc(group, PostCategory.valueOf(requestDto.getPostCategory()));
+            posts = groupPostRepository.findGroupPostsByGroupsAndPostCategoryOrderByGroupPostTimeDesc(group, PostCategory.valueOf(postCategory.name()));
         }
 
         List<GroupPostDto> groupPost = new ArrayList<>();
-        for(int i=requestDto.getStartIdx()-1; i< requestDto.getStartIdx() + requestDto.getLimit()-1; i++) {
+        for(int i=startIdx-1; i< startIdx + limit-1; i++) {
             if(posts.size() == i) {
                 break;
             }

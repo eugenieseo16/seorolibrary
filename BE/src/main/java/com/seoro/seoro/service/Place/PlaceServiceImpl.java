@@ -56,6 +56,7 @@ public class PlaceServiceImpl implements PlaceService {
 
 	@Override
 	public List<PlaceShowDto> findAllPlaces(Long memberId) {
+		System.out.println(memberId);
 		List<Place> list = placeRepository.findAll();
 		String myDongCode = memberRepository.findByMemberId(memberId).getMemberDongCode();
 		Collections.sort(list, new Comparator<Place>() {
