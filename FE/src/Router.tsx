@@ -9,7 +9,6 @@ import BookDetailLog from '@pages/BookDetail/BookDetailLog';
 
 import Search from '@pages/Search/Search';
 
-import MyLibrary from '@pages/UserLibrary/UserLibrary';
 import UserLibrary from '@pages/UserLibrary/UserLibrary';
 import Follow from '@pages/UserLibrary/Follow';
 
@@ -61,8 +60,8 @@ function Router() {
         <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
         <Route path="/book/:isbn/log" element={<BookDetailLog />} />
 
-        <Route path="/profile" element={<MyLibrary />} />
-        <Route path="/profile/:memberName" element={<UserLibrary />} />
+        <Route path="/profile" element={<UserLibrary />} />
+        <Route path="/profile/:username" element={<UserLibrary />} />
 
         {/* /profile/userId/follow- 로 변경 필요 */}
         <Route path="/profile/follow" element={<Follow />} />

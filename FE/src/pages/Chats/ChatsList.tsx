@@ -14,11 +14,8 @@ import {
   where,
 } from 'firebase/firestore';
 import { firebaseDB } from '@src/utils/fireBase';
-import { useSelector } from 'react-redux';
 import { useMyQuery } from '@src/hooks/useMyQuery';
-import { useChatList } from '@src/hooks/useChat';
 import { useUser } from '@src/hooks/useUser';
-import axios from 'axios';
 import { apiBaseUrl } from '@src/API/apiUrls';
 
 function ChatItem({ data }: any) {

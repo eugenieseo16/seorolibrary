@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
 @Service
