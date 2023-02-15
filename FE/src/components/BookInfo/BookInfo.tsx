@@ -15,6 +15,7 @@ function BookInfo({ isbn }: IBookInfo) {
   const isUser = location.pathname.includes('profile');
   const user = useUser();
   const data = bookDetailAPI(isbn, user?.memberId);
+  console.log(data);
 
   return (
     <div className="book-info-container">
@@ -24,7 +25,7 @@ function BookInfo({ isbn }: IBookInfo) {
             <img src={data?.bookImage} alt="" />
           </div>
           <div className="exchange-available">
-            <ExchangeAvailable />
+            <ExchangeAvailable is_available={data?.isOwn} />
           </div>
         </div>
       ) : (

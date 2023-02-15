@@ -5,7 +5,7 @@ import './BookContent.styles.scss';
 import { bookReviewAPI } from '@src/API/bookAPI';
 
 interface IBookReview {
-  isbn: string;
+  isbn: any;
 }
 function BookReview({ isbn }: IBookReview) {
   const data = useMyQuery('/bookReview.json');
