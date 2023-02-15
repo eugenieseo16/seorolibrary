@@ -33,14 +33,16 @@ public class MainController {
 	@GetMapping("/search/{input}")
 	public JSONObject searchByInput(@PathVariable String input) throws IOException, ParseException, URISyntaxException {
 		JSONObject result = new JSONObject();
+		// 도서 검색
 		List books = bookService.findBook(input);
-		if(books!=null){
-			result.put("books",books);
+		if(books != null){
+			result.put("books", books);
 			result.put("result",true);
-		}else{
+		} else{
 			result.put("result", false);
 		}
-		result.put("member",memberService.findByMemberNameLike(input));
+		// 사용자 검색
+		result.put("member", memberService.findByMemberNameLike(input));
 		return result;
 	}
 

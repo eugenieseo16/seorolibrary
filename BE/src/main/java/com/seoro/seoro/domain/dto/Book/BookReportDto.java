@@ -15,7 +15,7 @@ public class BookReportDto {
 	private Long readBookId;
 	private String bookReportTitle;
 	private String bookReportContent;
-	// private String photo;
+	private String photo;
 
 	public BookReportDto(BookReport bookReport) {
 		this.result = true;
