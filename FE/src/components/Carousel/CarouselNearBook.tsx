@@ -14,12 +14,14 @@ const settings = {
   slidesToShow: 4,
   slidesToScroll: 1,
   swipeToSlide: true,
+  infinite: false,
 };
 
 export default function CarouselNearBook() {
   const user = useUser();
 
   const booksData = nearBooksAPI(user?.memberId);
+  // console.log(booksData);
   const navigate = useNavigate();
 
   return (
@@ -33,10 +35,8 @@ export default function CarouselNearBook() {
               navigate(`/profile/${data.memberName}/book/${data.isbn}`)
             }
           >
-            <div>
-              <img src={data.bookImage} alt="" />
-              <h2>{data.bookTitle}</h2>
-            </div>
+            <img src={data.bookImage} alt="" />
+            <h2>{data.bookTitle}</h2>
           </div>
         ))}
       </Slider>
