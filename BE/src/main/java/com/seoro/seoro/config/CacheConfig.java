@@ -25,37 +25,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @EnableCaching
 public class CacheConfig {
-	@Value("${spring.redis.host}")
-	private String redisHost;
-
-	@Value("${spring.redis.port}")
-	private int redisPort;
-
-	@Value("${spring.redis.password}")
-	private String password;
+//	@Value("${spring.redis.host}")
+//	private String redisHost;
+//
+//	@Value("${spring.redis.port}")
+//	private int redisPort;
+//
+//	@Value("${spring.redis.password}")
+//	private String password;
+//
+//	@Bean
+//	public RedisConnectionFactory redisConnectionFactory() {
+//		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+//
+//		redisStandaloneConfiguration.setHostName(redisHost);
+//		redisStandaloneConfiguration.setPort(redisPort);
+//		redisStandaloneConfiguration.setPassword(password);
+//		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration);
+//		return lettuceConnectionFactory;
+//	}
 
 	@Bean
-	public RedisConnectionFactory redisConnectionFactory() {
-		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-
-		redisStandaloneConfiguration.setHostName(redisHost);
-		redisStandaloneConfiguration.setPort(redisPort);
-		redisStandaloneConfiguration.setPassword(password);
-		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration);
-		return lettuceConnectionFactory;
-	}
-
-	@Bean
-	public CacheManager redisCacheManager() {
+	public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
 		RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
-			.disableCachingNullValues()
-			.entryTtl(Duration.ofSeconds(CacheKey.DEFAULT_EXPIRE_SEC))
-			.computePrefixWith(CacheKeyPrefix.simple())
-			.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-			.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+				.disableCachingNullValues()
+				.entryTtl(Duration.ofSeconds(CacheKey.DEFAULT_EXPIRE_SEC))
+				.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+				.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
 		return RedisCacheManager.RedisCacheManagerBuilder
-			.fromConnectionFactory(redisConnectionFactory())
-			.cacheDefaults(configuration)
-			.build();
+				.fromConnectionFactory(redisConnectionFactory)
+				.cacheDefaults(configuration)
+				.build();
 	}
+
 }
