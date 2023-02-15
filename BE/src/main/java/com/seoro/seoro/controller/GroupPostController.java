@@ -6,6 +6,7 @@ import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadRequestDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostReadResponseDto;
 import com.seoro.seoro.domain.dto.GroupPost.GroupPostUpdateRequestDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
+import com.seoro.seoro.domain.entity.Groups.PostCategory;
 import com.seoro.seoro.service.GroupPost.GroupPostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +30,10 @@ public class GroupPostController {
     }
 
     @GetMapping
-    public GroupPostReadResponseDto readGroupPost(@RequestParam GroupPostReadRequestDto requestDto) {
-        return groupPostService.readGroupPost(requestDto);
+    public GroupPostReadResponseDto readGroupPost(@RequestParam("groupId") Long groupId,
+        @RequestParam("postCategory") PostCategory postCategory, @RequestParam("startIdx") int startIdx,
+        @RequestParam("limit") int limit) {
+        return groupPostService.readGroupPost(groupId, postCategory, startIdx, limit);
     }
 
     @GetMapping("/{postid}")
