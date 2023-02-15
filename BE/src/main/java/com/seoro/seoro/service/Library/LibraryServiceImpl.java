@@ -383,38 +383,57 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 수정
+	// 확인 중
 	@Override
-	public LibraryDto makeFriend(Long memberId, Long meId) {
-		LibraryDto responseDto = libraryMain(memberId, meId);
-		Member member = memberRepository.findByMemberId(meId);
+	public ResultResponseDto makeFriend(Long memberId, Long meId) {
+		ResultResponseDto responseDto = new ResultResponseDto();
+
+		Member member = memberRepository.findByMemberId(memberId);
+		Member me = memberRepository.findByMemberId(meId);
+		if(member == null || member == null) {
+			responseDto.setResult(false);
+			responseDto.setMessege("찾는 회원이 없습니다.");
+			return responseDto;
+		}
 
 		Friend friend = Friend.builder()
-			.follower(member)
+			.follower(me)
 			.following(memberId)
 			.build();
 		friendRepository.save(friend);
-		responseDto.setMyFollowings(responseDto.getMyFollowers() + 1);
+		responseDto.setResult(true);
 
 		return responseDto;
 	}
 
-	// 수정
+	// 확인 중
 	@Override
-	public LibraryDto removeFriend(Long memberId, Long meId) {
-		LibraryDto responseDto = libraryMain(memberId, meId);
-		Member member = memberRepository.findByMemberId(meId);
+	public ResultResponseDto removeFriend(Long memberId, Long meId) {
+		ResultResponseDto responseDto = new ResultResponseDto();
 
-		Friend friend = friendRepository.findByFollowerAndFollowing(member, memberId).orElseThrow(() -> new NoSuchElementException("친구가 아닙니다"));
+		Member member = memberRepository.findByMemberId(memberId);
+		Member me = memberRepository.findByMemberId(meId);
+		if(member == null || member == null) {
+			responseDto.setResult(false);
+			responseDto.setMessege("찾는 회원이 없습니다.");
+			return responseDto;
+		}
+
+		Friend friend = friendRepository.findByFollowerAndFollowing(me, memberId).orElse(null);
+		if(friend == null) {
+			responseDto.setResult(false);
+			responseDto.setMessege("친구가 없습니다.");
+			return responseDto;
+		}
 
 		friendRepository.delete(friend);
-		responseDto.setMyFollowings(responseDto.getMyFollowers() - 1);
+		responseDto.setResult(true);
 
 		return responseDto;
 	}
 
 	@Override
-	public List<FriendDto> viewFollowingList(Long memberId) {
+	public List<FriendDto> viewFollowerList(Long memberId) {
 		Member member = memberRepository.findById(memberId).orElse(null);
 		if(member == null) {
 			return new ArrayList<>();

@@ -105,17 +105,17 @@ public class LibraryController {
 	// }
 
 	@PostMapping("/{memberId}/friends")
-	public LibraryDto makeFriend(@PathVariable Long memberId, @RequestBody Map<String, Long> json) {
+	public ResultResponseDto makeFriend(@PathVariable Long memberId, @RequestBody Map<String, Long> json) {
 		return libraryService.makeFriend(memberId, json.get("memberId"));
 	}
 
-	// @DeleteMapping("/{memberId}/friends")
-	// public LibraryDto removeFriend(@PathVariable Long memberId, @RequestParam("memberId") Long meId) {
-	// 	return libraryService.removeFriend(memberId, meId);
-	// }
+	@DeleteMapping("/{memberId}/friends/{meId}")
+	public ResultResponseDto removeFriend(@PathVariable Long memberId, @PathVariable Long meId) {
+		return libraryService.removeFriend(memberId, meId);
+	}
 
 	@GetMapping("/{memberId}/friends")
 	public List<FriendDto> viewFollowingList(@PathVariable Long memberId) {
-		return libraryService.viewFollowingList(memberId);
+		return libraryService.viewFollowerList(memberId);
 	}
 }
