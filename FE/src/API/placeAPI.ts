@@ -18,7 +18,7 @@ export const placeGenerateAPI = async (data: IPlaceGenerateForm) => {
   return response;
 };
 
-export const placeDetailAPI = (placeId: string) => {
+export const placeDetailAPI = (placeId: any) => {
   const response = useMyQuery(`${placeAPIUrls.placeDetail}/${placeId}`);
   return response;
 };

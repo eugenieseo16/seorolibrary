@@ -55,10 +55,7 @@ function Router() {
         <Route path="/search" element={<Search />} />
 
         <Route path="/book/:isbn" element={<BookDetail />} />
-        <Route
-          path="/profile/:memberName/book/:isbn"
-          element={<HoldBookDetail />}
-        />
+
         <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
         <Route path="/book/:isbn/log" element={<BookDetailLog />} />
 
@@ -96,6 +93,10 @@ function Router() {
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
         <Route path="/profile/register" element={<BookRegister />} />
         <Route path="/book-club/:id/plan/generate" element={<PlanGenerate />} />
+        <Route
+          path="/profile/:memberName/book/:isbn"
+          element={<HoldBookDetail />}
+        />
       </Route>
 
       <Route path="" element={<BookClubNavLayout />}>

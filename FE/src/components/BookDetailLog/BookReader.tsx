@@ -1,15 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import './BookReader.styles.scss';
+import { bookReaderAPI } from '@src/API/bookAPI';
 
 interface IBookReader {
   isbn: any;
 }
 
 function BookReader({ isbn }: IBookReader) {
-  const data = useMyQuery('/userFollower.json');
   const navigate = useNavigate();
+  const data = bookReaderAPI(isbn);
 
   return (
     <div className="book-reader-container">
@@ -17,10 +18,10 @@ function BookReader({ isbn }: IBookReader) {
         <div
           key={i}
           className="book-reader-item"
-          onClick={() => navigate(`/profile/1`)}
+          onClick={() => navigate(`/profile/${user.memberName}`)}
         >
-          <img src={user.avatar} alt="" />
-          <p>{user.nickname}</p>
+          <img src={user.memberProfile} alt="" />
+          <p>{user.memberName}</p>
         </div>
       ))}
     </div>
