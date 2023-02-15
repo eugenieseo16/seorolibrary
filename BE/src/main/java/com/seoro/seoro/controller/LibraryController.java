@@ -74,10 +74,10 @@ public class LibraryController {
 		return libraryService.removeOwnBook(memberId, isbn);
 	}
 
-	@DeleteMapping("/{memberId}/read/{isbn}")
-	public ResultResponseDto removeReadBook(@PathVariable Long memberId, @PathVariable String isbn) {
-		return libraryService.removeReadBook(memberId, isbn);
-	}
+	// @DeleteMapping("/{memberId}/read/{isbn}")
+	// public ResultResponseDto removeReadBook(@PathVariable Long memberId, @PathVariable String isbn) {
+	// 	return libraryService.removeReadBook(memberId, isbn);
+	// }
 
 	@PostMapping("{memberId}/report")
 	public ResultResponseDto makeBookReport(@RequestBody BookReportDto requestDto, @PathVariable Long memberId) {

@@ -203,7 +203,6 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 수정
 	@Override
 	public ResultResponseDto removeReadBook(Long memberId, String isbn) {
 		log.info("memberId: " + memberId);
@@ -316,16 +315,18 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Override
 	public BookReportDto viewBookReport(Long bookReportId) {
-		// 안 쓰는 코드
-		// Optional<BookReport> bookReport = bookReportRepository.findById(bookReportId);
-		// BookReport responseBookReport = bookReport.get();
-		//
-		// BookReportDto responsetDto = new BookReportDto
-		// 	(responseBookReport.getReadBook().getReadBookId(), responseBookReport.getBookReportTitle(), responseBookReport.getBookReportContent());
-		return null;
+		BookReport bookReport = bookReportRepository.findById(bookReportId).orElse(null);
+
+		if(bookReport == null) {
+			BookReportDto responsetDto = new BookReportDto();
+			responsetDto.setResult(false);
+			return responsetDto;
+		}
+
+		BookReportDto responsetDto = new BookReportDto(bookReport);
+		return responsetDto;
 	}
 
-	// 수정
 	@Override
 	public ResultResponseDto modifyBookReport(BookReportDto requestDto) {
 		ResultResponseDto responseDto = new ResultResponseDto();
@@ -343,8 +344,9 @@ public class LibraryServiceImpl implements LibraryService {
 		// 이미지 수정 추가
 
 		BookReport newBookReport = BookReport.builder()
-			.bookReportId(bookReport.getBookReportId())
+			.bookReportId(requestDto.getBookReportId())
 			.readBook(readBook)
+			.member(bookReport.getMember())
 			.bookReportTitle(requestDto.getBookReportTitle())
 			.bookReportContent(requestDto.getBookReportContent())
 			.build();
@@ -355,7 +357,6 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 수정
 	@Override
 	public ResultResponseDto removeBookReport(Long bookReportId) {
 		ResultResponseDto responseDto = new ResultResponseDto();
