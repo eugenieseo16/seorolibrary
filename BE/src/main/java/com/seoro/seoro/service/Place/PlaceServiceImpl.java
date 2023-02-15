@@ -132,6 +132,7 @@ public class PlaceServiceImpl implements PlaceService {
 		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
+		System.out.println(body.toString());
 		JSONArray docu = (JSONArray) body.get("documents");
 
 		JSONObject addr = (JSONObject)docu.get(1);

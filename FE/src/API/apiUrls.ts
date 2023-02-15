@@ -1,4 +1,4 @@
-export const apiBaseUrl = 'http://70.12.246.221:8080';
+export const apiBaseUrl = 'http://localhost:8080';
 // export const apiBaseUrl = 'http://localhost:8080';
 
 export const authApiUrls = {
@@ -12,11 +12,13 @@ export const clubAPIUrls = {
   clubMainAPIUrl: `${apiBaseUrl}/groups`,
   clubMembersAPIUrl: `${apiBaseUrl}/groups/members`,
   clubEnterAPIUrl: `${apiBaseUrl}/groups/enter`,
+  clubDetailAPIUrl: `${apiBaseUrl}/groups/detail`,
+  clubPostAPIUrl: `${apiBaseUrl}/groups/post`,
 };
 export const bookApiUrls = {
   bestSellers: `${apiBaseUrl}/main/best`,
-  bookDetail: `${apiBaseUrl}/book/detail/`,
-  nearBooks: `${apiBaseUrl}/main/nearbook/`,
+  bookDetail: `${apiBaseUrl}/book/detail`,
+  nearBooks: `${apiBaseUrl}/main/nearbook`,
   bookSearchUrl: 'https://dapi.kakao.com/v3/search/book?target=title',
   registerBookUrl: `${apiBaseUrl}/librarys`,
 
@@ -35,4 +37,8 @@ export const searchAPIUrl = `${apiBaseUrl}/main/search/`;
 export const memberAPIUrls = {
   myProfile: `${apiBaseUrl}/members`,
   memberDetail: `${apiBaseUrl}/librarys`,
+};
+
+export const placeAPIUrls = {
+  main: `${apiBaseUrl}/place`,
 };

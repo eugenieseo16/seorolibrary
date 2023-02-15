@@ -7,6 +7,7 @@ import Loading from '@pages/Loading';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { IPost, IClubDetail } from '@src/types/types';
 import './BookClubMain.styles.scss';
+import { clubDetailAPI, clubPostAPI } from '@src/API/clubAPI';
 
 function MultiPreviewImage({ images }: { images: string[] }) {
   return (
@@ -26,16 +27,26 @@ function BookClubMain() {
   const [filter, setFilter] = useState<string>('all');
   const posts: IPost[] = useMyQuery('/posts.json');
   const detailData: IClubDetail = useMyQuery(`/clubDetail.json`);
+  const clubDetail = clubDetailAPI(id);
+  // const post = clubPostAPI({
+  //   groupId: id,
+  //   startIdx: 1,
+  //   limit: 10,
+  //   postCategory: 'free',
+  // });
+  // console.log(post);
 
-  return detailData ? (
+  return clubDetail ? (
     <>
       <div className="book-club-main-container">
         <div className="book-club-main-header">
-          <img src={detailData.image_url} alt="" />
-          <h2>{detailData.title}</h2>
+          <img src={clubDetail.groupProfile} alt="" />
+          <h2>{clubDetail.groupName}</h2>
           <div>
             <h3>게시판</h3>
-            <button onClick={() => navigate('./generate-post')}>글쓰기</button>
+            <button onClick={() => navigate(`/book-club/${id}/generate-post`)}>
+              글쓰기
+            </button>
           </div>
         </div>
         <div

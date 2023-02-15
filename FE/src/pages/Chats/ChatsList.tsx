@@ -18,28 +18,38 @@ import { useSelector } from 'react-redux';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useChatList } from '@src/hooks/useChat';
 import { useUser } from '@src/hooks/useUser';
+import axios from 'axios';
 
 function ChatItem({ data }: any) {
   const user = useUser();
-  // const userData = useMyQuery(
-  //   `http://i8a209.p.ssafy.io:8080/members/${data.username}`,
-  // );
-  const navigate = useNavigate();
-  const opponent = data.chatId
-    .split('-')
-    .filter((id: string) => id !== user?.memberId + '')[0];
+  const [targetUser, setTargetUser] = useState('');
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) return;
+    const opponent = data.chatId
+      .split('-')
+      .filter((id: string) => id !== user?.memberId + '')[0];
+    (async function () {
+      const { data } = await axios.post(
+        'http://70.12.246.236:8080/members/search',
+        { memberId: opponent },
+      );
+      setTargetUser(data?.memberName);
+    })();
+  }, [data]);
   return (
     <List.Item
       key={data.username}
-      onClick={() => navigate(`/chat/${opponent}`)}
+      onClick={() => navigate(`/chat/${targetUser}`)}
     >
       <List.Item.Meta
         avatar={<Avatar src={''} />}
-        title={<a>{data.memberName}</a>}
+        title={<a>{targetUser}</a>}
         description={<p className="message-preview">{data.preview}</p>}
       />
-      {opponent == data.username && data.unreadSize > 0 && (
+      {targetUser == data.username && data.unreadSize > 0 && (
         <div style={{ paddingLeft: '1rem' }}>
           <Badge count={data.unreadSize} overflowCount={99} />
         </div>

@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "profile_img": "data:image/png;base64,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",
+      "userId": "shinzzang",
+      "nickname": "신짱구만세",
+      "content": "일전에 했던 리액트 관련 도서리뷰(생활코딩! 리액트 프로그래밍)가 입문자를 위한 도서였다면 이 책은 입문자보단 한 단계 더 나아간 사람들이 읽기 좋은 도서라는 느낌을 강하게 받았다. 여기서 왜 한 단계 더 나아간 사람들, 이라는 표현을 썼냐면 이 책에서 설명하고자 하는 리액트에는 함수형 프로그래밍에 대한 저변이 짙게 깔려있기 때문인데 실제로 책의 목차를 보면, 아래와 같이 초반부를 구성되어있다.",
+      "placeReviewPhotos": "https://cdn-icons-png.flaticon.com/512/219/219989.png"
+    },
+    {
+      "profile_img": "data:image/jpeg;base64,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",
+      "userId": "maenggu",
+      "nickname": "짱구야돌을주웠어",
+      "content": "리액트는 페이스북 팀에서 만들었고 다양한 회사에서 사용하고 있는 인기있는 라이브러리입니다. 고로 배울 가치가 있습니다. 리액트를 배우느느 과정에서 약간의 시행착오를 줄이는 목절이라면 러닝 리액트가 괜찮은 선택입니다."
+    },
+    {
+      "profile_img": "https://cdn-icons-png.flaticon.com/512/219/219989.png",
+      "userId": "abc",
+      "nickname": "abc",
+      "content": "리액트는 페이스북 팀에서 만들었고 다양한 회사에서 사용하고 있는 인기있는 라이브러리입니다. 고로 배울 가치가 있습니다. 리액트를 배우느느 과정에서 약간의 시행착오를 줄이는 목절이라면 러닝 리액트가 괜찮은 선택입니다.",
+      "placeReviewPhotos": "https://lwi.nexon.com/ca/common/info/character/cha2.png"
+    },
+    {
+      "profile_img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3vvR_28DPaFrBWjpDBzV-JLcQ9LRLP1NgTtcjYGL9HXAzUvbxWspJMc6bmpecKPOkZpw&usqp=CAU",
+      "userId": "abc",
+      "nickname": "abc",
+      "content": "리액트는 페이스북 팀에서 만들었고 다양한 회사에서 사용하고 있는 인기있는 라이브러리입니다. 고로 배울 가치가 있습니다. 리액트를 배우느느 과정에서 약간의 시행착오를 줄이는 목절이라면 러닝 리액트가 괜찮은 선택입니다."
+    },
+    {
+      "profile_img": "https://lwi.nexon.com/ca/common/info/character/cha2.png",
+      "userId": "abc",
+      "nickname": "abc",
+      "content": "리액트는 페이스북 팀에서 만들었고 다양한 회사에서 사용하고 있는 인기있는 라이브러리입니다. 고로 배울 가치가 있습니다. 리액트를 배우느느 과정에서 약간의 시행착오를 줄이는 목절이라면 러닝 리액트가 괜찮은 선택입니다."
+    },
+    {
+      "profile_img": "https://mir-s3-cdn-cf.behance.net/projects/404/1d9f8f152295945.Y3JvcCw5OTksNzgyLDAsMTI4.png",
+      "userId": "abc",
+      "nickname": "abc",
+      "content": "리액트는 페이스북 팀에서 만들었고 다양한 회사에서 사용하고 있는 인기있는 라이브러리입니다. 고로 배울 가치가 있습니다. 리액트를 배우느느 과정에서 약간의 시행착오를 줄이는 목절이라면 러닝 리액트가 괜찮은 선택입니다."
+    },
+    {
+      "profile_img": "https://cdn.class101.net/images/6fab405f-e1bd-4d7d-b113-eec1848bf66f",
+      "userId": "abc",
+      "nickname": "abc",
+      "content": "리액트는 페이스북 팀에서 만들었고 다양한 회사에서 사용하고 있는 인기있는 라이브러리입니다. 고로 배울 가치가 있습니다. 리액트를 배우느느 과정에서 약간의 시행착오를 줄이는 목절이라면 러닝 리액트가 괜찮은 선택입니다."
+    },
+    {
+      "profile_img": "https://cdn-dantats.stunning.kr/prod/portfolios/69d1ef81-0500-44a8-8326-c35bcb6a6e9d/covers/X3Vz4X5q2F4CtgTx.%EC%8D%B8%EB%84%A4%EC%9D%BC%20%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg.small?q=70&t=crop&e=0x0&s=600x600",
+      "userId": "abc",
+      "nickname": "abc",
+      "content": "리액트는 페이스북 팀에서 만들었고 다양한 회사에서 사용하고 있는 인기있는 라이브러리입니다. 고로 배울 가치가 있습니다. 리액트를 배우느느 과정에서 약간의 시행착오를 줄이는 목절이라면 러닝 리액트가 괜찮은 선택입니다."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BiMap } from 'react-icons/bi';
 import { BsCalendarDate } from 'react-icons/bs';
@@ -17,60 +17,71 @@ import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import CarouselPlace from '@components/Carousel/CarouselPlace';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useUser } from '@src/hooks/useUser';
-import { clubEnterAPI } from '@src/API/clubAPI';
+import { clubDetailAPI, clubEnterAPI, clubMembersAPI } from '@src/API/clubAPI';
 
 function BookClubDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const user = useUser();
+  const [loading, setLoading] = useState(false);
   const usersData: any = useMyQuery(`/userRecommend.json`);
   const detailData: any = useMyQuery(`/clubDetail.json`);
 
+  const clubDetail = clubDetailAPI(id);
+  const clubMembers = clubMembersAPI(id);
+
   const newData = [
     {
-      title: detailData?.meta.meeting_count + '번',
+      title: clubDetail?.meetingCount + '번',
       image_url: sample1,
       header: '오늘까지',
       description: '모였어요',
     },
     {
-      title: detailData?.meta.posts + '개',
+      title: clubDetail?.postCount + '개',
       image_url: sample2,
       header: '맴버들이',
       description: '의 글을 썼어요',
     },
     {
-      title: detailData?.meta.recent_date + '일전',
+      title: clubDetail?.bookCount + '권',
       image_url: sample3,
-      header: '가장 최근',
-      description: '에 모였어요',
+      header: '책을',
+      description: ' 읽었어요',
     },
   ];
-  const newUserData = usersData?.data?.map((user: any) => ({
-    image_url: user.image_url,
-    title: user.nickname,
+  const newUserData = clubMembers?.groupMembers?.map((user: any) => ({
+    userId: user.userId,
+    image_url: user.userProfile,
+    title: user.userName,
   }));
 
   const enterClub = async () => {
-    if (!id || !user) return;
+    if (!id || !user || loading) return;
+    setLoading(true);
     const response = await clubEnterAPI({
       groupId: +id,
       userId: user?.memberId,
       writePassword: '1234',
     });
-    console.log(response);
+    navigate('/book-club');
+
+    setLoading(false);
   };
 
+  console.log(clubDetail);
+  console.log(clubMembers?.groupMembers);
   return (
     <>
       <div className="book-club-detail-container">
         <div className="book-club-detail-header">
-          <img src={detailData?.image_url} alt="" />
-          <h1>{detailData?.title}</h1>
+          <img src={clubDetail?.groupProfile} alt="" />
+          <h1>{clubDetail?.groupName}</h1>
           <p>
             <span>
               <BiMap />
             </span>
-            <span>{detailData?.location}</span>
+            <span>{clubDetail?.groupDongCode}</span>
           </p>
         </div>
         <div className="book-club-detail-users">
@@ -102,14 +113,14 @@ function BookClubDetail() {
               <span>맴버 / 정원</span>
             </div>
             <span>
-              {detailData?.club_members.length}명 / {detailData?.members_limit}
+              {clubMembers?.groupMembers.length}명 / {clubDetail?.groupCapacity}
               명
             </span>
           </div>
         </div>
         <div className="book-club-detail-description">
-          <h2>모임 소개</h2>
-          <p>{detailData?.description}</p>
+          <h2 style={{ marginBottom: '1rem' }}>모임 소개</h2>
+          <p>{clubDetail?.groupDescrib}</p>
         </div>
         <div className="meta-data-container">
           <h2>우리는 이만큼 활동했어요</h2>
