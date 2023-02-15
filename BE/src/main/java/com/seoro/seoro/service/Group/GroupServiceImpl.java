@@ -698,44 +698,6 @@ public class GroupServiceImpl implements GroupService{
 	}
 
 	@Override
-	public ResultResponseDto createGroupBook(GroupBookCreateRequestDto requestDto) {
-		ResultResponseDto responseDto = new ResultResponseDto();
-		//Host 정보 가져오기
-		Member member = new Member();
-		Optional<Member> tmpMember = memberRepository.findById(requestDto.getUserId());
-		if (tmpMember.isPresent()) {
-			member = tmpMember.get();
-		} else {
-			responseDto.setResult(false);
-			return responseDto;
-		}
-
-		//독서 모임 정보 가져오기
-		Optional<Groups> tmpGroup = groupRepository.findById(requestDto.getGroupId());
-		Groups group = new Groups();
-		if (tmpGroup.isPresent()) {
-			group = tmpGroup.get();
-		} else {
-			responseDto.setResult(false);
-			return responseDto;
-		}
-
-		if(group.getHost().equals(member)) { //방장일 경우
-			GroupBook groupBook = GroupBook.builder()
-				.groups(group)
-				.isbn(requestDto.getIsbn())
-				.bookTitle(requestDto.getBookTitle())
-				.bookImage(requestDto.getBookImage())
-				.build();
-
-			groupBookRepository.save(groupBook);
-		}
-
-		responseDto.setResult(true);
-		return responseDto;
-	}
-
-	@Override
 	public GroupBookReadResponseDto readGroupBook(Long groupId) {
 		GroupBookReadResponseDto responseDto = new GroupBookReadResponseDto();
 		//독서 모임 정보 가져오기
@@ -748,20 +710,10 @@ public class GroupServiceImpl implements GroupService{
 			return responseDto;
 		}
 
-		List<GroupBookDto> books = new ArrayList<>();
-		List<GroupBook> groupBooks = group.getBooks();
-		for(GroupBook groupBook : groupBooks) {
-			GroupBookDto dto = GroupBookDto.builder()
-				.groupBookId(groupBook.getGroupBookId())
-				.isbn(groupBook.getIsbn())
-				.bookTitle(groupBook.getBookTitle())
-				.bookImage(groupBook.getBookImage())
-				.build();
-			books.add(dto);
-		}
+		//모임의 참여자들
+		List<GroupJoin> joins = group.getJoins();
+		// for(GroupJoin j : )
 
-		responseDto.setResult(true);
-		responseDto.setBooks(books);
 		return responseDto;
 	}
 
