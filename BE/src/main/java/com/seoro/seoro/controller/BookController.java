@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
-import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 
@@ -55,7 +54,7 @@ public class BookController {
 		return bookService.addReadBook(isbn,request);
 	}
 
-	//도서 리뷰 작성
+	// 도서 리뷰 작성
 	@PostMapping("/review/{isbn}")
 	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDto requestDto){
 		return bookService.makeReview(isbn, requestDto);
