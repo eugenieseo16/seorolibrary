@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
@@ -39,13 +40,20 @@ public class BookController {
 		return bookService.viewBookDetail(isbn,requestDto.getMemberId());
 	}
 
-	//읽은 도서 추가
+	// 사용자 보유도서 조회
+	@GetMapping("/detail/own")
+	public OwnBookDetailDto viewOwnBookDetail(@RequestParam("memberName") String memberName, @RequestParam("isbn") String isbn)
+		throws ParseException, URISyntaxException {
+		return bookService.viewOwnBookDetail(memberName, isbn);
+	}
+
+	// 읽은 도서 추가
 	@PostMapping("/detail/{isbn}")
 	public ResultResponseDto addReadBook(@PathVariable("isbn") String isbn, @RequestBody Map<String, String> request){
 		return bookService.addReadBook(isbn,request);
 	}
 
-	//도서 리뷰 작성
+	// 도서 리뷰 작성
 	@PostMapping("/review/{isbn}")
 	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDto requestDto){
 		return bookService.makeReview(isbn, requestDto);
@@ -74,5 +82,10 @@ public class BookController {
 	@GetMapping("/detail/comment/{isbn}")
 	public BookCommentResponseDto viewBookComment(@PathVariable("isbn") String isbn) {
 		return bookService.viewBookComment(isbn);
+	}
+
+	@GetMapping("/readpeople/{isbn}")
+	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
+		return bookService.showReader(isbn);
 	}
 }

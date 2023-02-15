@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -265,6 +266,20 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public List<MemberShowDto> showReader(String isbn) {
+		List<MemberShowDto> memberShowDto = new ArrayList<>();
+		List<ReadBook> books = readBookRepository.findByIsbn(isbn);
+		for(ReadBook readBook : books){
+			memberShowDto.add(MemberShowDto.builder()
+				.memberName(readBook.getMember().getMemberName())
+				.memberProfile(readBook.getMember().getMemberProfile())
+				.build()) ;
+		}
+
+		return memberShowDto;
+	}
+
+	@Override
 	public ReviewDto findReviewByIsbnAndMemberId(String isbn) {
 		Long member_id=1L;
 		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);
@@ -313,7 +328,6 @@ public class BookServiceImpl implements BookService {
 					.memberProfile(member.getMemberProfile())
 					.memberName(member.getMemberName())
 					.build());
-
 		}
 
 		BookDetailDto output;
@@ -342,6 +356,47 @@ public class BookServiceImpl implements BookService {
 			.build();
 
 		return output;
+	}
+
+	@Override
+	public OwnBookDetailDto viewOwnBookDetail(String memberName, String isbn) throws ParseException, URISyntaxException {
+		OwnBookDetailDto responseDto;
+
+		Member member = memberRepository.findByMemberName(memberName).orElse(null);
+		if(member == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("찾는 회원이 없습니다.");
+		}
+
+		BookDetailDto bookDetailDto = viewBookDetail(isbn, member.getMemberId());
+		if(bookDetailDto == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("찾는 책 정보가 없습니다.");
+		}
+
+		responseDto = new OwnBookDetailDto(bookDetailDto);
+
+		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElse(null);
+		if(ownBook == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("보유하지 않은 책입니다.");
+		}
+
+		responseDto.setOwn(ownBook.getIsOwn());
+		responseDto.setOwnComment(ownBook.getOwnComment());
+
+		// 보유 도서
+		List<OwnBook> ownBooks = member.getOwnBooks();
+		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
+		for(OwnBook ownBookList : ownBooks) {
+			ownBookDtoList.add(new OwnBookDto(ownBookList));
+		}
+		responseDto.setOwnBookList(ownBookDtoList);
+
+		return responseDto;
 	}
 
 	@Override
