@@ -1,20 +1,21 @@
-import React, { useRef, useState } from 'react';
-import { Form, Upload, Input, InputNumber } from 'antd';
-
-import Autocomplete from 'react-google-autocomplete';
-import { scroller, Element } from 'react-scroll';
+import React, { useRef, useState, useEffect } from 'react';
 import type { UploadProps } from 'antd';
-import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
+import { Form, Upload, Input, InputNumber } from 'antd';
 import { UserOutlined, FileImageOutlined } from '@ant-design/icons';
-
-import { checkValid } from '@src/utils/arrUtils';
-import { autoCompleteFilter } from '@src/utils/utils';
-import AddPlaceHeader from '@components/MyPlace/AddPlaceHeader';
-import './AddPlace.styles.scss';
-import { useMyQuery } from '@src/hooks/useMyQuery';
-import { placeGenerateAPI } from '@src/API/placeAPI';
 import { useUser } from '@src/hooks/useUser';
-import { dongcodeAPI } from '@src/API/geoAPI';
+import Autocomplete from 'react-google-autocomplete';
+
+import './AddPlace.styles.scss';
+import { placeGenerateAPI } from '@src/API/placeAPI';
+import AddPlaceHeader from '@components/MyPlace/AddPlaceHeader';
+import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
+
+// 지도 api 가져오기
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
@@ -22,22 +23,49 @@ function Label({ text }: { text: string }) {
 
 function AddPlace() {
   const user = useUser();
-  const dongCode = useRef<any>();
-
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const [longitude, setLongitude] = useState('');
+  const [latitude, setLatitude] = useState('');
+
+  // 주소 받으면 위도 경도로 변환하기
+  useEffect(() => {
+    const geocoder = new window.kakao.maps.services.Geocoder();
+
+    const autoCompleteEl = document.getElementById('autocomplete');
+    if (autoCompleteEl) {
+      const autoComplete = new window.kakao.maps.services.Autocomplete({
+        element: autoCompleteEl,
+      });
+      autoComplete.addListener('place_changed', () => {
+        const place = autoComplete.getPlace();
+        if (place) {
+          geocoder.addressSearch(place.address, (result: any, status: any) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              setLongitude(result[0].x);
+              setLatitude(result[0].y);
+            }
+          });
+        }
+      });
+    }
+  }, []);
+
   const onFinish = async (values: any) => {
     if (loading) return;
     setLoading(true);
-    const dongData = await dongcodeAPI(dongCode.current);
+
+    // 이미지는 리스트형식으로 보내야함
     const { data: response } = await placeGenerateAPI({
       ...values,
-      latitude: dongData,
       placeMaker: user?.memberId,
+      longitude: longitude,
+      latitude: latitude,
     });
     setLoading(false);
   };
 
+  //  사진 multiple 되도록 수정하고, 리스트로 반환받도록 수정
   const props: UploadProps = {
     multiple: false,
     customRequest: ({ onSuccess }: any) => onSuccess('ok'),
@@ -73,18 +101,9 @@ function AddPlace() {
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
               }}
+              placeholder="장소 위치를 입력해주세요"
               apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
               options={{ types: ['geocode'] }}
-              onPlaceSelected={place => {
-                try {
-                  dongCode.current = {
-                    latitude: place.geometry.location.lat(),
-                    longitude: place.geometry.location.lng(),
-                  };
-                } catch (error) {
-                  dongCode.current = 'eee';
-                }
-              }}
             />
           </div>
           <Form.Item
