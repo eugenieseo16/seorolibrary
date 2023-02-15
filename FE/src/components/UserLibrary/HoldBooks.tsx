@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './BookShelf.styles.scss';
 
-function HoldBooks() {
+function HoldBooks({ libraryData }: any) {
   const getHoldBooksData = async () =>
     await (await fetch('/holdBooks.json')).json();
   const { data } = useQuery('hold-books', getHoldBooksData);
@@ -13,10 +13,14 @@ function HoldBooks() {
 
   return (
     <div className="book-shelf-container">
-      {data?.data?.map((book: any, i: number) => (
-        <div className="book-item" key={i} onClick={() => navigate(`book/${i}`)}>
-          <img src={book.image_url} alt="" />
-          <h2>{book.title}</h2>
+      {libraryData?.myOwnBooks?.map((book: any, i: number) => (
+        <div
+          className="book-item"
+          key={i}
+          onClick={() => navigate(`book/${book.isbn}`)}
+        >
+          <img src={book.bookImage} alt="" />
+          <h2>{book.bookTitle}</h2>
         </div>
       ))}
     </div>
