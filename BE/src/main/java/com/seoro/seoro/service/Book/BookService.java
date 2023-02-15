@@ -24,6 +24,7 @@ public interface BookService {
 	public List findBook(String input) throws IOException, ParseException, URISyntaxException;
 
 	public BookDetailDto viewBookDetail(String isbn, Long memberId) throws ParseException, URISyntaxException;
+	public OwnBookDetailDto viewOwnBookDetail(String memberName, String isbn) throws ParseException, URISyntaxException;
 
 	public List findBestSeller() throws IOException;
 
