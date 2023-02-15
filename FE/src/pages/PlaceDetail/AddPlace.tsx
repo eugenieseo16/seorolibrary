@@ -1,120 +1,122 @@
-import React, { useEffect, useState } from 'react';
-import { AutoComplete, Button, Input, InputNumber } from 'antd';
-import { useForm } from 'react-hook-form';
-import Slider from 'react-slick';
+import React, { useRef, useState } from 'react';
+import { Form, Upload, Input, InputNumber } from 'antd';
+
+import Autocomplete from 'react-google-autocomplete';
 import { scroller, Element } from 'react-scroll';
-import { MdOutlineClose } from 'react-icons/md';
+import type { UploadProps } from 'antd';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
+import { UserOutlined, FileImageOutlined } from '@ant-design/icons';
 
 import { checkValid } from '@src/utils/arrUtils';
 import { autoCompleteFilter } from '@src/utils/utils';
 import AddPlaceHeader from '@components/MyPlace/AddPlaceHeader';
 import './AddPlace.styles.scss';
 import { useMyQuery } from '@src/hooks/useMyQuery';
-import MyImageUpload from '@components/MyImageUpload/MyImageUpload';
+import { placeGenerateAPI } from '@src/API/placeAPI';
+import { useUser } from '@src/hooks/useUser';
+import { dongcodeAPI } from '@src/API/geoAPI';
+
+function Label({ text }: { text: string }) {
+  return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
+}
 
 function AddPlace() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [category, setCategory] = useState('');
-  const [categoriesOptions, setCategoriesOptions] = useState([]);
+  const user = useUser();
+  const dongCode = useRef<any>();
 
-  const dongCode = useMyQuery('/dongcode.json');
-  const categoriesRes = useMyQuery('/categories.json');
-
-  const { handleSubmit, register, setValue, getValues } = useForm();
-
-  const getChangeHandlerWithValue = (name: string) => (value: any) => {
-    setValue(name, value);
-  };
-  const getChangeHandlerWithEvent = (name: string) => (e: any) =>
-    setValue(name, e.target.value);
-
-  // const keyDownHandler = (e: any) => {
-  //   if (e.key !== 'Enter') return;
-  //   addCategories(category);
-  // };
-
-  const addCategories = (checkValue: string) => {
-    const mustInArr = categoriesRes?.map((el: any) => el.value);
-    const mustNotArr = categories;
-    if (!checkValid({ checkValue, mustInArr, mustNotArr })) return;
-    setCategories([checkValue, ...categories]);
-    setCategory('');
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const onFinish = async (values: any) => {
+    if (loading) return;
+    setLoading(true);
+    const dongData = await dongcodeAPI(dongCode.current);
+    const { data: response } = await placeGenerateAPI({
+      ...values,
+      latitude: dongData,
+      placeMaker: user?.memberId,
+    });
+    setLoading(false);
   };
 
-  const focusScroll = (name: string) => () => {
-    scroller.scrollTo(name, { duration: 300, smooth: true });
+  const props: UploadProps = {
+    multiple: false,
+    customRequest: ({ onSuccess }: any) => onSuccess('ok'),
+    itemRender: (_: any, file: any, fileList: any, { remove }: any) => {
+      if (fileList.length > 1) {
+        if (file != fileList[1]) remove();
+        return '';
+      }
+      const url = URL.createObjectURL(file.originFileObj);
+      return <img src={url} width="100%" />;
+    },
   };
-
-  // const deleteCategory = (name: string) => () => {
-  //   const newCategories = categories.filter(category => category !== name);
-  //   setCategories(newCategories);
-  // };
-
-  const onValid = (data: any) => {
-    console.log(data, categories);
-  };
-  // const handleNumButton = (e: any) => {
-  //   const num = +getValues('num');
-  //   if (e.target.innerHTML === '+') setValue('num', num + 1);
-  //   else setValue('num', num - 1);
-  // };
-
-  useEffect(() => {
-    if (!categoriesRes) return;
-    setCategoriesOptions(
-      categoriesRes.filter((el: any) => !categories.includes(el.value)),
-    );
-  }, [categories, categoriesRes]);
 
   return (
     <>
-      <div
-        className="book-club-generate-container"
-        style={{ position: 'relative' }}
-      >
-        <AddPlaceHeader />
-        <form
-          onSubmit={handleSubmit(onValid)}
-          className="book-club-generate-form"
-        >
-          <div>
-            <h3>장소 사진첨부</h3>
-            <MyImageUpload />
-          </div>
-          <div>
-            <h3>장소 이름</h3>
-            <Input
-              placeholder="Basic usage"
-              onChange={getChangeHandlerWithEvent('title')}
+      <AddPlaceHeader />
+      <div className="place-generate-container">
+        <Form form={form} onFinish={onFinish}>
+          <Form.Item
+            label={<Label text="장소 이름" />}
+            name="placeName"
+            rules={[{ required: true, message: '장소이름을 알려주세요' }]}
+          >
+            <Input placeholder="장소이름을 입력해주세요" />
+          </Form.Item>
+
+          <div style={{ marginBottom: '1rem' }}>
+            <Label text="장소 위치" />
+            <Autocomplete
+              style={{
+                width: '100%',
+                padding: '0 10px',
+                border: '1px solid #d9d9d9',
+                borderRadius: '6px',
+              }}
+              apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
+              options={{ types: ['geocode'] }}
+              onPlaceSelected={place => {
+                try {
+                  dongCode.current = {
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng(),
+                  };
+                } catch (error) {
+                  dongCode.current = 'eee';
+                }
+              }}
             />
           </div>
-
-          <Element name="location">
-            <h3>장소 선택</h3>
-            <AutoComplete
-              popupClassName="certain-category-search-dropdown"
-              options={dongCode}
-              onChange={getChangeHandlerWithValue('location')}
-              filterOption={autoCompleteFilter}
-              onFocus={focusScroll('location')}
-            >
-              <Input.Search size="large" placeholder="input here" />
-            </AutoComplete>
-          </Element>
-
-          <Element name="description">
-            <h3>장소 소개</h3>
-            <Input.TextArea
-              onChange={getChangeHandlerWithEvent('desc')}
-              placeholder="Controlled autosize"
-              autoSize={{ minRows: 3, maxRows: 5 }}
-              onFocus={focusScroll('description')}
-            />
-          </Element>
-        </form>
+          <Form.Item
+            label={<Label text="장소 사진" />}
+            name="placePhoto"
+            valuePropName="any"
+            rules={[
+              { required: true, message: '사진을 한장이상 추가해주세요' },
+            ]}
+          >
+            <Upload.Dragger {...props}>
+              <div className="ant-upload-container">
+                <FileImageOutlined className="image-icon" />
+                <p>사진을 추가해주세요</p>
+              </div>
+            </Upload.Dragger>
+          </Form.Item>
+          {/* <Form.Item
+            label={<Label text="장소소개" />}
+            name="groupIntroduction"
+            rules={[{ required: true, message: '장소소개를 해주세요' }]}
+          >
+            <Input.TextArea rows={4} />
+          </Form.Item> */}
+        </Form>
       </div>
-      <FixedBottomButton text="장소 추가하기" onClick={handleSubmit(onValid)} />
+      <FixedBottomButton
+        text="장소 추가하기"
+        onClick={() => {
+          console.log(form.submit());
+        }}
+      />
     </>
   );
 }
