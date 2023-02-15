@@ -16,7 +16,6 @@ function Home() {
   const user = useUser();
 
   const placeData = placeRecomendAPI(user?.memberId);
-  console.log(placeData);
 
   const greeting = user?.memberName + '님 안녕하세요';
   return (

@@ -52,13 +52,13 @@ function Router() {
 
         <Route path="/search" element={<Search />} />
 
-        <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/book/:isbn" element={<BookDetail />} />
         <Route
-          path="/profile/:userId/book/:isbn"
+          path="/profile/:memberName/book/:isbn"
           element={<HoldBookDetail />}
         />
         <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
-        <Route path="/book/:id/log" element={<BookDetailLog />} />
+        <Route path="/book/:isbn/log" element={<BookDetailLog />} />
 
         <Route path="/profile" element={<UserLibrary />} />
         <Route path="/profile/:username" element={<UserLibrary />} />
@@ -84,7 +84,7 @@ function Router() {
         <Route path="/places/add-place" element={<AddPlace />} />
 
         <Route path="/near" element={<Near />} />
-        <Route path="/near/bookdetail/:id" element={<BookDetail />} />
+        {/* <Route path="/near/bookdetail/:id" element={<BookDetail />} /> */}
 
         <Route path="*" element={'404'} />
       </Route>
