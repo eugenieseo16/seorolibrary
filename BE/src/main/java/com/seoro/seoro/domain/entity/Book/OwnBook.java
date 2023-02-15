@@ -29,4 +29,5 @@ public class OwnBook implements Serializable {
     private String ownComment;
     private Boolean isOwn;
     private String author;
+    private String bookdescrib;
 }

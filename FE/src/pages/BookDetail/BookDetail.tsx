@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import BookDetailHeader from '@components/BookInfo/BookDetailHeader';
 import BookInfo from '@components/BookInfo/BookInfo';
@@ -14,11 +14,10 @@ import { FaQuoteLeft } from 'react-icons/fa';
 import './BookDetail.styles.scss';
 
 function BookDetail() {
-  const location = useLocation();
-  const isUser = location.pathname.includes('profile');
+  const isUser = true;
 
-  const { state } = useLocation();
-  const isbn = state['isbn'];
+  const test = useParams();
+  const isbn = test.isbn;
 
   return (
     <div className="book-detail-container">
@@ -32,6 +31,7 @@ function BookDetail() {
           </div>
           <BookInfo isbn={isbn} />
           <BookStat isbn={isbn} />
+          {/* 사용자가 보유중인 다른 도서들 */}
           <HoldBook isbn={isbn} />
           <BookReview isbn={isbn} />
         </div>
@@ -41,6 +41,7 @@ function BookDetail() {
           <BookDetailHeader />
           <BookInfo isbn={isbn} />
           <BookStat isbn={isbn} />
+          {/* 이 책을 소유 중인 다른 유저들 */}
           <HoldUser isbn={isbn} />
           <BookReview isbn={isbn} />
         </div>

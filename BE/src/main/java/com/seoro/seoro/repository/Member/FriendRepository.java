@@ -14,4 +14,6 @@ public interface FriendRepository extends JpaRepository<Friend, Long> {
 	Long countByFollowing(Long memberId);
 
 	Long countByFollower(Member member);
+
+	List<Friend> findByFollowing(Long memberId);
 }

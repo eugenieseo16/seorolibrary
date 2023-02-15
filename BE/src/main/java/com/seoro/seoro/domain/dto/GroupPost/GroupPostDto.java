@@ -15,7 +15,9 @@ public class GroupPostDto {
     private String postTitle;
     private String postCategory;
     private String postContent;
-    private String userName;
+    private Long memberId;
+    private String memberName;
+    private String memberProfile;
     private LocalDateTime postTime;
     private Boolean isUpdate;
     private List<GroupPostImageDto> images;
