@@ -1,23 +1,12 @@
 package com.seoro.seoro.service.Library;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
-import com.seoro.seoro.domain.dto.Book.BookDetailDto;
+import org.springframework.stereotype.Service;
+
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
 import com.seoro.seoro.domain.dto.Book.OwnBookDto;
 import com.seoro.seoro.domain.dto.Book.OwnCommentDto;
@@ -115,8 +104,8 @@ public class LibraryServiceImpl implements LibraryService {
 		boolean isFollowing;
 		if(!isOwn) {
 			// 팔로잉에 유저 아이디 팔로워에 내 아이디면 팔로잉한 유저
-			Optional<Friend> friend = friendRepository.findByFollowerAndFollowing(me, memberId);
-			if(friend.isPresent()) {
+			Friend friend = friendRepository.findByFollowerAndFollowing(me, memberId).orElse(null);
+			if(friend != null) {
 				isFollowing = true;
 			} else {
 				isFollowing = false;
@@ -383,7 +372,6 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 확인 중
 	@Override
 	public ResultResponseDto makeFriend(Long memberId, Long meId) {
 		ResultResponseDto responseDto = new ResultResponseDto();
@@ -393,6 +381,13 @@ public class LibraryServiceImpl implements LibraryService {
 		if(member == null || member == null) {
 			responseDto.setResult(false);
 			responseDto.setMessege("찾는 회원이 없습니다.");
+			return responseDto;
+		}
+
+		Friend checkFriend = friendRepository.findByFollowerAndFollowing(me, memberId).orElse(null);
+		if(checkFriend != null) {
+			responseDto.setResult(false);
+			responseDto.setMessege("이미 추가한 친구입니다.");
 			return responseDto;
 		}
 
@@ -406,7 +401,6 @@ public class LibraryServiceImpl implements LibraryService {
 		return responseDto;
 	}
 
-	// 확인 중
 	@Override
 	public ResultResponseDto removeFriend(Long memberId, Long meId) {
 		ResultResponseDto responseDto = new ResultResponseDto();
@@ -433,7 +427,7 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public List<FriendDto> viewFollowerList(Long memberId) {
+	public List<FriendDto> viewFollowingList(Long memberId) {
 		Member member = memberRepository.findById(memberId).orElse(null);
 		if(member == null) {
 			return new ArrayList<>();
