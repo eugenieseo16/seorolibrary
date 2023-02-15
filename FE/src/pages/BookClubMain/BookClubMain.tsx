@@ -72,8 +72,8 @@ function BookClubMain() {
             책 추천
           </button>
           <button
-            className={filter === 'greet' ? 'selected' : ''}
-            value={'greet'}
+            className={filter === 'GREET' ? 'selected' : ''}
+            value={'GREET'}
           >
             가입인사
           </button>
