@@ -40,7 +40,7 @@ function CarouselHomePlace({
         <div
           key={i}
           className="carousel-place-container"
-          onClick={() => navigate(`/place/${data.placeId}`)}
+          onClick={() => navigate(`/places/${data.placeId}`)}
         >
           <img src={data.placePhotoList[0]} alt="" />
           <div className="shadow-wrapper-place" />
