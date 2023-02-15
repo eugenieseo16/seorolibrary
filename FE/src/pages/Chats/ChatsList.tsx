@@ -19,37 +19,29 @@ import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useChatList } from '@src/hooks/useChat';
 import { useUser } from '@src/hooks/useUser';
 import axios from 'axios';
+import { apiBaseUrl } from '@src/API/apiUrls';
 
 function ChatItem({ data }: any) {
   const user = useUser();
-  const [targetUser, setTargetUser] = useState('');
-
   const navigate = useNavigate();
+  const opponent = data.chatId
+    .split('-')
+    .filter((id: string) => id !== user?.memberId + '')[0];
+  const targetUser = useMyQuery(
+    `${apiBaseUrl}/members/search?memberId=${opponent}`,
+  );
 
-  useEffect(() => {
-    if (!user) return;
-    const opponent = data.chatId
-      .split('-')
-      .filter((id: string) => id !== user?.memberId + '')[0];
-    (async function () {
-      const { data } = await axios.post(
-        'http://70.12.246.236:8080/members/search',
-        { memberId: opponent },
-      );
-      setTargetUser(data?.memberName);
-    })();
-  }, [data]);
   return (
     <List.Item
       key={data.username}
-      onClick={() => navigate(`/chat/${targetUser}`)}
+      onClick={() => navigate(`/chat/${targetUser?.memberName}`)}
     >
       <List.Item.Meta
         avatar={<Avatar src={''} />}
-        title={<a>{targetUser}</a>}
+        title={<a>{targetUser?.memberName}</a>}
         description={<p className="message-preview">{data.preview}</p>}
       />
-      {targetUser == data.username && data.unreadSize > 0 && (
+      {targetUser?.memberName == data.username && data.unreadSize > 0 && (
         <div style={{ paddingLeft: '1rem' }}>
           <Badge count={data.unreadSize} overflowCount={99} />
         </div>
