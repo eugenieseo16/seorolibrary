@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 
@@ -47,7 +48,7 @@ public class BookController {
 		return bookService.viewOwnBookDetail(memberName, isbn);
 	}
 
-	// 읽은 도서 추가
+	//읽은 도서 추가
 	@PostMapping("/detail/{isbn}")
 	public ResultResponseDto addReadBook(@PathVariable("isbn") String isbn, @RequestBody Map<String, String> request){
 		return bookService.addReadBook(isbn,request);
@@ -84,8 +85,9 @@ public class BookController {
 		return bookService.viewBookComment(isbn);
 	}
 
-//	@GetMapping("/readpeople/{isbn}")
-//	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
-//		return bookService.showReader(isbn);
-//	}
+	// 읽은 사용자
+	@GetMapping("/readpeople/{isbn}")
+	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
+		return bookService.showReader(isbn);
+	}
 }
