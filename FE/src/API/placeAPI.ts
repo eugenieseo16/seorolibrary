@@ -5,7 +5,6 @@ export const placeRecomendAPI = (memberId: any) => {
   const response = axios.get(`${placeAPIUrls.main}`, {
     params: { memberId: memberId },
   });
-
 };
 
 interface IPlaceGenerateForm {
@@ -15,5 +14,6 @@ interface IPlaceGenerateForm {
   placePhoto: String[];
 }
 export const placeGenerateAPI = async (data: IPlaceGenerateForm) => {
-  const response = await axios.post(placeAPIUrls.placeGenerateAPIUrl, data);
+  const response = await axios.post(placeAPIUrls.main, data);
   return response;
+};
