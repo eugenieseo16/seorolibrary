@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 
 @Service
@@ -23,10 +24,6 @@ public interface BookService {
 	public List findBook(String input) throws IOException, ParseException, URISyntaxException;
 
 	public BookDetailDto viewBookDetail(String isbn, Long memberId) throws ParseException, URISyntaxException;
-	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws
-		IOException,
-		ParseException,
-		URISyntaxException;
 
 	public List findBestSeller() throws IOException;
 
@@ -37,8 +34,6 @@ public interface BookService {
 	ResultResponseDto deleteReview(String isbn, Long reviewId);
 
 	public List findBookByDong(Long memberId);
-	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn);
-	public OwnCommentDetailDto modifyownComment(String isbn, OwnCommentDetailDto ownCommentDetailDto);
 
     public BookReviewResponseDto viewBookReview(String isbn);
 

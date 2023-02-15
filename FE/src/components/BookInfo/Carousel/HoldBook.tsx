@@ -1,9 +1,11 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { useMyQuery } from '@src/hooks/useMyQuery';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import './HoldBook.styles.scss';
+import { holdBooksAPI } from '@src/API/memberAPI';
+import { useUser } from '@src/hooks/useUser';
 
 const settings = {
   dots: false,
@@ -14,16 +16,21 @@ const settings = {
 };
 
 interface IHoldBookProps {
-  isbn: string;
+  isbn: any;
 }
 
 function HoldBook({ isbn }: IHoldBookProps) {
+  const user = useUser();
+
+  const param = useParams();
+
   const booksData = useMyQuery('/books.json');
+  const test = holdBooksAPI(user?.memberId, user?.memberId);
   const navigate = useNavigate();
 
   return (
     <div className="hold-book-container">
-      <h1>짱구의 또 다른 보유 도서</h1>
+      <h1>{param?.memberName}님의 또 다른 보유 도서</h1>
       <Suspense fallback={<span>Loading...</span>}>
         <Slider {...settings} className="user-slider-hold-book">
           {booksData?.map((data: any, i: number) => (

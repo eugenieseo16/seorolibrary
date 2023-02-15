@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.stereotype.Service;
 
 import com.seoro.seoro.domain.dto.Book.BookReportDto;
@@ -18,6 +17,7 @@ import com.seoro.seoro.domain.dto.Member.FriendDto;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.domain.entity.Book.BookReport;
+import com.seoro.seoro.domain.entity.Book.BookReportPhoto;
 import com.seoro.seoro.domain.entity.Book.OwnBook;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
 import com.seoro.seoro.domain.entity.Book.Review;
@@ -25,6 +25,7 @@ import com.seoro.seoro.domain.entity.Groups.GroupJoin;
 import com.seoro.seoro.domain.entity.Groups.Groups;
 import com.seoro.seoro.domain.entity.Member.Friend;
 import com.seoro.seoro.domain.entity.Member.Member;
+import com.seoro.seoro.repository.Book.BookReportPhotoRepository;
 import com.seoro.seoro.repository.Book.BookReportRepository;
 import com.seoro.seoro.repository.Book.OwnBookRepository;
 import com.seoro.seoro.repository.Book.ReadBookRepository;
@@ -39,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class LibraryServiceImpl implements LibraryService {
 	private final BookReportRepository bookReportRepository;
+	private final BookReportPhotoRepository bookReportPhotoRepository;
 	private final ReadBookRepository readBookRepository;
 	private final OwnBookRepository ownBookRepository;
 	private final MemberRepository memberRepository;
@@ -170,6 +172,8 @@ public class LibraryServiceImpl implements LibraryService {
 			.bookTitle(requestDto.getBookTitle())
 			.bookImage(requestDto.getBookImage())
 			.ownComment(requestDto.getOwnComment())
+			.author(requestDto.getAuthor())
+			.bookdescrib(requestDto.getBookDescrib())
 			.isOwn(true)
 			.build();
 
@@ -290,14 +294,14 @@ public class LibraryServiceImpl implements LibraryService {
 		ReadBook readBook = readBookRepository.findByReadBookId(requestDto.getReadBookId()).orElse(null);
 		if(readBook == null) {
 			responseDto.setMessege("책이 존재하지 않습니다.");
+			return responseDto;
 		}
 
 		Member member = memberRepository.findById(memberId).orElse(null);
 		if(member == null) {
 			responseDto.setMessege("회원이 존재하지 않습니다.");
+			return responseDto;
 		}
-
-		// 이미지 저장 추가
 
 		BookReport bookReport = BookReport.builder()
 			.readBook(readBook)
@@ -307,6 +311,23 @@ public class LibraryServiceImpl implements LibraryService {
 			.build();
 
 		bookReportRepository.save(bookReport);
+
+		// BookReport saveBookReport = bookReportRepository.findByReadBookAndMember(readBook, member).orElse(null);
+		// if(saveBookReport == null) {
+		// 	responseDto.setMessege("독서록 등록 실패");
+		// 	return responseDto;
+		// }
+
+		// 이미지 저장
+		if(requestDto.getPhoto() != null) {
+			BookReportPhoto bookReportPhoto = BookReportPhoto.builder()
+				.bookReport(bookReport)
+				.photo(requestDto.getPhoto())
+				.build();
+
+			bookReportPhotoRepository.save(bookReportPhoto);
+		}
+
 		responseDto.setResult(true);
 
 		return responseDto;
@@ -324,6 +345,13 @@ public class LibraryServiceImpl implements LibraryService {
 		}
 
 		BookReportDto responsetDto = new BookReportDto(bookReport);
+
+		// 이미지 조회
+		BookReportPhoto bookReportPhoto = bookReportPhotoRepository.findByBookReport(bookReport).orElse(null);
+		if(bookReportPhoto != null) {
+			responsetDto.setPhoto(bookReportPhoto.getPhoto());
+		}
+
 		return responsetDto;
 	}
 
@@ -341,7 +369,26 @@ public class LibraryServiceImpl implements LibraryService {
 			responseDto.setMessege("해당 도서가 없습니다.");
 		}
 
-		// 이미지 수정 추가
+		// 이미지 수정 // 수정 필요
+		if(requestDto.getPhoto() != null) {
+			BookReportPhoto chackBookReportPhoto = bookReportPhotoRepository.findByBookReport(bookReport).orElse(null);
+			BookReportPhoto bookReportPhoto;
+
+			if(chackBookReportPhoto == null) {
+				bookReportPhoto = BookReportPhoto.builder()
+					.bookReport(bookReport)
+					.photo(requestDto.getPhoto())
+					.build();
+			} else {
+				bookReportPhoto = BookReportPhoto.builder()
+					.bookReportPhotoId(chackBookReportPhoto.getBookReportPhotoId())
+					.bookReport(bookReport)
+					.photo(requestDto.getPhoto())
+					.build();
+			}
+
+			bookReportPhotoRepository.save(bookReportPhoto);
+		}
 
 		BookReport newBookReport = BookReport.builder()
 			.bookReportId(requestDto.getBookReportId())
@@ -367,7 +414,13 @@ public class LibraryServiceImpl implements LibraryService {
 			return responseDto;
 		}
 
+		// 이미지 삭제
+		BookReportPhoto bookReportPhoto = bookReportPhotoRepository.findByBookReport(bookReport).orElse(null);
+		if(bookReportPhoto != null) {
+			bookReportPhotoRepository.delete(bookReportPhoto);
+		}
 		bookReportRepository.delete(bookReport);
+
 		responseDto.setResult(true);
 
 		return responseDto;
@@ -443,6 +496,20 @@ public class LibraryServiceImpl implements LibraryService {
 		return friendDtoList;
 	}
 
+	@Override
+	public List<FriendDto> viewFollowerList(Long memberId) {
+		Member member = memberRepository.findById(memberId).orElse(null);
+		if(member==null){
+			return new ArrayList<>();
+		}
+		List<FriendDto> followerDtoList = new ArrayList<>();
+		List<Friend> friends = friendRepository.findByFollowing(member.getMemberId());
+		for(Friend friend : friends){
+			followerDtoList.add(new FriendDto(friend));
+		}
+		return followerDtoList;
+	}
+
 	private List<OwnBookDto> getOwnBookList(Member member) {
 		List<OwnBook> ownBooks = member.getOwnBooks();
 		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
@@ -475,9 +542,10 @@ public class LibraryServiceImpl implements LibraryService {
 		for(GroupJoin groupJoin : findGroupJoin) {
 			Groups groups = groupJoin.getGroups();
 			groupShowDto.add(GroupShowDto.builder()
-				.groupProfile(groups.getGroupProfile())
-				.groupDescrib(groups.getGroupIntroduction())
 				.groupName(groups.getGroupName())
+				.groupDescrib(groups.getGroupIntroduction())
+				.groupProfile(groups.getGroupProfile())
+				.groupId(groups.getGroupId())
 				.build());
 		}
 

@@ -20,7 +20,7 @@ import { useMutation } from 'react-query';
 import { bookApiUrls } from '@src/API/apiUrls';
 
 interface IBookReviewProps {
-  isbn: string;
+  isbn: any;
 }
 
 function BookReview({ isbn }: IBookReviewProps) {
