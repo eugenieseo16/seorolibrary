@@ -412,7 +412,7 @@ public class BookServiceImpl implements BookService {
 		HttpEntity<String> entity = new HttpEntity<String>("parameters",headers);
 
 		List<ShowBookDto> output = new ArrayList<>();
-		
+
 		URI uri =new URI("https://dapi.kakao.com/v3/search/book?size=50&query="+URLEncoder.encode(input,"utf-8"));
 		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
 		JSONParser jsonParser = new JSONParser();
