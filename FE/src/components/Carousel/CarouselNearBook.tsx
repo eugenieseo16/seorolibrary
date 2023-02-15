@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -30,7 +30,7 @@ export default function CarouselNearBook() {
             key={i}
             className="recommend-near-book-container"
             onClick={() =>
-              navigate(`/profile/${data.memberId}/book/${data.isbn}`)
+              navigate(`/profile/${data.memberName}/book/${data.isbn}`)
             }
           >
             <div>

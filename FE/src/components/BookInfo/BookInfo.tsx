@@ -5,15 +5,16 @@ import ExchangeAvailable from '@components/NearBooks/ExchangeAvailable';
 
 import './BookInfo.styles.scss';
 import { bookDetailAPI } from '@src/API/bookAPI';
+import { useUser } from '@src/hooks/useUser';
 
 interface IBookInfo {
-  isbn: string;
+  isbn: any;
 }
 function BookInfo({ isbn }: IBookInfo) {
   const location = useLocation();
   const isUser = location.pathname.includes('profile');
-
-  const data = bookDetailAPI(isbn);
+  const user = useUser();
+  const data = bookDetailAPI(isbn, user?.memberId);
 
   return (
     <div className="book-info-container">
