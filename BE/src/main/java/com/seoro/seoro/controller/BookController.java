@@ -86,6 +86,7 @@ public class BookController {
 		return bookService.viewBookComment(isbn);
 	}
 
+	// 읽은 사용자
 	@GetMapping("/readpeople/{isbn}")
 	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
 		return bookService.showReader(isbn);
