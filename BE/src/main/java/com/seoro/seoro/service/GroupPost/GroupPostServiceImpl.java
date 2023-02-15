@@ -71,12 +71,14 @@ public class GroupPostServiceImpl implements GroupPostService {
 
         //사진이 있을 때
         List<GroupPostPhoto> photos = new ArrayList<>();
-        for(String p : requestDto.getPostImage()) {
-            GroupPostPhoto photo = GroupPostPhoto.builder()
+        if(requestDto.getPostImage() != null && requestDto.getPostImage().length > 0) {
+            for(String p : requestDto.getPostImage()) {
+                GroupPostPhoto photo = GroupPostPhoto.builder()
                     .groupPostPhoto(p)
                     .groupPost(saveGroupPost)
                     .build();
-            groupPostPhotoRespository.save(photo);
+                groupPostPhotoRespository.save(photo);
+            }
         }
         resultResponseDto.setResult(true);
         return resultResponseDto;
