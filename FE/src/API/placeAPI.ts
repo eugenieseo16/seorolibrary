@@ -6,3 +6,14 @@ export const placeRecomendAPI = (memberId: any) => {
     params: { memberId: memberId },
   });
 };
+
+interface IPlaceGenerateForm {
+  placeMaker: Long;
+  longitude: String;
+  latitude: String;
+  placePhoto: String[];
+}
+export const placeGenerateAPI = async (data: IPlaceGenerateForm) => {
+  const response = await axios.post(placeAPIUrls.main, data);
+  return response;
+};
