@@ -187,6 +187,37 @@ public class BookServiceImpl implements BookService {
 		resultResponseDto.setResult(true);
 		return resultResponseDto;
 	}
+	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn) {
+		List<OwnCommentDetailDto> commentDtoList = new ArrayList<>();
+		// List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
+		// if(ownBooks == null || ownBooks.isEmpty()) {
+		// 	throw new NoSuchElementException("결과 없음");
+		// }
+		// for (OwnBook ownBook : ownBooks) {
+		// 	commentDtoList.add(new OwnCommentDetailDto(ownBook));
+		// }
+
+		return commentDtoList;
+	}
+
+	@Override
+	public OwnCommentDetailDto modifyownComment(String isbn, OwnCommentDetailDto requestDto) {
+		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(requestDto.getMember(), isbn).orElseThrow(() -> new NoSuchElementException("보유도서가 없습니다."));
+
+		ownBook = OwnBook.builder()
+			.ownBookId(ownBook.getOwnBookId())
+			.member(ownBook.getMember())
+			.isbn(ownBook.getIsbn())
+			.bookTitle(ownBook.getBookTitle())
+			.bookImage(ownBook.getBookImage())
+			.author(ownBook.getAuthor())
+			.ownComment(requestDto.getOwnComment())
+			.isOwn(ownBook.getIsOwn())
+			.build();
+		ownBookRepository.save(ownBook);
+
+		return requestDto;
+	}
 
 	@Override
 	public BookReviewResponseDto viewBookReview(String isbn) {
@@ -328,6 +359,7 @@ public class BookServiceImpl implements BookService {
 					.memberProfile(member.getMemberProfile())
 					.memberName(member.getMemberName())
 					.build());
+
 		}
 
 		BookDetailDto output;
@@ -358,44 +390,29 @@ public class BookServiceImpl implements BookService {
 		return output;
 	}
 
+	//내 주변 보유사용자, 리뷰 출력 추가 필요
+
 	@Override
-	public OwnBookDetailDto viewOwnBookDetail(String memberName, String isbn) throws ParseException, URISyntaxException {
-		OwnBookDetailDto responseDto;
-
-		Member member = memberRepository.findByMemberName(memberName).orElse(null);
+	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws
+		IOException,
+		ParseException,
+		URISyntaxException {
+		OwnBookDetailDto responseDto = new OwnBookDetailDto();
+		Member member = memberRepository.findByMemberId(memberId);
 		if(member == null) {
-			responseDto = new OwnBookDetailDto();
 			responseDto.setResult(false);
-			responseDto.setMessege("찾는 회원이 없습니다.");
+			return responseDto;
 		}
 
-		BookDetailDto bookDetailDto = viewBookDetail(isbn, member.getMemberId());
-		if(bookDetailDto == null) {
-			responseDto = new OwnBookDetailDto();
-			responseDto.setResult(false);
-			responseDto.setMessege("찾는 책 정보가 없습니다.");
-		}
-
-		responseDto = new OwnBookDetailDto(bookDetailDto);
-
-		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElse(null);
-		if(ownBook == null) {
-			responseDto = new OwnBookDetailDto();
-			responseDto.setResult(false);
-			responseDto.setMessege("보유하지 않은 책입니다.");
-		}
-
-		responseDto.setOwn(ownBook.getIsOwn());
+		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElseThrow(() -> new NoSuchElementException("책이 없습니다."));
 		responseDto.setOwnComment(ownBook.getOwnComment());
+		responseDto.setOwn(ownBook.getIsOwn());
 
-		// 보유 도서
-		List<OwnBook> ownBooks = member.getOwnBooks();
-		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
-		for(OwnBook ownBookList : ownBooks) {
-			ownBookDtoList.add(new OwnBookDto(ownBookList));
-		}
-		responseDto.setOwnBookList(ownBookDtoList);
+		BookDetailDto bookDetailDto = viewBookDetail(isbn, memberId);
+		responseDto.setBookDetailDto(bookDetailDto);
+		responseDto.setOwnBooks(myOwnBooks);
 
+		responseDto.setResult(true);
 		return responseDto;
 	}
 
