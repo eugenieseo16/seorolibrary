@@ -26,6 +26,8 @@ public interface BookService {
 
 	public BookDetailDto viewBookDetail(String isbn, Long memberId) throws ParseException, URISyntaxException;
 
+	public OwnBookDetailDto viewOwnBookDetail(String memberName, String isbn) throws ParseException, URISyntaxException;
+
 	public List findBestSeller() throws IOException;
 
 	public ResultResponseDto makeReview(String isbn, ReviewDto requestDto);

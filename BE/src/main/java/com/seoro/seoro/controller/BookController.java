@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
@@ -38,6 +39,13 @@ public class BookController {
 		ParseException,
 		URISyntaxException {
 		return bookService.viewBookDetail(isbn,requestDto.getMemberId());
+	}
+
+	// 사용자 보유도서 조회
+	@GetMapping("/detail/own")
+	public OwnBookDetailDto viewOwnBookDetail(@RequestParam("memberName") String memberName, @RequestParam("isbn") String isbn)
+		throws ParseException, URISyntaxException {
+		return bookService.viewOwnBookDetail(memberName, isbn);
 	}
 
 	//읽은 도서 추가
