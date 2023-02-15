@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 
@@ -85,5 +86,10 @@ public class BookController {
 	@GetMapping("/detail/comment/{isbn}")
 	public BookCommentResponseDto viewBookComment(@PathVariable("isbn") String isbn) {
 		return bookService.viewBookComment(isbn);
+	}
+
+	@GetMapping("/readpeople/{isbn}")
+	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
+		return bookService.showReader(isbn);
 	}
 }
