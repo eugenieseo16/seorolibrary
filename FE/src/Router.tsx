@@ -53,16 +53,16 @@ function Router() {
 
         <Route path="/search" element={<Search />} />
 
-        <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/book/:isbn" element={<BookDetail />} />
         <Route
-          path="/profile/:userId/book/:isbn"
+          path="/profile/:memberName/book/:isbn"
           element={<HoldBookDetail />}
         />
         <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
-        <Route path="/book/:id/log" element={<BookDetailLog />} />
+        <Route path="/book/:isbn/log" element={<BookDetailLog />} />
 
         <Route path="/profile" element={<MyLibrary />} />
-        <Route path="/profile/:userId" element={<UserLibrary />} />
+        <Route path="/profile/:memberName" element={<UserLibrary />} />
 
         {/* /profile/userId/follow- 로 변경 필요 */}
         <Route path="/profile/follow" element={<Follow />} />
@@ -85,7 +85,7 @@ function Router() {
         <Route path="/places/add-place" element={<AddPlace />} />
 
         <Route path="/near" element={<Near />} />
-        <Route path="/near/bookdetail/:id" element={<BookDetail />} />
+        {/* <Route path="/near/bookdetail/:id" element={<BookDetail />} /> */}
 
         <Route path="*" element={'404'} />
       </Route>
