@@ -84,8 +84,8 @@ public class BookController {
 		return bookService.viewBookComment(isbn);
 	}
 
-	@GetMapping("/readpeople/{isbn}")
-	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
-		return bookService.showReader(isbn);
-	}
+//	@GetMapping("/readpeople/{isbn}")
+//	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
+//		return bookService.showReader(isbn);
+//	}
 }
