@@ -62,7 +62,6 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .groupPostTitle(requestDto.getPostTitle())
                 .groupPostContent(requestDto.getPostContent())
                 .groups(group)
-                .groupPostTime(requestDto.getPostTime())
                 .postCategory(PostCategory.valueOf(requestDto.getPostCategory()))
                 .member(writer)
                 .isUpdate(false)
