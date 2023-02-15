@@ -26,7 +26,7 @@ public class LibraryDto {
 	private List<GroupShowDto> myGroups;
 	private List<OwnBookDto> myOwnBooks;
 	private List<ReadBookDto> myReadBooks;
-	private List<RentBookDto> myRentBooks;
+	// private List<RentBookDto> myRentBooks;
 	private Long myOwnComment;
 	private Long myReview;
 	private Long myFollowers;
