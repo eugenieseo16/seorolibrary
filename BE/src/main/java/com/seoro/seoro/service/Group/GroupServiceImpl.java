@@ -525,19 +525,26 @@ public class GroupServiceImpl implements GroupService{
 		LocalDateTime date = LocalDateTime.parse(requestDto.getDate(), formatter);
 //		LocalDateTime date = LocalDateTime.parse(requestDto.getDate(),)
 
-		if(member.equals(group.getHost())) { //방장만 작성 가능
-			GroupSchedule schedule = GroupSchedule.builder()
-					.groups(group)
-					.date(date)
-					.scheduleTitle(requestDto.getGroupScheduleTitle())
-					.scheduleContent(requestDto.getGroupScheduleContent())
-				.build();
-			groupScheduleRepository.save(schedule);
-		}
-		else {
-			responseDto.setResult(false);
-			return responseDto;
-		}
+		// if(member.equals(group.getHost())) { //방장만 작성 가능
+		// 	GroupSchedule schedule = GroupSchedule.builder()
+		// 			.groups(group)
+		// 			.date(date)
+		// 			.scheduleTitle(requestDto.getGroupScheduleTitle())
+		// 			.scheduleContent(requestDto.getGroupScheduleContent())
+		// 		.build();
+		// 	groupScheduleRepository.save(schedule);
+		// }
+		// else {
+		// 	responseDto.setResult(false);
+		// 	return responseDto;
+		// }
+		GroupSchedule schedule = GroupSchedule.builder()
+				.groups(group)
+				.date(date)
+				.scheduleTitle(requestDto.getGroupScheduleTitle())
+				.scheduleContent(requestDto.getGroupScheduleContent())
+			.build();
+		groupScheduleRepository.save(schedule);
 		responseDto.setResult(true);
 		return responseDto;
 	}
