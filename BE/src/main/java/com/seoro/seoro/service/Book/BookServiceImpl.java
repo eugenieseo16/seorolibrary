@@ -401,6 +401,7 @@ public class BookServiceImpl implements BookService {
 			responseDto = new OwnBookDetailDto();
 			responseDto.setResult(false);
 			responseDto.setMessege("찾는 회원이 없습니다.");
+			return responseDto;
 		}
 
 		BookDetailDto bookDetailDto = viewBookDetail(isbn, member.getMemberId());
@@ -408,6 +409,7 @@ public class BookServiceImpl implements BookService {
 			responseDto = new OwnBookDetailDto();
 			responseDto.setResult(false);
 			responseDto.setMessege("찾는 책 정보가 없습니다.");
+			return responseDto;
 		}
 
 		responseDto = new OwnBookDetailDto(bookDetailDto);
@@ -417,6 +419,7 @@ public class BookServiceImpl implements BookService {
 			responseDto = new OwnBookDetailDto();
 			responseDto.setResult(false);
 			responseDto.setMessege("보유하지 않은 책입니다.");
+			return responseDto;
 		}
 
 		responseDto.setOwn(ownBook.getIsOwn());
