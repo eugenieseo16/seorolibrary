@@ -118,4 +118,9 @@ public class LibraryController {
 	public List<FriendDto> viewFollowingList(@PathVariable Long memberId) {
 		return libraryService.viewFollowingList(memberId);
 	}
+
+	@GetMapping("/{memberId}/followers")
+	public List<FriendDto> viewFollowerList(@PathVariable Long memberId){
+		return libraryService.viewFollowerList(memberId);
+	}
 }
