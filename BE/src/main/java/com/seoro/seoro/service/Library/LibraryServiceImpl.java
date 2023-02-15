@@ -540,9 +540,10 @@ public class LibraryServiceImpl implements LibraryService {
 		for(GroupJoin groupJoin : findGroupJoin) {
 			Groups groups = groupJoin.getGroups();
 			groupShowDto.add(GroupShowDto.builder()
-				.groupProfile(groups.getGroupProfile())
-				.groupDescrib(groups.getGroupIntroduction())
 				.groupName(groups.getGroupName())
+				.groupDescrib(groups.getGroupIntroduction())
+				.groupProfile(groups.getGroupProfile())
+				.groupId(groups.getGroupId())
 				.build());
 		}
 
