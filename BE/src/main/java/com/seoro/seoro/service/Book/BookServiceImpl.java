@@ -336,7 +336,7 @@ public class BookServiceImpl implements BookService {
 		List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
 		long count_comment = 0;
 		for(OwnBook book : ownBooks){
-			Member member = memberRepository.findByMemberId(book.getOwnBookId());
+			Member member = book.getMember();
 			if(book.getOwnComment().length()>0) count_comment++;
 			if(!member.getMemberDongCode().equals(memberRepository.findByMemberId(memberId).getMemberDongCode())) continue;
 			own_members.add(MemberDto.builder()
