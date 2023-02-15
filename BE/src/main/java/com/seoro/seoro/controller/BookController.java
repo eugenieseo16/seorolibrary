@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seoro.seoro.domain.dto.Member.MemberDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 
@@ -74,13 +76,13 @@ public class BookController {
 	}
 
 	// 리뷰
-	@GetMapping("detail/review/{isbn}")
+	@GetMapping("/detail/review/{isbn}")
 	public BookReviewResponseDto viewBookReview(@PathVariable("isbn") String isbn) {
 		return bookService.viewBookReview(isbn);
 	}
 
 	// 한줄평
-	@GetMapping("detail/comment/{isbn}")
+	@GetMapping("/detail/comment/{isbn}")
 	public BookCommentResponseDto viewBookComment(@PathVariable("isbn") String isbn) {
 		return bookService.viewBookComment(isbn);
 	}
