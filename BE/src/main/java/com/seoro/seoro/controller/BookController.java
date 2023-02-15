@@ -54,7 +54,7 @@ public class BookController {
 		return bookService.addReadBook(isbn,request);
 	}
 
-	//도서 리뷰 작성
+	// 도서 리뷰 작성
 	@PostMapping("/review/{isbn}")
 	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDto requestDto){
 		return bookService.makeReview(isbn, requestDto);
@@ -85,6 +85,7 @@ public class BookController {
 		return bookService.viewBookComment(isbn);
 	}
 
+	// 읽은 사용자
 	@GetMapping("/readpeople/{isbn}")
 	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
 		return bookService.showReader(isbn);

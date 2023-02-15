@@ -26,7 +26,5 @@ public class BookDetailDto {
 	private Long countReader;
 	private Long countComment;
 	private Long countReview;
-	private String ownComment;
-	private List<OwnBookDto> ownBooks;
 	private List<MemberDto> ownMembers;
 }
