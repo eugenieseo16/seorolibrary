@@ -39,4 +39,6 @@ public interface LibraryService {
 	public ResultResponseDto makeFriend(Long memberId, Long meId);
 	public ResultResponseDto removeFriend(Long memberId, Long meId);
 	public List<FriendDto> viewFollowingList(Long memberId);
+
+	public List<FriendDto> viewFollowerList(Long memberId);
 }
