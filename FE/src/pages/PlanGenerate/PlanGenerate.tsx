@@ -8,13 +8,26 @@ import type { Dayjs } from 'dayjs';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import './PlanGenerate.styles.scss';
+import { clubPlanGenerateAPI } from '@src/API/clubAPI';
+import { useUser } from '@src/hooks/useUser';
+import { useNavigate, useParams } from 'react-router-dom';
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
 }
 function PlanGenerate() {
   const [form] = Form.useForm();
-  const onSubmit = (data: any) => {
-    console.log(data.date.format('YYYY-MM-DD'));
+  const navigate = useNavigate();
+  const user = useUser();
+  const { id: groupId } = useParams();
+  const onSubmit = async (data: any) => {
+    const res = await clubPlanGenerateAPI({
+      ...data,
+      date: data.date.format('YYYY-MM-DD'),
+      groupId: groupId ? +groupId : undefined,
+      writerId: user?.memberId,
+    });
+    navigate(`/book-club/${groupId}/plan`);
+    console.log(res);
   };
   return (
     <>
@@ -23,14 +36,14 @@ function PlanGenerate() {
         <Form form={form} onFinish={onSubmit}>
           <Form.Item
             label={<Label text="일정제목" />}
-            name="planName"
+            name="groupScheduleTitle"
             rules={[{ required: true, message: '일정제목을 알려주세요' }]}
           >
             <Input placeholder="일정제목을 입력해주세요" />
           </Form.Item>
           <Form.Item
             label={<Label text="모임소개" />}
-            name="groupIntroduction"
+            name="groupScheduleContent"
             rules={[{ required: true, message: '모임소개를 해주세요' }]}
           >
             <Input.TextArea rows={4} />

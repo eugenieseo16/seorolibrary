@@ -38,7 +38,7 @@ function ClubBottomNav() {
   const { opacity, transform, left } = useSpring({
     opacity: direction === 'down' ? 0 : 1,
     transform: `translateY(${direction === 'down' ? 180 : 0}px)`,
-    left: `${index * (100 / 3)}%`,
+    left: `${index * (100 / 2)}%`,
     config: { mass: 5, tension: 500, friction: 80, duration: 150 },
   });
 
@@ -47,7 +47,7 @@ function ClubBottomNav() {
       <div style={{ position: 'relative' }}>
         <Button text="게시판" value="main" selected={index == 0} />
         <Button text="일정" value="plan" selected={index == 1} />
-        <Button text="읽은책" value="books" selected={index == 2} />
+        {/* <Button text="읽은책" value="books" selected={index == 2} /> */}
         <animated.div style={{ left }} />
         <div className="background" />
       </div>

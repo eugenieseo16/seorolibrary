@@ -5,7 +5,6 @@ import type { Dayjs } from 'dayjs';
 import dayLocaleData from 'dayjs/plugin/localeData';
 import { Calendar } from 'antd';
 import locale from 'antd/es/calendar/locale/ko_KR';
-import { FloatButton } from 'antd';
 import { PlusOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 dayjs.extend(dayLocaleData);
 import './ClubPlan.styles.scss';
@@ -13,13 +12,14 @@ import { useMyQuery } from '@src/hooks/useMyQuery';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
 import useScroll from '@src/hooks/useScroll';
 import { useSpring, animated } from '@react-spring/web';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { clubPlanListAPI } from '@src/API/clubAPI';
 
 interface IPlan {
-  title: string;
-  content: string;
-  date: string;
-  id: string;
+  groupScheduleContent: string;
+  groupScheduleId: number;
+  groupScheduleTime: string;
+  groupScheduleTitle: string;
 }
 
 const ClubPlan: React.FC = () => {
@@ -28,7 +28,10 @@ const ClubPlan: React.FC = () => {
   const [dayObj, setDayObj] = useState(dayjs());
   const [visiblePlan, setVisiblePlan] = useState<IPlan[]>([]);
   const onChange = (value: Dayjs) => setDayObj(value);
-  const plans: IPlan[] = useMyQuery('/plan.json');
+  // const plans: IPlan[] = useMyQuery('/plan.json');
+
+  const { id: groupId } = useParams();
+  const plans: IPlan[] = clubPlanListAPI(groupId ? +groupId : undefined);
 
   const { opacity, transform } = useSpring({
     opacity: direction !== 'down' ? 1 : 0.4,
@@ -37,13 +40,13 @@ const ClubPlan: React.FC = () => {
     }px)`,
     config: { mass: 5, tension: 500, friction: 80, duration: 150 },
   });
-
+  console.log(plans);
   useEffect(() => {
     const currentPlan = plans?.filter(el => {
       return (
-        dayObj.year() == dayjs(el.date).year() &&
-        dayObj.month() == dayjs(el.date).month() &&
-        dayObj.date() == dayjs(el.date).date()
+        dayObj.year() == dayjs(el.groupScheduleTime).year() &&
+        dayObj.month() == dayjs(el.groupScheduleTime).month() &&
+        dayObj.date() == dayjs(el.groupScheduleTime).date()
       );
     });
     setVisiblePlan(currentPlan);
@@ -90,8 +93,8 @@ const ClubPlan: React.FC = () => {
           const opacity = date.month() != currentMonth ? 0.3 : 1;
           const currentPlan = plans?.filter(el => {
             return (
-              date.month() == dayjs(el.date).month() &&
-              date.date() == dayjs(el.date).date()
+              date.month() == dayjs(el.groupScheduleTime).month() &&
+              date.date() == dayjs(el.groupScheduleTime).date()
             );
           });
           const circle = currentPlan?.length > 0;
@@ -128,14 +131,14 @@ const ClubPlan: React.FC = () => {
         }}
       />
       {visiblePlan?.map(plan => (
-        <div key={plan.id} className="plan-item-container">
+        <div key={plan.groupScheduleId} className="plan-item-container">
           <div className="date-container">
             <h3>05</h3>
             <h4>일요일</h4>
           </div>
           <div className="content">
-            <h2>{plan.title}</h2>
-            <p>{plan.content}</p>
+            <h2>{plan.groupScheduleTitle}</h2>
+            <p>{plan.groupScheduleContent}</p>
           </div>
         </div>
       ))}
