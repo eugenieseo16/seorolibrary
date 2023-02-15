@@ -29,7 +29,7 @@ public class GroupPostController {
     }
 
     @GetMapping
-    public GroupPostReadResponseDto readGroupPost(@RequestBody GroupPostReadRequestDto requestDto) {
+    public GroupPostReadResponseDto readGroupPost(@RequestParam GroupPostReadRequestDto requestDto) {
         return groupPostService.readGroupPost(requestDto);
     }
 
@@ -39,7 +39,7 @@ public class GroupPostController {
     }
 
     @PutMapping("/{postid}")
-    public GroupPostDetailResponseDto updateGroupPost(@PathVariable("postid") Long postId, @ModelAttribute GroupPostUpdateRequestDto requestDto) {
+    public GroupPostDetailResponseDto updateGroupPost(@PathVariable("postid") Long postId, @RequestBody GroupPostUpdateRequestDto requestDto) {
         return groupPostService.updateGroupPost(postId, requestDto);
     }
 
