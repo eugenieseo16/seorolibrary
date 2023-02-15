@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class RedisConfiguration {
-	@Value("${spring.redis.port}")
+	@Value("${spring.redis.host}")
 	private String redisHost;
 
 	@Value("${spring.redis.port}")
