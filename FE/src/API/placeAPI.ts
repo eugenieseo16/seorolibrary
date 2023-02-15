@@ -1,10 +1,10 @@
+import { useMyQuery } from '@src/hooks/useMyQuery';
 import axios from 'axios';
 import { placeAPIUrls } from './apiUrls';
 
 export const placeRecomendAPI = (memberId: any) => {
-  const response = axios.get(`${placeAPIUrls.main}`, {
-    params: { memberId: memberId },
-  });
+  const response = useMyQuery(`${placeAPIUrls.main}?memberId=${memberId}`);
+  return response;
 };
 
 interface IPlaceGenerateForm {
@@ -15,5 +15,10 @@ interface IPlaceGenerateForm {
 }
 export const placeGenerateAPI = async (data: IPlaceGenerateForm) => {
   const response = await axios.post(placeAPIUrls.main, data);
+  return response;
+};
+
+export const placeDetailAPI = (placeId: string) => {
+  const response = useMyQuery(`${placeAPIUrls.placeDetail}/${placeId}`);
   return response;
 };

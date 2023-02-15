@@ -1,4 +1,4 @@
-export const apiBaseUrl = 'http://localhost:8080';
+export const apiBaseUrl = 'http://70.12.246.236:8080';
 // export const apiBaseUrl = 'http://localhost:8080';
 
 export const authApiUrls = {
@@ -41,4 +41,5 @@ export const memberAPIUrls = {
 
 export const placeAPIUrls = {
   main: `${apiBaseUrl}/place`,
+  placeDetail: `${apiBaseUrl}/place/detail`,
 };
