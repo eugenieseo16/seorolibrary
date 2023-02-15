@@ -37,8 +37,6 @@ function CarouselPlace({
 
   const navigate = useNavigate();
 
-  console.log(items);
-
   return (
     <Slider {...settings} className={`my-slider-place ${className}`}>
       {items?.map((data, i: number) => (

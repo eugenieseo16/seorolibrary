@@ -1,33 +1,30 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 import './UserLibrary.styles.scss';
-import Header from '@components/Header/Header';
-import UserProfile from '@components/UserLibrary/UserSection/UserProfile';
+import UserHeader from '@components/UserLibrary/UserHeader';
 import UserStat from '@components/UserLibrary/UserStat';
 import BookTab from '@components/UserLibrary/BookTab';
-import { getUserProfileAPI } from '@src/API/authAPI';
+
+import MyProfile from '@components/UserLibrary/UserSection/MyProfile';
 import { useUser } from '@src/hooks/useUser';
 import { libraryDataAPI } from '@src/API/libraryAPI';
 
-function UserLibrary() {
-  const { username } = useParams();
-  const userProfile = username ? getUserProfileAPI(username) : '';
+function MyLibrary() {
   const user = useUser();
   const libraryData = libraryDataAPI({
     me: user?.memberId,
-    you: userProfile?.memberId,
+    you: user?.memberId,
   });
   console.log(libraryData);
 
   return (
     <div className="user-library-container">
-      <Header text={userProfile?.memberName + '님의 도서관'} />
-      <UserProfile />
+      <UserHeader />
+      <MyProfile />
       <UserStat libraryData={libraryData} />
       <BookTab libraryData={libraryData} />
     </div>
   );
 }
 
-export default UserLibrary;
+export default MyLibrary;
