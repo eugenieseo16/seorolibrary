@@ -1,7 +1,5 @@
 package com.seoro.seoro.domain.dto.Group;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupBookReadResponseDto {
-	private Boolean result;
-	private List<GroupBookDto> readBooks;
+public class ReadMembers {
+	private Long memberId;
+	private String memberName;
+	private String memberProfile;
 }
