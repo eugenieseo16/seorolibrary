@@ -187,37 +187,6 @@ public class BookServiceImpl implements BookService {
 		resultResponseDto.setResult(true);
 		return resultResponseDto;
 	}
-	public List<OwnCommentDetailDto> viewOwnCommentList(String isbn) {
-		List<OwnCommentDetailDto> commentDtoList = new ArrayList<>();
-		// List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
-		// if(ownBooks == null || ownBooks.isEmpty()) {
-		// 	throw new NoSuchElementException("결과 없음");
-		// }
-		// for (OwnBook ownBook : ownBooks) {
-		// 	commentDtoList.add(new OwnCommentDetailDto(ownBook));
-		// }
-
-		return commentDtoList;
-	}
-
-	@Override
-	public OwnCommentDetailDto modifyownComment(String isbn, OwnCommentDetailDto requestDto) {
-		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(requestDto.getMember(), isbn).orElseThrow(() -> new NoSuchElementException("보유도서가 없습니다."));
-
-		ownBook = OwnBook.builder()
-			.ownBookId(ownBook.getOwnBookId())
-			.member(ownBook.getMember())
-			.isbn(ownBook.getIsbn())
-			.bookTitle(ownBook.getBookTitle())
-			.bookImage(ownBook.getBookImage())
-			.author(ownBook.getAuthor())
-			.ownComment(requestDto.getOwnComment())
-			.isOwn(ownBook.getIsOwn())
-			.build();
-		ownBookRepository.save(ownBook);
-
-		return requestDto;
-	}
 
 	@Override
 	public BookReviewResponseDto viewBookReview(String isbn) {
@@ -388,32 +357,6 @@ public class BookServiceImpl implements BookService {
 			.build();
 
 		return output;
-	}
-
-	//내 주변 보유사용자, 리뷰 출력 추가 필요
-
-	@Override
-	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws
-		IOException,
-		ParseException,
-		URISyntaxException {
-		OwnBookDetailDto responseDto = new OwnBookDetailDto();
-		Member member = memberRepository.findByMemberId(memberId);
-		if(member == null) {
-			responseDto.setResult(false);
-			return responseDto;
-		}
-
-		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElseThrow(() -> new NoSuchElementException("책이 없습니다."));
-		responseDto.setOwnComment(ownBook.getOwnComment());
-		responseDto.setOwn(ownBook.getIsOwn());
-
-		BookDetailDto bookDetailDto = viewBookDetail(isbn, memberId);
-		responseDto.setBookDetailDto(bookDetailDto);
-		responseDto.setOwnBooks(myOwnBooks);
-
-		responseDto.setResult(true);
-		return responseDto;
 	}
 
 	@Override

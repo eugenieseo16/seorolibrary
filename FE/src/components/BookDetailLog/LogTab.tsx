@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import ToggleNav from '@components/ToggleNav/ToggleNav';
 import BookReader from '@components/BookDetailLog/BookReader';
@@ -8,7 +8,9 @@ import BookReview from '@components/BookDetailLog/BookReview';
 
 function LogTab() {
   const { state } = useLocation();
-
+  const param = useParams();
+  console.log(param?.isbn);
+  const isbn = param?.isbn;
   const [selectedId, setSelectedId] = useState(state['selectedTab']);
 
   return (
@@ -24,11 +26,11 @@ function LogTab() {
       />
 
       {selectedId === 'reader' ? (
-        <BookReader isbn={state['isbn']} />
+        <BookReader isbn={isbn} />
       ) : selectedId === 'comment' ? (
-        <BookComment isbn={state['isbn']} />
+        <BookComment isbn={isbn} />
       ) : (
-        <BookReview isbn={state['isbn']} />
+        <BookReview isbn={isbn} />
       )}
     </div>
   );

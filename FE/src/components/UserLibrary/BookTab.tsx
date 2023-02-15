@@ -5,7 +5,7 @@ import RentBooks from '@components/UserLibrary/RentBooks';
 import HoldBooks from '@components/UserLibrary/HoldBooks';
 import ReadBooks from '@components/UserLibrary/ReadBooks';
 
-function BookTab() {
+function BookTab({ libraryData }: any) {
   const [selectedId, setSelectedId] = useState('read');
 
   return (
@@ -16,16 +16,13 @@ function BookTab() {
         items={[
           { text: '읽은도서', id: 'read' },
           { text: '보유도서', id: 'hold' },
-          { text: '빌린도서', id: 'rent' },
         ]}
       />
 
-      {selectedId === 'rent' ? (
-        <RentBooks />
-      ) : selectedId === 'hold' ? (
-        <HoldBooks />
+      {selectedId === 'hold' ? (
+        <HoldBooks libraryData={libraryData} />
       ) : (
-        <ReadBooks />
+        <ReadBooks libraryData={libraryData} />
       )}
     </div>
   );

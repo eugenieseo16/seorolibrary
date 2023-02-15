@@ -91,7 +91,7 @@ function BookClubMain() {
               </div>
               <h3>{post.postTitle}</h3>
               <div>
-                {post.image_url && <MultiPreviewImage images={post.images} />}
+                {post?.images && <MultiPreviewImage images={post.images} />}
                 <p>{post.payload}</p>
               </div>
             </div>

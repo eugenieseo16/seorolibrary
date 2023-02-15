@@ -32,7 +32,7 @@ public class BookController {
 
 	private final BookService bookService;
 
-	//검색 -> 도서상세정보
+	//검색 결과 상세
 	@GetMapping("/detail/{isbn}")
 	public BookDetailDto viewBookDetail(@PathVariable String isbn, @ModelAttribute BookRequestDto requestDto) throws
 		ParseException,
@@ -63,17 +63,6 @@ public class BookController {
 	public ResultResponseDto deleteReview(@PathVariable("isbn") String isbn,
 		@PathVariable("reviewid") Long reviewId){
 		return bookService.deleteReview(isbn, reviewId);
-	}
-
-	// 검색 결과 상세
-
-	// 사용자 도서 상세
-	@GetMapping("/detail/{memberId}/{isbn}")
-	public OwnBookDetailDto viewOwnBookDetail(
-		@PathVariable("isbn") String isbn, @PathVariable("memberId") Long memberId, List<OwnBookDto> myOwnBooks)
-		throws IOException, ParseException, URISyntaxException {
-
-		return bookService.viewOwnBookDetail(isbn, memberId, myOwnBooks);
 	}
 
 	// 리뷰
