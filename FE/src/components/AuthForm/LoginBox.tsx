@@ -7,6 +7,7 @@ import './LoginBox.styles.scss';
 import { jwtLoginAPI, loginAPI } from '@src/API/authAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
+import Google from './Google';
 
 function LoginBox() {
   const dispatch = useDispatch();
@@ -78,9 +79,13 @@ function LoginBox() {
           <Form.Item className="login-button-container">
             <Button htmlType="submit">로그인</Button>
           </Form.Item>
+          <Google>
+            <Button>구글로그인</Button>
+          </Google>
+          <Button>카카오 로그인</Button>
+          <Button>익명 로그인</Button>
         </Form>
       </div>
-      {/* 로그인 버튼 */}
     </div>
   );
 }
