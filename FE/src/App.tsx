@@ -11,6 +11,7 @@ import './styles/App.scss';
 import { useSelector } from 'react-redux';
 import AuthForm from '@pages/AuthForm';
 
+import background from '@src/assets/background.png';
 function App() {
   const fontLoading = useLoadFonts(['BM-Pro', 'NEXON']);
   const [isMobile, setIsMobile] = useState(false);
@@ -56,7 +57,7 @@ function App() {
               height: '100vh',
               zIndex: -1,
             }}
-            // src="/bg.jpg"
+            src={background}
             alt=""
           />
         </>

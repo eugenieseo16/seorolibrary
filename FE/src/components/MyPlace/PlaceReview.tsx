@@ -63,24 +63,24 @@ function PlaceReview() {
                       <p>{review?.reviewContent}</p>
                     ) : (
                       <p>
-                        {review?.reviewContent?.substring(
-                          0,
-                          Math.min(review?.reviewContent.length, 70),
-                        )}
-                        ...
+                        {review?.reviewContent?.length < 70
+                          ? review?.reviewContent
+                          : review?.reviewContent?.substring(0, 70) + '...'}
                       </p>
                     )}
-                    <p
-                      onClick={() =>
-                        setShowFullContent({
-                          ...showFullContent,
-                          [i]: !showFullContent[i],
-                        })
-                      }
-                      className="place-review-more"
-                    >
-                      {showFullContent[i] ? '[닫기]' : '[더보기]'}
-                    </p>
+                    {review?.reviewContent?.length >= 70 && (
+                      <p
+                        onClick={() =>
+                          setShowFullContent({
+                            ...showFullContent,
+                            [i]: !showFullContent[i],
+                          })
+                        }
+                        className="place-review-more"
+                      >
+                        {showFullContent[i] ? '[닫기]' : '[더보기]'}
+                      </p>
+                    )}
                   </Col>
                   {/* Right column with image */}
                   <Image.PreviewGroup>
@@ -96,24 +96,24 @@ function PlaceReview() {
                     <p>{review?.reviewContent}</p>
                   ) : (
                     <p>
-                      {review?.reviewContent.substring(
-                        0,
-                        Math.min(review?.reviewContent.length, 70),
-                      )}
-                      ...
+                      {review?.reviewContent?.length < 70
+                        ? review?.reviewContent
+                        : review?.reviewContent?.substring(0, 70) + '...'}
                     </p>
                   )}
-                  <p
-                    onClick={() =>
-                      setShowFullContent({
-                        ...showFullContent,
-                        [i]: !showFullContent[i],
-                      })
-                    }
-                    className="place-review-more"
-                  >
-                    {showFullContent[i] ? '[닫기]' : '[더보기]'}
-                  </p>
+                  {review?.reviewContent?.length >= 70 && (
+                    <p
+                      onClick={() =>
+                        setShowFullContent({
+                          ...showFullContent,
+                          [i]: !showFullContent[i],
+                        })
+                      }
+                      className="place-review-more"
+                    >
+                      {showFullContent[i] ? '[닫기]' : '[더보기]'}
+                    </p>
+                  )}
                 </>
               )}
             </div>
