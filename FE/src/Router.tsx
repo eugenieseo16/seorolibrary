@@ -80,7 +80,6 @@ function Router() {
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
         <Route path="/places/my-place-archive" element={<MyPlaceArchive />} />
-        <Route path="/places/add-place" element={<AddPlace />} />
 
         <Route path="/near" element={<Near />} />
         {/* <Route path="/near/bookdetail/:id" element={<BookDetail />} /> */}
@@ -88,6 +87,8 @@ function Router() {
         <Route path="*" element={'404'} />
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
+        <Route path="/places/add-place" element={<AddPlace />} />
+
         <Route path="/chat-list" element={<ChatsList />} />
         <Route path="/chat/:id" element={<Chat />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />

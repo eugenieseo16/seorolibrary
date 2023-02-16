@@ -1,4 +1,17 @@
 @import './variables';
+.ant-form-item-label {
+  // flex-direction: column !important;
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 0 8px !important;
+  white-space: initial !important;
+  text-align: start !important;
+}
+.ant-form-item-control {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
 .App {
   font-family: 'NEXON';
   background-color: $beige;

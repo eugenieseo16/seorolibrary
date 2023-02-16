@@ -12,11 +12,12 @@ import type { UploadProps } from 'antd';
 function AddPlaceReviewModal() {
   const user = useUser();
   const navigate = useNavigate();
-  const [file, setFile] = useState<any>();
   const param = useParams();
-  const placeId = param?.placeId;
+  const placeId = param?.id;
   const placeName = param?.placeName;
+  const [file, setFile] = useState<any>();
   const [loading, setLoading] = useState(false);
+  const [star, setStar] = useState(5);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
@@ -24,17 +25,30 @@ function AddPlaceReviewModal() {
   const onFinish = async (values: any) => {
     if (loading) return;
     setLoading(true);
+    console.log(star);
+    values.placeReview;
 
     let placeReviewPhotos;
     if (file) {
       const form = new FormData();
       form.append('file', file);
       form.append('upload_preset', 'quzqjwbp');
-      placeReviewPhotos = await axios.post(
+      const { data } = await axios.post(
         'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
         form,
       );
+      placeReviewPhotos = [data.url];
     }
+    addPlaceReviewAPI(
+      {
+        score: star,
+        memberName: user?.memberName,
+        placeReview: values.placeReview,
+        placeReviewPhotos,
+      },
+      placeId,
+    );
+    setLoading(false);
   };
 
   const props: UploadProps = {
@@ -53,21 +67,11 @@ function AddPlaceReviewModal() {
 
   const [form] = Form.useForm();
   const title = placeName;
-  const score = { value };
-  const memberName = user?.memberName;
-
-  const data = addPlaceReviewAPI(
-    {
-      score,
-      memberName,
-    },
-    param?.placeId,
-  );
 
   return (
     <div>
       <div onClick={() => setOpen(true)}>
-        <Rate defaultValue={0} />
+        <Rate defaultValue={0} onChange={e => setStar(e)} />
       </div>
 
       <Modal
@@ -77,7 +81,7 @@ function AddPlaceReviewModal() {
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={1000}
-        okText={'작성 완료'}
+        okText={<></>}
         //모달이 닫힌후에 function
         // afterClose={}
       >
@@ -86,20 +90,25 @@ function AddPlaceReviewModal() {
           <Rate defaultValue={0} onChange={setValue} value={value} />
           <div> {value} / 5</div>
         </div>
-        <Form.Item
-          name="placeReviewPhotos"
-          // label="Upload"
-          valuePropName="any"
-          className="ant-modal-items"
+        <Form
+          form={form}
+          onFinish={onFinish}
+          name="dynamic_rule"
+          style={{ maxWidth: 600 }}
         >
-          <Upload.Dragger {...props}>
-            <Button
-              icon={<MdOutlineAddPhotoAlternate size={'3rem'} />}
-              style={{ width: 150, height: 150 }}
-            />
-          </Upload.Dragger>
-        </Form.Item>
-        <Form form={form} name="dynamic_rule" style={{ maxWidth: 600 }}>
+          <Form.Item
+            name="placeReviewPhotos"
+            // label="Upload"
+            valuePropName="any"
+            className="ant-modal-items"
+          >
+            <Upload.Dragger {...props}>
+              <Button
+                icon={<MdOutlineAddPhotoAlternate size={'3rem'} />}
+                style={{ width: 150, height: 150 }}
+              />
+            </Upload.Dragger>
+          </Form.Item>
           <Form.Item
             name="placeReview"
             rules={[{ required: true, message: '리뷰를 작성해주세요' }]}
@@ -110,6 +119,11 @@ function AddPlaceReviewModal() {
               style={{ height: 300 }}
               placeholder="리뷰를 작성해주세요"
             />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              작성 완료
+            </Button>
           </Form.Item>
         </Form>
       </Modal>

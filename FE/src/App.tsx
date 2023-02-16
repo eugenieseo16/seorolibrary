@@ -56,7 +56,7 @@ function App() {
               height: '100vh',
               zIndex: -1,
             }}
-            src="/bg.jpg"
+            // src="/bg.jpg"
             alt=""
           />
         </>
