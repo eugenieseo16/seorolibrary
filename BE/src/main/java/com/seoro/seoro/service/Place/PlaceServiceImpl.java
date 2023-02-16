@@ -165,18 +165,18 @@ public class PlaceServiceImpl implements PlaceService {
 		savePlace = Place.builder()
 			.member(maker)
 			.placeName(requestDto.getPlaceName())
+			.describ(requestDto.getPlaceDescrib())
 			.placeLatitude(requestDto.getLatitude())
 			.placeLongitude(requestDto.getLongitude())
 			.dongCode(placeDong)
 			.total(0d)
 			.score(0d)
-			.describ(requestDto.getPlacedescrib())
 			.build();
 
 		placeRepository.save(savePlace);
 
 		//독서 장소 사진 저장
-		if(requestDto.getPlacePhoto().length > 0) {
+		if(requestDto.getPlacePhoto() != null && requestDto.getPlacePhoto().length > 0) {
 			for(int i=0; i<requestDto.getPlacePhoto().length; i++) {
 				PlacePhoto photo = PlacePhoto.builder()
 					.place(savePlace)
@@ -229,6 +229,7 @@ public class PlaceServiceImpl implements PlaceService {
 			.result(true)
 			.placeId(place.getPlaceId())
 			.placeName(place.getPlaceName())
+			.placeDescrib(place.getDescrib())
 			.placeLongitude(place.getPlaceLongitude())
 			.placeLatitude(place.getPlaceLatitude())
 			.score(place.getScore())

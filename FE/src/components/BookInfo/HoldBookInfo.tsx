@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import ExchangeAvailable from '@components/NearBooks/ExchangeAvailable';
 
@@ -12,12 +12,12 @@ interface IBookInfo {
 }
 function BookInfo({ isbn }: IBookInfo) {
   const location = useLocation();
+  const param = useParams();
   const isUser = location.pathname.includes('profile');
   const user = useUser();
 
-  const data = holdBookDetailAPI(isbn, user?.memberName);
-  console.log(data);
-  // 보유하지 않은 책입니다
+  const data = holdBookDetailAPI(param?.isbn, param?.memberName);
+  // console.log(booksData);
 
   return (
     <div className="book-info-container">
@@ -25,9 +25,6 @@ function BookInfo({ isbn }: IBookInfo) {
         <div>
           <div className="book-cover">
             <img src={data?.bookImage} alt="" />
-          </div>
-          <div className="exchange-available">
-            <ExchangeAvailable is_available={data?.isOwn} />
           </div>
         </div>
       ) : (

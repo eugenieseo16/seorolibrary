@@ -36,7 +36,8 @@ export const jwtLoginAPI = async (token: string) => {
   return response;
 };
 
-export const getUserProfileAPI = (username: string) => {
+export const getUserProfileAPI = (username?: string) => {
+  if (!username) return;
   const data = useMyQuery(`${authApiUrls.userProfileAPIUrl}/${username}`);
   return data;
 };
