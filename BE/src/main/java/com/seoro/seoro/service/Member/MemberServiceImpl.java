@@ -55,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
 			.memberPassword(passwordEncoder.encode(requestDto.getMemberPassword()))
 			.memberGenre(65535L)
 			.memberProfile("https://i.stack.imgur.com/dr5qp.jpg")
-			.memberDongCode("서울특별시 강남구 역삼1동")
+			.memberDongCode("서울특별시 강남구 역삼2동")
 			.loginType(LoginType.BASIC)
 			.build();
 
