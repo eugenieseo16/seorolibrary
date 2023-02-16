@@ -17,9 +17,12 @@ import {
   arrayUnion,
 } from 'firebase/firestore';
 
+import { GrSend } from 'react-icons/gr';
+import './Chat.styles.scss';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { Avatar } from 'antd';
 // Add a new document in collection "cities"
 
 function Chat() {
@@ -114,40 +117,50 @@ function Chat() {
     });
     reset();
   };
-
+  console.log(messages);
+  console.log(user?.memberName);
   return loading ? (
     <span>loading...</span>
   ) : (
     <div className={'chat-container'}>
-      <div className={'chat-box'}>
-        {messages.map((message: any, i: number) => (
-          <div
-            style={{
-              flexDirection: message.username == true ? 'row-reverse' : 'row',
-            }}
-            className={'chat-item'}
-            key={i}
-          >
-            {/* eslint-disable-next-line  */}
-            <img src={message.photoURL} alt="" />
-            <div>
-              <h1
-                style={{
-                  flexDirection:
-                    message.username == true ? 'row-reverse' : 'row',
-                }}
-              >
-                {message.memberName}
-              </h1>
-              <p>{message.message}</p>
-            </div>
-          </div>
-        ))}
+      <div className="menu">
+        <a href="#" className="back">
+          <img src={targetUser.memberProfile} draggable="false" />
+        </a>
+        <div className="name">{targetUser.memberName}</div>
+        <div className="members"></div>
       </div>
+      <ol className={'chat'}>
+        {messages.map((message: any, i: number) => {
+          const isMe = message.username == user?.memberId;
+          return (
+            <li className={isMe ? 'self' : 'other'}>
+              <div className="msg">
+                <p>{message.message}</p>
+                <time>20:18</time>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+
       <form className={'my-form'} onSubmit={handleSubmit(sendMessage)}>
-        <div>
-          <input type="text" {...register('message')} />
-          <button type="submit">보내기</button>
+        <div style={{ width: '100%', position: 'relative' }}>
+          <input
+            style={{
+              padding: '10px 4rem 10px 1rem',
+              fontSize: '1rem',
+              width: '100%',
+            }}
+            type="text"
+            {...register('message')}
+          />
+          <button
+            style={{ position: 'absolute', right: 0, top: 0, width: '3rem' }}
+            type="submit"
+          >
+            <GrSend />
+          </button>
         </div>
       </form>
     </div>
