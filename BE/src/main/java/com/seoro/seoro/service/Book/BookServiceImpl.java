@@ -461,7 +461,7 @@ public class BookServiceImpl implements BookService {
 			System.out.println(bookObject);
 			JSONArray authors = (JSONArray)bookObject.get("authors");
 			String isbns = bookObject.get("isbn").toString();
-			String isbn = isbns.substring(isbns.length()-13,isbns.length()-1);
+			String isbn = isbns.substring(isbns.length()-13,isbns.length());
 			output.add(ShowBookDto.builder()
 				.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
 				.bookImage(bookObject.get("thumbnail").toString())
