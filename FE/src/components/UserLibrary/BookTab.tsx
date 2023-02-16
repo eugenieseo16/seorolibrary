@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import ToggleNav from '@components/ToggleNav/ToggleNav';
-import RentBooks from '@components/UserLibrary/RentBooks';
 import HoldBooks from '@components/UserLibrary/HoldBooks';
 import ReadBooks from '@components/UserLibrary/ReadBooks';
 

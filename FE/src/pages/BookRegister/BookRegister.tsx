@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Modal } from 'antd';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Header from '@components/Header/Header';
 import RegisterDetail from '@components/BookRegister/RegisterDetail';
@@ -15,6 +16,7 @@ import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import { useUser } from '@src/hooks/useUser';
 
 function BookRegister() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [selectedBook, setSelectedBook] = useState<any>(null);
   const [bookResults, setBookResults] = useState<any[]>([]);
@@ -32,11 +34,13 @@ function BookRegister() {
 
   const submitBook = async () => {
     if (loading || !selectedBook) return;
-    console.log('HHH');
+    // console.log('HHH');
     setLoading(true);
-    console.log(selectedBook.isbn.split(' ')[1]);
-    console.log(user);
+    console.log(selectedBook);
+    // console.log(selectedBook.isbn.split(' ')[1]);
+    // console.log(user);
     const obj: IRegisterBook = {
+      bookImage: selectedBook.thumbnail,
       bookTitle: selectedBook.title,
       isbn: selectedBook.isbn.split(' ')[1],
       memberId: user!.memberId,
@@ -45,6 +49,7 @@ function BookRegister() {
     const response = await registerBookAPI(obj);
     console.log(response);
     setLoading(false);
+    navigate(`/profile/`);
   };
 
   return (
@@ -54,7 +59,7 @@ function BookRegister() {
 
         <Input.Search
           size="large"
-          placeholder="보유하고 있는 책을 선택해주세요"
+          placeholder="등록할 도서 제목을 입력해주세요"
           onSearch={value => onSearch(value, true)}
           enterButton
           style={{ marginBottom: '1rem' }}
@@ -81,13 +86,13 @@ function BookRegister() {
                 background: 'tomato',
               }}
             >
-              <button style={{ padding: '1rem' }}>취소</button>
               <Input.Search
                 size="large"
                 placeholder="input search text"
                 onSearch={value => onSearch(value, false)}
                 enterButton
               />
+              <button></button>
             </div>
           }
           open={isModalOpen}

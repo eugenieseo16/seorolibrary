@@ -16,16 +16,20 @@ function BookDetailHeader() {
   const user = useUser();
   const bookData = bookDetailAPI(param?.isbn, user?.memberId);
 
-  const memberName = param?.memberName;
-  const bookImage = bookData?.bookImage;
-  const bookTitle = bookData?.bookTitle;
-
   const toAddReadBook = () => {
-    // const { data: response } = addReadBookAPI({
-    //   memberName,
-    //   bookImage,
-    //   bookTitle,
-    // });
+    const memberName = user?.memberName;
+    const bookImage = bookData?.bookImage;
+    const bookTitle = bookData?.bookTitle;
+
+    const data = addReadBookAPI(
+      {
+        memberName,
+        bookImage,
+        bookTitle,
+      },
+      param?.isbn,
+    );
+    navigate(`/profile/${memberName}`);
   };
 
   const { Title } = Typography;
