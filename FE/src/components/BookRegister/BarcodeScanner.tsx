@@ -21,6 +21,9 @@ const Main = () => {
     setPlay(!play);
   };
 
+  const search = () => {
+    console.log('searching...');
+  };
   const detectedText = code ? `Detected code: ${code}` : play;
   // ? 'Scanning...'
   // : 'Stopped';
