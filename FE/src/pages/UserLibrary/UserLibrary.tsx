@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import './UserLibrary.styles.scss';
@@ -9,16 +9,29 @@ import BookTab from '@components/UserLibrary/BookTab';
 import { getUserProfileAPI } from '@src/API/authAPI';
 import { useUser } from '@src/hooks/useUser';
 import { libraryDataAPI } from '@src/API/libraryAPI';
+import axios from 'axios';
+import { libraryAPIUrls } from '@src/API/apiUrls';
 
 function UserLibrary() {
   const { username } = useParams();
-  const userProfile = username ? getUserProfileAPI(username) : '';
+  const userProfile = getUserProfileAPI(username);
+  const [libraryData, setLibraryData] = useState<any>();
   const user = useUser();
-  const libraryData = libraryDataAPI({
-    me: user?.memberId,
-    you: userProfile?.memberId,
-  });
-  console.log(libraryData);
+  useEffect(() => {
+    (async function () {
+      if (!userProfile || !user) return;
+      const { data } = await axios.get(
+        `${libraryAPIUrls.libraryData}/${userProfile?.memberId}?memberId=${user?.memberId}`,
+      );
+      setLibraryData(data);
+    })();
+  }, [user, userProfile]);
+
+  // const libraryData = libraryDataAPI({
+  //   me: user?.memberId,
+  //   you: userProfile?.memberId,
+  // });
+  // console.log(libraryData);
 
   return (
     <div className="user-library-container">
