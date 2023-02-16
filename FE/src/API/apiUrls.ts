@@ -1,5 +1,5 @@
-// export const apiBaseUrl = 'http://70.12.246.236:8080';
-export const apiBaseUrl = 'http://localhost:8080';
+export const apiBaseUrl = 'http://70.12.246.221:8080';
+// export const apiBaseUrl = 'http://localhost:8080';
 // export const apiBaseUrl = 'http://i8a209.p.ssafy.io:8080';
 
 export const authApiUrls = {
@@ -34,6 +34,8 @@ export const bookApiUrls = {
   bookReader: `${apiBaseUrl}/book/readpeople`,
   bookReview: `${apiBaseUrl}/book/detail/review`,
   bookComment: `${apiBaseUrl}/book/detail/comment`,
+
+  addReadBook: `${apiBaseUrl}/book/detail`,
 };
 export const geoAPIUrls = {
   dongcodeAPIUrl: `${apiBaseUrl}/place/dong`,
