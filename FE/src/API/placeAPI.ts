@@ -24,3 +24,18 @@ export const placeDetailAPI = (placeId: any) => {
   const response = useMyQuery(`${placeAPIUrls.placeDetail}/${placeId}`);
   return response;
 };
+
+// interface IPlaceReview {
+//   score: Long;
+//   memberName: String;
+//   placeReview: String;
+//   placeReviewPhotos: String[];
+// }
+// export const addPlaceReviewAPI = (data: IPlaceReview, placeId: any) => {
+//   const response = axios.post(`${placeAPIUrls.placeDetail}/${placeId}`, data);
+//   return;
+// };
+export const addPlaceReviewAPI = (data: any, placeId: any) => {
+  const response = axios.post(`${placeAPIUrls.placeDetail}/${placeId}`, data);
+  return;
+};
