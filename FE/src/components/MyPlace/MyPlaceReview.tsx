@@ -9,7 +9,8 @@ import './MyPlaceReview.styles.scss';
 
 function MyPlaceReview() {
   const [placesData, setPlacesData] = useState<any>();
-  const getPlacesData = async () => await (await fetch('/places.json')).json();
+  const getPlacesData = async () =>
+    await (await fetch('/places_myreview.json')).json();
   const { data } = useQuery('place-recommend', getPlacesData);
 
   const navigate = useNavigate();
@@ -33,13 +34,17 @@ function MyPlaceReview() {
           {!data ? (
             <div>
               <h1>독서하기 좋은 장소를 추가해보세요!</h1>
-          </div>
+            </div>
           ) : (
             <div className="bookclub-container">
               {/* 독서 모임 카드 */}
 
               {data?.data?.map((placeRecommend: any, id: number) => (
-                <div className="my-place-review-card" key={id} onClick={() => navigate(`/places/${id}`)}>
+                <div
+                  className="my-place-review-card"
+                  key={id}
+                  onClick={() => navigate(`/places/${id}`)}
+                >
                   <div className="my-place-review-item">
                     <img src={placeRecommend.image_url} alt="" />
                     <div className="shadow-wrapper">
