@@ -5,6 +5,7 @@ import './UserProfile.styles.scss';
 
 import { RiChat3Line } from 'react-icons/ri';
 import { useUser } from '@src/hooks/useUser';
+import { BiMap } from 'react-icons/bi';
 
 export default function MyProfile() {
   const navigate = useNavigate();
@@ -20,8 +21,15 @@ export default function MyProfile() {
 
           <div className="profile">
             <div>
-              <div className="profile-user">
+              <div
+                style={{ flexDirection: 'column', alignItems: 'start' }}
+                className="profile-user"
+              >
                 <h2>{user?.memberName}</h2>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <BiMap />
+                  {user.memberDongCode}
+                </span>
               </div>
 
               {/* <div className="profile-follow">

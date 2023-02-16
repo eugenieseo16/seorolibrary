@@ -10,6 +10,7 @@ import { apiBaseUrl } from '@src/API/apiUrls';
 import { useUser } from '@src/hooks/useUser';
 import { IUser } from '@src/types/types';
 import { libraryDataAPI } from '@src/API/libraryAPI';
+import { BiMap } from 'react-icons/bi';
 
 interface UserProfileProps {
   isMe: boolean;
@@ -50,6 +51,7 @@ function Item({ userData, username, user }: any) {
     me: +user?.memberId,
     you: +userData?.memberId,
   });
+  console.log('유저데이터', userData);
 
   return (
     <div className="user-profile">
@@ -59,8 +61,15 @@ function Item({ userData, username, user }: any) {
 
       <div className="profile">
         <div>
-          <div className="profile-user">
+          <div
+            style={{ flexDirection: 'column', alignItems: 'start' }}
+            className="profile-user"
+          >
             <h2>{userData?.memberName}</h2>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <BiMap />
+              {userData.memberDongCode}
+            </span>
           </div>
 
           {/* <div className="profile-follow">
