@@ -20,11 +20,7 @@ function BookDetail() {
   const param = useParams();
   const isUser = 'memberName' in param;
   const isbn = param.isbn;
-
-  console.log(param?.isbn);
-  console.log(param?.memberName);
   const data = holdBookDetailAPI(param?.isbn, param?.memberName);
-  console.log(data);
 
   return (
     <>

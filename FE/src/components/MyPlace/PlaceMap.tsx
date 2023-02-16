@@ -10,16 +10,13 @@ declare global {
 }
 
 function PlaceMap() {
-
   const param = useParams();
   const placeId = param?.id;
   const data = placeDetailAPI(placeId);
 
-  console.log(data?.placeLatitude);
-
-  const latitude = 33.450701;
-  const longitude = 126.570667;
   useEffect(() => {
+    const latitude = parseFloat(data?.placeLatitude);
+    const longitude = parseFloat(data?.placeLongitude);
     const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
     const options = {
       //지도를 생성할 때 필요한 기본 옵션
@@ -35,7 +32,7 @@ function PlaceMap() {
       position: markerPosition,
     });
     marker.setMap(map);
-  }, []);
+  }, [data]);
 
   return (
     <div>

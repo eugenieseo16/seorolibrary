@@ -55,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
 			.memberPassword(passwordEncoder.encode(requestDto.getMemberPassword()))
 			.memberGenre(65535L)
 			.memberProfile("https://i.stack.imgur.com/dr5qp.jpg")
-			.memberDongCode("역삼동")
+			.memberDongCode("서울특별시 강남구 역삼2동")
 			.loginType(LoginType.BASIC)
 			.build();
 
@@ -136,11 +136,13 @@ public class MemberServiceImpl implements MemberService {
 			return responseDto;
 		}
 
-		Member checkMember = memberRepository.findByMemberName(requestDto.getMemberName()).orElse(null);
-		if(checkMember != null) {
-			responseDto.setMessege("이미 사용 중인 닉네임입니다.");
-			responseDto.setResult(false);
-			return responseDto;
+		if(!memberName.equals(requestDto.getMemberName())) {
+			Member checkMember = memberRepository.findByMemberName(requestDto.getMemberName()).orElse(null);
+			if(checkMember != null) {
+				responseDto.setMessege("이미 사용 중인 닉네임입니다.");
+				responseDto.setResult(false);
+				return responseDto;
+			}
 		}
 
 		Long genre = 0L;
