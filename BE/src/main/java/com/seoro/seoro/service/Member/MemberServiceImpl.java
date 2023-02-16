@@ -136,11 +136,13 @@ public class MemberServiceImpl implements MemberService {
 			return responseDto;
 		}
 
-		Member checkMember = memberRepository.findByMemberName(requestDto.getMemberName()).orElse(null);
-		if(checkMember != null) {
-			responseDto.setMessege("이미 사용 중인 닉네임입니다.");
-			responseDto.setResult(false);
-			return responseDto;
+		if(!memberName.equals(requestDto.getMemberName())) {
+			Member checkMember = memberRepository.findByMemberName(requestDto.getMemberName()).orElse(null);
+			if(checkMember != null) {
+				responseDto.setMessege("이미 사용 중인 닉네임입니다.");
+				responseDto.setResult(false);
+				return responseDto;
+			}
 		}
 
 		Long genre = 0L;
