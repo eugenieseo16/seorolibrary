@@ -6,6 +6,7 @@ import { placeDetailAPI } from '@src/API/placeAPI';
 declare global {
   interface Window {
     kakao: any;
+    Kakao: any;
   }
 }
 

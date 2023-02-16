@@ -18,7 +18,8 @@
   @media screen and (min-width: 450px) {
     display: flex;
     flex-direction: row-reverse;
-    max-width: 1500px;
+    // max-width: 1500px;
+    padding-right: 15vw;
     margin: 0 auto;
     justify-content: space-between;
     background-color: transparent;
