@@ -67,7 +67,7 @@ export const bookTitleAPI = (isbn: any, memberId: any) => {
 };
 
 // 표준 도서 상세
-export const bookDetailAPI = (isbn: string, memberId: number) => {
+export const bookDetailAPI = (isbn: any, memberId: any) => {
   const response = useMyQuery(
     `${bookApiUrls.bookDetail}/${isbn}?memberId=${memberId}`,
   );
