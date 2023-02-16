@@ -1,22 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Rate, Form, Upload, Input } from 'antd';
-
+import { useParams } from 'react-router-dom';
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
 import './AddPlaceReviewModal.styles.scss';
+import { addPlaceReviewAPI } from '@src/API/placeAPI';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '@src/hooks/useUser';
+import axios from 'axios';
+import type { UploadProps } from 'antd';
 
 function AddPlaceReviewModal() {
+  const user = useUser();
+  const navigate = useNavigate();
+  const [file, setFile] = useState<any>();
+  const param = useParams();
+  const placeId = param?.placeId;
+  const placeName = param?.placeName;
+  const [loading, setLoading] = useState(false);
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
-  const normFile = (e: any) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
+
+  const onFinish = async (values: any) => {
+    if (loading) return;
+    setLoading(true);
+
+    let placeReviewPhotos;
+    if (file) {
+      const form = new FormData();
+      form.append('file', file);
+      form.append('upload_preset', 'quzqjwbp');
+      placeReviewPhotos = await axios.post(
+        'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
+        form,
+      );
     }
-    return e?.fileList;
+  };
+
+  const props: UploadProps = {
+    multiple: false,
+    customRequest: ({ onSuccess }: any) => onSuccess('ok'),
+    itemRender: (_: any, file: any, fileList: any, { remove }: any) => {
+      if (fileList.length > 1) {
+        if (file != fileList[1]) remove();
+        return '';
+      }
+      const url = URL.createObjectURL(file.originFileObj);
+      setFile(file.originFileObj);
+      return <img src={url} width="100%" />;
+    },
   };
 
   const [form] = Form.useForm();
-  const title = '가게이름';
+  const title = placeName;
+  const score = { value };
+  const memberName = user?.memberName;
+
+  const data = addPlaceReviewAPI(
+    {
+      score,
+      memberName,
+    },
+    param?.placeId,
+  );
 
   return (
     <div>
@@ -41,26 +87,22 @@ function AddPlaceReviewModal() {
           <div> {value} / 5</div>
         </div>
         <Form.Item
-          name="upload"
+          name="placeReviewPhotos"
           // label="Upload"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-          extra="사진을 올려주세요"
+          valuePropName="any"
           className="ant-modal-items"
         >
-          <Upload name="logo" action="/upload.do" listType="picture">
+          <Upload.Dragger {...props}>
             <Button
               icon={<MdOutlineAddPhotoAlternate size={'3rem'} />}
               style={{ width: 150, height: 150 }}
             />
-          </Upload>
+          </Upload.Dragger>
         </Form.Item>
         <Form form={form} name="dynamic_rule" style={{ maxWidth: 600 }}>
           <Form.Item
-            // name="placereview"
-
-            rules={[{ required: true }]}
-            // , message: '리뷰를 작성해주세요'
+            name="placeReview"
+            rules={[{ required: true, message: '리뷰를 작성해주세요' }]}
           >
             <Input.TextArea
               showCount
