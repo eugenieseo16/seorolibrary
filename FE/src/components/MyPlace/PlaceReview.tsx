@@ -3,15 +3,22 @@ import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { Col, Row } from 'antd';
 import { Image, Space } from 'antd';
+import { useParams } from 'react-router-dom';
+import { placeDetailAPI } from '@src/API/placeAPI';
 
 import './PlaceReview.styles.scss';
 import AddPlaceReviewModal from './AddPlaceReviewModal';
 
 function PlaceReview() {
   const navigate = useNavigate();
-  const getPlaceReview = async () =>
-    await (await fetch('/placeReview.json')).json();
-  const { data } = useQuery('place-review', getPlaceReview);
+  // const getPlaceReview = async () =>
+  //   await (await fetch('/placeReview.json')).json();
+  // const { data } = useQuery('place-review', getPlaceReview);
+
+  const param = useParams();
+  const placeId = param?.id;
+  const data = placeDetailAPI(placeId);
+  console.log(data?.placeReview);
 
   const [showFullContent, setShowFullContent] = useState<{
     [key: number]: boolean;
@@ -30,33 +37,40 @@ function PlaceReview() {
         </div>
       </div>
       <div>
-        {data?.data?.map((review: any, i: number) => (
+        {data?.placeReview?.map((review: any, i: number) => (
           <div className="place-review-item" key={i}>
             <div className="place-review-user-info">
               <img
-                src={review.profile_img}
+                src={
+                  review?.placeReviewPhotos
+                    ? review?.placeReviewPhotos.length > 0
+                      ? review?.placeReviewPhotos[0]
+                      : ''
+                    : ''
+                }
                 alt=""
-                onClick={() => navigate(`/profile/${i}`)}
+                onClick={() => navigate(`/profile/${review?.memberName}`)}
               />
               <p
                 className="place-review-user-name"
-                onClick={() => navigate(`/profile/${i}`)}
+                onClick={() => navigate(`/profile/${review?.memberName}`)}
               >
-                {review.nickname}
+                {review?.memberName}
               </p>
             </div>
+
             <div className="place-review-detail">
-              {review.placeReviewPhotos ? (
+              {review?.placeReviewPhotos ? (
                 <Row gutter={[4, 4]}>
                   {/* Left column with full content */}
                   <Col span={18}>
                     {showFullContent[i] ? (
-                      <p>{review.content}</p>
+                      <p>{review?.reviewContent}</p>
                     ) : (
                       <p>
-                        {review.content.substring(
+                        {review?.reviewContent?.substring(
                           0,
-                          Math.min(review.content.length, 70),
+                          Math.min(review?.reviewContent.length, 70),
                         )}
                         ...
                       </p>
@@ -76,7 +90,7 @@ function PlaceReview() {
                   {/* Right column with image */}
                   <Image.PreviewGroup>
                     <Col span={6}>
-                      <Image src={review.placeReviewPhotos} alt="" />
+                      <Image src={review?.placeReviewPhotos} alt="" />
                     </Col>
                   </Image.PreviewGroup>
                 </Row>
@@ -84,12 +98,12 @@ function PlaceReview() {
                 /* Content without image */
                 <>
                   {showFullContent[i] ? (
-                    <p>{review.content}</p>
+                    <p>{review?.reviewContent}</p>
                   ) : (
                     <p>
-                      {review.content.substring(
+                      {review?.reviewContent.substring(
                         0,
-                        Math.min(review.content.length, 70),
+                        Math.min(review?.reviewContent.length, 70),
                       )}
                       ...
                     </p>

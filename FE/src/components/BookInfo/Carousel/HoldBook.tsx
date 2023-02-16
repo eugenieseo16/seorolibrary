@@ -13,6 +13,7 @@ const settings = {
   slidesToShow: 4,
   slidesToScroll: 1,
   swipeToSlide: true,
+  infinite: false,
 };
 
 interface IHoldBookProps {
