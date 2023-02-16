@@ -17,7 +17,7 @@ function BookInfo({ isbn }: IBookInfo) {
 
   const memberName = user?.memberName;
   const data = bookDetailAPI(isbn, user?.memberId);
-  console.log(data?.bookTitle);
+  // console.log(data?.bookTitle);
 
   return (
     <div className="book-info-container">
