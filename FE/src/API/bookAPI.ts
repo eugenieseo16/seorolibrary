@@ -44,6 +44,8 @@ export interface IRegisterBook {
   isbn: string;
   bookTitle: string;
   ownComment: string;
+  author: string;
+  bookDescrib: string;
 }
 export const registerBookAPI = async (data: IRegisterBook) => {
   const { data: response } = await axios.post(
