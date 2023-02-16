@@ -49,7 +49,7 @@ function Nearbooks() {
                 {/* 책 제목 */}
                 <h2>{book.bookTitle}</h2>
                 {/* 책 저자 */}
-                <h6>{book.bookAuthor}</h6>
+                <h3>{book.bookAuthor}</h3>
                 {/* 책 설명 */}
                 <h6>{book.bookDescrib}</h6>
                 <br />
@@ -60,7 +60,6 @@ function Nearbooks() {
                   {book.memberId}
                   {/* {book.user.location} */}
                 </h2>
-                <ExchangeAvailable is_available={book.isOwn} />
               </div>
             </Col>
           </Row>
