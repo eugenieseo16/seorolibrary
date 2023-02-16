@@ -145,6 +145,12 @@ const Book = ({ bookInfo }: any) => {
           <p>{bookInfo.publisher}</p>
         </div>
       </div>
+
+      <div>
+        <form>
+          <input type="text" placeholder="도서에 대한 한줄평을 남겨주세요" />
+        </form>
+      </div>
     </div>
   );
 };
