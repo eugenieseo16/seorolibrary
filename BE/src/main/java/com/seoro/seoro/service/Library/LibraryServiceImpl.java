@@ -87,18 +87,16 @@ public class LibraryServiceImpl implements LibraryService {
 		responseDto.setMyOwnComment(countOwnComment);
 
 		// 리뷰 카운트
-		Long countReview = readBookRepository.countByMember(member);
+		Long countReview = (long)member.getReviews().size();
 		responseDto.setMyReview(countReview);
 
 		// 빌린 도서 // 채팅 api 선행
 
 		// 팔로워 명수
-		// 확인 필요
 		Long countFollower = friendRepository.countByFollowing(member.getMemberId());
 		responseDto.setMyFollowers(countFollower);
 
 		// 팔로잉 명수
-		// 확인 필요
 		Long countFollowing = friendRepository.countByFollower(member);
 		responseDto.setMyFollowings(countFollowing);
 
