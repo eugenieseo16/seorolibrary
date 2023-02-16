@@ -27,6 +27,7 @@ function ChatItem({ data }: any) {
   const targetUser = useMyQuery(
     `${apiBaseUrl}/members/search?memberId=${opponent}`,
   );
+  console.log(targetUser);
 
   return (
     <List.Item
@@ -34,7 +35,7 @@ function ChatItem({ data }: any) {
       onClick={() => navigate(`/chat/${targetUser?.memberName}`)}
     >
       <List.Item.Meta
-        avatar={<Avatar src={''} />}
+        avatar={<Avatar src={targetUser?.memberProfile} />}
         title={<a>{targetUser?.memberName}</a>}
         description={<p className="message-preview"></p>}
       />
@@ -83,7 +84,7 @@ function ChatsList() {
 
   return (
     <>
-      <SearchHeader text="채팅" />
+      <SearchHeader text="채팅" search={false} />
       <div className="chats-list-container">
         <List>
           {chatList.map((chatData, i) => {
