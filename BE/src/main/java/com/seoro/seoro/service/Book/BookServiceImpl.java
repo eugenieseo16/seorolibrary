@@ -378,7 +378,7 @@ public class BookServiceImpl implements BookService {
 			.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
 			.bookImage(bookObject.get("thumbnail").toString())
 			.isbn(isbn)
-			.bookAuthor(HtmlUtils.htmlUnescape(authors.get(0).toString()))
+			.bookAuthor(HtmlUtils.htmlUnescape(authors.size()==0? "":authors.get(0).toString()))
 			.bookDescrib(HtmlUtils.htmlUnescape(bookObject.get("contents").toString()))
 			.bookPublisher(bookObject.get("publisher").toString())
 			.countComment(count_comment)
