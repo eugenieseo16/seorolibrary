@@ -114,6 +114,13 @@ public class GroupPostServiceImpl implements GroupPostService {
                 break;
             }
             GroupPost p = posts.get(i);
+            List<GroupPostImageDto> images = new ArrayList<>();
+            for(GroupPostPhoto photo: p.getPhotos()){
+                images.add(GroupPostImageDto.builder()
+                        .image(photo.getGroupPostPhoto())
+                        .imageId(photo.getGroupPostPhotoId())
+                    .build());
+            }
             GroupPostDto gpd = GroupPostDto.builder()
                 .postId(p.getGroupPostId())
                 .postTitle(p.getGroupPostTitle())
@@ -123,6 +130,7 @@ public class GroupPostServiceImpl implements GroupPostService {
                 .memberId(p.getMember().getMemberId())
                 .memberName(p.getMember().getMemberName())
                 .memberProfile(p.getMember().getMemberProfile())
+                .images(images)
                 .build();
             groupPost.add(gpd);
         }
