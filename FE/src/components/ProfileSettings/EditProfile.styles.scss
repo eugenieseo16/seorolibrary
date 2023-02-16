@@ -15,6 +15,7 @@
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
+      object-fit: cover;
     }
     .profile-item {
       .user-info-item {
@@ -34,9 +35,11 @@
       .location-item {
         padding: 5px 0px;
         display: flex;
+        color: $brown;
 
         span {
           font-size: 1rem;
+          color: $brown;
         }
       }
     }

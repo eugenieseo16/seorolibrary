@@ -122,7 +122,10 @@ function Chat() {
   return loading ? (
     <span>loading...</span>
   ) : (
-    <div className={'chat-container'}>
+    <div
+      className="chat-container with-nav-layout-container"
+      style={{ width: '425px' }}
+    >
       <div className="menu">
         <a href="#" className="back">
           <img src={targetUser.memberProfile} draggable="false" />
