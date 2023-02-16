@@ -83,7 +83,7 @@ public class GroupServiceImpl implements GroupService{
 		}
 
 		//같은 동코드를 가진 독서모임 추천순으로 반환
-		List<Groups> dongGroups = groupRepository.findGroupsByGroupDongCode(myDongCode);
+		List<Groups> dongGroups = groupRepository.findAll();
 		if(dongGroups.size() > 0) {
 			Collections.sort(dongGroups, new Comparator<Groups>(){
 				@Override
@@ -116,7 +116,7 @@ public class GroupServiceImpl implements GroupService{
 
 
 		//같은 동코드를 가진 사용자들 추천순으로 반환
-		List<Member> dongMember = memberRepository.findByMemberDongCode(myDongCode);
+		List<Member> dongMember = memberRepository.findAll();
 		if(dongMember.size()>0){
 			Collections.sort(dongMember, new Comparator<Member>(){
 				@Override

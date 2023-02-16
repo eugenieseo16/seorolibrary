@@ -26,9 +26,9 @@ function BookInfo({ isbn }: IBookInfo) {
           <div className="book-cover">
             <img src={data?.bookImage} alt="" />
           </div>
-          <div className="exchange-available">
+          {/* <div className="exchange-available">
             <ExchangeAvailable is_available={data?.isOwn} />
-          </div>
+          </div> */}
         </div>
       ) : (
         <div>
