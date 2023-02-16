@@ -1,12 +1,13 @@
 .chat-container {
   /* M E N U */
+  max-width: 425px;
 
   .menu {
     position: fixed;
     top: 0px;
-    left: 0px;
-    right: 0px;
+    right: 15vw;
     width: 100%;
+    max-width: 425px;
     height: 50px;
     background: rgba(27, 35, 42, 0.9);
     z-index: 100;
@@ -496,7 +497,8 @@
     display: flex;
     position: fixed;
     bottom: 0;
-    left: 0;
+    right: 15vw;
     width: 100%;
+    max-width: 425px;
   }
 }
