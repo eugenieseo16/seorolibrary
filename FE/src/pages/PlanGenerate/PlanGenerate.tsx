@@ -31,7 +31,7 @@ function PlanGenerate() {
   };
   return (
     <>
-      <SearchHeader text="멀멀멀" search={false} />
+      <SearchHeader text="일정 등록" search={false} />
       <div className="club-generate-container">
         <Form form={form} onFinish={onSubmit}>
           <Form.Item
@@ -42,9 +42,9 @@ function PlanGenerate() {
             <Input placeholder="일정제목을 입력해주세요" />
           </Form.Item>
           <Form.Item
-            label={<Label text="모임소개" />}
+            label={<Label text="일정소개" />}
             name="groupScheduleContent"
-            rules={[{ required: true, message: '모임소개를 해주세요' }]}
+            rules={[{ required: true, message: '일정소개를 해주세요' }]}
           >
             <Input.TextArea rows={4} />
           </Form.Item>
