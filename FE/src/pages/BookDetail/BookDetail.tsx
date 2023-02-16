@@ -15,7 +15,6 @@ import { FaQuoteLeft } from 'react-icons/fa';
 
 import './BookDetail.styles.scss';
 import { holdBookDetailAPI } from '@src/API/bookAPI';
-import { useUser } from '@src/hooks/useUser';
 
 function BookDetail() {
   const param = useParams();

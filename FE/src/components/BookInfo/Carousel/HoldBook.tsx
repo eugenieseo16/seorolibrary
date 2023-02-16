@@ -6,7 +6,6 @@ import Slider from 'react-slick';
 import './HoldBook.styles.scss';
 import { holdBooksAPI } from '@src/API/memberAPI';
 import { holdBookDetailAPI } from '@src/API/bookAPI';
-import { useUser } from '@src/hooks/useUser';
 
 const settings = {
   dots: false,
@@ -21,12 +20,8 @@ interface IHoldBookProps {
 }
 
 function HoldBook({ isbn }: IHoldBookProps) {
-  const user = useUser();
-
   const param = useParams();
-
   const booksData = holdBookDetailAPI(param?.isbn, param?.memberName);
-  console.log(booksData);
   const navigate = useNavigate();
 
   return (
@@ -38,7 +33,9 @@ function HoldBook({ isbn }: IHoldBookProps) {
             <div
               key={i}
               className="hold-book-container"
-              onClick={() => navigate(`/book/${data.isbn}`)}
+              onClick={() =>
+                navigate(`/profile/${param?.memberName}/book/${data.isbn}`)
+              }
             >
               <div>
                 <img src={data.bookImage} alt="" />
