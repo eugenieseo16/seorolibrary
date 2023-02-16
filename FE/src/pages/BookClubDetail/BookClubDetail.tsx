@@ -62,7 +62,7 @@ function BookClubDetail() {
     const response = await clubEnterAPI({
       groupId: +id,
       userId: user?.memberId,
-      writePassword: '1234',
+      writePassword: '',
     });
     navigate('/book-club');
 
