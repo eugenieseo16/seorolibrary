@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input, Form, Upload, Select, Image, Button } from 'antd';
 import { CloseOutlined, FileImageOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
 
 import './PostGenerate.styles.scss';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
@@ -11,12 +12,25 @@ import { useUser } from '@src/hooks/useUser';
 import { clubCreatePostAPI } from '@src/API/clubAPI';
 import axios from 'axios';
 
-let images: any;
+let images: any = [];
+let globalLoading = false;
 const props: UploadProps = {
   name: 'file',
   multiple: true,
 
-  customRequest: ({ onSuccess }: any) => onSuccess('ok'),
+  customRequest: async (data: any) => {
+    globalLoading = true;
+    let formData = new FormData();
+    formData.append('file', data.file);
+    formData.append('upload_preset', 'quzqjwbp');
+    const { data: response } = await axios.post(
+      'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
+      formData,
+    );
+    images.push({ uid: data.file.uid, url: response.url });
+    globalLoading = false;
+    data.onSuccess('ok');
+  },
   itemRender: (_, file: any, __, { remove }) => {
     const url = URL.createObjectURL(file.originFileObj);
 
@@ -38,7 +52,10 @@ const props: UploadProps = {
             top: '-8px',
             right: '-8px',
           }}
-          onClick={() => remove()}
+          onClick={() => {
+            images = images.filter((image: any) => image.uid != file.uid);
+            remove();
+          }}
           danger
           shape="circle"
           icon={<CloseOutlined />}
@@ -58,29 +75,15 @@ function PostGenerate() {
   const user = useUser();
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
-    let uploadImages: any;
     if (!groupId || !user) return;
-    if (values.postImage?.fileList) {
-      let formData = new FormData();
-      console.log(values.postImage);
-      uploadImages = values.postImage?.fileList.map(async (file: any) => {
-        console.log(file);
-        formData.append('file', file);
-        formData.append('upload_preset', 'quzqjwbp');
-        // const { data } = await axios.post(
-        //   'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
-        //   form,
-        // );
-        // return data.url;
-      });
-    }
-    // await clubCreatePostAPI({
-    //   ...values,
-    //   groupId: +groupId,
-    //   writer: user?.memberId,
-    //   postImage: uploadImages,
-    // });
-    // navigate(`/book-club/${groupId}`);
+
+    await clubCreatePostAPI({
+      ...values,
+      groupId: +groupId,
+      writer: user?.memberId,
+      postImage: images.map((image: any) => image.url),
+    });
+    navigate(`/book-club/${groupId}`);
   };
 
   return (
