@@ -9,7 +9,9 @@ import SearchHeader from '@components/SearchHeader/SearchHeader';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '@src/hooks/useUser';
 import { clubCreatePostAPI } from '@src/API/clubAPI';
+import axios from 'axios';
 
+let images: any;
 const props: UploadProps = {
   name: 'file',
   multiple: true,
@@ -56,14 +58,29 @@ function PostGenerate() {
   const user = useUser();
   const navigate = useNavigate();
   const onFinish = async (values: any) => {
+    let uploadImages: any;
     if (!groupId || !user) return;
-    await clubCreatePostAPI({
-      ...values,
-      groupId: +groupId,
-      writer: user?.memberId,
-      postImage: undefined,
-    });
-    navigate(`/book-club/${groupId}`);
+    if (values.postImage?.fileList) {
+      let formData = new FormData();
+      console.log(values.postImage);
+      uploadImages = values.postImage?.fileList.map(async (file: any) => {
+        console.log(file);
+        formData.append('file', file);
+        formData.append('upload_preset', 'quzqjwbp');
+        // const { data } = await axios.post(
+        //   'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
+        //   form,
+        // );
+        // return data.url;
+      });
+    }
+    // await clubCreatePostAPI({
+    //   ...values,
+    //   groupId: +groupId,
+    //   writer: user?.memberId,
+    //   postImage: uploadImages,
+    // });
+    // navigate(`/book-club/${groupId}`);
   };
 
   return (
