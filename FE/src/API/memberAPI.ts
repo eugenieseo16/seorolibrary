@@ -21,9 +21,9 @@ export const holdBooksAPI = (targetMemberId: any, myMemberId: any) => {
   return response;
 };
 
-export const editProfileAPI = async (data: IEditProfileForm) => {
+export const editProfileAPI = async (data: IEditProfileForm | any) => {
   const response = await axios.put(
-    `${memberAPIUrls.myProfile}/${data.memberName}`,
+    `${memberAPIUrls.myProfile}/${data.exist}`,
     data,
   );
   return response;

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import type { UploadChangeParam } from 'antd/es/upload';
 import { RiCameraLine } from 'react-icons/ri';
+import Autocomplete from 'react-google-autocomplete';
 
 import {
   UserOutlined,
@@ -17,46 +18,54 @@ import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 
 import './Modal.styles.scss';
 import { editProfileAPI } from '@src/API/memberAPI';
+import { useUser } from '@src/hooks/useUser';
+import { dongcodeAPI } from '@src/API/geoAPI';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
 }
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
   const categoriesRes = useMyQuery('/categories.json');
-
+  const dongCode = useRef<any>();
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    // console.log('Success:', values);
-    if (!loading) {
-      setLoading(true);
-      const { data: response }: any = editProfileAPI(values);
-      setLoading(false);
-    }
-  };
-
-  const dongCode = useMyQuery('/dongcode.json');
-
   const [open, setOpen] = useState(false);
-
-  const showModal = () => {
-    setOpen(true);
-  };
-
-  const handleOk = () => {
-    setOpen(false);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
-  // 프로필 사진
-  const [imageUrl, setImageUrl] = useState<string>(
-    'https://mblogthumb-phinf.pstatic.net/MjAyMTAzMDhfNTEg/MDAxNjE1MTg3MTQwMTYw.zHRr__ZxSvKC7umKmXkX2a0_9n8OU5oieyDdsLXLt_cg.Hc68luHvoivGy_I1n8AcbAUC-NsZXzJKuAqXXqNpN6cg.JPEG.aksen244/MBC_%E3%80%BBWattpad.jpg?type=w800',
+  const user = useUser();
+  const [imageUrl, setImageUrl] = useState<string | undefined>(
+    user?.memberProfile,
   );
   const [loading, setLoading] = useState(false);
+
+  const onFinish = async (values: any) => {
+    if (loading) return;
+    setLoading(true);
+    let newProfile;
+    if (imageUrl) {
+      const form = new FormData();
+      form.append('file', imageUrl);
+      form.append('upload_preset', 'quzqjwbp');
+      newProfile = await axios.post(
+        'https://api.cloudinary.com/v1_1/dohkkln9r/upload',
+        form,
+      );
+    }
+    const dongData = await dongcodeAPI(dongCode.current);
+
+    const { data: response }: any = await editProfileAPI({
+      memberDongCode: dongData,
+      exist: user?.memberName,
+      memberGenre: values.memberGenre,
+      memberName: values.memberName,
+      memberProfile: newProfile?.data?.url,
+    });
+    navigate('/profile');
+    console.log('프로필 수정', response);
+    setLoading(false);
+  };
 
   const uploadButton = (
     <div>
@@ -65,38 +74,21 @@ const App: React.FC = () => {
     </div>
   );
 
-  const handleChange: UploadProps['onChange'] = (
-    info: UploadChangeParam<UploadFile>,
-  ) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj as RcFile, url => {
-        setLoading(false);
-        setImageUrl(url);
-      });
-    }
-  };
-
-  const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result as string));
-    reader.readAsDataURL(img);
+  const handleChange = (info: any) => {
+    if (info.file.originFileObj)
+      setImageUrl(URL.createObjectURL(info.file.originFileObj));
   };
 
   return (
     <>
-      <Button onClick={showModal}>수정</Button>
+      <Button onClick={() => setOpen(true)}>수정</Button>
       <Modal
         open={open}
         title=""
-        onOk={handleOk}
-        onCancel={handleCancel}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
         footer={[
-          <Button key="submit" onClick={handleOk}>
+          <Button key="submit" onClick={() => setOpen(false)}>
             제출
           </Button>,
         ]}
@@ -107,8 +99,8 @@ const App: React.FC = () => {
               form={form}
               onFinish={onFinish}
               initialValues={{
-                memberName: '나미리선생님',
-                memberDongcode: '864 Grand Avenue, Ivanhoe, Guam',
+                memberName: user?.memberName,
+                memberDongcode: user?.memberDongCode,
               }}
             >
               <Form.Item
@@ -122,6 +114,7 @@ const App: React.FC = () => {
                 <Upload
                   name="memberProfile"
                   className="avatar-uploader"
+                  customRequest={({ onSuccess }: any) => onSuccess('ok')}
                   showUploadList={false}
                   onChange={handleChange}
                 >
@@ -151,17 +144,27 @@ const App: React.FC = () => {
                 <Input placeholder="닉네임을 입력해주세요" />
               </Form.Item>
 
-              <Form.Item
-                label={<Label text="위치" />}
-                rules={[{ required: true, message: '위치를 선택해주세요' }]}
-                name="memberDongcode"
-              >
-                <Select
-                  allowClear
-                  placeholder="Please select"
-                  options={dongCode}
-                />
-              </Form.Item>
+              <Label text="모임장소" />
+              <Autocomplete
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '6px',
+                }}
+                apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
+                options={{ types: ['geocode'] }}
+                onPlaceSelected={place => {
+                  try {
+                    dongCode.current = {
+                      latitude: place.geometry.location.lat(),
+                      longitude: place.geometry.location.lng(),
+                    };
+                  } catch (error) {
+                    dongCode.current = 'eee';
+                  }
+                }}
+              />
 
               <Form.Item
                 label={<Label text="카테고리" />}
