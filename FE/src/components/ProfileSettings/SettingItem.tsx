@@ -2,7 +2,7 @@ import React from 'react';
 
 import './SettingItem.styles.scss';
 
-interface ItemProps {
+interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
   navigateTo?: string;
 }
