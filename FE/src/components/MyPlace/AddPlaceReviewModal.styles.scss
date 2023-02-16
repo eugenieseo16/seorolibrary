@@ -1,8 +1,12 @@
 @import '../../styles/variables';
+.ant-modal-content {
+  background-color: $beige !important;
+}
 .ant-modal-title {
   text-align: center;
   font-size: x-large;
   font-family: 'NEXON';
+  background-color: $beige;
 }
 .line {
   background-color: #d9d9d9;
@@ -32,4 +36,56 @@
 }
 .ant-input {
   font-family: 'NEXON';
+}
+
+.ant-upload-container {
+  background: white;
+  display: flex;
+  height: 10rem;
+  justify-content: center;
+  gap: 1rem;
+  flex-direction: column;
+}
+.ant-upload-list {
+  display: flex;
+  margin-top: 1rem;
+  > div {
+    padding: 0.5rem;
+    width: 8rem;
+  }
+  img {
+    box-shadow: $box-shadow;
+    object-fit: cover;
+    height: 15rem;
+  }
+}
+.ant-upload-wrapper {
+  background: white !important;
+}
+.ant-upload-drag {
+  padding: 0 11px;
+  background: white !important;
+  border: 1px solid #d9d9d9 !important;
+  .ant-upload-container {
+    display: flex;
+    align-items: center;
+    p {
+      font-size: 0.8rem;
+      font-family: 'NEXON';
+    }
+  }
+}
+.image-icon {
+  height: 2rem;
+  width: 2rem;
+  svg {
+    height: 2rem;
+    width: 2rem;
+  }
+}
+.ant-modal-items {
+  padding: 0.5rem 0 0 0;
+}
+.ant-btn {
+  margin: 0.3rem;
 }
