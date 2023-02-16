@@ -15,15 +15,16 @@ import { FaQuoteLeft } from 'react-icons/fa';
 
 import './BookDetail.styles.scss';
 import { holdBookDetailAPI } from '@src/API/bookAPI';
-import { useUser } from '@src/hooks/useUser';
 
 function BookDetail() {
   const param = useParams();
   const isUser = 'memberName' in param;
   const isbn = param.isbn;
-  const memberName = param.memberName;
 
-  const data = holdBookDetailAPI(isbn, memberName);
+  console.log(param?.isbn);
+  console.log(param?.memberName);
+  const data = holdBookDetailAPI(param?.isbn, param?.memberName);
+  console.log(data);
 
   return (
     <>
@@ -35,7 +36,7 @@ function BookDetail() {
               <BookDetailHeader />
               <div className="hold-user-detail-container">
                 <FaQuoteLeft />
-                {/* <h1>{data.ownComment}</h1> */}
+                <h1>{data?.ownComment}</h1>
               </div>
               <HoldBookInfo isbn={isbn} />
               <BookStat isbn={isbn} />

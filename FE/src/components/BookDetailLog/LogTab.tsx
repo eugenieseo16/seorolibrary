@@ -9,7 +9,6 @@ import BookReview from '@components/BookDetailLog/BookReview';
 function LogTab() {
   const { state } = useLocation();
   const param = useParams();
-  console.log(param?.isbn);
   const isbn = param?.isbn;
   const [selectedId, setSelectedId] = useState(state['selectedTab']);
 

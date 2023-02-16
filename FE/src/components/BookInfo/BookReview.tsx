@@ -25,17 +25,11 @@ interface IBookReviewProps {
 
 function BookReview({ isbn }: IBookReviewProps) {
   const reviews = bookReviewAPI(isbn);
-  const bookData = bookDetailAPI(isbn);
   const user = useUser();
+  const memberName = user?.memberName;
+  const bookData = bookDetailAPI(isbn, user?.memberId);
   const bookTitle = bookData?.bookTitle;
   const bookImage = bookData?.bookImage;
-  const memberName = user?.memberName;
-  // const { mutate } = useMutation(
-  //   `${bookApiUrls.editBookReview}/${isbn}`,
-  //   () => {
-  //     axios;
-  //   },
-  // );
 
   const [toReview, setToReview] = useState(true);
 
@@ -54,7 +48,6 @@ function BookReview({ isbn }: IBookReviewProps) {
       memberName,
       reviewContent: values?.reviewContent,
     });
-    mutate();
   };
 
   // 리뷰 삭제
