@@ -134,16 +134,30 @@ export default BookRegister;
 
 const Book = ({ bookInfo }: any) => {
   return (
-    <div className="book-item-container">
-      <img src={bookInfo.thumbnail} alt="" />
-      <div style={{ justifyContent: 'flex-start', padding: '1rem 8px' }}>
-        <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
-          {bookInfo.title}
-        </h2>
-        <div>
-          <p style={{ marginBottom: 4 }}>{bookInfo.authors[0]}</p>
-          <p>{bookInfo.publisher}</p>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <div className="book-item-container">
+        <img src={bookInfo.thumbnail} alt="" />
+        <div style={{ justifyContent: 'flex-start', padding: '1rem 8px' }}>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
+            {bookInfo.title}
+          </h2>
+          <div>
+            <p style={{ marginBottom: 4 }}>{bookInfo.authors[0]}</p>
+            <p>{bookInfo.publisher}</p>
+          </div>
         </div>
+      </div>
+
+      <div>
+        <form>
+          <input type="text" placeholder="도서에 대한 한줄평을 남겨주세요" />
+        </form>
       </div>
     </div>
   );
