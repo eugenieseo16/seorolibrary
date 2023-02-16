@@ -1,3 +1,4 @@
+import { useUser } from '@src/hooks/useUser';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -5,10 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import './BookShelf.styles.scss';
 
 function ReadBooks({ libraryData }: any) {
-  const getReadBooksData = async () =>
-    await (await fetch('/readBooks.json')).json();
-  const { data } = useQuery('read-books', getReadBooksData);
-
   const navigate = useNavigate();
 
   return (

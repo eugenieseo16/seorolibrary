@@ -29,6 +29,7 @@ function BookResult({ input }: IBookResultProps) {
             </div>
 
             <p>{book.bookDescrib}</p>
+            <p>{book.isbn}</p>
           </div>
         </div>
       ))}
