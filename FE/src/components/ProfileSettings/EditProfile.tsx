@@ -19,9 +19,16 @@ function EditProfile() {
               <h2>{user?.memberName}</h2>
             </div>
 
-            <div className="location-item">
+            <div
+              className="location-item"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               <BiMap />
-              <span>{user?.memberDongCode}</span>
+              <span style={{ fontSize: 12 }}>{user?.memberDongCode}</span>
             </div>
           </div>
         </div>
