@@ -13,7 +13,7 @@ export interface ICarouselPlaceProps {
   [key: string]: any;
 }
 interface Item {
-  placePhotoList: [];
+  placePhotoList: string[];
   placeName: string;
   placeId: string;
 }
@@ -40,9 +40,18 @@ function CarouselHomePlace({
         <div
           key={i}
           className="carousel-place-container"
-          onClick={() => navigate(`/place/${data.placeId}`)}
+          onClick={() => navigate(`/places/${data.placeId}`)}
         >
-          <img src={data.placePhotoList[0]} alt="" />
+          <img
+            src={
+              data.placePhotoList
+                ? data.placePhotoList.length > 0
+                  ? data.placePhotoList[0]
+                  : ''
+                : ''
+            }
+            alt=""
+          />
           <div className="shadow-wrapper-place" />
           <div className="content-place">
             <h2>{data.placeName}</h2>

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useMyQuery } from '@src/hooks/useMyQuery';
+import { useParams } from 'react-router-dom';
+import { placeDetailAPI } from '@src/API/placeAPI';
 
 declare global {
   interface Window {
@@ -8,6 +10,13 @@ declare global {
 }
 
 function PlaceMap() {
+
+  const param = useParams();
+  const placeId = param?.id;
+  const data = placeDetailAPI(placeId);
+
+  console.log(data?.placeLatitude);
+
   const latitude = 33.450701;
   const longitude = 126.570667;
   useEffect(() => {

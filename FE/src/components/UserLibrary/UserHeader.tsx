@@ -21,9 +21,9 @@ function UserHeader() {
         <h1>나의 도서관</h1>
       </div>
       <div className="header-icon-container">
-        <div className="header-icon-item">
+        {/* <div className="header-icon-item">
           <RiArchiveLine onClick={onClickMyArchive} size={'2rem'} />
-        </div>
+        </div> */}
 
         <div className="header-icon-item">
           <RiSettings4Line onClick={onClickProfileSettings} size={'2rem'} />

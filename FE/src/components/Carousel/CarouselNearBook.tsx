@@ -21,7 +21,6 @@ export default function CarouselNearBook() {
   const user = useUser();
 
   const booksData = nearBooksAPI(user?.memberId);
-  // console.log(booksData);
   const navigate = useNavigate();
 
   return (
