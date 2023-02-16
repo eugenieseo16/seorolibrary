@@ -243,43 +243,6 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public ResultResponseDto makeReview(Long placeId, PlaceReviewAddRequestDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
-		// PlaceReview savePlaceReview = new PlaceReview();
-		// Place savePlace = placeRepository.findByPlaceId(placeId);
-		// Member maker = new Member();
-		// Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
-		// if(tmpUser.isPresent()) {
-		// 	maker = tmpUser.get();
-		// }else {
-		// 	System.out.println("멤버 찾기 실패");
-		// 	maker = tmpUser.orElse(null);
-		// 	resultResponseDto.setResult(false);
-		// 	return resultResponseDto;
-		// }
-		// int tempReviewSize = savePlace.getReviews().size();
-		// Float tmpScore = savePlace.getScore()*tempReviewSize;
-		// savePlaceReview = PlaceReview.builder()
-		// 	.member(maker)
-		// 	.place(savePlace)
-		// 	.score(requestDto.getScore())
-		// 	.reviewContent(requestDto.getPlacereview())
-		// 	.photos(requestDto.getPlaceReviewPhotos())
-		// 	.build();
-		// placeReviewRepository.save(savePlaceReview);
-		//
-		// savePlace = Place.builder()
-		// 	.placeId(savePlace.getPlaceId())
-		// 	.member(maker)
-		// 	.placeName(savePlace.getPlaceName())
-		// 	.placeLatitude(savePlace.getPlaceLatitude())
-		// 	.placeLongitude(savePlace.getPlaceLongitude())
-		// 	.dongCode(savePlace.getDongCode())
-		// 	.score((tmpScore+requestDto.getScore())/(tempReviewSize+1))
-		// 	.describ(savePlace.getDescrib())
-		// 	.build();
-		// placeRepository.save(savePlace);
-		//
-		// resultResponseDto.setResult(true);
-
 		Optional<Place> findPlace = placeRepository.findById(placeId);
 		Place place = new Place();
 		if(findPlace.isPresent()) {
