@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": "1160712189",
+      "title": "엔커피스튜디오",
+      "image_url": "https://ldb-phinf.pstatic.net/20221129_186/1669714890383a4Ysc_JPEG/KakaoTalk_20221116_150311430.jpg",
+      "location": "서울 강남구 강남대로98길 20"
+    },
+    {
+      "id": "1011293106",
+      "title": "로우어가든",
+      "image_url": "https://ldb-phinf.pstatic.net/20221213_160/1670925461869G6wJR_JPEG/7FCDF1C6-060B-4C73-81B6-E9116FD193BF.jpeg",
+      "location": "서울 강남구 강남대로98길 20"
+    }
+  ]
+}
