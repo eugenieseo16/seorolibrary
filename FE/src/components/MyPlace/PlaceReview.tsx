@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { Col, Row } from 'antd';
+import { Avatar, Col, Row } from 'antd';
 import { Image, Space } from 'antd';
 import { useParams } from 'react-router-dom';
 import { placeDetailAPI } from '@src/API/placeAPI';
@@ -18,11 +18,9 @@ function PlaceReview() {
   const param = useParams();
   const placeId = param?.id;
   const data = placeDetailAPI(placeId);
-
-  const [showFullContent, setShowFullContent] = useState<{
-    [key: number]: boolean;
-  }>({});
-
+  const ColorList = ['#f56a00', '#7265e6', '#ffbf00', '#00a2ae'];
+  const [showFullContent, setShowFullContent] = useState<any>({});
+  console.log(data);
   return (
     <div className="place-review-container">
       <div className="place-review-header-container">
@@ -39,17 +37,15 @@ function PlaceReview() {
         {data?.placeReview?.map((review: any, i: number) => (
           <div className="place-review-item" key={i}>
             <div className="place-review-user-info">
-              <img
-                src={
-                  review?.placeReviewPhotos
-                    ? review?.placeReviewPhotos.length > 0
-                      ? review?.placeReviewPhotos[0]
-                      : ''
-                    : ''
-                }
-                alt=""
+              <Avatar
+                style={{
+                  backgroundColor: ColorList[0],
+                  verticalAlign: 'middle',
+                }}
                 onClick={() => navigate(`/profile/${review?.memberName}`)}
-              />
+              >
+                {review?.memberName}
+              </Avatar>
               <p
                 className="place-review-user-name"
                 onClick={() => navigate(`/profile/${review?.memberName}`)}
