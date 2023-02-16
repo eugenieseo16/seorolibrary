@@ -1,16 +1,13 @@
 import { useUser } from '@src/hooks/useUser';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import './BookShelf.styles.scss';
 
 function HoldBooks({ libraryData }: any) {
-  const user = useUser();
-  const getHoldBooksData = async () =>
-    await (await fetch('/holdBooks.json')).json();
-  const { data } = useQuery('hold-books', getHoldBooksData);
-
+  // const user = useUser();
+  // const param = useParams();
   const navigate = useNavigate();
 
   return (
@@ -20,7 +17,9 @@ function HoldBooks({ libraryData }: any) {
           className="book-item"
           key={i}
           onClick={() =>
-            navigate(`/profile/${user?.memberName}/book/${book.isbn}`)
+            navigate(
+              `/profile/${libraryData.memberInfo.memberName}/book/${book.isbn}`,
+            )
           }
         >
           <img src={book.bookImage} alt="" />

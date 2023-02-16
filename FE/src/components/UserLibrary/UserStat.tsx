@@ -11,7 +11,6 @@ import './UserStat.styles.scss';
 
 function UserStat({ libraryData }: any) {
   const navigate = useNavigate();
-  console.log('여기 여기 여기', libraryData);
 
   return (
     <div className="user-stat-summary">
