@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '@src/hooks/useUser';
 import axios from 'axios';
 import type { UploadProps } from 'antd';
+import { useMutation, useQueryClient } from 'react-query';
+import { placeAPIUrls } from '@src/API/apiUrls';
 
 function AddPlaceReviewModal() {
   const user = useUser();
@@ -21,6 +23,42 @@ function AddPlaceReviewModal() {
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
+
+  const queryCache = useQueryClient();
+  async function submitReview(createValues: any) {
+    const response = await axios.post(
+      `${placeAPIUrls.placeDetail}/${placeId}`,
+      createValues,
+    );
+    return response.data;
+  }
+  const { mutate } = useMutation(submitReview, {
+    onMutate: async updateData => {
+      // Save the original todo in case we need to roll back the update
+      await queryCache.cancelQueries(`${placeAPIUrls.placeDetail}/${placeId}`);
+      const previousTodos = queryCache.getQueryData(
+        `${placeAPIUrls.placeDetail}/${placeId}`,
+      );
+      queryCache.setQueryData(
+        `${placeAPIUrls.placeDetail}/${placeId}`,
+        (old: any) => {
+          console.log(old, updateData);
+          return {
+            ...old,
+            data: {
+              ...old.data,
+              placeReview: [
+                { ...updateData, reviewContent: updateData.placeReview },
+                ...old.data.placeReview,
+              ],
+            },
+          };
+        },
+      );
+
+      return { previousTodos };
+    },
+  });
 
   const onFinish = async (values: any) => {
     if (loading) return;
@@ -39,15 +77,21 @@ function AddPlaceReviewModal() {
       );
       placeReviewPhotos = [data.url];
     }
-    addPlaceReviewAPI(
-      {
-        score: star,
-        memberName: user?.memberName,
-        placeReview: values.placeReview,
-        placeReviewPhotos,
-      },
-      placeId,
-    );
+    mutate({
+      score: star,
+      memberName: user?.memberName,
+      placeReview: values.placeReview,
+      placeReviewPhotos,
+    });
+    // addPlaceReviewAPI(
+    //   {
+    //     score: star,
+    //     memberName: user?.memberName,
+    //     placeReview: values.placeReview,
+    //     placeReviewPhotos,
+    //   },
+    //   placeId,
+    // );
     setLoading(false);
   };
 
