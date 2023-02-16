@@ -38,21 +38,23 @@ const App: React.FC = () => {
   const [imageUrl, setImageUrl] = useState<string | undefined>(
     user?.memberProfile,
   );
+  const [file, setFile] = useState<any>();
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values: any) => {
     if (loading) return;
     setLoading(true);
     let newProfile;
-    if (imageUrl) {
+    if (file) {
       const form = new FormData();
-      form.append('file', imageUrl);
+      form.append('file', file);
       form.append('upload_preset', 'quzqjwbp');
       newProfile = await axios.post(
-        'https://api.cloudinary.com/v1_1/dohkkln9r/upload',
+        'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
         form,
       );
     }
+    console.log(newProfile);
     const dongData = await dongcodeAPI(dongCode.current);
 
     const { data: response }: any = await editProfileAPI({
@@ -75,8 +77,10 @@ const App: React.FC = () => {
   );
 
   const handleChange = (info: any) => {
-    if (info.file.originFileObj)
+    if (info.file.originFileObj) {
       setImageUrl(URL.createObjectURL(info.file.originFileObj));
+      setFile(info.file.originFileObj);
+    }
   };
 
   return (
