@@ -11,6 +11,8 @@ import { useMyQuery } from '@src/hooks/useMyQuery';
 import { clubGenerateAPI } from '@src/API/clubAPI';
 import { useUser } from '@src/hooks/useUser';
 import { dongcodeAPI } from '@src/API/geoAPI';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
@@ -18,20 +20,36 @@ function Label({ text }: { text: string }) {
 
 function BookClubGenerate() {
   const user = useUser();
+  const navigate = useNavigate();
+  const [file, setFile] = useState<any>();
   const dongCode = useRef<any>();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const onFinish = async (values: any) => {
     if (loading) return;
     setLoading(true);
+
+    let groupProfile;
+    if (file) {
+      const form = new FormData();
+      form.append('file', file);
+      form.append('upload_preset', 'quzqjwbp');
+      groupProfile = await axios.post(
+        'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
+        form,
+      );
+    }
+
     const dongData = await dongcodeAPI(dongCode.current);
 
     const { data: response } = await clubGenerateAPI({
       ...values,
       groupDongCode: dongData,
       groupHostId: user?.memberId,
+      groupProfile: groupProfile?.data?.url,
     });
     console.log(response);
+    navigate('/book-club');
     setLoading(false);
   };
 
@@ -46,6 +64,7 @@ function BookClubGenerate() {
         return '';
       }
       const url = URL.createObjectURL(file.originFileObj);
+      setFile(file.originFileObj);
       return <img src={url} width="100%" />;
     },
   };

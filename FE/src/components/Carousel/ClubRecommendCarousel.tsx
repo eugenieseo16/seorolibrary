@@ -47,7 +47,9 @@ export default function ClubRecommendCarousel({
             >
               <img
                 src={
-                  'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg'
+                  el.groupProfile
+                    ? el.groupProfile
+                    : 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg'
                 }
                 alt=""
               />
