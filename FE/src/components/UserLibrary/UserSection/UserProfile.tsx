@@ -51,7 +51,6 @@ function Item({ userData, username, user }: any) {
     me: +user?.memberId,
     you: +userData?.memberId,
   });
-  console.log('유저데이터', userData);
 
   return (
     <div className="user-profile">

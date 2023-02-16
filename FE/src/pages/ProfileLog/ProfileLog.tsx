@@ -13,7 +13,7 @@ function ProfileLog() {
 
   return (
     <div style={{ padding: '0px 10px' }}>
-      <Header text={`${user?.memberName}의 기록`} />
+      <Header text={`${user?.memberName}님의 기록`} />
       <LogTab tab={state} />
     </div>
   );
