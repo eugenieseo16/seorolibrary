@@ -6,7 +6,6 @@ import LogTab from '@components/BookDetailLog/LogTab';
 import { useUser } from '@src/hooks/useUser';
 
 function BookDetailLog() {
-  const { state } = useLocation();
   const param = useParams();
   const user = useUser();
 
@@ -18,7 +17,7 @@ function BookDetailLog() {
   return (
     <div style={{ padding: '0px 10px' }}>
       <Header text={bookTitle} />
-      <LogTab tab={state} />
+      <LogTab />
     </div>
   );
 }
