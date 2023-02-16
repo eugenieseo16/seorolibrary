@@ -134,15 +134,23 @@ export default BookRegister;
 
 const Book = ({ bookInfo }: any) => {
   return (
-    <div className="book-item-container">
-      <img src={bookInfo.thumbnail} alt="" />
-      <div style={{ justifyContent: 'flex-start', padding: '1rem 8px' }}>
-        <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
-          {bookInfo.title}
-        </h2>
-        <div>
-          <p style={{ marginBottom: 4 }}>{bookInfo.authors[0]}</p>
-          <p>{bookInfo.publisher}</p>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <div className="book-item-container">
+        <img src={bookInfo.thumbnail} alt="" />
+        <div style={{ justifyContent: 'flex-start', padding: '1rem 8px' }}>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
+            {bookInfo.title}
+          </h2>
+          <div>
+            <p style={{ marginBottom: 4 }}>{bookInfo.authors[0]}</p>
+            <p>{bookInfo.publisher}</p>
+          </div>
         </div>
       </div>
 
