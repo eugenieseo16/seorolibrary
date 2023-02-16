@@ -40,7 +40,7 @@ function BookReview({ isbn }: IBookReviewProps) {
   const getChangeHandlerWithEvent = (name: string) => (e: any) =>
     setValue(name, e.target.value);
 
-  const { isLoading, isError, error, mutate } = useMutation(submitReview, {
+  const { mutate } = useMutation(submitReview, {
     onMutate: async updateData => {
       // Save the original todo in case we need to roll back the update
       await queryCache.cancelQueries(`${bookApiUrls.bookReview}/${isbn}`);
@@ -62,7 +62,7 @@ function BookReview({ isbn }: IBookReviewProps) {
                   memberProfile: user?.memberProfile,
                   reviewContent: updateData.reviewContent,
                 },
-                ...old.data.reviews,
+              ...old.data.reviews,
               ],
             },
           };
