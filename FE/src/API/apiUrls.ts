@@ -1,6 +1,6 @@
-export const apiBaseUrl = 'http://70.12.246.221:8080';
+// export const apiBaseUrl = 'http://70.12.246.221:8080';
 // export const apiBaseUrl = 'http://localhost:8080';
-// export const apiBaseUrl = 'http://i8a209.p.ssafy.io:8080';
+export const apiBaseUrl = 'http://i8a209.p.ssafy.io:8080';
 
 export const authApiUrls = {
   signUpAPIUrl: `${apiBaseUrl}/members/signup`,

@@ -65,7 +65,7 @@ function Router() {
         {/* /profile/userId/follow- 로 변경 필요 */}
         <Route path="/profile/follow" element={<Follow />} />
 
-        <Route path="/profile/log" element={<ProfileLog />} />
+        <Route path="/profile/log/:userId" element={<ProfileLog />} />
 
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/settings/password" element={<ChangePassword />} />
