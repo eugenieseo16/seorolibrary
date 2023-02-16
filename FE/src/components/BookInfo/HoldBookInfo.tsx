@@ -1,10 +1,10 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import ExchangeAvailable from '@components/NearBooks/ExchangeAvailable';
 
 import './BookInfo.styles.scss';
-import { bookDetailAPI } from '@src/API/bookAPI';
+import { holdBookDetailAPI } from '@src/API/bookAPI';
 import { useUser } from '@src/hooks/useUser';
 
 interface IBookInfo {
@@ -12,12 +12,12 @@ interface IBookInfo {
 }
 function BookInfo({ isbn }: IBookInfo) {
   const location = useLocation();
+  const param = useParams();
   const isUser = location.pathname.includes('profile');
   const user = useUser();
 
-  const memberName = user?.memberName;
-  const data = bookDetailAPI(isbn, user?.memberId);
-  // console.log(data?.bookTitle);
+  const data = holdBookDetailAPI(param?.isbn, param?.memberName);
+  // console.log(booksData);
 
   return (
     <div className="book-info-container">
@@ -25,9 +25,6 @@ function BookInfo({ isbn }: IBookInfo) {
         <div>
           <div className="book-cover">
             <img src={data?.bookImage} alt="" />
-          </div>
-          <div className="exchange-available">
-            <ExchangeAvailable is_available={data?.isOwn} />
           </div>
         </div>
       ) : (

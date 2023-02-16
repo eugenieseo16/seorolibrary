@@ -27,8 +27,7 @@ function LogTab({ tab }: LogTabProps) {
 
       {selectedId === 'club' ? (
         <UserBookClub />
-      ) : // https://dcdf1cac-0867-4f6b-baa5-0ac675f4d6e1.mock.pstmn.io/user-bookclub
-      selectedId === 'review' ? (
+      ) : selectedId === 'review' ? (
         <UserBookReview />
       ) : (
         <UserBookComment />
