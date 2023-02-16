@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 
 import './HoldBook.styles.scss';
 import { holdBooksAPI } from '@src/API/memberAPI';
+import { holdBookDetailAPI } from '@src/API/bookAPI';
 import { useUser } from '@src/hooks/useUser';
 
 const settings = {
@@ -24,8 +25,8 @@ function HoldBook({ isbn }: IHoldBookProps) {
 
   const param = useParams();
 
-  const booksData = useMyQuery('/books.json');
-  const test = holdBooksAPI(user?.memberId, user?.memberId);
+  const booksData = holdBookDetailAPI(param?.isbn, param?.memberName);
+  console.log(booksData);
   const navigate = useNavigate();
 
   return (
@@ -33,15 +34,15 @@ function HoldBook({ isbn }: IHoldBookProps) {
       <h1>{param?.memberName}님의 또 다른 보유 도서</h1>
       <Suspense fallback={<span>Loading...</span>}>
         <Slider {...settings} className="user-slider-hold-book">
-          {booksData?.map((data: any, i: number) => (
+          {booksData?.ownBookList?.map((data: any, i: number) => (
             <div
               key={i}
               className="hold-book-container"
-              onClick={() => navigate(`/book/${i}`)}
+              onClick={() => navigate(`/book/${data.isbn}`)}
             >
               <div>
-                <img src={data.image_url} alt="" />
-                <h2>{data.title}</h2>
+                <img src={data.bookImage} alt="" />
+                <h2>{data.bookTitle}</h2>
               </div>
             </div>
           ))}
