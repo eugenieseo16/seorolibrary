@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import BookDetailHeader from '@components/BookInfo/BookDetailHeader';
 import BookInfo from '@components/BookInfo/BookInfo';
 import HoldBookInfo from '@components/BookInfo/HoldBookInfo';
@@ -22,6 +22,8 @@ function BookDetail() {
   const isbn = param.isbn;
   const data = holdBookDetailAPI(param?.isbn, param?.memberName);
 
+  const navigate = useNavigate();
+  const text = `${param?.memberName}님의 도서관 바로가기`;
   return (
     <>
       {isUser ? (
@@ -42,7 +44,10 @@ function BookDetail() {
               <div style={{ padding: '0px' }}></div>
             </div>
           </div>
-          <FixedBottomButton text="1:1 채팅" onClick={() => {}} />
+          <FixedBottomButton
+            text={text}
+            onClick={() => navigate(`/profile/${param?.memberName}`)}
+          />
         </>
       ) : (
         // {/* 표준 도서상세- 근처 도서 보유 사용자 캐러셀 */}
