@@ -34,14 +34,13 @@ function BookRegister() {
 
   const submitBook = async () => {
     if (loading || !selectedBook) return;
-    // console.log('HHH');
     setLoading(true);
-    console.log(selectedBook);
-    // console.log(selectedBook.isbn.split(' ')[1]);
-    // console.log(user);
+
     const obj: IRegisterBook = {
       bookImage: selectedBook.thumbnail,
       bookTitle: selectedBook.title,
+      author: selectedBook?.authors[0],
+      bookDescrib: selectedBook.contents,
       isbn: selectedBook.isbn.split(' ')[1],
       memberId: user!.memberId,
       ownComment: 'ㅎㅇㅎㅇ',
