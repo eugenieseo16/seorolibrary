@@ -367,6 +367,7 @@ public class BookServiceImpl implements BookService {
 		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
+		System.out.println(res.getBody().toString());
 		JSONArray docu = (JSONArray) body.get("documents");
 		JSONObject bookObject = (JSONObject)docu.get(0);
 
