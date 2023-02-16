@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Rate, Form, Upload, Input } from 'antd';
 import { useParams } from 'react-router-dom';
-import { MdOutlineAddPhotoAlternate } from 'react-icons/md';
+import { CloseOutlined, FileImageOutlined } from '@ant-design/icons';
 import './AddPlaceReviewModal.styles.scss';
 import { addPlaceReviewAPI } from '@src/API/placeAPI';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,14 @@ import axios from 'axios';
 import type { UploadProps } from 'antd';
 import { useMutation, useQueryClient } from 'react-query';
 import { placeAPIUrls } from '@src/API/apiUrls';
+
+function Label({ text }: { text: string }) {
+  return (
+    <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON', display: 'flex' }}>
+      {text}
+    </h3>
+  );
+}
 
 function AddPlaceReviewModal() {
   const user = useUser();
@@ -110,7 +118,12 @@ function AddPlaceReviewModal() {
   };
 
   const [form] = Form.useForm();
-  const title = placeName;
+  const title = param?.placeName;
+  const handleModalClose = () => {
+    setOpen(false);
+    setValue(0);
+    form.resetFields();
+  };
 
   return (
     <div>
@@ -119,16 +132,19 @@ function AddPlaceReviewModal() {
       </div>
 
       <Modal
-        title={title}
+        title="리뷰 작성"
         centered
         open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={1000}
         okText={<></>}
-        //모달이 닫힌후에 function
-        // afterClose={}
+        cancelText="Custom Cancel Text"
+        footer={null}
+        afterClose={handleModalClose}
       >
+        {/* <div>{placeName}</div> */}
+
         <div className="line"></div>
         <div className="ant-modal-items">
           <Rate defaultValue={0} onChange={setValue} value={value} />
@@ -140,32 +156,40 @@ function AddPlaceReviewModal() {
           name="dynamic_rule"
           style={{ maxWidth: 600 }}
         >
+          <div className="line"></div>
           <Form.Item
+            label={<Label text="사진 등록" />}
             name="placeReviewPhotos"
             // label="Upload"
             valuePropName="any"
             className="ant-modal-items"
           >
             <Upload.Dragger {...props}>
-              <Button
-                icon={<MdOutlineAddPhotoAlternate size={'3rem'} />}
-                style={{ width: 150, height: 150 }}
-              />
+              <div className="ant-upload-container">
+                <p>사진을 추가해주세요</p>
+                <FileImageOutlined className="image-icon" />
+              </div>
             </Upload.Dragger>
           </Form.Item>
           <Form.Item
+            label={<Label text="리뷰 작성" />}
             name="placeReview"
             rules={[{ required: true, message: '리뷰를 작성해주세요' }]}
           >
             <Input.TextArea
               showCount
               maxLength={255}
-              style={{ height: 300 }}
+              style={{ height: 200 }}
               placeholder="리뷰를 작성해주세요"
             />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item className="form-btn" wrapperCol={{ offset: 10, span: 14 }}>
+            <Button onClick={() => setOpen(false)}>작성 취소</Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={() => setOpen(false)}
+            >
               작성 완료
             </Button>
           </Form.Item>
