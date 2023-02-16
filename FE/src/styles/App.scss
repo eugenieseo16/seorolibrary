@@ -1,0 +1,13 @@
+@import './variables';
+.App {
+  font-family: 'NEXON';
+  background-color: $beige;
+  @media screen and (min-width: 450px) {
+    display: flex;
+    flex-direction: row-reverse;
+    max-width: 1500px;
+    margin: 0 auto;
+    justify-content: space-between;
+    background-color: transparent;
+  }
+}

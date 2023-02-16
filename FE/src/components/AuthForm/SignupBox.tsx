@@ -45,7 +45,7 @@ function SignupBox() {
     setLoading(false);
   };
   return (
-    <div className="signup-box">
+    <div className="signup-box" style={{ overflow: 'hidden' }}>
       {contextHolder}
       {/* 로고 */}
       <div className="logo-container">

@@ -14,6 +14,7 @@ function LoginBox() {
   const [api, contextHolder] = notification.useNotification();
 
   const onFinish = async (data: any) => {
+    console.log(data);
     if (loading) return;
     setLoading(true);
     try {
@@ -31,7 +32,7 @@ function LoginBox() {
   };
 
   return (
-    <div className="login-box">
+    <div className="login-box" style={{ overflow: 'hidden' }}>
       {contextHolder}
       {/* 로고 */}
       <div className="logo-container">
