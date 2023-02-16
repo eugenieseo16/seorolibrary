@@ -14,6 +14,7 @@ import { IClubDetail, IUserResponse } from '@src/types/types';
 import './BookClubDetail.styles.scss';
 import ClubRecommendCarousel from '@components/Carousel/ClubRecommendCarousel';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
+import CarouselClubMember from '@components/Carousel/CarouselClubMember';
 import CarouselPlace from '@components/Carousel/CarouselPlace';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useUser } from '@src/hooks/useUser';
@@ -68,7 +69,6 @@ function BookClubDetail() {
 
     setLoading(false);
   };
-
   return (
     <>
       <div className="book-club-detail-container">
@@ -86,7 +86,7 @@ function BookClubDetail() {
           <h2>모임 회원</h2>
           {newUserData && (
             <div style={{ position: 'relative' }}>
-              <CarouselPlace
+              <CarouselClubMember
                 items={newUserData}
                 slidesToShow={6}
                 infinite={false}
