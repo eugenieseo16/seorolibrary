@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class PlaceAddRequestDto {
 	private String placeName;
 	private Long placeMaker;
-	private String placedescrib;
+	private String placeDescrib;
 	private String[] placePhoto;
 	private String latitude;
 	private String longitude;

@@ -17,6 +17,7 @@ public class PlaceShowDto {
 	private boolean result;
 	private Long placeId;
 	private String placeName;
+	private String placeDescrib;
 	private String placeLatitude;
 	private String placeLongitude;
 	private Double score;
