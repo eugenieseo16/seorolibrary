@@ -82,6 +82,25 @@ export const holdBookDetailAPI = (isbn: any, memberName: any) => {
   return response;
 };
 
+// 도서 추가
+// 읽은 도서
+interface IaddReadBook {
+  memberName: string;
+  bookImage: string;
+  bookTitle: string;
+}
+
+export const addReadBookAPI = async () =>
+  // memberName,
+  // bookImage,
+  // bookTitle: IaddReadBook,
+  {
+    const { data: response } = await axios.post(
+      `${bookApiUrls.addReadBook}`,
+      // data,
+    );
+  };
+
 // 도서 통계
 export const bookReaderAPI = (isbn: string) => {
   const response = useMyQuery(`${bookApiUrls.bookReader}/${isbn}`);
