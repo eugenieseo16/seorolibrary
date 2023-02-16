@@ -103,7 +103,7 @@ function AddPlace() {
               }}
               placeholder="장소 위치를 입력해주세요"
               apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
-              options={{ types: ['geocode'] }}
+              options={{ types: ['establishment'] }}
             />
           </div>
           <Form.Item
