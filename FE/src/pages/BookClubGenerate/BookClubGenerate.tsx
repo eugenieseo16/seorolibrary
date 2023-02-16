@@ -25,13 +25,16 @@ function BookClubGenerate() {
     if (loading) return;
     setLoading(true);
     const dongData = await dongcodeAPI(dongCode.current);
+
     const { data: response } = await clubGenerateAPI({
       ...values,
       groupDongCode: dongData,
       groupHostId: user?.memberId,
     });
+    console.log(response);
     setLoading(false);
   };
+
   const categoriesRes = useMyQuery('/categories.json');
 
   const props: UploadProps = {

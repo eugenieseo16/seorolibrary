@@ -1,4 +1,5 @@
 import { Carousel } from 'antd';
+import { BiMap } from 'react-icons/bi';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -31,14 +32,26 @@ function BookClubMain() {
     limit: 10,
     postCategory: filter,
   });
-  console.log(posts);
+  console.log(clubDetail);
 
   return clubDetail ? (
     <>
       <div className="book-club-main-container">
         <div className="book-club-main-header">
           <img src={clubDetail.groupProfile} alt="" />
-          <h2>{clubDetail.groupName}</h2>
+          <h2 style={{ marginBottom: 8 }}>{clubDetail.groupName}</h2>
+          <h4
+            style={{
+              fontSize: 12,
+              paddingLeft: 10,
+              marginBottom: 16,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <BiMap size={16} />
+            {clubDetail.groupDongCode}
+          </h4>
           <div>
             <h3>게시판</h3>
             <button onClick={() => navigate(`/book-club/${id}/generate-post`)}>
