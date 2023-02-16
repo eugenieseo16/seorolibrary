@@ -36,7 +36,7 @@ function Nearbooks() {
             key={i}
             className="book-container"
             onClick={() =>
-              navigate(`/profile/${book.memberId}/book/${book.isbn}`)
+              navigate(`/profile/${book.memberName}/book/${book.isbn}`)
             }
           >
             <Col span={8}>
