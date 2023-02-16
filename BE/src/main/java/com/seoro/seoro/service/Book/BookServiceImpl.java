@@ -368,6 +368,7 @@ public class BookServiceImpl implements BookService {
 		JSONParser jsonParser = new JSONParser();
 		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
 		System.out.println(res.getBody().toString());
+		log.info(res.getBody().toString());
 		JSONArray docu = (JSONArray) body.get("documents");
 		JSONObject bookObject = (JSONObject)docu.get(0);
 
