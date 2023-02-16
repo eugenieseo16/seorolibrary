@@ -18,7 +18,6 @@ function PlaceReview() {
   const param = useParams();
   const placeId = param?.id;
   const data = placeDetailAPI(placeId);
-  console.log(data?.placeReview);
 
   const [showFullContent, setShowFullContent] = useState<{
     [key: number]: boolean;
