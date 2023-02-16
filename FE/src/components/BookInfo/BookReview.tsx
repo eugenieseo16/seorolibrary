@@ -82,7 +82,7 @@ function BookReview({ isbn }: IBookReviewProps) {
   }
   // 리뷰 생성
   const onValid = (values: any) => {
-    setToReview(false);
+    setToReview(!toReview);
     mutate({
       isbn,
       bookTitle,
