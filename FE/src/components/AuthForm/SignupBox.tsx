@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
 import { firebaseDB } from '@src/utils/fireBase';
 import { doc, setDoc } from 'firebase/firestore';
+import Google from './Google';
 
 function SignupBox() {
   const [loading, setLoading] = useState(false);
@@ -144,6 +145,10 @@ function SignupBox() {
           <Form.Item className="signup-button-container">
             <Button htmlType="submit">회원가입</Button>
           </Form.Item>
+          <Google>
+            <Button>구글로그인</Button>
+          </Google>
+          <Button>익명 로그인</Button>
         </Form>
       </div>
     </div>

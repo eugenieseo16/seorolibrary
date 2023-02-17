@@ -8,6 +8,7 @@ import { jwtLoginAPI, loginAPI } from '@src/API/authAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
 import Google from './Google';
+import Incognito from './Incognito';
 
 function LoginBox() {
   const dispatch = useDispatch();
@@ -82,8 +83,9 @@ function LoginBox() {
           <Google>
             <Button>구글로그인</Button>
           </Google>
-          <Button>카카오 로그인</Button>
-          <Button>익명 로그인</Button>
+          <Incognito>
+            <Button>익명 로그인</Button>
+          </Incognito>
         </Form>
       </div>
     </div>
