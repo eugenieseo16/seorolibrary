@@ -14,7 +14,7 @@ function ReadBooks({ libraryData }: any) {
         <div
           className="book-item"
           key={i}
-          onClick={() => navigate(`book/${book.isbn}`)}
+          onClick={() => navigate(`/book/${book.isbn}`)}
         >
           <img src={book.bookImage} alt="" />
           <h2>{book.bookTitle}</h2>

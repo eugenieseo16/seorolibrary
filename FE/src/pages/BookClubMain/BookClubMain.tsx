@@ -8,18 +8,32 @@ import Loading from '@pages/Loading';
 import './BookClubMain.styles.scss';
 import { clubDetailAPI, clubPostAPI } from '@src/API/clubAPI';
 
-function MultiPreviewImage({ images }: { images: string[] }) {
+function MultiPreviewImage({ images }: any) {
   return (
     <Carousel dots={false} style={{ marginBottom: '1rem' }}>
-      {images.map((url, i) => (
-        <div key={i}>
-          <img src={url} alt="" />
+      {images.map((el: any) => (
+        <div key={el.imageId}>
+          <img src={el.image} alt="" />
         </div>
       ))}
     </Carousel>
   );
 }
-
+interface IPost {
+  postId: string;
+  memberProfile: string;
+  memberName: string;
+  postCategory: 'FREE' | 'NOTICE' | 'RECOMMEND' | 'GREET';
+  postTitle: string;
+  payload: string;
+  images: any;
+}
+const CATEGORY_FILTER = {
+  FREE: '자유글',
+  NOTICE: '공지사항',
+  RECOMMEND: '책 추천',
+  GREET: '가입인사',
+};
 function BookClubMain() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -92,15 +106,19 @@ function BookClubMain() {
           </button>
         </div>
         <div className="posts-container">
-          {posts?.map((post: any) => (
+          {posts?.map((post: IPost) => (
             <div key={post.postId} className="post-container">
               <div className="post-header">
                 <div className="profile">
-                  <img src={post.userName} alt="" />
-                  <span>{post.userName}</span>
+                  <img src={post.memberProfile} alt="" />
+                  <span>{post.memberName}</span>
                 </div>
 
-                <div className="category">{post.postCategory}</div>
+                <div className="category">
+                  {post.postCategory in CATEGORY_FILTER
+                    ? CATEGORY_FILTER[post.postCategory]
+                    : ''}
+                </div>
               </div>
               <h3>{post.postTitle}</h3>
               <div>

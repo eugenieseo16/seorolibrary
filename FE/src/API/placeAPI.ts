@@ -8,10 +8,12 @@ export const placeRecomendAPI = (memberId: any) => {
 };
 
 interface IPlaceGenerateForm {
-  placeMaker: number;
-  longitude: string;
-  latitude: string;
-  placePhoto: string[];
+  placeName: String;
+  placeMaker: Long;
+  placeDescrib: String;
+  longitude: String;
+  latitude: String;
+  placePhoto: String[];
 }
 export const placeGenerateAPI = async (data: IPlaceGenerateForm) => {
   const response = await axios.post(placeAPIUrls.main, data);
@@ -19,6 +21,24 @@ export const placeGenerateAPI = async (data: IPlaceGenerateForm) => {
 };
 
 export const placeDetailAPI = (placeId: any) => {
+  console.log(placeId);
+  if (placeId == undefined) return;
   const response = useMyQuery(`${placeAPIUrls.placeDetail}/${placeId}`);
   return response;
+};
+
+// export const addPlaceReviewAPI = (data: IPlaceReview, placeId: any) => {
+//   const response = axios.post(`${placeAPIUrls.placeDetail}/${placeId}`, data);
+//   return;
+// };
+
+interface IPlaceReview {
+  score: number;
+  memberName?: string;
+  placeReview: string;
+  placeReviewPhotos?: string[];
+}
+export const addPlaceReviewAPI = (data: IPlaceReview, placeId: any) => {
+  const response = axios.post(`${placeAPIUrls.placeDetail}/${placeId}`, data);
+  return;
 };

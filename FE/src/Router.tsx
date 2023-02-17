@@ -45,6 +45,7 @@ import Chat from '@pages/Chats/Chat';
 import PlanGenerate from '@pages/PlanGenerate/PlanGenerate';
 import MyProfile from '@components/UserLibrary/UserSection/MyProfile';
 import MyLibrary from '@pages/UserLibrary/MyLibrary';
+import Incognito from '@pages/Incognito';
 
 function Router() {
   return (
@@ -80,14 +81,16 @@ function Router() {
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
         <Route path="/places/my-place-archive" element={<MyPlaceArchive />} />
-        <Route path="/places/add-place" element={<AddPlace />} />
 
         <Route path="/near" element={<Near />} />
         {/* <Route path="/near/bookdetail/:id" element={<BookDetail />} /> */}
 
         <Route path="*" element={'404'} />
+        <Route path="/incognito" element={<Incognito />} />
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
+        <Route path="/places/add-place" element={<AddPlace />} />
+
         <Route path="/chat-list" element={<ChatsList />} />
         <Route path="/chat/:id" element={<Chat />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
@@ -97,6 +100,7 @@ function Router() {
           path="/profile/:memberName/book/:isbn"
           element={<HoldBookDetail />}
         />
+        <Route path="/book-club/:id/enroll" element={<BookClubDetail />} />
       </Route>
 
       <Route path="" element={<BookClubNavLayout />}>

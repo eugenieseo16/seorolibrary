@@ -47,8 +47,8 @@ function BookClubGenerate() {
       groupDongCode: dongData,
       groupHostId: user?.memberId,
       groupProfile: groupProfile?.data?.url,
+      groupPassword: '1234',
     });
-    console.log(response);
     navigate('/book-club');
     setLoading(false);
   };
