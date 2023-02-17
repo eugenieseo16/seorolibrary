@@ -12,10 +12,11 @@ import { useSelector } from 'react-redux';
 import AuthForm from '@pages/AuthForm';
 
 import background from '@src/assets/background.png';
+import { useMobile } from './hooks/useMobile';
 function App() {
   const fontLoading = useLoadFonts(['BM-Pro', 'NEXON']);
-  const [isMobile, setIsMobile] = useState(false);
   useInitUser();
+  const isMobile = useMobile();
   const cld = new Cloudinary({
     cloud: {
       cloudName: 'dohkkln9r',
@@ -24,27 +25,24 @@ function App() {
   const user = useSelector((state: any) => state.user);
 
   const { pathname } = useLocation();
-  const handleResize = () => {
-    if (window.innerWidth > 425) {
-      setIsMobile(false);
-    }
-    if (window.innerWidth <= 425) {
-      setIsMobile(true);
-    }
-  };
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, [pathname]);
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        ...(!isMobile && {
+          background: '#fff',
+          overflow: 'hidden',
+        }),
+      }}
+    >
       {fontLoading ? <Loading /> : user ? <Router /> : <AuthForm />}
       {!isMobile && (
         <>
@@ -53,9 +51,10 @@ function App() {
               position: 'fixed',
               top: 0,
               left: 0,
-              width: '100vw',
+              width: 'calc(85vw - 424px)',
               height: '100vh',
-              zIndex: -1,
+              // zIndex: -1,
+              objectFit: 'contain',
             }}
             src={background}
             alt=""
