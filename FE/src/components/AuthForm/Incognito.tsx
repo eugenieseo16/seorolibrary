@@ -10,7 +10,7 @@ function Incognito({ children }: any) {
   const dispatch = useDispatch();
   const incognitoLogin = async () => {
     const { data: response }: any = await loginAPI({
-      email: INCOGNITO_PASSWORD,
+      email: INCOGNITO_EMAIL,
       password: INCOGNITO_PASSWORD,
     });
     const jwtResponse = await jwtLoginAPI(response.accessToken);
