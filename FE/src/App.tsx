@@ -15,6 +15,7 @@ import background from '@src/assets/background.png';
 import { useMobile } from './hooks/useMobile';
 function App() {
   const fontLoading = useLoadFonts(['BM-Pro', 'NEXON']);
+
   useInitUser();
   const isMobile = useMobile();
   const cld = new Cloudinary({
@@ -34,16 +35,23 @@ function App() {
   }, [pathname]);
 
   return (
-    <div
-      className="App"
-      style={{
-        ...(!isMobile && {
-          background: '#fff',
-          overflow: 'hidden',
-        }),
-      }}
-    >
-      {fontLoading ? <Loading /> : user ? <Router /> : <AuthForm />}
+    <>
+      {fontLoading ? (
+        <Loading />
+      ) : (
+        <div
+          className="App"
+          style={{
+            ...(!isMobile && {
+              background: '#fff',
+              overflow: 'hidden',
+              zIndex: 9,
+            }),
+          }}
+        >
+          {user ? <Router /> : <AuthForm />}
+        </div>
+      )}
       {!isMobile && (
         <>
           <img
@@ -51,7 +59,7 @@ function App() {
               position: 'fixed',
               top: 0,
               left: 0,
-              width: 'calc(85vw - 424px)',
+              width: 'calc(85vw - 400px)',
               height: '100vh',
               // zIndex: -1,
               objectFit: 'contain',
@@ -61,7 +69,7 @@ function App() {
           />
         </>
       )}
-    </div>
+    </>
   );
 }
 

@@ -98,6 +98,7 @@ function Router() {
           path="/profile/:memberName/book/:isbn"
           element={<HoldBookDetail />}
         />
+        <Route path="/book-club/:id/enroll" element={<BookClubDetail />} />
       </Route>
 
       <Route path="" element={<BookClubNavLayout />}>
