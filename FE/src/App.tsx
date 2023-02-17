@@ -65,7 +65,7 @@ function App() {
                   position: 'fixed',
                   top: 0,
                   left: 0,
-                  width: 'calc(85vw - 400px)',
+                  width: 'calc(80vw - 400px)',
                   height: '100vh',
                   // zIndex: -1,
                   objectFit: 'contain',
