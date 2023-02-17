@@ -39,7 +39,7 @@ const PlaceRecommend = () => {
           <div
             key={id}
             className="place-container"
-            onClick={() => navigate(`/places/${id}`)}
+            onClick={() => navigate(`/places/${placeRecommend.placeId}`)}
           >
             <h2>
               <MdLocalCafe />

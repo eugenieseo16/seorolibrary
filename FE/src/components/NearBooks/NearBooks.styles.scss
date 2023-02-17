@@ -21,16 +21,18 @@
   }
   .book-description-container {
     margin-left: 0.5rem;
-    margin-top: 0.5rem;
+    // margin-top: 0.5rem;
     font-family: 'NEXON';
     h6 {
-      font-size: 0.9rem;
-      line-height: 1.5rem;
-      font-weight: 200;
-      color: black;
+      color: $deep-brown;
+      margin-top: 15px;
+      font-size: 0.8rem;
+      line-height: 1.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
     }
     h2 {
       font-size: 1.1rem;
@@ -40,6 +42,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+    h3 {
+      color: $brown;
+      margin-top: 10px;
     }
   }
   .exchange-available-container {

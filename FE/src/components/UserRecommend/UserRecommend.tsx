@@ -8,7 +8,6 @@ import { useUser } from '@src/hooks/useUser';
 function UserRecommend() {
   const user = useUser();
   const clubData = useClubMainAPI(user?.memberName);
-  console.log(clubData?.recommendMembers);
   const navigate = useNavigate();
 
   return (

@@ -22,6 +22,9 @@
         align-items: center;
         margin-top: 5px;
         margin-bottom: 5px;
+        h2 {
+          margin-bottom: 6px;
+        }
       }
 
       .profile-button {
@@ -66,6 +69,6 @@
   }
   p {
     font-size: 0.9rem;
-    padding: 5px 0px; 
+    padding: 5px 0px;
   }
 }

@@ -2,6 +2,8 @@
 .fixed-bottom-button {
   height: 4rem;
   position: fixed;
+  max-width: 425px;
+
   bottom: 0;
   width: 100%;
   z-index: 99999999;

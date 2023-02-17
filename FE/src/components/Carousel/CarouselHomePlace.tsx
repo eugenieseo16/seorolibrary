@@ -30,7 +30,7 @@ function CarouselHomePlace({
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
     swipeToSlide: true,
-    infinite,
+    infinite: false,
   };
   const navigate = useNavigate();
 

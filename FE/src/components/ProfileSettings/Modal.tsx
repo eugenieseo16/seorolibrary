@@ -1,20 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { useMyQuery } from '@src/hooks/useMyQuery';
-import type { UploadChangeParam } from 'antd/es/upload';
 import { RiCameraLine } from 'react-icons/ri';
 import Autocomplete from 'react-google-autocomplete';
-
-import {
-  UserOutlined,
-  FileImageOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { login } from '@src/store/slices/userSlice';
+import { UserOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { Form, Input, Select, Upload } from 'antd';
-// import type { UploadProps } from 'antd';
 import { Button, Modal } from 'antd';
-import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 
 import './Modal.styles.scss';
 import { editProfileAPI } from '@src/API/memberAPI';
@@ -22,6 +13,7 @@ import { useUser } from '@src/hooks/useUser';
 import { dongcodeAPI } from '@src/API/geoAPI';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 function Label({ text }: { text: string }) {
   return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
@@ -29,12 +21,13 @@ function Label({ text }: { text: string }) {
 
 const App: React.FC = () => {
   const navigate = useNavigate();
-  const categoriesRes = useMyQuery('/categories.json');
-  const dongCode = useRef<any>();
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const user = useUser();
+
+  const dongCode = useRef<any>();
   const [imageUrl, setImageUrl] = useState<string | undefined>(
     user?.memberProfile,
   );
@@ -54,27 +47,36 @@ const App: React.FC = () => {
         form,
       );
     }
-    console.log(newProfile);
-    const dongData = await dongcodeAPI(dongCode.current);
 
-    const { data: response }: any = await editProfileAPI({
+    let dongData = user?.memberDongCode;
+    if (dongCode.current) {
+      dongData = await dongcodeAPI(dongCode.current);
+    }
+
+    const newProfileData = {
       memberDongCode: dongData,
-      exist: user?.memberName,
-      memberGenre: values.memberGenre,
+      memberGenre: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
       memberName: values.memberName,
-      memberProfile: newProfile?.data?.url,
+      memberProfile: newProfile?.data?.url
+        ? newProfile?.data?.url
+        : user?.memberProfile,
+    };
+    const { data: response }: any = await editProfileAPI({
+      ...newProfileData,
+      exist: user?.memberName,
     });
+
+    dispatch(
+      login({
+        ...user,
+        ...newProfileData,
+      }),
+    );
     navigate('/profile');
     console.log('프로필 수정', response);
     setLoading(false);
   };
-
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+  console.log(user);
 
   const handleChange = (info: any) => {
     if (info.file.originFileObj) {
@@ -83,6 +85,12 @@ const App: React.FC = () => {
     }
   };
 
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
   return (
     <>
       <Button onClick={() => setOpen(true)}>수정</Button>
@@ -111,9 +119,6 @@ const App: React.FC = () => {
                 // label={<Label text="사진" />}
                 name="image"
                 valuePropName="any"
-                rules={[
-                  { required: true, message: '프로필 사진을 등록해주세요' },
-                ]}
               >
                 <Upload
                   name="memberProfile"
@@ -148,39 +153,27 @@ const App: React.FC = () => {
                 <Input placeholder="닉네임을 입력해주세요" />
               </Form.Item>
 
-              <Label text="모임장소" />
-              <Autocomplete
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  border: '1px solid #d9d9d9',
-                  borderRadius: '6px',
-                }}
-                apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
-                options={{ types: ['geocode'] }}
-                onPlaceSelected={place => {
-                  try {
-                    dongCode.current = {
-                      latitude: place.geometry.location.lat(),
-                      longitude: place.geometry.location.lng(),
-                    };
-                  } catch (error) {
-                    dongCode.current = 'eee';
-                  }
-                }}
-              />
-
-              <Form.Item
-                label={<Label text="카테고리" />}
-                rules={[{ required: true, message: '카테고리를 선택해주세요' }]}
-                name="memberGenre"
-              >
-                <Select
-                  mode="multiple"
-                  allowClear
-                  placeholder="카테고리를 선택해주세요."
-                  options={categoriesRes}
-                  className="selector"
+              <Form.Item label={<Label text="내 위치" />} name="position">
+                <Autocomplete
+                  style={{
+                    width: '100%',
+                    padding: '10px',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '6px',
+                  }}
+                  apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
+                  options={{ types: ['geocode'] }}
+                  defaultValue={user?.memberDongCode}
+                  onPlaceSelected={place => {
+                    try {
+                      dongCode.current = {
+                        latitude: place.geometry.location.lat(),
+                        longitude: place.geometry.location.lng(),
+                      };
+                    } catch (error) {
+                      dongCode.current = 'eee';
+                    }
+                  }}
                 />
               </Form.Item>
             </Form>
@@ -195,6 +188,27 @@ const App: React.FC = () => {
             </button>
           </div>
         </div>
+        {loading && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: '0px',
+              width: '100vw',
+              height: '100vh',
+              background: 'rgba(0,0,0,0.6)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <h1
+              style={{ fontSize: '2rem', fontFamily: 'BM-Pro', color: 'beige' }}
+            >
+              Loading...
+            </h1>
+          </div>
+        )}
       </Modal>
     </>
   );

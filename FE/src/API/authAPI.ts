@@ -7,7 +7,7 @@ export interface ILoginForm {
   password: string;
 }
 
-export interface ISignUpForm extends ILoginForm {
+export interface ISignUpForm {
   memberEmail: string;
   memberPassword: string;
   memberName: string;

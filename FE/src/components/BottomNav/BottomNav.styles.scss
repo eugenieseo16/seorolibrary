@@ -1,10 +1,11 @@
 @import '../../styles/variables';
 
 .bottom-nav-container {
+  z-index: 2;
   display: flex;
   padding: 0.5rem 12px;
   width: 100%;
-  max-width: 600px;
+  max-width: 425px;
   background-color: $brown;
   justify-content: center;
   align-items: center;

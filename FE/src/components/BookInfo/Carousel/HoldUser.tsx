@@ -26,6 +26,8 @@ function HoldUser({ isbn }: IHoldUserProps) {
   const data = bookDetailAPI(isbn, user?.memberId);
   const userData = data?.ownMembers;
 
+  console.log(userData);
+
   return (
     <div className="hold-user-container">
       <h1>이 책을 보유 중인 사용자</h1>
@@ -37,11 +39,11 @@ function HoldUser({ isbn }: IHoldUserProps) {
                 <div
                   key={i}
                   className="hold-user-container"
-                  onClick={() => navigate(`/profile/${i}`)}
+                  onClick={() => navigate(`/profile/${data.memberName}`)}
                 >
                   <div className="hold-user-item">
-                    <img src={data.avatar} alt="" />
-                    <h2>{data.nickname}</h2>
+                    <img src={data.memberProfile} alt="" />
+                    <h2>{data.memberName}</h2>
                   </div>
                 </div>
               ))}

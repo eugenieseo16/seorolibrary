@@ -1,14 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
-import type { UploadProps } from 'antd';
+import { Button, Image, UploadProps } from 'antd';
 import { Form, Upload, Input, InputNumber } from 'antd';
-import { UserOutlined, FileImageOutlined } from '@ant-design/icons';
+import { CloseOutlined, FileImageOutlined } from '@ant-design/icons';
 import { useUser } from '@src/hooks/useUser';
-import Autocomplete from 'react-google-autocomplete';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './AddPlace.styles.scss';
 import { placeGenerateAPI } from '@src/API/placeAPI';
-import AddPlaceHeader from '@components/MyPlace/AddPlaceHeader';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
+import SearchHeader from '@components/SearchHeader/SearchHeader';
+import Autocomplete from 'react-google-autocomplete';
+import { dongcodeAPI } from '@src/API/geoAPI';
 
 // 지도 api 가져오기
 declare global {
@@ -18,38 +20,74 @@ declare global {
 }
 
 function Label({ text }: { text: string }) {
-  return <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON' }}>{text}</h3>;
+  return (
+    <h3 style={{ fontSize: '1.2rem', fontFamily: 'NEXON', display: 'flex' }}>
+      {text}
+    </h3>
+  );
 }
+
+let images: any = [];
+let globalLoading = false;
+//  사진 multiple 되도록 수정하고, 리스트로 반환받도록 수정
+const props: UploadProps = {
+  name: 'file',
+  multiple: true,
+
+  customRequest: async (data: any) => {
+    globalLoading = true;
+    let formData = new FormData();
+    formData.append('file', data.file);
+    formData.append('upload_preset', 'quzqjwbp');
+    const { data: response } = await axios.post(
+      'https://api.cloudinary.com/v1_1/dohkkln9r/image/upload',
+      formData,
+    );
+    images.push({ uid: data.file.uid, url: response.url });
+    globalLoading = false;
+    data.onSuccess('ok');
+  },
+  itemRender: (_, file: any, __, { remove }) => {
+    const url = URL.createObjectURL(file.originFileObj);
+
+    return (
+      <div style={{ position: 'relative', display: 'inline-block' }}>
+        <Image
+          width={'100%'}
+          style={{
+            objectFit: 'cover',
+            aspectRatio: '1',
+            borderRadius: '1rem',
+          }}
+          src={url}
+          alt=""
+        />
+        <Button
+          style={{
+            position: 'absolute',
+            top: '-8px',
+            right: '-8px',
+          }}
+          onClick={() => {
+            images = images.filter((image: any) => image.uid != file.uid);
+            remove();
+          }}
+          danger
+          shape="circle"
+          icon={<CloseOutlined />}
+        />
+      </div>
+    );
+  },
+};
 
 function AddPlace() {
   const user = useUser();
+  const dongCode = useRef<any>();
+  const navigate = useNavigate();
+  const [file, setFile] = useState<any>();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [longitude, setLongitude] = useState('');
-  const [latitude, setLatitude] = useState('');
-
-  // 주소 받으면 위도 경도로 변환하기
-  useEffect(() => {
-    const geocoder = new window.kakao.maps.services.Geocoder();
-
-    const autoCompleteEl = document.getElementById('autocomplete');
-    if (autoCompleteEl) {
-      const autoComplete = new window.kakao.maps.services.Autocomplete({
-        element: autoCompleteEl,
-      });
-      autoComplete.addListener('place_changed', () => {
-        const place = autoComplete.getPlace();
-        if (place) {
-          geocoder.addressSearch(place.address, (result: any, status: any) => {
-            if (status === window.kakao.maps.services.Status.OK) {
-              setLongitude(result[0].x);
-              setLatitude(result[0].y);
-            }
-          });
-        }
-      });
-    }
-  }, []);
 
   const onFinish = async (values: any) => {
     if (loading) return;
@@ -59,41 +97,37 @@ function AddPlace() {
     const { data: response } = await placeGenerateAPI({
       ...values,
       placeMaker: user?.memberId,
-      longitude: longitude,
-      latitude: latitude,
+      longitude: dongCode.current.longitude,
+      latitude: dongCode.current.latitude,
+      placePhoto: images.map((image: any) => image.url),
     });
+    console.log(response);
+    navigate('/places');
     setLoading(false);
-  };
-
-  //  사진 multiple 되도록 수정하고, 리스트로 반환받도록 수정
-  const props: UploadProps = {
-    multiple: false,
-    customRequest: ({ onSuccess }: any) => onSuccess('ok'),
-    itemRender: (_: any, file: any, fileList: any, { remove }: any) => {
-      if (fileList.length > 1) {
-        if (file != fileList[1]) remove();
-        return '';
-      }
-      const url = URL.createObjectURL(file.originFileObj);
-      return <img src={url} width="100%" />;
-    },
   };
 
   return (
     <>
-      <AddPlaceHeader />
-      <div className="place-generate-container">
+      <SearchHeader text="장소 등록하기" search={false} />
+      <div className="post-generate-container">
         <Form form={form} onFinish={onFinish}>
           <Form.Item
-            label={<Label text="장소 이름" />}
+            label={<Label text="장소이름" />}
             name="placeName"
             rules={[{ required: true, message: '장소이름을 알려주세요' }]}
           >
-            <Input placeholder="장소이름을 입력해주세요" />
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label={<Label text="장소소개" />}
+            name="placeDescrib"
+            rules={[{ required: true, message: '장소소개를 알려주세요' }]}
+          >
+            <Input.TextArea rows={4} />
           </Form.Item>
 
           <div style={{ marginBottom: '1rem' }}>
-            <Label text="장소 위치" />
+            <Label text="모임장소" />
             <Autocomplete
               style={{
                 width: '100%',
@@ -101,37 +135,37 @@ function AddPlace() {
                 border: '1px solid #d9d9d9',
                 borderRadius: '6px',
               }}
-              placeholder="장소 위치를 입력해주세요"
               apiKey={'AIzaSyAhj152xH7BYpQQic-syvvx_j0tvjny2sM'}
-              options={{ types: ['establishment'] }}
+              options={{ types: ['geocode', 'establishment'] }}
+              onPlaceSelected={place => {
+                try {
+                  dongCode.current = {
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng(),
+                  };
+                } catch (error) {
+                  dongCode.current = 'eee';
+                }
+              }}
             />
           </div>
+
           <Form.Item
-            label={<Label text="장소 사진" />}
-            name="placePhoto"
+            label={<Label text="장소사진" />}
+            name="postImage"
             valuePropName="any"
-            rules={[
-              { required: true, message: '사진을 한장이상 추가해주세요' },
-            ]}
           >
             <Upload.Dragger {...props}>
               <div className="ant-upload-container">
+                <p>사진추가</p>
                 <FileImageOutlined className="image-icon" />
-                <p>사진을 추가해주세요</p>
               </div>
             </Upload.Dragger>
           </Form.Item>
-          {/* <Form.Item
-            label={<Label text="장소소개" />}
-            name="groupIntroduction"
-            rules={[{ required: true, message: '장소소개를 해주세요' }]}
-          >
-            <Input.TextArea rows={4} />
-          </Form.Item> */}
         </Form>
       </div>
       <FixedBottomButton
-        text="장소 추가하기"
+        text="등록하기"
         onClick={() => {
           console.log(form.submit());
         }}
