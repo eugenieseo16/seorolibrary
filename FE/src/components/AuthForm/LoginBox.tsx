@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
 import Google from './Google';
 import Incognito from './Incognito';
+import IncogLogo from '@src/assets/incognito.png';
+import GoogleLogo from '@src/assets/google_light.svg';
 
 function LoginBox() {
   const dispatch = useDispatch();
@@ -80,12 +82,28 @@ function LoginBox() {
           <Form.Item className="login-button-container">
             <Button htmlType="submit">로그인</Button>
           </Form.Item>
-          <Google>
-            <Button>구글로그인</Button>
-          </Google>
-          <Incognito>
-            <Button>익명 로그인</Button>
-          </Incognito>
+
+          <div className="line"></div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Google>
+              <Button type="text" size="small">
+                <img
+                  src={GoogleLogo}
+                  alt=""
+                  style={{ width: '4rem', height: '4rem' }}
+                />
+              </Button>
+            </Google>
+            <Incognito>
+              <Button type="text" size="small">
+                <img
+                  src={IncogLogo}
+                  alt=""
+                  style={{ width: '4rem', height: '4rem' }}
+                />
+              </Button>
+            </Incognito>
+          </div>
         </Form>
       </div>
     </div>
