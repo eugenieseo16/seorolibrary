@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Cloudinary } from '@cloudinary/url-gen';
 
 import Loading from '@pages/Loading';
@@ -12,10 +12,13 @@ import { useSelector } from 'react-redux';
 import AuthForm from '@pages/AuthForm';
 
 import background from '@src/assets/background.png';
+import mobile from '@src/assets/images/mobile.png';
+
 import { useMobile } from './hooks/useMobile';
+import { url } from 'inspector';
 function App() {
   const fontLoading = useLoadFonts(['BM-Pro', 'NEXON']);
-
+  const navigate = useNavigate();
   useInitUser();
   const isMobile = useMobile();
   const cld = new Cloudinary({
@@ -32,6 +35,9 @@ function App() {
       top: 0,
       behavior: 'smooth',
     });
+    if (user?.memberName == 'incognito' && pathname.split('/').length > 2) {
+      navigate('/incognito', { replace: true });
+    }
   }, [pathname]);
 
   return (
@@ -39,35 +45,37 @@ function App() {
       {fontLoading ? (
         <Loading />
       ) : (
-        <div
-          className="App"
-          style={{
-            ...(!isMobile && {
-              background: '#fff',
-              overflow: 'hidden',
-              zIndex: 9,
-            }),
-          }}
-        >
-          {user ? <Router /> : <AuthForm />}
-        </div>
-      )}
-      {!isMobile && (
-        <>
-          <img
+        <div style={{ position: 'relative' }}>
+          <div
+            className="App"
             style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: 'calc(85vw - 400px)',
-              height: '100vh',
-              // zIndex: -1,
-              objectFit: 'contain',
+              ...(!isMobile && {
+                background: '#fff',
+                overflow: 'hidden',
+                zIndex: 9,
+              }),
             }}
-            src={background}
-            alt=""
-          />
-        </>
+          >
+            {user ? <Router /> : <AuthForm />}
+          </div>
+          {!isMobile && (
+            <>
+              <img
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: 'calc(85vw - 400px)',
+                  height: '100vh',
+                  // zIndex: -1,
+                  objectFit: 'contain',
+                }}
+                src={background}
+                alt=""
+              />
+            </>
+          )}
+        </div>
       )}
     </>
   );

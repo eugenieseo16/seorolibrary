@@ -45,6 +45,7 @@ import Chat from '@pages/Chats/Chat';
 import PlanGenerate from '@pages/PlanGenerate/PlanGenerate';
 import MyProfile from '@components/UserLibrary/UserSection/MyProfile';
 import MyLibrary from '@pages/UserLibrary/MyLibrary';
+import Incognito from '@pages/Incognito';
 
 function Router() {
   return (
@@ -85,6 +86,7 @@ function Router() {
         {/* <Route path="/near/bookdetail/:id" element={<BookDetail />} /> */}
 
         <Route path="*" element={'404'} />
+        <Route path="/incognito" element={<Incognito />} />
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
         <Route path="/places/add-place" element={<AddPlace />} />
