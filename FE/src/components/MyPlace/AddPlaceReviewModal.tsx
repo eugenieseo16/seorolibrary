@@ -137,7 +137,7 @@ function AddPlaceReviewModal() {
         open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
-        width={1000}
+        width={425}
         okText={<></>}
         cancelText="Custom Cancel Text"
         footer={null}
