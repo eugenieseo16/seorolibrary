@@ -35,7 +35,10 @@ function App() {
       top: 0,
       behavior: 'smooth',
     });
-    if (user?.memberName == 'incognito' && pathname.split('/').length > 2) {
+    if (
+      user?.memberEmail == 'incognito@gmail.com' &&
+      pathname.split('/').length > 2
+    ) {
       navigate('/incognito', { replace: true });
     }
   }, [pathname]);
