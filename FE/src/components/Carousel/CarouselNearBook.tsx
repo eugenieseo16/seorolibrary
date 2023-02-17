@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -14,6 +14,7 @@ const settings = {
   slidesToShow: 4,
   slidesToScroll: 1,
   swipeToSlide: true,
+  infinite: false,
 };
 
 export default function CarouselNearBook() {
@@ -30,13 +31,11 @@ export default function CarouselNearBook() {
             key={i}
             className="recommend-near-book-container"
             onClick={() =>
-              navigate(`/profile/${data.memberId}/book/${data.isbn}`)
+              navigate(`/profile/${data.memberName}/book/${data.isbn}`)
             }
           >
-            <div>
-              <img src={data.bookImage} alt="" />
-              <h2>{data.bookTitle}</h2>
-            </div>
+            <img src={data.bookImage} alt="" />
+            <h2>{data.bookTitle}</h2>
           </div>
         ))}
       </Slider>

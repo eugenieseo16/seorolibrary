@@ -15,7 +15,7 @@ function ClubBooks() {
   return (
     <>
       <SearchHeader search={false} text="미라클 모닝 독서" />
-      <div className="club-books-container">
+      {/* <div className="club-books-container">
         {books?.map(book => (
           <div key={book.id} className="book">
             <div className="book-data">
@@ -51,7 +51,7 @@ function ClubBooks() {
             <img className="book-cover" src={book.image_url} alt="" />
           </div>
         ))}
-      </div>
+      </div> */}
     </>
   );
 }

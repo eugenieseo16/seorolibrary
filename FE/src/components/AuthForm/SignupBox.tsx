@@ -14,6 +14,10 @@ import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
 import { firebaseDB } from '@src/utils/fireBase';
 import { doc, setDoc } from 'firebase/firestore';
+import Google from './Google';
+import Incognito from './Incognito';
+import IncogLogo from '@src/assets/incognito.png';
+import GoogleLogo from '@src/assets/google_light.svg';
 
 function SignupBox() {
   const [loading, setLoading] = useState(false);
@@ -45,7 +49,7 @@ function SignupBox() {
     setLoading(false);
   };
   return (
-    <div className="signup-box">
+    <div className="signup-box" style={{ overflow: 'hidden' }}>
       {contextHolder}
       {/* 로고 */}
       <div className="logo-container">
@@ -144,6 +148,28 @@ function SignupBox() {
           <Form.Item className="signup-button-container">
             <Button htmlType="submit">회원가입</Button>
           </Form.Item>
+          <div className="line"></div>
+
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Google>
+              <Button type="text" size="small">
+                <img
+                  src={GoogleLogo}
+                  alt=""
+                  style={{ width: '4rem', height: '4rem' }}
+                />
+              </Button>
+            </Google>
+            <Incognito>
+              <Button type="text" size="small">
+                <img
+                  src={IncogLogo}
+                  alt=""
+                  style={{ width: '4rem', height: '4rem' }}
+                />
+              </Button>
+            </Incognito>
+          </div>
         </Form>
       </div>
     </div>

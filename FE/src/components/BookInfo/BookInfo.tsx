@@ -5,15 +5,19 @@ import ExchangeAvailable from '@components/NearBooks/ExchangeAvailable';
 
 import './BookInfo.styles.scss';
 import { bookDetailAPI } from '@src/API/bookAPI';
+import { useUser } from '@src/hooks/useUser';
 
 interface IBookInfo {
-  isbn: string;
+  isbn: any;
 }
 function BookInfo({ isbn }: IBookInfo) {
   const location = useLocation();
   const isUser = location.pathname.includes('profile');
+  const user = useUser();
 
-  const data = bookDetailAPI(isbn);
+  const memberName = user?.memberName;
+  const data = bookDetailAPI(isbn, user?.memberId);
+  // console.log(data?.bookTitle);
 
   return (
     <div className="book-info-container">
@@ -22,9 +26,9 @@ function BookInfo({ isbn }: IBookInfo) {
           <div className="book-cover">
             <img src={data?.bookImage} alt="" />
           </div>
-          <div className="exchange-available">
-            <ExchangeAvailable />
-          </div>
+          {/* <div className="exchange-available">
+            <ExchangeAvailable is_available={data?.isOwn} />
+          </div> */}
         </div>
       ) : (
         <div>

@@ -4,28 +4,31 @@ import Modal from './Modal';
 import { BiMap } from 'react-icons/bi';
 
 import './EditProfile.styles.scss';
+import { useUser } from '@src/hooks/useUser';
 function EditProfile() {
-  const [editProfile, setEditProfile] = useState(false);
-  const [profileImage, setProfileImage] = useState(
-    'https://blog.kakaocdn.net/dn/NcsyV/btrv0P9o3Es/HsfydQmtQzsT00IRSsyoLK/img.jpg',
-  );
-  const [profileNickname, setProfileNickname] = useState('나미리선생님');
+  const user = useUser();
 
   return (
     <div>
       <div className="edit-profile-container">
         <div className="profile-container">
-          <img src={profileImage} />
+          <img src={user?.memberProfile} />
 
           <div className="profile-item">
             <div className="user-info-item">
-              <h2>{profileNickname}</h2>
-              <p>@username</p>
+              <h2>{user?.memberName}</h2>
             </div>
 
-            <div className="location-item">
+            <div
+              className="location-item"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               <BiMap />
-              <span>역삼동</span>
+              <span style={{ fontSize: 12 }}>{user?.memberDongCode}</span>
             </div>
           </div>
         </div>

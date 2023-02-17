@@ -12,12 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OwnCommentDto {
+	private Long ownBookId;
 	private String isbn;
 	private String bookTitle;
 	private String bookImage;
 	private String ownComment;
 
 	public OwnCommentDto(OwnBook ownBook) {
+		this.ownBookId = ownBook.getOwnBookId();
 		this.isbn = ownBook.getIsbn();
 		this.bookTitle = ownBook.getBookTitle();
 		this.ownComment = ownBook.getOwnComment();

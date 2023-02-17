@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.dto.ResultResponseDto;
 import com.seoro.seoro.service.Book.BookService;
 
@@ -29,12 +33,19 @@ public class BookController {
 
 	private final BookService bookService;
 
-	//검색 -> 도서상세정보
+	//검색 결과 상세
 	@GetMapping("/detail/{isbn}")
 	public BookDetailDto viewBookDetail(@PathVariable String isbn, @ModelAttribute BookRequestDto requestDto) throws
 		ParseException,
 		URISyntaxException {
 		return bookService.viewBookDetail(isbn,requestDto.getMemberId());
+	}
+
+	// 사용자 보유도서 조회
+	@GetMapping("/detail/own")
+	public OwnBookDetailDto viewOwnBookDetail(@RequestParam("memberName") String memberName, @RequestParam("isbn") String isbn)
+		throws ParseException, URISyntaxException {
+		return bookService.viewOwnBookDetail(memberName, isbn);
 	}
 
 	//읽은 도서 추가
@@ -43,7 +54,7 @@ public class BookController {
 		return bookService.addReadBook(isbn,request);
 	}
 
-	//도서 리뷰 작성
+	// 도서 리뷰 작성
 	@PostMapping("/review/{isbn}")
 	public ResultResponseDto makeReview(@PathVariable("isbn") String isbn, @RequestBody ReviewDto requestDto){
 		return bookService.makeReview(isbn, requestDto);
@@ -62,26 +73,21 @@ public class BookController {
 		return bookService.deleteReview(isbn, reviewId);
 	}
 
-	// 검색 결과 상세
-
-	// 사용자 도서 상세
-	@GetMapping("/detail/{memberId}/{isbn}")
-	public OwnBookDetailDto viewOwnBookDetail(
-		@PathVariable("isbn") String isbn, @PathVariable("memberId") Long memberId, List<OwnBookDto> myOwnBooks)
-		throws IOException, ParseException, URISyntaxException {
-
-		return bookService.viewOwnBookDetail(isbn, memberId, myOwnBooks);
-	}
-
 	// 리뷰
-	@GetMapping("detail/review/{isbn}")
+	@GetMapping("/detail/review/{isbn}")
 	public BookReviewResponseDto viewBookReview(@PathVariable("isbn") String isbn) {
 		return bookService.viewBookReview(isbn);
 	}
 
 	// 한줄평
-	@GetMapping("detail/comment/{isbn}")
+	@GetMapping("/detail/comment/{isbn}")
 	public BookCommentResponseDto viewBookComment(@PathVariable("isbn") String isbn) {
 		return bookService.viewBookComment(isbn);
+	}
+
+	// 읽은 사용자
+	@GetMapping("/readpeople/{isbn}")
+	public List<MemberShowDto> showReader(@PathVariable("isbn") String isbn){
+		return bookService.showReader(isbn);
 	}
 }

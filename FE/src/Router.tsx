@@ -43,6 +43,9 @@ import ClubPlan from '@pages/ClubPlan/ClubPlan';
 import ChatsList from '@pages/Chats/ChatsList';
 import Chat from '@pages/Chats/Chat';
 import PlanGenerate from '@pages/PlanGenerate/PlanGenerate';
+import MyProfile from '@components/UserLibrary/UserSection/MyProfile';
+import MyLibrary from '@pages/UserLibrary/MyLibrary';
+import Incognito from '@pages/Incognito';
 
 function Router() {
   return (
@@ -52,21 +55,18 @@ function Router() {
 
         <Route path="/search" element={<Search />} />
 
-        <Route path="/book/:id" element={<BookDetail />} />
-        <Route
-          path="/profile/:userId/book/:isbn"
-          element={<HoldBookDetail />}
-        />
-        <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
-        <Route path="/book/:id/log" element={<BookDetailLog />} />
+        <Route path="/book/:isbn" element={<BookDetail />} />
 
-        <Route path="/profile" element={<UserLibrary />} />
+        <Route path="/profile/book/:isbn" element={<HoldBookDetail />} />
+        <Route path="/book/:isbn/log" element={<BookDetailLog />} />
+
+        <Route path="/profile" element={<MyLibrary />} />
         <Route path="/profile/:username" element={<UserLibrary />} />
 
         {/* /profile/userId/follow- 로 변경 필요 */}
         <Route path="/profile/follow" element={<Follow />} />
 
-        <Route path="/profile/log" element={<ProfileLog />} />
+        <Route path="/profile/log/:userId" element={<ProfileLog />} />
 
         <Route path="/profile/settings" element={<ProfileSettings />} />
         <Route path="/profile/settings/password" element={<ChangePassword />} />
@@ -81,19 +81,26 @@ function Router() {
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
         <Route path="/places/my-place-archive" element={<MyPlaceArchive />} />
-        <Route path="/places/add-place" element={<AddPlace />} />
 
         <Route path="/near" element={<Near />} />
-        <Route path="/near/bookdetail/:id" element={<BookDetail />} />
+        {/* <Route path="/near/bookdetail/:id" element={<BookDetail />} /> */}
 
         <Route path="*" element={'404'} />
+        <Route path="/incognito" element={<Incognito />} />
       </Route>
       <Route path="" element={<WithOutNavLayout />}>
+        <Route path="/places/add-place" element={<AddPlace />} />
+
         <Route path="/chat-list" element={<ChatsList />} />
         <Route path="/chat/:id" element={<Chat />} />
         <Route path="/book-club/:id/generate-post" element={<PostGenerate />} />
         <Route path="/profile/register" element={<BookRegister />} />
         <Route path="/book-club/:id/plan/generate" element={<PlanGenerate />} />
+        <Route
+          path="/profile/:memberName/book/:isbn"
+          element={<HoldBookDetail />}
+        />
+        <Route path="/book-club/:id/enroll" element={<BookClubDetail />} />
       </Route>
 
       <Route path="" element={<BookClubNavLayout />}>

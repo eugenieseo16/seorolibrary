@@ -87,6 +87,7 @@ public class GroupPostServiceImpl implements GroupPostService {
     @Override
     public GroupPostReadResponseDto readGroupPost(Long groupId, PostCategory postCategory, int startIdx, int limit) {
         GroupPostReadResponseDto responseDto = new GroupPostReadResponseDto();
+
         //그룹 정보 가져오기
         Groups group = new Groups();
         Optional<Groups> findGroup = groupRepository.findById(groupId);
@@ -113,16 +114,27 @@ public class GroupPostServiceImpl implements GroupPostService {
                 break;
             }
             GroupPost p = posts.get(i);
+            List<GroupPostImageDto> images = new ArrayList<>();
+            for(GroupPostPhoto photo: p.getPhotos()){
+                images.add(GroupPostImageDto.builder()
+                        .image(photo.getGroupPostPhoto())
+                        .imageId(photo.getGroupPostPhotoId())
+                    .build());
+            }
             GroupPostDto gpd = GroupPostDto.builder()
                 .postId(p.getGroupPostId())
                 .postTitle(p.getGroupPostTitle())
                 .postTime(p.getGroupPostTime())
                 .isUpdate(p.getIsUpdate())
                 .postCategory(p.getPostCategory().toString())
-                .userName(p.getMember().getMemberName())
+                .memberId(p.getMember().getMemberId())
+                .memberName(p.getMember().getMemberName())
+                .memberProfile(p.getMember().getMemberProfile())
+                .images(images)
                 .build();
             groupPost.add(gpd);
         }
+
         responseDto.setResult(true);
         responseDto.setGroupPost(groupPost);
         return responseDto;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-
+import { useNavigate } from 'react-router-dom';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './CarouselPlace.styles.scss';
@@ -13,12 +13,12 @@ export interface ICarouselPlaceProps {
   [key: string]: any;
 }
 interface Item {
-  placeImage: string;
+  placePhotoList: string[];
   placeName: string;
   placeId: string;
 }
 
-function CarouselPlace({
+function CarouselHomePlace({
   items,
   slidesToShow = 4,
   infinite = true,
@@ -30,16 +30,30 @@ function CarouselPlace({
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
     swipeToSlide: true,
-    infinite,
+    infinite: false,
   };
+  const navigate = useNavigate();
+
   return (
     <Slider {...settings} className={`my-slider-place ${className}`}>
       {items?.map((data, i: number) => (
-        <div key={i} className="carousel-place-container">
-          <img src={data.placeImage} alt="" />
+        <div
+          key={i}
+          className="carousel-place-container"
+          onClick={() => navigate(`/places/${data.placeId}`)}
+        >
+          <img
+            src={
+              data.placePhotoList
+                ? data.placePhotoList.length > 0
+                  ? data.placePhotoList[0]
+                  : ''
+                : ''
+            }
+            alt=""
+          />
           <div className="shadow-wrapper-place" />
           <div className="content-place">
-            {data.placeName && <p>{data.placeName}</p>}
             <h2>{data.placeName}</h2>
           </div>
         </div>
@@ -48,4 +62,4 @@ function CarouselPlace({
   );
 }
 
-export default CarouselPlace;
+export default CarouselHomePlace;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -10,18 +9,18 @@ import {
 
 import './BookStat.styles.scss';
 import { bookDetailAPI } from '@src/API/bookAPI';
+import { useUser } from '@src/hooks/useUser';
 
 interface IBookStatProps {
-  isbn: string;
+  isbn: any;
 }
 function BookStat({ isbn }: IBookStatProps) {
   const navigate = useNavigate();
-
-  const data = bookDetailAPI(isbn);
+  const user = useUser();
+  const data = bookDetailAPI(isbn, user?.memberId);
 
   return (
     <div className="book-stat-summary">
-      {/* navigate parameter에 book id 부분 바꿔줘야함 */}
       <div
         className="community"
         onClick={() =>
@@ -36,11 +35,10 @@ function BookStat({ isbn }: IBookStatProps) {
         <p>{data?.countReader}명</p>
       </div>
       <div className="vertical-line"></div>
-      {/* navigate parameter에 book id 부분 바꿔줘야함 */}
       <div
         className="comment"
         onClick={() =>
-          navigate(`/book/0/log`, {
+          navigate(`/book/${isbn}/log`, {
             state: { isbn: isbn, selectedTab: 'comment' },
           })
         }
@@ -51,11 +49,10 @@ function BookStat({ isbn }: IBookStatProps) {
         <p>{data?.countComment}개</p>
       </div>
       <div className="vertical-line"></div>
-      {/* navigate parameter에 book id 부분 바꿔줘야함 */}
       <div
         className="review"
         onClick={() =>
-          navigate(`/book/0/log`, {
+          navigate(`/book/${isbn}/log`, {
             state: { isbn: isbn, selectedTab: 'review' },
           })
         }

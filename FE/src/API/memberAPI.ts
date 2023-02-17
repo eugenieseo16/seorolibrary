@@ -9,14 +9,21 @@ interface IEditProfileForm {
   memberGenre: number[];
 }
 
-export const memberDetailAPI = (memberName: string) => {
-  const response = useMyQuery(`${memberAPIUrls.memberDetail}/${memberName}`);
+// export const memberDetailAPI = (memberName: string) => {
+//   const response = useMyQuery(`${memberAPIUrls.memberDetail}/${memberName}`);
+//   return response;
+// };
+
+export const holdBooksAPI = (targetMemberId: any, myMemberId: any) => {
+  const response = useMyQuery(
+    `${memberAPIUrls.memberDetail}/${targetMemberId}?memberId=${myMemberId}`,
+  );
   return response;
 };
 
-export const editProfileAPI = async (data: IEditProfileForm) => {
+export const editProfileAPI = async (data: IEditProfileForm | any) => {
   const response = await axios.put(
-    `${memberAPIUrls.myProfile}/${data.memberName}`,
+    `${memberAPIUrls.myProfile}/${data.exist}`,
     data,
   );
   return response;

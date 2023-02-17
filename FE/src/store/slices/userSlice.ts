@@ -9,7 +9,8 @@ const userSlice = createSlice({
       return action.payload;
     },
     logout() {
-      localStorage.removeItem('ssafy-user');
+      console.log('aa');
+      localStorage.removeItem('ssafy-token');
       return null;
     },
     updateLocation(state, action) {

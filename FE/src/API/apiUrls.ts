@@ -1,5 +1,6 @@
-export const apiBaseUrl = 'http://70.12.246.229:8080';
+// export const apiBaseUrl = 'http://70.12.246.221:8080';
 // export const apiBaseUrl = 'http://localhost:8080';
+export const apiBaseUrl = 'http://i8a209.p.ssafy.io:8080';
 
 export const authApiUrls = {
   signUpAPIUrl: `${apiBaseUrl}/members/signup`,
@@ -22,6 +23,7 @@ export const clubAPIUrls = {
 export const bookApiUrls = {
   bestSellers: `${apiBaseUrl}/main/best`,
   bookDetail: `${apiBaseUrl}/book/detail`,
+  holdBookDetail: `${apiBaseUrl}/book/detail/own`,
   nearBooks: `${apiBaseUrl}/main/nearbook`,
   bookSearchUrl: 'https://dapi.kakao.com/v3/search/book?target=title',
   registerBookUrl: `${apiBaseUrl}/librarys`,
@@ -29,8 +31,11 @@ export const bookApiUrls = {
   editBookReview: `${apiBaseUrl}/book/review`,
   editBookComment: `${apiBaseUrl}/book/comment`,
 
-  bookReview: `${apiBaseUrl}/book/detail/review/`,
-  bookComment: `${apiBaseUrl}/book/detail/comment/`,
+  bookReader: `${apiBaseUrl}/book/readpeople`,
+  bookReview: `${apiBaseUrl}/book/detail/review`,
+  bookComment: `${apiBaseUrl}/book/detail/comment`,
+
+  addReadBook: `${apiBaseUrl}/book/detail`,
 };
 export const geoAPIUrls = {
   dongcodeAPIUrl: `${apiBaseUrl}/place/dong`,
@@ -46,4 +51,8 @@ export const memberAPIUrls = {
 export const placeAPIUrls = {
   main: `${apiBaseUrl}/place`,
   placeDetail: `${apiBaseUrl}/place/detail`,
+};
+
+export const libraryAPIUrls = {
+  libraryData: `${apiBaseUrl}/librarys`,
 };

@@ -73,12 +73,19 @@ public class PlaceServiceImpl implements PlaceService {
 		});
 		List<PlaceShowDto> dtoList = new ArrayList<>();
 		for(Place place: list){
+			List<String> photos = new ArrayList<>();
+
+			for(PlacePhoto photo : place.getPhotos()){
+				photos.add(photo.getPhoto());
+			}
+
 			dtoList.add(PlaceShowDto.builder()
 					.placeLongitude(place.getPlaceLongitude())
 					.placeLatitude(place.getPlaceLatitude())
 					.placeId(place.getPlaceId())
 					.placeName(place.getPlaceName())
 					.score(place.getScore())
+					.placePhotoList(photos)
 					.build());
 		}
 		return dtoList;
@@ -91,12 +98,18 @@ public class PlaceServiceImpl implements PlaceService {
 		dtoList[0] = new ArrayList<>();
 		dtoList[1] = new ArrayList<>();
 		for(Place place: list1){
+			List<String> photos = new ArrayList<>();
+
+			for(PlacePhoto photo : place.getPhotos()){
+				photos.add(photo.getPhoto());
+			}
 			dtoList[0].add(PlaceShowDto.builder()
 				.placeLongitude(place.getPlaceLongitude())
 				.placeLatitude(place.getPlaceLatitude())
 				.placeId(place.getPlaceId())
 				.placeName(place.getPlaceName())
 				.score(place.getScore())
+				.placePhotoList(photos)
 				.build());
 		}
 		List<PlaceReview> list2 = placeReviewRepository.findByMember_MemberId(memberId);
@@ -152,18 +165,18 @@ public class PlaceServiceImpl implements PlaceService {
 		savePlace = Place.builder()
 			.member(maker)
 			.placeName(requestDto.getPlaceName())
+			.describ(requestDto.getPlaceDescrib())
 			.placeLatitude(requestDto.getLatitude())
 			.placeLongitude(requestDto.getLongitude())
 			.dongCode(placeDong)
 			.total(0d)
 			.score(0d)
-			.describ(requestDto.getPlacedescrib())
 			.build();
 
 		placeRepository.save(savePlace);
 
 		//독서 장소 사진 저장
-		if(requestDto.getPlacePhoto().length > 0) {
+		if(requestDto.getPlacePhoto() != null && requestDto.getPlacePhoto().length > 0) {
 			for(int i=0; i<requestDto.getPlacePhoto().length; i++) {
 				PlacePhoto photo = PlacePhoto.builder()
 					.place(savePlace)
@@ -216,6 +229,7 @@ public class PlaceServiceImpl implements PlaceService {
 			.result(true)
 			.placeId(place.getPlaceId())
 			.placeName(place.getPlaceName())
+			.placeDescrib(place.getDescrib())
 			.placeLongitude(place.getPlaceLongitude())
 			.placeLatitude(place.getPlaceLatitude())
 			.score(place.getScore())
@@ -229,43 +243,6 @@ public class PlaceServiceImpl implements PlaceService {
 	@Override
 	public ResultResponseDto makeReview(Long placeId, PlaceReviewAddRequestDto requestDto) {
 		ResultResponseDto resultResponseDto = new ResultResponseDto();
-		// PlaceReview savePlaceReview = new PlaceReview();
-		// Place savePlace = placeRepository.findByPlaceId(placeId);
-		// Member maker = new Member();
-		// Optional<Member> tmpUser = memberRepository.findByMemberName(requestDto.getMemberName());
-		// if(tmpUser.isPresent()) {
-		// 	maker = tmpUser.get();
-		// }else {
-		// 	System.out.println("멤버 찾기 실패");
-		// 	maker = tmpUser.orElse(null);
-		// 	resultResponseDto.setResult(false);
-		// 	return resultResponseDto;
-		// }
-		// int tempReviewSize = savePlace.getReviews().size();
-		// Float tmpScore = savePlace.getScore()*tempReviewSize;
-		// savePlaceReview = PlaceReview.builder()
-		// 	.member(maker)
-		// 	.place(savePlace)
-		// 	.score(requestDto.getScore())
-		// 	.reviewContent(requestDto.getPlacereview())
-		// 	.photos(requestDto.getPlaceReviewPhotos())
-		// 	.build();
-		// placeReviewRepository.save(savePlaceReview);
-		//
-		// savePlace = Place.builder()
-		// 	.placeId(savePlace.getPlaceId())
-		// 	.member(maker)
-		// 	.placeName(savePlace.getPlaceName())
-		// 	.placeLatitude(savePlace.getPlaceLatitude())
-		// 	.placeLongitude(savePlace.getPlaceLongitude())
-		// 	.dongCode(savePlace.getDongCode())
-		// 	.score((tmpScore+requestDto.getScore())/(tempReviewSize+1))
-		// 	.describ(savePlace.getDescrib())
-		// 	.build();
-		// placeRepository.save(savePlace);
-		//
-		// resultResponseDto.setResult(true);
-
 		Optional<Place> findPlace = placeRepository.findById(placeId);
 		Place place = new Place();
 		if(findPlace.isPresent()) {

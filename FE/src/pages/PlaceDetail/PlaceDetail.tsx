@@ -8,7 +8,6 @@ import PlaceReview from '@components/MyPlace/PlaceReview';
 import './PlaceDetail.styles.scss';
 
 function PlaceDetail() {
-
   return (
     <div className="place-detail-container">
       <PlaceDetailHeader />
@@ -18,7 +17,7 @@ function PlaceDetail() {
       </div>
       <div className="line"></div>
       <div>
-        <PlaceReview/>
+        <PlaceReview />
       </div>
     </div>
   );

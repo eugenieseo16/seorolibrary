@@ -7,6 +7,7 @@ import com.seoro.seoro.domain.dto.GroupPost.GroupPostDto;
 import com.seoro.seoro.domain.entity.ChatRoom.ChatRoomContent;
 import com.seoro.seoro.domain.entity.Groups.GroupBook;
 import com.seoro.seoro.domain.entity.Groups.GroupPost;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,4 +31,5 @@ public class GroupDetailResponseDto {
 	private Integer bookCount;
 	private Integer postCount;
 	private Integer meetingCount;
+	private GroupMemberDto host;
 }

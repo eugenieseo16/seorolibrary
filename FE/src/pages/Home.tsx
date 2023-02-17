@@ -7,7 +7,7 @@ import SearchHeader from '@components/SearchHeader/SearchHeader';
 import CarouselHome from '@components/Carousel/CarouselHome';
 import CarouselNearBook from '@components/Carousel/CarouselNearBook';
 import CarouselBestSellerBook from '@components/Carousel/CarouselBestSellerBook';
-import CarouselHomePlace from '@components/Carousel/CarouselPlace';
+import CarouselHomePlace from '@components/Carousel/CarouselHomePlace';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { useUser } from '@src/hooks/useUser';
 import { placeRecomendAPI } from '@src/API/placeAPI';
@@ -16,7 +16,6 @@ function Home() {
   const user = useUser();
 
   const placeData = placeRecomendAPI(user?.memberId);
-  console.log(placeData);
 
   const greeting = user?.memberName + '님 안녕하세요';
   return (

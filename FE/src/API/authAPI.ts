@@ -7,7 +7,7 @@ export interface ILoginForm {
   password: string;
 }
 
-export interface ISignUpForm extends ILoginForm {
+export interface ISignUpForm {
   memberEmail: string;
   memberPassword: string;
   memberName: string;
@@ -36,7 +36,8 @@ export const jwtLoginAPI = async (token: string) => {
   return response;
 };
 
-export const getUserProfileAPI = (username: string) => {
+export const getUserProfileAPI = (username?: string) => {
+  if (!username) return;
   const data = useMyQuery(`${authApiUrls.userProfileAPIUrl}/${username}`);
   return data;
 };

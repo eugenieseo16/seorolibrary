@@ -16,26 +16,22 @@ import {
   bookDetailAPI,
 } from '@src/API/bookAPI';
 import { useUser } from '@src/hooks/useUser';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { bookApiUrls } from '@src/API/apiUrls';
+import axios from 'axios';
 
 interface IBookReviewProps {
-  isbn: string;
+  isbn: any;
 }
 
 function BookReview({ isbn }: IBookReviewProps) {
+  const queryCache = useQueryClient();
   const reviews = bookReviewAPI(isbn);
-  const bookData = bookDetailAPI(isbn);
   const user = useUser();
+  const memberName = user?.memberName;
+  const bookData = bookDetailAPI(isbn, user?.memberId);
   const bookTitle = bookData?.bookTitle;
   const bookImage = bookData?.bookImage;
-  const memberName = user?.memberName;
-  // const { mutate } = useMutation(
-  //   `${bookApiUrls.editBookReview}/${isbn}`,
-  //   () => {
-  //     axios;
-  //   },
-  // );
 
   const [toReview, setToReview] = useState(true);
 
@@ -44,17 +40,56 @@ function BookReview({ isbn }: IBookReviewProps) {
   const getChangeHandlerWithEvent = (name: string) => (e: any) =>
     setValue(name, e.target.value);
 
+  const { mutate } = useMutation(submitReview, {
+    onMutate: async updateData => {
+      // Save the original todo in case we need to roll back the update
+      await queryCache.cancelQueries(`${bookApiUrls.bookReview}/${isbn}`);
+      const previousTodos = queryCache.getQueryData(
+        `${bookApiUrls.bookReview}/${isbn}`,
+      );
+      queryCache.setQueryData(
+        `${bookApiUrls.bookReview}/${isbn}`,
+        (old: any) => {
+          console.log(old, updateData);
+          return {
+            ...old,
+            data: {
+              result: true,
+              reviews: [
+                {
+                  memberId: user?.memberId,
+                  memberName: user?.memberName,
+                  memberProfile: user?.memberProfile,
+                  reviewContent: updateData.reviewContent,
+                },
+              ...old.data.reviews,
+              ],
+            },
+          };
+        },
+      );
+
+      return { previousTodos };
+    },
+  });
+
+  async function submitReview(createValues: any) {
+    const response = await axios.post(
+      `${bookApiUrls.editBookReview}/${createValues.isbn}`,
+      createValues,
+    );
+    return response.data;
+  }
   // 리뷰 생성
   const onValid = (values: any) => {
-    setToReview(false);
-    const { data: response }: any = bookReviewCreateAPI({
+    setToReview(!toReview);
+    mutate({
       isbn,
       bookTitle,
       bookImage,
       memberName,
       reviewContent: values?.reviewContent,
     });
-    mutate();
   };
 
   // 리뷰 삭제

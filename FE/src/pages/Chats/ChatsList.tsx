@@ -27,6 +27,7 @@ function ChatItem({ data }: any) {
   const targetUser = useMyQuery(
     `${apiBaseUrl}/members/search?memberId=${opponent}`,
   );
+  console.log(targetUser);
 
   return (
     <List.Item
@@ -34,11 +35,11 @@ function ChatItem({ data }: any) {
       onClick={() => navigate(`/chat/${targetUser?.memberName}`)}
     >
       <List.Item.Meta
-        avatar={<Avatar src={''} />}
+        avatar={<Avatar src={targetUser?.memberProfile} />}
         title={<a>{targetUser?.memberName}</a>}
-        description={<p className="message-preview">{data.preview}</p>}
+        description={<p className="message-preview"></p>}
       />
-      {targetUser?.memberName == data.username && data.unreadSize > 0 && (
+      {data.unreadSize > 0 && (
         <div style={{ paddingLeft: '1rem' }}>
           <Badge count={data.unreadSize} overflowCount={99} />
         </div>
@@ -67,24 +68,12 @@ function ChatsList() {
         );
         const unreadSize = await (await getDocs(sizeQuery)).size;
 
-        const previewQuery = await query(
-          collection(firebaseDB, id),
-          orderBy('createdAt', 'desc'),
-          limit(1),
-        );
-        const previewSnapshot = await getDocs(previewQuery);
-        await previewSnapshot.forEach(async doc => {
-          chatData = {
-            chatId: id,
-            preview: await doc.data().message,
-            createdAt: await doc.data().createdAt,
-            username: await doc.data().username,
-            memberName: await doc.data().memberName,
-            unreadSize,
-          };
-          chats.current.push(chatData);
-          setLoading(false);
-        });
+        chatData = {
+          chatId: id,
+          unreadSize,
+        };
+        chats.current.push(chatData);
+        setLoading(false);
       });
     })();
   }, [user]);
@@ -95,7 +84,7 @@ function ChatsList() {
 
   return (
     <>
-      <SearchHeader text="채팅" />
+      <SearchHeader text="채팅" search={false} />
       <div className="chats-list-container">
         <List>
           {chatList.map((chatData, i) => {

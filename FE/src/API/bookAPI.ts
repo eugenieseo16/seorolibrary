@@ -39,10 +39,13 @@ export const bookSearchByTitle = async (title: string) => {
 };
 
 export interface IRegisterBook {
+  bookImage: string;
   memberId: number;
   isbn: string;
   bookTitle: string;
   ownComment: string;
+  author: string;
+  bookDescrib: string;
 }
 export const registerBookAPI = async (data: IRegisterBook) => {
   const { data: response } = await axios.post(
@@ -57,17 +60,55 @@ export const searchAPI = (input: string) => {
   return response;
 };
 
-export const bookDetailAPI = (isbn: string) => {
-  const response = useMyQuery(bookApiUrls.bookDetail + isbn);
+export const bookTitleAPI = (isbn: any, memberId: any) => {
+  const response = useMyQuery(
+    `${bookApiUrls.bookDetail}/${isbn}?memberId=${memberId}`,
+  );
+
+  const bookTitle = response.bookTitle;
+  return bookTitle;
+};
+
+// 표준 도서 상세
+export const bookDetailAPI = (isbn: any, memberId: any) => {
+  const response = useMyQuery(
+    `${bookApiUrls.bookDetail}/${isbn}?memberId=${memberId}`,
+  );
+  return response;
+};
+
+// 사용자 도서 상세
+export const holdBookDetailAPI = (isbn: any, memberName: any) => {
+  const response = useMyQuery(
+    `${bookApiUrls.holdBookDetail}?memberName=${memberName}&isbn=${isbn}`,
+  );
+  return response;
+};
+
+// 읽은 도서 추가
+export const addReadBookAPI = (data: any, isbn: any) => {
+  const response = axios.post(`${bookApiUrls.addReadBook}/${isbn}`, data);
+  return;
+};
+
+// 도서 통계 (log)
+export const bookReaderAPI = (isbn: string) => {
+  const response = useMyQuery(`${bookApiUrls.bookReader}/${isbn}`);
   return response;
 };
 
 export const bookReviewAPI = (isbn: string) => {
-  const response = useMyQuery(bookApiUrls.bookReview + isbn);
+  const response = useMyQuery(`${bookApiUrls.bookReview}/${isbn}`);
   return response;
 };
 
-// 도서 리뷰 작성
+export const bookCommentAPI = (isbn: string) => {
+  const response = useMyQuery(`${bookApiUrls.bookComment}/${isbn}`);
+  return response;
+};
+
+// 도서 리뷰
+// 작성
 export const bookReviewCreateAPI = (createValues: any) => {
   const response = axios.post(
     `${bookApiUrls.editBookReview}/${createValues.isbn}`,
@@ -76,18 +117,13 @@ export const bookReviewCreateAPI = (createValues: any) => {
   return response;
 };
 
-// 도서 리뷰 수정
+// 수정
 export const bookReviewEditAPI = '';
 
-// 도서 리뷰 삭제
+// 삭제
 export const bookReviewDeleteAPI = (deleteValues: any, isbn: string) => {
   const response = axios.delete(
     `${bookApiUrls.editBookReview}/${isbn}`,
     deleteValues,
   );
-};
-
-export const bookCommentAPI = (isbn: string) => {
-  const response = useMyQuery(bookApiUrls.bookComment + isbn);
-  return response;
 };

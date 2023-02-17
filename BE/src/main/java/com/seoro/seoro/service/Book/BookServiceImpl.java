@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 
 import com.seoro.seoro.domain.dto.Book.*;
 import com.seoro.seoro.domain.dto.Member.MemberDto;
+import com.seoro.seoro.domain.dto.Member.MemberShowDto;
 import com.seoro.seoro.domain.entity.Book.ReadBook;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -115,7 +116,7 @@ public class BookServiceImpl implements BookService {
 					.isbn(ownBook.getIsbn())
 					.bookAuthor(ownBook.getAuthor())
 					.memberName(member.getMemberName())
-					.bookDescrib(ownBook.getOwnComment())
+					.bookDescrib(ownBook.getBookdescrib())
 					.isOwn(ownBook.getIsOwn())
 					.build());
 			}
@@ -296,6 +297,20 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public List<MemberShowDto> showReader(String isbn) {
+		List<MemberShowDto> memberShowDto = new ArrayList<>();
+		List<ReadBook> books = readBookRepository.findByIsbn(isbn);
+		for(ReadBook readBook : books){
+			memberShowDto.add(MemberShowDto.builder()
+				.memberName(readBook.getMember().getMemberName())
+				.memberProfile(readBook.getMember().getMemberProfile())
+				.build()) ;
+		}
+
+		return memberShowDto;
+	}
+
+	@Override
 	public ReviewDto findReviewByIsbnAndMemberId(String isbn) {
 		Long member_id=1L;
 		Review review= reviewRepository.findByReadBook_IsbnAndMember_MemberId(isbn,member_id);
@@ -336,7 +351,7 @@ public class BookServiceImpl implements BookService {
 		List<OwnBook> ownBooks = ownBookRepository.findByIsbn(isbn);
 		long count_comment = 0;
 		for(OwnBook book : ownBooks){
-			Member member = memberRepository.findByMemberId(book.getOwnBookId());
+			Member member = book.getMember();
 			if(book.getOwnComment().length()>0) count_comment++;
 			if(!member.getMemberDongCode().equals(memberRepository.findByMemberId(memberId).getMemberDongCode())) continue;
 			own_members.add(MemberDto.builder()
@@ -352,6 +367,8 @@ public class BookServiceImpl implements BookService {
 		ResponseEntity<String> res = rest.exchange(uri, HttpMethod.GET, entity, String.class);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject body = (JSONObject) jsonParser.parse(res.getBody().toString());
+		System.out.println(res.getBody().toString());
+		log.info("log= {}", res.getBody().toString());
 		JSONArray docu = (JSONArray) body.get("documents");
 		JSONObject bookObject = (JSONObject)docu.get(0);
 
@@ -361,7 +378,7 @@ public class BookServiceImpl implements BookService {
 			.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
 			.bookImage(bookObject.get("thumbnail").toString())
 			.isbn(isbn)
-			.bookAuthor(HtmlUtils.htmlUnescape(authors.get(0).toString()))
+			.bookAuthor(HtmlUtils.htmlUnescape(authors.size()==0? "":authors.get(0).toString()))
 			.bookDescrib(HtmlUtils.htmlUnescape(bookObject.get("contents").toString()))
 			.bookPublisher(bookObject.get("publisher").toString())
 			.countComment(count_comment)
@@ -378,26 +395,46 @@ public class BookServiceImpl implements BookService {
 	//내 주변 보유사용자, 리뷰 출력 추가 필요
 
 	@Override
-	public OwnBookDetailDto viewOwnBookDetail(String isbn, Long memberId, List<OwnBookDto> myOwnBooks) throws
-		IOException,
-		ParseException,
-		URISyntaxException {
-		OwnBookDetailDto responseDto = new OwnBookDetailDto();
-		Member member = memberRepository.findByMemberId(memberId);
+	public OwnBookDetailDto viewOwnBookDetail(String memberName, String isbn) throws ParseException, URISyntaxException {
+		OwnBookDetailDto responseDto;
+
+		Member member = memberRepository.findByMemberName(memberName).orElse(null);
 		if(member == null) {
+			responseDto = new OwnBookDetailDto();
 			responseDto.setResult(false);
+			responseDto.setMessege("찾는 회원이 없습니다.");
 			return responseDto;
 		}
 
-		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElseThrow(() -> new NoSuchElementException("책이 없습니다."));
-		responseDto.setOwnComment(ownBook.getOwnComment());
+		BookDetailDto bookDetailDto = viewBookDetail(isbn, member.getMemberId());
+		if(bookDetailDto == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("찾는 책 정보가 없습니다.");
+			return responseDto;
+		}
+
+		responseDto = new OwnBookDetailDto(bookDetailDto);
+
+		OwnBook ownBook = ownBookRepository.findByMemberAndIsbn(member, isbn).orElse(null);
+		if(ownBook == null) {
+			responseDto = new OwnBookDetailDto();
+			responseDto.setResult(false);
+			responseDto.setMessege("보유하지 않은 책입니다.");
+			return responseDto;
+		}
+
 		responseDto.setOwn(ownBook.getIsOwn());
+		responseDto.setOwnComment(ownBook.getOwnComment());
 
-		BookDetailDto bookDetailDto = viewBookDetail(isbn, memberId);
-		responseDto.setBookDetailDto(bookDetailDto);
-		responseDto.setOwnBooks(myOwnBooks);
+		// 보유 도서
+		List<OwnBook> ownBooks = member.getOwnBooks();
+		List<OwnBookDto> ownBookDtoList = new ArrayList<>();
+		for(OwnBook ownBookList : ownBooks) {
+			ownBookDtoList.add(new OwnBookDto(ownBookList));
+		}
+		responseDto.setOwnBookList(ownBookDtoList);
 
-		responseDto.setResult(true);
 		return responseDto;
 	}
 
@@ -424,7 +461,7 @@ public class BookServiceImpl implements BookService {
 			System.out.println(bookObject);
 			JSONArray authors = (JSONArray)bookObject.get("authors");
 			String isbns = bookObject.get("isbn").toString();
-			String isbn = isbns.substring(isbns.length()-13,isbns.length()-1);
+			String isbn = isbns.substring(isbns.length()-13,isbns.length());
 			output.add(ShowBookDto.builder()
 				.bookTitle(HtmlUtils.htmlUnescape(bookObject.get("title").toString()))
 				.bookImage(bookObject.get("thumbnail").toString())

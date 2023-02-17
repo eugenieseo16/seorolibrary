@@ -1,4 +1,5 @@
 import { Carousel } from 'antd';
+import { BiMap } from 'react-icons/bi';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -7,18 +8,32 @@ import Loading from '@pages/Loading';
 import './BookClubMain.styles.scss';
 import { clubDetailAPI, clubPostAPI } from '@src/API/clubAPI';
 
-function MultiPreviewImage({ images }: { images: string[] }) {
+function MultiPreviewImage({ images }: any) {
   return (
     <Carousel dots={false} style={{ marginBottom: '1rem' }}>
-      {images.map((url, i) => (
-        <div key={i}>
-          <img src={url} alt="" />
+      {images.map((el: any) => (
+        <div key={el.imageId}>
+          <img src={el.image} alt="" />
         </div>
       ))}
     </Carousel>
   );
 }
-
+interface IPost {
+  postId: string;
+  memberProfile: string;
+  memberName: string;
+  postCategory: 'FREE' | 'NOTICE' | 'RECOMMEND' | 'GREET';
+  postTitle: string;
+  payload: string;
+  images: any;
+}
+const CATEGORY_FILTER = {
+  FREE: '자유글',
+  NOTICE: '공지사항',
+  RECOMMEND: '책 추천',
+  GREET: '가입인사',
+};
 function BookClubMain() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -31,14 +46,26 @@ function BookClubMain() {
     limit: 10,
     postCategory: filter,
   });
-  console.log(posts);
+  console.log(clubDetail);
 
   return clubDetail ? (
     <>
       <div className="book-club-main-container">
         <div className="book-club-main-header">
           <img src={clubDetail.groupProfile} alt="" />
-          <h2>{clubDetail.groupName}</h2>
+          <h2 style={{ marginBottom: 8 }}>{clubDetail.groupName}</h2>
+          <h4
+            style={{
+              fontSize: 12,
+              paddingLeft: 10,
+              marginBottom: 16,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <BiMap size={16} />
+            {clubDetail.groupDongCode}
+          </h4>
           <div>
             <h3>게시판</h3>
             <button onClick={() => navigate(`/book-club/${id}/generate-post`)}>
@@ -79,19 +106,23 @@ function BookClubMain() {
           </button>
         </div>
         <div className="posts-container">
-          {posts?.map((post: any) => (
+          {posts?.map((post: IPost) => (
             <div key={post.postId} className="post-container">
               <div className="post-header">
                 <div className="profile">
-                  <img src={post.userName} alt="" />
-                  <span>{post.userName}</span>
+                  <img src={post.memberProfile} alt="" />
+                  <span>{post.memberName}</span>
                 </div>
 
-                <div className="category">{post.postCategory}</div>
+                <div className="category">
+                  {post.postCategory in CATEGORY_FILTER
+                    ? CATEGORY_FILTER[post.postCategory]
+                    : ''}
+                </div>
               </div>
               <h3>{post.postTitle}</h3>
               <div>
-                {post.image_url && <MultiPreviewImage images={post.images} />}
+                {post?.images && <MultiPreviewImage images={post.images} />}
                 <p>{post.payload}</p>
               </div>
             </div>

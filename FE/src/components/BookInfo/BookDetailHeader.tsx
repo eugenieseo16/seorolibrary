@@ -1,21 +1,43 @@
 import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { Button, Popover, Typography } from 'antd';
 
 import { RiAddLine } from 'react-icons/ri';
 
 import './BookDetailHeader.styles.scss';
+import { addReadBookAPI, bookDetailAPI } from '@src/API/bookAPI';
+import { useUser } from '@src/hooks/useUser';
 
 function BookDetailHeader() {
   const navigate = useNavigate();
+
+  const param = useParams();
+  const user = useUser();
+  const bookData = bookDetailAPI(param?.isbn, user?.memberId);
+
+  const toAddReadBook = () => {
+    const memberName = user?.memberName;
+    const bookImage = bookData?.bookImage;
+    const bookTitle = bookData?.bookTitle;
+
+    const data = addReadBookAPI(
+      {
+        memberName,
+        bookImage,
+        bookTitle,
+      },
+      param?.isbn,
+    );
+    navigate(`/profile/${memberName}`);
+  };
 
   const { Title } = Typography;
   const text = (
     <div className="popover-item-container">
       {/* 나의 도서관으로 이동 */}
       {/* 읽은 도서 추가 API 데이터 보내기 */}
-      <button onClick={() => navigate(`/profile`)}>
+      <button onClick={toAddReadBook}>
         <Title level={5}>⠀⠀읽은 도서로 추가</Title>
       </button>
       <br />

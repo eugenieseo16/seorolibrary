@@ -8,6 +8,9 @@ import { RiChat3Line } from 'react-icons/ri';
 import { useMyQuery } from '@src/hooks/useMyQuery';
 import { apiBaseUrl } from '@src/API/apiUrls';
 import { useUser } from '@src/hooks/useUser';
+import { IUser } from '@src/types/types';
+import { libraryDataAPI } from '@src/API/libraryAPI';
+import { BiMap } from 'react-icons/bi';
 
 interface UserProfileProps {
   isMe: boolean;
@@ -20,35 +23,55 @@ interface IUserProfileData {
   follower: number;
 }
 
-export default function UserProfile({ isMe }: UserProfileProps) {
+function useUserLibrary() {
+  const user = useUser();
+}
+
+export default function UserProfile() {
   const navigate = useNavigate();
   const { username } = useParams();
-  console.log(isMe);
+  const user = useUser();
 
-  const targetUser = isMe
-    ? useUser()
-    : useMyQuery(`${apiBaseUrl}/members/${username}`);
-
-  console.log('TARGET', targetUser);
-
-  const userData: IUserProfileData | undefined = useMyQuery('/user.json');
+  const userData: IUser = useMyQuery(`${apiBaseUrl}/members/${username}`);
 
   return (
     <div className="user-profile-container">
-      {userData ? (
-        <div className="user-profile">
-          <div className="profile-img">
-            <img src={userData?.user_profile} alt="" />
+      {userData && user ? (
+        <Item userData={userData} user={user} username={username} />
+      ) : (
+        'Loading...'
+      )}
+    </div>
+  );
+}
+
+function Item({ userData, username, user }: any) {
+  const navigate = useNavigate();
+  const libraryData = libraryDataAPI({
+    me: +user?.memberId,
+    you: +userData?.memberId,
+  });
+
+  return (
+    <div className="user-profile">
+      <div className="profile-img">
+        <img src={userData?.memberProfile} alt="" />
+      </div>
+
+      <div className="profile">
+        <div>
+          <div
+            style={{ flexDirection: 'column', alignItems: 'start' }}
+            className="profile-user"
+          >
+            <h2>{userData?.memberName}</h2>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <BiMap />
+              {userData.memberDongCode}
+            </span>
           </div>
 
-          <div className="profile">
-            <div>
-              <div className="profile-user">
-                <h2>{userData?.nickname}</h2>
-                <span>@{userData?.username}</span>
-              </div>
-
-              <div className="profile-follow">
+          {/* <div className="profile-follow">
                 <span
                   className="following"
                   onClick={() => navigate(`/profile/follow`)}
@@ -61,39 +84,21 @@ export default function UserProfile({ isMe }: UserProfileProps) {
                 >
                   ⠀팔로워: {userData?.follower}
                 </span>
-              </div>
-            </div>
+              </div> */}
+        </div>
 
-            <div>
-              {isMe ? (
-                <div className="profile-button">
-                  <button onClick={() => navigate(`/profile/register`)}>
-                    도서 등록
-                  </button>
-                  <button className="icon-button">
-                    <RiChat3Line
-                      onClick={() => navigate('/chat-list')}
-                      size={'1rem'}
-                    />
-                  </button>
-                </div>
-              ) : (
-                <div className="profile-button">
-                  <button>팔로우</button>
-                  <button className="icon-button">
-                    <RiChat3Line
-                      onClick={() => navigate(`/chat/${username}`)}
-                      size={'1rem'}
-                    />
-                  </button>
-                </div>
-              )}
-            </div>
+        <div>
+          <div className="profile-button">
+            <button>팔로우</button>
+            <button className="icon-button">
+              <RiChat3Line
+                onClick={() => navigate(`/chat/${username}`)}
+                size={'1rem'}
+              />
+            </button>
           </div>
         </div>
-      ) : (
-        'Loading...'
-      )}
+      </div>
     </div>
   );
 }

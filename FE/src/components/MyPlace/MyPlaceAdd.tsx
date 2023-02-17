@@ -5,7 +5,7 @@ import './MyPlaceAdd.styles.scss';
 
 function MyPlaceAdd() {
   const navigate = useNavigate();
-  const data = useMyQuery('/places.json');
+  const data = useMyQuery('/places_myadd.json');
 
   return (
     <div className="my-place-add-container">

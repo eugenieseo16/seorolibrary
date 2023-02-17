@@ -7,6 +7,10 @@ import './LoginBox.styles.scss';
 import { jwtLoginAPI, loginAPI } from '@src/API/authAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '@src/store/slices/userSlice';
+import Google from './Google';
+import Incognito from './Incognito';
+import IncogLogo from '@src/assets/incognito.png';
+import GoogleLogo from '@src/assets/google_light.svg';
 
 function LoginBox() {
   const dispatch = useDispatch();
@@ -14,6 +18,7 @@ function LoginBox() {
   const [api, contextHolder] = notification.useNotification();
 
   const onFinish = async (data: any) => {
+    console.log(data);
     if (loading) return;
     setLoading(true);
     try {
@@ -31,7 +36,7 @@ function LoginBox() {
   };
 
   return (
-    <div className="login-box">
+    <div className="login-box" style={{ overflow: 'hidden' }}>
       {contextHolder}
       {/* 로고 */}
       <div className="logo-container">
@@ -77,9 +82,30 @@ function LoginBox() {
           <Form.Item className="login-button-container">
             <Button htmlType="submit">로그인</Button>
           </Form.Item>
+
+          <div className="line"></div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Google>
+              <Button type="text" size="small">
+                <img
+                  src={GoogleLogo}
+                  alt=""
+                  style={{ width: '4rem', height: '4rem' }}
+                />
+              </Button>
+            </Google>
+            <Incognito>
+              <Button type="text" size="small">
+                <img
+                  src={IncogLogo}
+                  alt=""
+                  style={{ width: '4rem', height: '4rem' }}
+                />
+              </Button>
+            </Incognito>
+          </div>
         </Form>
       </div>
-      {/* 로그인 버튼 */}
     </div>
   );
 }

@@ -27,6 +27,7 @@ export default function ClubRecommendCarousel({
   const user = useUser();
   const clubData = useClubMainAPI(user?.memberName);
   const navigate = useNavigate();
+  console.log('CLUBDATA', clubData);
   return (
     <Suspense fallback={<span>Loading... </span>}>
       {listView ? (
@@ -47,7 +48,9 @@ export default function ClubRecommendCarousel({
             >
               <img
                 src={
-                  'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg'
+                  el.groupProfile
+                    ? el.groupProfile
+                    : 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg'
                 }
                 alt=""
               />
@@ -69,7 +72,9 @@ export default function ClubRecommendCarousel({
             >
               <img
                 src={
-                  'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg'
+                  el.groupProfile
+                    ? el.groupProfile
+                    : 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg'
                 }
                 alt=""
               />
