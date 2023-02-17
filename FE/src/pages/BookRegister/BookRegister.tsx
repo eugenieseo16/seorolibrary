@@ -55,7 +55,7 @@ function BookRegister() {
     };
     const response = await registerBookAPI(obj);
     setLoading(false);
-    // navigate(`/profile/`);
+    navigate(`/profile`);
   };
   const mobile = useMobile();
 

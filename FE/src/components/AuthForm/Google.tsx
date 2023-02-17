@@ -41,7 +41,7 @@ function Google({ children }: any) {
         dupchkPassword: res.user.uid,
         memberEmail: res.user.email + res.user.uid,
         memberName: res.user.displayName
-          ? res.user.displayName
+          ? res.user.displayName.replaceAll('[', '').replaceAll(']', '')
           : res.user.email.split('@')[0],
         memberPassword: res.user.uid,
       });
