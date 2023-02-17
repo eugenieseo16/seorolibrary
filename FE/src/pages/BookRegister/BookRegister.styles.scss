@@ -34,6 +34,9 @@
 }
 .book-register-container {
   padding: 10px;
+  .ant-modal-header {
+    width: 100vw;
+  }
   .book-detail-register-container {
     .book-detail-register-item {
       padding: 10px;
