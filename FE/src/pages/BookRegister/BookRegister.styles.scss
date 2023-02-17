@@ -3,10 +3,14 @@
 .ant-modal-close {
   display: none;
 }
+
 .ant-modal-content {
   padding-bottom: 4rem !important;
 }
-
+.ant-modal-wrap {
+  padding-right: calc(15vw + 1rem) !important;
+  left: auto !important;
+}
 .book-item-container {
   display: flex;
   margin-bottom: 1rem;

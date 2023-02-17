@@ -14,6 +14,7 @@ import {
 } from '@src/API/bookAPI';
 import FixedBottomButton from '@components/FixedBottomButton/FixedBottomButton';
 import { useUser } from '@src/hooks/useUser';
+import { useMobile } from '@src/hooks/useMobile';
 
 function BookRegister() {
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ function BookRegister() {
     setLoading(false);
     // navigate(`/profile/`);
   };
+  const mobile = useMobile();
 
   return (
     <>
@@ -95,7 +97,7 @@ function BookRegister() {
           style={{
             top: '0',
             width: '100vw',
-            maxWidth: '100vw',
+            maxWidth: '425px',
             margin: 0,
           }}
           title={
@@ -104,11 +106,14 @@ function BookRegister() {
                 position: 'fixed',
                 top: 0,
                 width: '100vw',
-                left: 0,
+                right: 'calc(15vw + 1rem)',
                 display: 'flex',
                 alignItems: 'center',
                 padding: '0 10px',
-                background: 'tomato',
+                maxWidth: '425px',
+                ...(mobile && {
+                  right: '15vw !important',
+                }),
               }}
             >
               <Input.Search
