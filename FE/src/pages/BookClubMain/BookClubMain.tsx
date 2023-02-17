@@ -25,7 +25,7 @@ interface IPost {
   memberName: string;
   postCategory: 'FREE' | 'NOTICE' | 'RECOMMEND' | 'GREET';
   postTitle: string;
-  payload: string;
+  postContent: string;
   images: any;
 }
 const CATEGORY_FILTER = {
@@ -123,7 +123,7 @@ function BookClubMain() {
               <h3>{post.postTitle}</h3>
               <div>
                 {post?.images && <MultiPreviewImage images={post.images} />}
-                <p>{post.payload}</p>
+                <p>{post.postContent}</p>
               </div>
             </div>
           ))}

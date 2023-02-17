@@ -76,7 +76,6 @@ function Router() {
         <Route path="/profile/createReport" element={<CreateReport />} />
 
         <Route path="/book-club" element={<BookClub />} />
-        <Route path="/book-club/generate" element={<BookClubGenerate />} />
 
         <Route path="/places" element={<Places />} />
         <Route path="/places/:id" element={<PlaceDetail />} />
@@ -101,6 +100,7 @@ function Router() {
           element={<HoldBookDetail />}
         />
         <Route path="/book-club/:id/enroll" element={<BookClubDetail />} />
+        <Route path="/book-club/generate" element={<BookClubGenerate />} />
       </Route>
 
       <Route path="" element={<BookClubNavLayout />}>
